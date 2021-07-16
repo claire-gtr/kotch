@@ -9,7 +9,16 @@ en:
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Please review the problems below:"
+      default_message: "Veuillez vérifier les erreurs du formulaire"
+    placeholders:
+      user:
+        first_name: 'PRÉNOM'
+        last_name: 'NOM'
+        email: EMAIL
+        address: "ADRESSE POSTALE"
+        password: "MOT DE PASSE"
+        phone_number: "TÉLÉPHONE PORTABLE"
+        password_confirmation: "CONFIRMATION DU MOT DE PASSE"
     # Examples
     # labels:
     #   defaults:

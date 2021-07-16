@@ -1,6 +1,7 @@
 .form-control {
-  height: 65px;
+  height: 45px;
   border-radius: 8px;
+  background-color: white;
 }
 
 .form-control::placeholder {
@@ -8,12 +9,32 @@
   font-family: 'Barlow Condensed', 'sans-serif';
 }
 
+.form-control[readonly] {
+  background-color: white;
+}
+
 .link-password {
   font-size: 20px;
-  font-family: "Barlow Condensed";
   color: $blue-kotch;
   font-weight: 300;
   font-family: 'Barlow Condensed', 'sans-serif';
   font-size: 16px;
   text-decoration: underline;
+}
+
+.radio_buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.collection_radio_buttons {
+  color: $blue-kotch;
+  text-transform: capitalize;
+  font-family: 'Barlow Condensed', 'sans-serif';
+}
+
+.upload-photo {
+  color: $blue-kotch;
+  text-decoration: underline;
+  font-family: 'Barlow Condensed', 'sans-serif';
 }

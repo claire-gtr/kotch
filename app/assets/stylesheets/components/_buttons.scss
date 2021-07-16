@@ -1,3 +1,11 @@
+a {
+  color: $blue-kotch;
+}
+
+a:hover {
+  color: $blue-kotch;
+}
+
 .btn-kotch {
   border-radius: 8px;
   font-family: "Barlow Condensed";
@@ -37,7 +45,7 @@
 }
 
 .btn-extra-small {
-  font-size: 16px;
+  font-size: 14px;
   padding: 12px 12px;
 }
 
@@ -68,10 +76,19 @@
   color: $light-blue-kotch;
   border: 3px solid $light-blue-kotch;
 }
+.btn-ghost:hover {
+  color: white;
+}
 
 .btn-ghost-blue {
   background-color: transparent;
   color: $blue-kotch !important;
   border: 2px solid $blue-kotch;
   font-weight: 500;
+}
+
+.small-link {
+  color: $blue-kotch;
+  text-decoration: underline;
+  font-size: 12px;
 }

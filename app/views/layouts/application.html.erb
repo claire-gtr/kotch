@@ -12,9 +12,16 @@
   </head>
 
   <body>
-    <%= render 'shared/navbar' %>
-    <%= render 'shared/flashes' %>
+    <% if action_name == "home" %>
+      <div class="main-container-home">
+    <% else %>
+      <div class="main-container">
+    <% end %>
+      <%= render 'shared/navbar' %>
+      <%= render 'shared/flashes' %>
 
-    <%= yield %>
+      <%= yield %>
+      <%= render 'shared/footer' %>
+    </div>
   </body>
 </html>

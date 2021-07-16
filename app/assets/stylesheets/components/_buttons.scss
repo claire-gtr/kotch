@@ -1,0 +1,77 @@
+.btn-kotch {
+  border-radius: 8px;
+  font-family: "Barlow Condensed";
+  font-weight: 600;
+}
+
+.btn-big {
+  font-size: 24px;
+  padding: 24px 16px;
+}
+
+@include media-breakpoint-up(md) {
+  .btn-big {
+    font-size: 32px;
+    padding: 24px 16px;
+  }
+}
+
+.btn-md-lg {
+  font-size: 30px;
+  padding: 12px 16px;
+}
+
+.btn-medium {
+  font-size: 24px;
+  padding: 10px 16px;
+}
+
+.btn-small-wide {
+  font-size: 24px;
+  padding: 12px 24px;
+}
+
+.btn-small-narrow {
+  font-size: 24px;
+  padding: 12px 8px;
+}
+
+.btn-extra-small {
+  font-size: 16px;
+  padding: 12px 12px;
+}
+
+.btn-blue {
+  background-color: $blue-kotch;
+  color: white;
+}
+
+.btn-light-blue {
+  background-color: $light-blue-kotch;
+  color: $blue-kotch;
+}
+.btn-red {
+  background-color: $coral-kotch;
+  color: white;
+}
+
+.btn-red:hover {
+  color: $light-blue-kotch;
+}
+
+.btn-blue:hover {
+  color:$light-blue-kotch;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: $light-blue-kotch;
+  border: 3px solid $light-blue-kotch;
+}
+
+.btn-ghost-blue {
+  background-color: transparent;
+  color: $blue-kotch !important;
+  border: 2px solid $blue-kotch;
+  font-weight: 500;
+}

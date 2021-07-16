@@ -1,6 +1,12 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: transparent;
+  height: 140px;
+  transition: 0.5s background-color ease;
+}
+
+.navbar-lewagon-white {
+  background-color: white;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,5 +14,28 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  height: 60px;
+}
+
+.nav-item {
+  font-family: "Barlow Condensed";
+  font-weight: 500;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $blue-kotch;
+  &:hover {
+    color: $blue-kotch;
+    text-decoration: underline;
+  }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  border-radius: 16px;
+  border: none;
+  background-color: $coral-kotch;
 }

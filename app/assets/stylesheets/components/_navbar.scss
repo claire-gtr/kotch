@@ -5,6 +5,13 @@
   transition: 0.5s background-color ease;
 }
 
+.navbar-lewagon-desktop {
+  justify-content: space-between;
+  background: transparent;
+  height: 140px;
+  transition: 0.5s background-color ease;
+}
+
 .navbar-lewagon-white {
   background-color: white;
 }
@@ -14,6 +21,14 @@
 }
 
 .navbar-lewagon .navbar-brand img {
+  height: 60px;
+}
+
+.navbar-lewagon-desktop .navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-lewagon-desktop .navbar-brand img {
   height: 60px;
 }
 
@@ -30,6 +45,18 @@
   }
 }
 
+.navbar-expand-sm .navbar-nav .dropdown-menu {
+  width: 200px;
+}
+
+.dropdown-menu-mobile {
+  width: 200px;
+}
+
+.navbar-icon {
+  height: 25px;
+}
+
 .dropdown-toggle::after {
   display: none;
 }
@@ -37,5 +64,10 @@
 .dropdown-menu {
   border-radius: 16px;
   border: none;
+  background-color: $coral-kotch;
+}
+
+a.dropdown-item:hover {
+  text-decoration:underline;
   background-color: $coral-kotch;
 }

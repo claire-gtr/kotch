@@ -1,31 +1,73 @@
 <div class="container">
+  <div class="row mt-5 h-100">
+    <div class="col-12 col-lg-6 px-5 my-auto">
+      <div class="card-red p-3 p-lg-4">
 
-  <h2>Sign up</h2>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= f.error_notification %>
 
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= f.error_notification %>
+          <div class="form-inputs">
+            <div class="text-center">
+              <%= image_tag "avatar_default.png", class:'avatar' %>
+              <%= f.input :avatar, as: :file, input_html: { class: 'd-none' }, label_html: { class: 'upload-photo'}, label: 'modifier ma photo' %>
+            </div>
+            <h6 class='text-blue'><strong>GENRE</strong></h4>
+            <%= f.input :gender, as: :radio_buttons, collection: User.genders.keys.map { |m| [m, m] }, legend_tag: false %>
+            <div class="row">
+              <div class="col-6">
+                <%= f.input :last_name, label: false %>
+              </div>
+              <div class="col-6">
+                <%= f.input :first_name, label: false %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <%= f.input :birth_date, as: :string, label: false, input_html: {class: "datepicker"} %>
+              </div>
+              <div class="col-6">
+                <%= f.input :address, label: false %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <%= f.input :email,
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email" }, label: false,
+                        hint: "*utilisez votre email professionnel pour profiter des offres CE"%>
+              </div>
+              <div class="col-6">
+                <%= f.input :phone_number, label: false %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <%= f.input :password,
+                        required: true,
+                        hint: ("#{@minimum_password_length} charactères minimum" if @minimum_password_length),
+                        input_html: { autocomplete: "new-password" }, label: false %>
+              </div>
+              <div class="col-6">
+                <%= f.input :password_confirmation,
+                        required: true,
+                        input_html: { autocomplete: "new-password" }, label: false %>
+              </div>
+            </div>
+          </div>
 
-    <div class="form-inputs">
-      <%= f.input :email,
-                  required: true,
-                  autofocus: true,
-                  input_html: { autocomplete: "email" }%>
-      <%= f.input :first_name, required: true %>
-      <%= f.input :last_name, required: true %>
-      <%= f.input :avatar, as: :file %>
-      <%= f.input :password,
-                  required: true,
-                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation,
-                  required: true,
-                  input_html: { autocomplete: "new-password" } %>
+          <div class="form-actions">
+            <%= f.button :submit, "JE CRÉE MON COMPTE", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
+          </div>
+        <% end %>
+
+        <div class="mt-4">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
     </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, "Sign up" %>
+    <div class="col-12 col-lg-6 px-5 d-none d-lg-block my-auto">
+      <%= image_tag "image-account.png", class:'w-100' %>
     </div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
+  </div>
 </div>

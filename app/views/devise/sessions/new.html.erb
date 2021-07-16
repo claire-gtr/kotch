@@ -1,23 +1,33 @@
 <div class="container">
-  <h2>Log in</h2>
+  <div class="row mt-5 h-100">
+    <div class="col-12 col-lg-6 px-5 my-auto">
+      <div class="card-red p-5">
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-inputs">
+            <%= f.input :email,
+                        required: false,
+                        autofocus: true,
+                        label: false,
+                        placeholer: "Adresse e-mail" %>
+            <%= f.input :password,
+                        required: false,
+                        label: false,
+                        placeholer: "Mot de passe" %>
+            <%#= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+          </div>
 
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="form-inputs">
-      <%= f.input :email,
-                  required: false,
-                  autofocus: true,
-                  input_html: { autocomplete: "email" } %>
-      <%= f.input :password,
-                  required: false,
-                  input_html: { autocomplete: "current-password" } %>
-      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+          <div class="form-actions">
+            <%= f.button :submit, "JE ME CONNECTE", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
+          </div>
+        <% end %>
+        <div class="mt-4">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
     </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, "Log in" %>
+    <div class="col-12 col-lg-6 px-5 d-none d-lg-block my-auto">
+      <%= image_tag "image-account.png", class:'w-100' %>
     </div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
+  </div>
 </div>
 

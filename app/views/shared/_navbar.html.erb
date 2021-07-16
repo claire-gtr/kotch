@@ -1,59 +1,6 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon fixed-top">
-  <div class="container align-items-end px-2">
-    <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag 'logo.png' %>
-      <% end %>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto align-items-end">
-        <% if user_signed_in? %>
-          <li class="nav-item">
-            <em>
-              <%= link_to "RÉSERVER UNE SÉANCE", "#", class: "nav-link ml-5" %>
-            </em>
-          </li>
-          <li class="nav-item">
-            <em>
-              <%= link_to "NOS OFFRES", "#", class: "nav-link ml-5" %>
-            </em>
-          </li>
-          <li class="nav-item dropdown">
-            <div class="ml-5 dropdown-toggle btn btn-kotch btn-ghost-blue btn-extra-small" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-              <em>MON COMPTE</em>
-            </div>
-            <div class="dropdown-menu mt-2 dropdown-menu-right p-3" aria-labelledby="navbarDropdown">
-              <div class="d-flex">
-                <%= cl_image_tag current_user.profile_picture, class:'avatar-small' %>
-                <p class='text-blue text-bold'>BONJOUR <%= current_user.first_name.upcase %></p>
-              </div>
-              <%= link_to "Action", "#", class: "dropdown-item text-white px-0" %>
-              <%= link_to "Another action", "#", class: "dropdown-item text-white px-0" %>
-              <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item text-white px-0" %>
-            </div>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <em>
-              <%= link_to "NOS OFFRES", "#", class: "nav-link ml-5" %>
-            </em>
-          </li>
-          <li class="nav-item">
-            <em>
-            <%= link_to "INSCRIPTION", new_user_registration_path, class: "nav-link ml-5" %>
-            </em>
-          </li>
-          <li class="nav-item">
-            <em>
-            <%= link_to "CONNEXION", new_user_session_path, class: "nav-link ml-5" %>
-            </em>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+<div class="d-block d-md-none">
+  <%= render "shared/navbar_mobile" %>
+</div>
+<div class="d-none d-md-block">
+  <%= render "shared/navbar_desktop" %>
 </div>

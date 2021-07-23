@@ -20,9 +20,9 @@ en:
         phone_number: "TÉLÉPHONE PORTABLE"
         password_confirmation: "CONFIRMATION DU MOT DE PASSE"
     # Examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
+    labels:
+      defaults:
+         current_password: 'Mot de passe actuel'
     #   user:
     #     new:
     #       email: 'E-mail to sign in.'

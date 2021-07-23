@@ -22,14 +22,13 @@
   text-decoration: underline;
 }
 
-.radio_buttons {
+.radio_buttons.user_gender, .radio_buttons.user_sport_habits, .radio_buttons.user_physical_pain {
   display: flex;
   justify-content: space-between;
 }
 
 .collection_radio_buttons {
   color: $blue-kotch;
-  text-transform: capitalize;
   font-family: 'Barlow Condensed', 'sans-serif';
 }
 
@@ -37,4 +36,12 @@
   color: $blue-kotch;
   text-decoration: underline;
   font-family: 'Barlow Condensed', 'sans-serif';
+}
+
+.form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
+    color: $blue-kotch;
+}
+
+label.password {
+  color: $blue-kotch;
 }

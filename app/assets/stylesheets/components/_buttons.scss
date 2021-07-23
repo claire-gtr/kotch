@@ -77,7 +77,8 @@ a:hover {
   border: 3px solid $light-blue-kotch;
 }
 .btn-ghost:hover {
-  color: white;
+  color: $blue-kotch;
+  border: 3px solid $blue-kotch;
 }
 
 .btn-ghost-blue {

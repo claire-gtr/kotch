@@ -1,18 +1,16 @@
 <div class="container">
-  <div class="row mt-5 h-100">
-    <div class="col-12 col-lg-6 px-5 my-auto">
-      <div class="card-red p-3 p-lg-4">
-
-        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= f.error_notification %>
-
+    <div class="row mt-2 h-100">
+      <div class="col-12 col-lg-6 px-5 my-auto">
+        <div class="card-red p-3 p-lg-4">
           <div class="form-inputs">
             <div class="text-center">
               <%= image_tag "avatar_default.png", class:'avatar' %>
               <%= f.input :avatar, as: :file, input_html: { class: 'd-none' }, label_html: { class: 'upload-photo'}, label: 'modifier ma photo' %>
             </div>
             <h6 class='text-blue'><strong>GENRE</strong></h4>
-            <%= f.input :gender, as: :radio_buttons, collection: User.genders.keys.map { |m| [m, m] }, legend_tag: false %>
+            <%= f.input :gender, as: :radio_buttons, collection: User.genders.keys.map { |m| [I18n.t("gender.#{m}"), m] }, legend_tag: false %>
             <div class="row">
               <div class="col-6">
                 <%= f.input :last_name, label: false %>
@@ -55,19 +53,49 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 px-5 d-none d-lg-block my-auto">
+        <%= image_tag "image-account.png", class:'w-100' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 px-5 mt-2">
+        <div class="card-red p-3 p-lg-4">
+          <h4 class='text-blue'>PARLEZ NOUS UN PEU DE VOUS</h4>
+          <div class="form-inputs">
+            <div class="row">
+              <div class="col-12 col-lg-6 px-lg-5 d-flex flex-column justify-content-between">
+                <div>
+                  <h6 class='text-white mt-3'>Quelles sont vos habitudes sportives ?</h6>
+                  <%= f.input :sport_habits, as: :radio_buttons, collection: User.sport_habits.keys.map { |m| [I18n.t("sport_habits.#{m}"), m] }, legend_tag: false %>
+                  <h6 class='text-white mt-3'>Présentez-vous des douleurs ou des incapacités physiques ?</h6>
+                  <%= f.input :physical_pain, as: :radio_buttons, collection: User.physical_pains.keys.map { |m| [I18n.t("physical_pain.#{m}"), m] }, legend_tag: false %>
+                </div>
+                <div>
+                  <%= image_tag 'sign_up.png', class:'w-100 d-none d-lg-block' %>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 px-lg-5">
+                <h6 class='text-white mt-3'>Que recherchez-vous dans la pratique d’une activité sportive ?</h6>
+                <%= f.input :expectations, as: :radio_buttons, collection: User.expectations.keys.map { |m| [I18n.t("expectations.#{m}"), m] }, legend_tag: false%>
+                <h6 class='text-white mt-3'>Comment définiriez-vous votre niveau d’activité physique actuel ?</h6>
+                <%= f.input :level, as: :radio_buttons, collection: User.levels.keys.map { |m| [I18n.t("level.#{m}"), m] }, legend_tag: false %>
+                <h6 class='text-white mt-3'>Quel type de pratique aimeriez-vous retrouver durant vos séances ?</h6>
+                <%= f.input :intensity, as: :radio_buttons, collection: User.intensities.keys.map { |m| [I18n.t("intensity.#{m}"), m] }, legend_tag: false%>
+              </div>
+            </div>
+          </div>
 
           <div class="form-actions">
             <%= f.button :submit, "JE CRÉE MON COMPTE", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
           </div>
-        <% end %>
+          <div class="mt-4">
+            <%= render "devise/shared/links" %>
+          </div>
 
-        <div class="mt-4">
-          <%= render "devise/shared/links" %>
         </div>
       </div>
     </div>
-    <div class="col-12 col-lg-6 px-5 d-none d-lg-block my-auto">
-      <%= image_tag "image-account.png", class:'w-100' %>
-    </div>
-  </div>
+  <% end %>
 </div>

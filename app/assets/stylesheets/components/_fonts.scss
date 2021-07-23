@@ -14,6 +14,10 @@ h3 {
   color: $gray;
 }
 
+h4 {
+  font-size: 2.5rem;
+}
+
 .text-blue {
   color: $blue-kotch;
 }
@@ -22,6 +26,26 @@ h3 {
   color: white;
 }
 
+.text-coral {
+  color: $coral-kotch;
+}
+
 .text-bold {
   font-weight: 600;
+}
+
+.text-xbold {
+  font-weight: 800;
+}
+
+.text-small {
+  font-size: 14px;
+}
+
+.font-condensed {
+  font-family: 'Barlow Condensed', 'sans-serif';
+}
+
+.text-light-blue {
+  color: $light-blue-kotch;
 }

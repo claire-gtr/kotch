@@ -1,4 +1,36 @@
-# Files in the config/locales directory are used for internationalization
+en:
+  hello: "Hello world"
+  gender:
+    homme: Homme
+    femme: Femme
+    autres: Autres
+  sport_habits:
+    regularly: régulières
+    occasionnally: occasionnelles
+    rarely: rares
+  physical_pain:
+    pain_regular: régulières
+    pain_occasionnal: occasionnelles
+    pain_rare: rares
+  level:
+    inexperimente: inexpérimenté – l’activité physique ne fait pas parti de mon quotidien
+    occasionnel: occasionnel – je fais de l’exercice de temps en temps
+    regulier: régulier – au moins deux fois par semaine
+    inconditionnel: inconditionnel – j’ai une activité physique la plupart des jours de la semaine
+    athlete: athlète – rien ne m’arrête
+  intensity:
+    intense: je recherche l’intensité
+    endurance: je souhaite améliorer mon endurance et mes capacités respiratoire
+    fun: je veux prendre du bon temps et m’amuser
+    learn: je souhaite apprendre et améliorer ma technique
+  expectations:
+    relax: vous détendre
+    letgo: vous défouler
+    unstress: réduire votre stress et renforcer votre concentration
+    muscle: prendre de la masse musculaire
+    tonification: vous tonifier
+    weight_loss: perdre du poids
+    healthy: être en forme
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
 #
@@ -29,5 +61,4 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
+

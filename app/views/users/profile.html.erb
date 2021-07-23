@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row mt-2 h-100">
+    <div class="col-12 col-lg-3 px-2 my-auto">
+      <div class="card-blue p-3">
+        <div class="text-left">
+          <h2 class='text-coral text-xbold mb-0'>MON PROFIL</h2>
+          <u><%= link_to "modifier mon profil", edit_user_registration_path, class:'text-small' %></u>
+        </div>
+        <div class="text-center mt-4">
+          <%= cl_image_tag @user.profile_picture, class:'avatar' %>
+          <p class='text-coral text-bold'>0/4 crédits restants</p>
+        </div>
+        <div class="text-left mt-4 text-blue font-condensed">
+          <p class='mb-1'>PRÉNOM : <%= @user.first_name.capitalize %></p>
+          <p class='mb-1'>NOM : <%= @user.last_name.capitalize %></p>
+          <p class='mb-1'>NAISSANCE : <%= @user.birth_date %></p>
+          <p class='mb-1'>ADDRESSE POSTALE : <%= @user.address %></p>
+          <p class='mb-1'>EMAIL : <%= @user.email %></p>
+          <p class='mb-1'>TÉLÉPHONE : <%= @user.phone_number %></p>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="col-12 col-lg-9">
+
+    </div>
+  </div>
+</div>

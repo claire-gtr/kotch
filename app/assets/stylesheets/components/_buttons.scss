@@ -103,3 +103,23 @@ a:hover {
   text-decoration: underline;
   font-size: 12px;
 }
+
+.pill {
+  font-size: 0.75rem;
+  padding: 8px 12px;
+  border-radius: 16px;
+  color: white;
+  font-weight: 600;
+}
+
+.pill-red {
+  background-color: $coral-kotch;
+}
+
+.pill-green {
+  background-color: #2DFFBE;
+}
+
+.text-deco-none:hover {
+  text-decoration:none !important;
+}

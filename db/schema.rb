@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_26_103727) do
+ActiveRecord::Schema.define(version: 2021_07_26_124650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,26 @@ ActiveRecord::Schema.define(version: 2021_07_26_103727) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lesson_id"], name: "index_bookings_on_lesson_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.integer "requestor_id", null: false
+    t.integer "receiver_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receiver_id"], name: "index_friend_requests_on_receiver_id"
+    t.index ["requestor_id", "receiver_id"], name: "index_friend_requests_on_requestor_id_and_receiver_id", unique: true
+    t.index ["requestor_id"], name: "index_friend_requests_on_requestor_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "friend_a_id", null: false
+    t.integer "friend_b_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["friend_a_id", "friend_b_id"], name: "index_friendships_on_friend_a_id_and_friend_b_id", unique: true
+    t.index ["friend_a_id"], name: "index_friendships_on_friend_a_id"
+    t.index ["friend_b_id"], name: "index_friendships_on_friend_b_id"
   end
 
   create_table "lessons", force: :cascade do |t|

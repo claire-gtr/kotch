@@ -10,8 +10,14 @@ class User < ApplicationRecord
   has_many :lessons
   has_many :friend_requests_as_requestor, foreign_key: :requestor_id, class_name: :FriendRequest
   has_many :friend_requests_as_receiver, foreign_key: :receiver_id, class_name: :FriendRequest
-  has_many :friendships, ->(user) { where("friend_a_id = ? OR friend_b_id = ?", user.id, user.id) }
-  has_many :friends, through: :friendships
+  has_many :friendships_as_friend_a,
+      foreign_key: :friend_a_id,
+      class_name: :Friendship
+   has_many :friendships_as_friend_b,
+       foreign_key: :friend_b_id,
+       class_name: :Friendship
+   has_many :friend_as, through: :friendships_as_friend_b
+   has_many :friend_bs, through: :friendships_as_friend_a
 
   enum gender: { homme: 0, femme: 1, autres: 2 }
   enum sport_habits: { regularly: 0, occasionnally: 1, rarely: 2 }
@@ -26,6 +32,9 @@ class User < ApplicationRecord
   validates :intensity, inclusion: { in: intensities.keys }, allow_nil: true
   validates :expectations, inclusion: { in: expectations.keys }, allow_nil: true
 
+  def friendships
+      self.friendships_as_friend_a + self.friendships_as_friend_b
+  end
 
   def profile_picture
     if avatar.attached?

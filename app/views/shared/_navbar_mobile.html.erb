@@ -14,10 +14,10 @@
             <%= cl_image_tag current_user.profile_picture, class:'avatar-small' %>
             <p class='text-blue text-bold mb-0 ml-2'>BONJOUR <%= current_user.first_name.upcase %></p>
           </div>
-          <%= link_to "Réserver une séance", "#", class: "dropdown-item text-white px-0" %>
+          <%= link_to "Réserver une séance", new_lesson_path, class: "dropdown-item text-white px-0" %>
           <%= link_to "Mon profil", profile_path, class: "dropdown-item text-white px-0" %>
           <%= link_to "Mon abonnement", "#", class: "dropdown-item text-white px-0" %>
-          <%= link_to "Mes réservations", "#", class: "dropdown-item text-white px-0" %>
+          <%= link_to "Mes réservations", profile_path, class: "dropdown-item text-white px-0" %>
           <%= link_to "Mes amis", "#", class: "dropdown-item text-white px-0" %>
           <%= link_to "DÉCONNEXION", destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-extra-small w-100 text-center mt-3" %>
           <%= link_to "Besoin d'aide ?", "#", class:"small-link" %>

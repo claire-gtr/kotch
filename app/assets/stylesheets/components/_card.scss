@@ -7,3 +7,9 @@
   border-radius: 16px;
   background-color: $light-blue-kotch;
 }
+
+@include media-breakpoint-up(md) {
+  .card-new-lesson {
+    min-height: 300px;
+  }
+}

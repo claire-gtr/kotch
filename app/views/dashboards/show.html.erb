@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h5 class='text-blue'><strong>Gérer les rôles</strong></h5>
+      <div>
+        <%= simple_form_for :user, url: become_admin_path, method: :patch do |f| %>
+            <%= f.input :id, collection: @non_admins, label_method: :full_name, value_method: :id, label: false
+            %>
+            <%= submit_tag "Donner le rôle d'admin à cet utilisateur", class: "btn btn-kotch btn-blue" %>
+        <% end %>
+      </div>
+      <h5 class='mt-4 text-blue'> Utilisateurs avec droits d'administrateur :</h5>
+      <% @admins.each do |user| %>
+        <div class="d-flex">
+          <p class='mb-0 mr-3 text-blue'><%= user.full_name%></p>
+          <%= link_to undo_admin_path(user), method: :patch, data: {confirm: "Etes vous sûre de vouloir enlever les droit d'administrateur à cet utilisateur ?"} do %>
+            <i class="far fa-trash-alt"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <h5 class='text-blue'><strong>Gérer les lieux</strong></h5>
+      <div>
+        <%= simple_form_for :location, url: locations_path, method: :post do |f| %>
+            <%= f.input :name, label:'Nom du lieu' %>
+            <%= hidden_field_tag user_id: current_user.id %>
+            <%= submit_tag "Ajouter ce lieu", class: "btn btn-kotch btn-blue" %>
+        <% end %>
+      </div>
+      <h5 class='mt-4 text-blue'> Tous les lieux :</h5>
+      <% @locations.each do |location| %>
+        <p class='mb-0 mr-3 text-blue'><%= location.name%></p>
+      <% end %>
+    </div>
+  </div>
+
+</div>

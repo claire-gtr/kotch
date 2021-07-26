@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one_attached :avatar
+  has_many :bookings
+  has_many :lessons
   enum gender: { homme: 0, femme: 1, autres: 2 }
   enum sport_habits: { regularly: 0, occasionnally: 1, rarely: 2 }
   enum physical_pain: { pain_regular: 0, pain_occasionnal: 1, pain_rare: 2 }
@@ -18,11 +20,15 @@ class User < ApplicationRecord
   validates :expectations, inclusion: { in: expectations.keys }, allow_nil: true
 
 
-   def profile_picture
+  def profile_picture
     if avatar.attached?
       avatar.key
     else
       "avatar/avatar-default"
     end
+  end
+
+  def full_name
+    "#{first_name.capitalize} #{last_name.capitalize}"
   end
 end

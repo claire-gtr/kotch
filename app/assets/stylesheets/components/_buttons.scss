@@ -1,3 +1,8 @@
+a:focus {
+  outline:0 !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
 a {
   color: $blue-kotch;
 }
@@ -58,6 +63,11 @@ a:hover {
   background-color: $light-blue-kotch;
   color: $blue-kotch;
 }
+
+.btn-light-blue:hover {
+  color: white;
+}
+
 .btn-red {
   background-color: $coral-kotch;
   color: white;

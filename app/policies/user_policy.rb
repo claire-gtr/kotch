@@ -8,4 +8,12 @@ class UserPolicy < ApplicationPolicy
   def profile?
     record == user || user.admin
   end
+
+  def become_admin?
+    user.admin?
+  end
+
+  def undo_admin?
+    user.admin?
+  end
 end

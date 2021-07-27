@@ -36,6 +36,18 @@ class User < ApplicationRecord
       self.friendships_as_friend_a + self.friendships_as_friend_b
   end
 
+  def my_friends
+    @my_friendships = self.friendships
+    @my_friends = []
+    @my_friendships.each do |friendship|
+      @my_friends << User.find(friendship.friend_a_id)
+      @my_friends << User.find(friendship.friend_b_id)
+      @my_friends = @my_friends.uniq
+      @my_friends.delete(self)
+    end
+    @my_friends
+  end
+
   def profile_picture
     if avatar.attached?
       avatar.key

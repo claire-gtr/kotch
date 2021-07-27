@@ -4,6 +4,10 @@
   background-color: white;
 }
 
+input#message_content {
+  border-radius:40px;
+}
+
 .form-control::placeholder {
   color: $medium-gray;
   font-family: 'Barlow Condensed', 'sans-serif';
@@ -44,4 +48,15 @@
 
 label.password {
   color: $blue-kotch;
+}
+
+.input-relative {
+  position: relative;
+}
+
+.submit-icon {
+  position: absolute;
+  right: 0;
+  top:0;
+  height: 40px;
 }

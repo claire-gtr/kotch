@@ -36,8 +36,8 @@
           </div>
           <div>
             <div class="d-flex align-items-center">
-              <p class='mb-2 mr-2'><%= fr.receiver.full_name %></p>
-              <p class='mb-2 mr-2'><%= fr.receiver.email %></p>
+              <p class='mb-2 mr-2'><%= fr.requestor.full_name %></p>
+              <p class='mb-2 mr-2'><%= fr.requestor.email %></p>
             </div>
             <div class="d-flex align-items-center">
               <%= link_to friend_request_path(fr, query: 'accept'), method: :patch ,class:'text-small text-deco-none' do %>

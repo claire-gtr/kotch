@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   resources :locations, only: [:create]
   resources :friendships, only: :index
   resources :friend_requests, only: [:create, :update]
+  resources :bookings, only: [:index, :create] do
+    resources :messages, only: :create
+  end
+  get 'accept-invitation/:booking_id', to: "bookings#accept_invitation", as: :accept_invitation
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

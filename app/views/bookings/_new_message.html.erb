@@ -1,0 +1,8 @@
+<%= simple_form_for [booking, message], remote: true do |f| %>
+  <div class="input-relative pr-5 mt-5">
+    <%= f.input :content, label: false, input_html: {class: "mr-5"}, placeholder: "Message..." %>
+    <%= f.button :button do %>
+      <%= image_tag "arrow-up.svg", class: 'submit-icon' %>
+    <% end %>
+  </div>
+<% end %>

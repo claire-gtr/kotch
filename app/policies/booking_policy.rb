@@ -12,4 +12,8 @@ class BookingPolicy < ApplicationPolicy
   def accept_invitation?
     record.user == user || user.admin
   end
+
+  def public_lesson_booking?
+    true
+  end
 end

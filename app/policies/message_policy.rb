@@ -8,4 +8,8 @@ class MessagePolicy < ApplicationPolicy
   def create?
     true
   end
+
+  def coach_message?
+    true
+  end
 end

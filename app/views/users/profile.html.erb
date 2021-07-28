@@ -57,7 +57,7 @@
                       <td class='py-2'><%= booking.lesson.date.strftime('%H:%M') %></td>
                       <td class='py-2'><%= booking.lesson.location.name %></td>
                       <td class='py-2'><%= booking.lesson.status %></td>
-                      <td class='py-2'><%= booking.lesson.user_id.first_name if booking.lesson.user_id%></td>
+                      <td class='py-2'><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
                     </tr>
                   <% end %>
                 <% end %>

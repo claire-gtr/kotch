@@ -32,6 +32,23 @@ class BookingsController < ApplicationController
     redirect_to bookings_path
   end
 
+  def public_lesson_booking
+    @lesson = Lesson.find(params[:lesson_id])
+    if @lesson.bookings.where(user: current_user).any?
+      authorize(:booking, :public_lesson_booking?)
+      flash[:alert] = "Vous avez déjà une réservation pour cette séance."
+      redirect_to public_lessons_path
+    elsif !current_user.coach
+      @booking = Booking.new
+      @booking.lesson = @lesson
+      @booking.status = "confirmé"
+      @booking.user = current_user
+      authorize @booking
+      @booking.save
+      redirect_to bookings_path
+    end
+  end
+
   private
 
   def booking_params

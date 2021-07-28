@@ -4,7 +4,9 @@
       <div class="card-blue p-3">
         <div class="text-left">
           <h2 class='text-coral text-xbold mb-0'>MON PROFIL</h2>
-          <u><%= link_to "modifier mon profil", edit_user_registration_path, class:'text-small' %></u>
+          <% unless current_user.coach %>
+            <u><%= link_to "modifier mon profil", edit_user_registration_path, class:'text-small' %></u>
+          <% end %>
         </div>
         <div class="text-center mt-4">
           <%= cl_image_tag @user.profile_picture, class:'avatar' %>
@@ -23,82 +25,11 @@
 
     </div>
     <div class="col-12 col-lg-9 px-2 mt-3 mt-lg-0">
-      <div class="card-blue">
-        <ul class="nav nav-tabs justify-content-between rounded-top-right rounded-top-left" role="tablist">
-          <li class="nav-item">
-            <a class="active btn btn-big rounded-top-left" data-toggle="tab" href="#tabs-1" role="tab">Séances à venir</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-big" data-toggle="tab" href="#tabs-2" role="tab">Historique des séances</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-big rounded-top-right" data-toggle="tab" href="#tabs-3" role="tab">Mon abonnement</a>
-          </li>
-        </ul><!-- Tab panes -->
-        <div class="tab-content p-3">
-          <div class="tab-pane active" id="tabs-1" role="tabpanel">
-            <table class="w-100 text-center">
-              <thead class="w-100">
-                <tr>
-                  <th>SPORT</th>
-                  <th>DATE</th>
-                  <th>HEURE</th>
-                  <th>LIEU</th>
-                  <th>STATUT</th>
-                  <th>COACH</th>
-                  </tr>
-              </thead>
-              <tbody>
-                <% if @bookings_in_future.any? %>
-                  <% @bookings_in_future.each do |booking| %>
-                    <tr>
-                      <td class='py-2'><%= booking.lesson.sport_type %></td>
-                      <td class='py-2'><%= booking.lesson.date.strftime('%d/%m/%Y') %></td>
-                      <td class='py-2'><%= booking.lesson.date.strftime('%H:%M') %></td>
-                      <td class='py-2'><%= booking.lesson.location.name %></td>
-                      <td class='py-2'><%= booking.lesson.status %></td>
-                      <td class='py-2'><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
-                    </tr>
-                  <% end %>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-          <div class="tab-pane" id="tabs-2" role="tabpanel">
-            <table class="w-100 text-center">
-              <thead class="w-100">
-                <tr>
-                  <th>SPORT</th>
-                  <th>DATE</th>
-                  <th>HEURE</th>
-                  <th>LIEU</th>
-                  <th>STATUT</th>
-                  <th>COACH</th>
-                  </tr>
-              </thead>
-              <tbody>
-                <% if @bookings_in_past.any? %>
-                  <% @bookings_in_past.each do |booking| %>
-                    <tr>
-                      <td><%= booking.lesson.sport_type %></td>
-                      <td><%= booking.lesson.date.strftime('%d/%m/%Y') %></td>
-                      <td><%= booking.lesson.date.strftime('%H:%M') %></td>
-                      <td><%= booking.lesson.location.name %></td>
-                      <td><%= booking.lesson.status %></td>
-                      <td><%= booking.lesson.user_id.first_name if booking.lesson.user_id%></td>
-                    </tr>
-                  <% end %>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-          <div class="tab-pane" id="tabs-3" role="tabpanel">
-            <p class="text-blue">Mon abonnement</p>
-          </div>
-        </div>
-
-
-      </div>
+      <% if current_user.coach %>
+        <%= render 'tab_coach' %>
+      <% else %>
+        <%= render 'tab_user' %>
+      <% end %>
     </div>
   </div>
 </div>

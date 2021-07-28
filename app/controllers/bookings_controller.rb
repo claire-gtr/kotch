@@ -29,6 +29,7 @@ class BookingsController < ApplicationController
     @booking.status = "confirmé"
     authorize @booking
     @booking.save
+    # IF 5 BOOKINGS MAIL A TOUS LES COACH
     redirect_to bookings_path
   end
 

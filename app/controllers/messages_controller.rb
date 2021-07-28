@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
     @message.lesson = @booking.lesson
     authorize @message
     if @message.save
-      redirect_to bookings_path
+      redirect_to bookings_path(anchor: "form-message")
     else
       @message = Message.new
       render 'bookings#index'
@@ -20,7 +20,7 @@ class MessagesController < ApplicationController
     @message.lesson = @lesson
     authorize(:message, :coach_message?)
     if @message.save
-      redirect_to lessons_path
+      redirect_to lessons_path(anchor: "form-message")
     else
       @message = Message.new
       render 'bookings#index'

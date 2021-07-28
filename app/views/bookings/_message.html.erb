@@ -1,17 +1,37 @@
-<% if message.booking.user == current_user %>
-  <div class="d-flex align-items-center justify-content-end">
-    <div class="card-message card-kotch shadow p-3 text-blue mb-3">
-      <p class='mb-0 text-xbold text-coral text-condensed'><%= message.booking.user.first_name.upcase %></p>
-      <p class="mb-0 text-blue text-bold"><%= message.content %></p>
+<% if message.booking.nil? %>
+  <% if message.lesson.user == current_user %>
+    <div class="d-flex align-items-center justify-content-end">
+      <div class="card-message card-kotch shadow p-3 text-blue mb-3">
+        <p class='mb-0 text-xbold text-coral text-condensed'><%= message.lesson.user.first_name.upcase %></p>
+        <p class="mb-0 text-blue text-bold"><%= message.content %></p>
+      </div>
+      <%= cl_image_tag lesson.user.profile_picture, class:'avatar-small ml-3' %>
     </div>
-    <%= cl_image_tag booking.user.profile_picture, class:'avatar-small ml-3' %>
-  </div>
+  <% else %>
+    <div class="d-flex align-items-center">
+      <%= cl_image_tag lesson.user.profile_picture, class:'avatar-small mr-3' %>
+      <div class="card-message card-kotch shadow p-3 text-blue mb-3">
+        <p class='mb-0 text-xbold text-coral text-condensed'><%= message.lesson.user.first_name.upcase %></p>
+        <p class="mb-0 text-blue text-bold"><%= message.content %></p>
+      </div>
+    </div>
+  <% end %>
 <% else %>
-  <div class="d-flex align-items-center">
-    <%= cl_image_tag booking.user.profile_picture, class:'avatar-small mr-3' %>
-    <div class="card-message card-kotch shadow p-3 text-blue mb-3">
-      <p class='mb-0 text-xbold text-coral text-condensed'><%= message.booking.user.first_name.upcase %></p>
-      <p class="mb-0 text-blue text-bold"><%= message.content %></p>
+  <% if message.booking.user == current_user %>
+    <div class="d-flex align-items-center justify-content-end">
+      <div class="card-message card-kotch shadow p-3 text-blue mb-3">
+        <p class='mb-0 text-xbold text-coral text-condensed'><%= message.booking.user.first_name.upcase %></p>
+        <p class="mb-0 text-blue text-bold"><%= message.content %></p>
+      </div>
+      <%= cl_image_tag message.booking.user.profile_picture, class:'avatar-small ml-3' %>
     </div>
-  </div>
+  <% else %>
+    <div class="d-flex align-items-center">
+      <%= cl_image_tag message.booking.user.profile_picture, class:'avatar-small mr-3' %>
+      <div class="card-message card-kotch shadow p-3 text-blue mb-3">
+        <p class='mb-0 text-xbold text-coral text-condensed'><%= message.booking.user.first_name.upcase %></p>
+        <p class="mb-0 text-blue text-bold"><%= message.content %></p>
+      </div>
+    </div>
+  <% end %>
 <% end %>

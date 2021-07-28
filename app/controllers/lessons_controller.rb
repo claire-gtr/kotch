@@ -1,5 +1,10 @@
 class LessonsController < ApplicationController
 
+  def index
+    @lessons = policy_scope(Lesson)
+    @message = Message.new
+  end
+
   def new
     @lesson = Lesson.new
     authorize @lesson
@@ -18,16 +23,39 @@ class LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(lesson_params)
     authorize @lesson
-    if @lesson.save
+    if current_user.coach
+      @lesson.public = true
+      @lesson.user = current_user
+      if @lesson.save
+        redirect_to profile_path
+      else
+        render :new
+      end
+    else
       @booking = Booking.new
       @booking.user = current_user
       @booking.lesson = @lesson
       @booking.status = "confirmé"
       @booking.save
-      redirect_to profile_path
-    else
-      render :new
+      if @lesson.save
+        redirect_to profile_path
+      else
+        render :new
+      end
     end
+  end
+
+  def change_lesson_public
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson
+    @lesson.public = true
+    @lesson.save
+    redirect_to bookings_path
+  end
+
+  def public_lessons
+    @lessons = Lesson.where(public: true)
+    authorize(:lesson, :public_lessons?)
   end
 
   private

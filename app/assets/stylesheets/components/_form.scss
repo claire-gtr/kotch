@@ -60,3 +60,10 @@ label.password {
   top:0;
   height: 40px;
 }
+
+#form-message {
+  display: block;
+  position: relative;
+  top: -400px;
+  visibility: hidden;
+}

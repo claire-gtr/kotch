@@ -5,7 +5,7 @@ class FriendRequestsController < ApplicationController
     user = User.find_by(email: email)
     friend_request = FriendRequest.new
     authorize friend_request
-    if user == current_user
+    if user == current_user || user.coach
       flash[:alert] = "Vous ne pouvez pas effectuer cette action."
       redirect_to friendships_path
     else

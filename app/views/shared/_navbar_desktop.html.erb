@@ -9,14 +9,20 @@
         <% if user_signed_in? %>
           <li class="nav-item">
             <em>
-              <%= link_to "RÉSERVER UNE SÉANCE", new_lesson_path, class: "nav-link ml-5" %>
+              <% if current_user.coach %>
+                <%= link_to "CRÉER UNE SÉANCE", new_lesson_path, class: "nav-link ml-5" %>
+              <% else %>
+                <%= link_to "RÉSERVER UNE SÉANCE", new_lesson_path, class: "nav-link ml-5" %>
+              <% end %>
             </em>
           </li>
+          <% unless current_user.coach %>
           <li class="nav-item">
             <em>
               <%= link_to "NOS OFFRES", "#", class: "nav-link ml-5" %>
             </em>
           </li>
+          <% end %>
           <li class="nav-item dropdown">
             <div class="ml-5 dropdown-toggle btn btn-kotch btn-ghost-blue btn-extra-small" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
               <em>MON COMPTE</em>
@@ -27,13 +33,17 @@
                 <p class='text-blue text-bold mb-0 ml-2'>BONJOUR <%= current_user.first_name.upcase %></p>
               </div>
               <%= link_to "Mon profil", profile_path, class: "dropdown-item text-white px-0" %>
-              <%= link_to "Mon abonnement", "#", class: "dropdown-item text-white px-0" %>
+              <% unless current_user.coach %>
+                <%= link_to "Mon abonnement", "#", class: "dropdown-item text-white px-0" %>
+              <% end %>
               <% if current_user.coach %>
                 <%= link_to "Mes coachings", lessons_path, class: "dropdown-item text-white px-0" %>
               <% else %>
                 <%= link_to "Mes réservations", bookings_path, class: "dropdown-item text-white px-0" %>
               <% end %>
-              <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0" %>
+              <% unless current_user.coach %>
+                <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0" %>
+              <% end %>
               <%= link_to "DÉCONNEXION", destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-extra-small w-100 text-center mt-3" %>
               <%= link_to "Besoin d'aide ?", "#", class:"small-link" %>
               <% if current_user.admin? %>

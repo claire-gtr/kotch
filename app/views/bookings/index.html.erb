@@ -10,7 +10,7 @@
         <div class="card-messages card-blue px-4 pt-4 mb-3">
           <p><%= booking.lesson.sport_type %></p>
           <% booking.lesson.messages&.each do |message| %>
-            <%= render 'message', message: message, booking: booking, lesson: booking.lesson %>
+              <%= render 'message', message: message, booking: booking, lesson: booking.lesson %>
           <% end %>
           <%= render 'new_message', booking: booking, message: @message %>
         </div>

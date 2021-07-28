@@ -14,6 +14,19 @@ class UsersController < ApplicationController
         @bookings_in_past << booking
       end
     end
+    @coachings = current_user.lessons
+    @coachings_in_future = []
+    @coachings_in_past = []
+    @coachings.each do |lesson|
+      if lesson.date >= Time.now
+        @coachings_in_future << lesson
+      end
+    end
+    @coachings.each do |lesson|
+      if lesson.date < Time.now
+        @coachings_in_past << lesson
+      end
+    end
     authorize @user
   end
 

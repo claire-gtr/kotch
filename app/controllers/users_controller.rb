@@ -45,4 +45,9 @@ class UsersController < ApplicationController
     @user.save
     redirect_to dashboard_path
   end
+
+  def sportive_profile
+    @user = User.find(params[:id])
+    authorize @user
+  end
 end

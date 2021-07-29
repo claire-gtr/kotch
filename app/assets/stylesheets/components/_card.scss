@@ -27,3 +27,13 @@
   height: 75vh;
   overflow: scroll;
 }
+
+.card-header {
+  border-radius: 16px !important;
+  border: none;
+  background-color: $light-blue-kotch;
+}
+
+.card-subject {
+  border-radius: 16px
+}

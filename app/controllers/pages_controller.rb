@@ -3,4 +3,11 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def faq
+  end
+
+  def forum
+    @subjects = Subject.all
+  end
 end

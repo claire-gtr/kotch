@@ -1,10 +1,18 @@
 <footer>
   <div class="container h-100">
-    <div class="d-flex justify-content-start align-items-center h-100">
+    <div class="d-none d-md-flex justify-content-start align-items-center h-100">
       <u><%= link_to "À propos", "#", class:'footer-link mr-4'%></u>
-      <u><%= link_to "FAQ", "#", class:'footer-link mr-4'%></u>
+      <u><%= link_to "FAQ", faq_path, class:'footer-link mr-4'%></u>
+      <u><%= link_to "Forum", forum_path, class:'footer-link mr-4'%></u>
       <u><%= link_to "Vous êtes une entreprise ?", "#", class:'footer-link mr-4'%></u>
       <u><%= link_to "Je suis coach", coach_sign_up_path, class:'footer-link mr-4'%></u>
+    </div>
+    <div class="d-block h-100">
+      <div><u><%= link_to "À propos", "#", class:'footer-link mr-4'%></u></div>
+      <div><u><%= link_to "FAQ", faq_path, class:'footer-link mr-4'%></u></div>
+      <div><u><%= link_to "Forum", forum_path, class:'footer-link mr-4'%></u></div>
+      <div><u><%= link_to "Vous êtes une entreprise ?", "#", class:'footer-link mr-4'%></u></div>
+      <div><u><%= link_to "Je suis coach", coach_sign_up_path, class:'footer-link mr-4'%></u></div>
     </div>
   </div>
 </footer>

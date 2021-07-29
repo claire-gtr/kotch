@@ -16,4 +16,12 @@ class UserPolicy < ApplicationPolicy
   def undo_admin?
     user.admin?
   end
+
+  def sportive_profile?
+    coachs = []
+    record.bookings.each do |booking|
+      coachs << booking.lesson.user
+    end
+    coachs.include?(user)
+  end
 end

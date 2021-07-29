@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col text-blue">
+      <div class="card-subject shadow p-3 mb-3">
+        <h1><%= @subject.title %></h1>
+        <p class='text-bold text-condensed mb-2'><em><%= @subject.content %></em></p>
+        <%= link_to "Retour au forum", forum_path, class:'small-link'  %>
+        <div class="d-flex align-items-center justify-content-end">
+          <p class='mb-0 mr-2 text-small'><em>Discussion lancée par <%= @subject.user.first_name %></em></p>
+          <%= cl_image_tag @subject.user.profile_picture, class:'avatar-extra-small mr-2' %>
+        </div>
+      </div>
+      <% @subject.answers.each do |answer| %>
+        <div id="answer-<%= answer.id %>" class='mt-4 p-3'>
+          <% if current_user == answer.user %>
+            <div class='d-flex align-items-center justify-content-end'>
+              <p class='mb-0 ml-3 mr-3'><%= answer.content %></p>
+              <div>
+                <%= cl_image_tag answer.user.profile_picture, class:'avatar-extra-small' %>
+                <p class='mb-0 text-small'><%= answer.user.first_name %></p>
+              </div>
+            </div>
+          <% else %>
+            <div class='d-flex align-items-center'>
+              <div>
+                <%= cl_image_tag answer.user.profile_picture, class:'avatar-extra-small' %>
+                <p class='mb-0 text-small'><%= answer.user.first_name %></p>
+              </div>
+              <p class='mb-0 ml-3'><%= answer.content %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <%= simple_form_for [@subject, @answer], remote: true do |f| %>
+        <div class="p-3">
+          <p class="mb-2 mt-4 text-blue">Participer à la discussion :</p>
+          <%= f.input :content, label: false %>
+          <div class="d-flex justify-content-end">
+            <%= f.submit "Poster mon commentaire", class:'btn btn-kotch btn-blue' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

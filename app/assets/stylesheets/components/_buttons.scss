@@ -25,6 +25,10 @@ a:hover {
   border: none;
 }
 
+.btn-transparent:hover {
+  color: $blue-kotch;
+  text-decoration: underline;
+}
 .btn-big {
   font-size: 24px;
   padding: 24px 16px;
@@ -60,6 +64,11 @@ a:hover {
 .btn-extra-small {
   font-size: 14px;
   padding: 12px 12px;
+}
+
+.btn-extra-small-narrow {
+  font-size: 12px;
+  padding: 4px;
 }
 
 .btn-blue {

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :lessons, only: [:index, :new, :create]
   get 'change-lesson-public/:id', to: 'lessons#change_lesson_public', as: :change_lesson_public
   get 'public-lessons', to: 'lessons#public_lessons', as: :public_lessons
+  get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
 
   get 'dashboard', to: 'dashboards#show'
   patch '/admin', to: "users#become_admin", as: :become_admin
@@ -20,6 +21,11 @@ Rails.application.routes.draw do
   get 'public-lesson-booking/:lesson_id', to: "bookings#public_lesson_booking", as: :public_lesson_booking
 
   get 'sign-up-coach', to: "coachs#sign_up", as: :coach_sign_up
-
+  get 'sportive-profile/:id', to:'users#sportive_profile', as: :sportive_profile
+  get 'faq', to: "pages#faq", as: :faq
+  get 'forum', to: "pages#forum", as: :forum
+  resources :subjects, only: [:new, :create, :show] do
+    resources :answers, only: [:create]
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

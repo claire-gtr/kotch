@@ -30,6 +30,18 @@ h4 {
   color: $coral-kotch;
 }
 
+.text-coral {
+  a {
+   color: $coral-kotch;
+  }
+}
+
+.text-coral {
+  a:hover {
+   color: $coral-kotch;
+  }
+}
+
 .text-bold {
   font-weight: 600;
 }

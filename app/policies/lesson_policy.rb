@@ -16,4 +16,8 @@ class LessonPolicy < ApplicationPolicy
   def public_lessons?
     true
   end
+
+  def be_coach?
+    user.coach
+  end
 end

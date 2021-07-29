@@ -58,6 +58,20 @@ class LessonsController < ApplicationController
     authorize(:lesson, :public_lessons?)
   end
 
+  def be_coach
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson
+    if @lesson.user.nil?
+      @lesson.user = current_user
+      @lesson.save
+      flash[:notice] = "Vous êtes désormais le coach de cette séance."
+      redirect_to profile_path
+    else
+      flash[:alert] = "Un coach s'est déjà positionné sur cette séance."
+      redirect_to public_lessons_path
+    end
+  end
+
   private
 
   def lesson_params

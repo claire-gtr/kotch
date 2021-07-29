@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-12 col-md-6 offset-md-3">
+      <h2 class="text-coral text-center mb-3">Commencer une nouvelle discussion</h2>
+      <%= simple_form_for @subject do |f| %>
+        <p class='mb-0 text-blue'>Titre du sujet de discussion</p>
+        <%= f.input :title, label: false %>
+        <p class='mb-0 text-blue'>Description du sujet de conversation</p>
+        <%= f.input :content, label: false %>
+        <div class="d-flex justify-content-end">
+          <%= f.submit "Créer ce sujet de discussion", class:'btn btn-kotch btn-blue' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

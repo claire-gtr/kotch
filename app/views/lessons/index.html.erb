@@ -1,5 +1,10 @@
-<div class="container">
+<div class="container pt-5">
   <div class="row">
+    <% if @lessons.empty? %>
+      <div class="col-12 text-center">
+        <h2 class="text-center">Vous n'avez pas de séances à venir</h2>
+      </div>
+    <% end %>
     <div class="col-12 col-md-6">
       <% @lessons.each do |lesson| %>
         <%= render 'lesson', lesson: lesson %>

@@ -1,7 +1,7 @@
 class LessonPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(user: user)
+      scope.where(user: user).where("date >= ?", Time.now)
     end
   end
 
@@ -19,5 +19,9 @@ class LessonPolicy < ApplicationPolicy
 
   def be_coach?
     user.coach
+  end
+
+  def be_coach_via_mail?
+    true
   end
 end

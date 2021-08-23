@@ -15,7 +15,6 @@ class BookingsController < ApplicationController
     if @booking.save
       mail = BookingMailer.with(user: @user, booking: @booking).invitation
       mail.deliver_now
-      # IF 5 BOOKINGS MAIL A TOUS LES COACH
       redirect_to bookings_path
     else
       @bookings = Booking.where(user: current_user)
@@ -29,7 +28,13 @@ class BookingsController < ApplicationController
     @booking.status = "confirmé"
     authorize @booking
     @booking.save
-    # IF 5 BOOKINGS MAIL A TOUS LES COACH
+    @lesson = @booking.lesson
+    if @lesson.bookings.where(status: "confirmé").count == 2 && @booking.lesson.user.nil?
+      User.where(coach: true).each do |user|
+        mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+        mail.deliver_now
+      end
+    end
     redirect_to bookings_path
   end
 
@@ -46,6 +51,12 @@ class BookingsController < ApplicationController
       @booking.user = current_user
       authorize @booking
       @booking.save
+      if @lesson.bookings.where(status: "confirmé").count == 2 && @booking.lesson.user.nil?
+        User.where(coach: true).each do |user|
+          mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+          mail.deliver_now
+        end
+      end
       redirect_to bookings_path
     end
   end

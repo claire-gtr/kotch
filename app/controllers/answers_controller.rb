@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
     @answer.subject = @subject
     authorize @answer
     if @answer.save
-      redirect_to subject_path(@subject, anchor: "answer-#{@answer.id}")
+      redirect_to subject_path(@subject)
     else
       @answer = Answer.new
       render 'subjects/show'

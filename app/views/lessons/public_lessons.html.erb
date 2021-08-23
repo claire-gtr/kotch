@@ -1,6 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-6">
+    <% if @lessons.empty? %>
+      <div class="col-12 text-center">
+        <h2 class="text-center">Il n'y a pas de séances publiques disponibles actuellement.</h2>
+      </div>
+    <% end %>
+    <div class="col-12">
       <% @lessons.each do |lesson| %>
         <%= render 'lesson', lesson: lesson %>
       <% end %>

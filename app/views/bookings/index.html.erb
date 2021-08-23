@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pt-5" data-controller="display-messages">
   <div class="row">
     <div class="col-12 col-md-6">
       <% @bookings.each do |booking| %>
@@ -6,15 +6,17 @@
       <% end %>
     </div>
     <div class="col-12 col-md-6">
-      <% @bookings.each do |booking| %>
-        <div class="card-messages card-blue px-4 pt-4 mb-3">
-          <p><%= booking.lesson.sport_type %></p>
-          <% booking.lesson.messages&.each do |message| %>
-              <%= render 'message', message: message, booking: booking, lesson: booking.lesson %>
-          <% end %>
-          <%= render 'new_message', booking: booking, message: @message %>
-        </div>
-      <% end %>
+      <div data-display-messages-target="messages">
+        <% @bookings.each do |booking| %>
+          <div class="card-messages card-blue px-4 pt-4 mb-3" id="<%= booking.id %>">
+            <p><%= booking.lesson.sport_type %></p>
+            <% booking.lesson.messages&.each do |message| %>
+                <%= render 'message', message: message, booking: booking, lesson: booking.lesson %>
+            <% end %>
+            <%= render 'new_message', booking: booking, message: @message %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

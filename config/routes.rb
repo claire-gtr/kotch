@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'change-lesson-public/:id', to: 'lessons#change_lesson_public', as: :change_lesson_public
   get 'public-lessons', to: 'lessons#public_lessons', as: :public_lessons
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
+  get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
 
   get 'dashboard', to: 'dashboards#show'
   patch '/admin', to: "users#become_admin", as: :become_admin

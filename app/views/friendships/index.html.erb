@@ -1,65 +1,69 @@
-<div class="container">
+<div class="container pt-0 pt-md-5">
   <div class="row">
-    <div class="col-12 col-md-6">
-      <h5 class='text-blue'>Mes amis</h5>
-      <% @my_friends&.each do |friendship| %>
-        <div class="d-flex align-items-center text-blue">
-          <% if friendship.friend_a == current_user %>
-            <%= cl_image_tag friendship.friend_b.profile_picture, class:'avatar-extra-small mr-2' %>
-            <p class='mb-0 mr-2'><%= friendship.friend_b.full_name %></p>
-          <% else %>
-            <%= cl_image_tag friendship.friend_a.profile_picture, class:'avatar-extra-small mr-2' %>
-            <p class='mb-0 mr-2'><%= friendship.friend_a.full_name %></p>
+    <div class="col-12 col-md-8">
+      <div class="p-4 shadow card-white card-white-friends" style="background-image: url(<%= asset_path 'background1.png' %>);">
+        <div>
+          <h2 class='text-xbold text-center pb-3'>AGRANDISSEZ VOTRE COMMUNAUTÉ !</h2>
+          <%= form_tag friend_requests_path, method: :post do |f| %>
+            <div class="d-flex align-items-center">
+              <%= text_field_tag :email,
+                params[:email],
+                class: "form-control",
+                placeholder: "Email de mon ami"
+              %>
+              <%= submit_tag "Ajouter en ami", class: "btn btn-kotch btn-blue btn-extra-small" %>
+            </div>
           <% end %>
         </div>
-      <% end %>
-    </div>
-    <div class="col-12 col-md-6">
-      <div>
-        <h5 class='text-blue'>Ajouter des amis</h5>
-        <%= form_tag friend_requests_path, method: :post do |f| %>
-          <div class="d-flex align-items-center">
-            <%= text_field_tag :email,
-              params[:email],
-              class: "form-control",
-              placeholder: "Email de mon ami"
-            %>
-            <%= submit_tag "Ajouter en ami", class: "btn btn-kotch btn-blue btn-extra-small" %>
+        <h5 class='text-blue mt-5'>Demandes envoyées par mes amis :</h5>
+        <% @my_friend_requests_as_receiver&.each do |fr| %>
+          <div class="d-flex align-items-center text-blue">
+            <div>
+              <%= cl_image_tag fr.receiver.profile_picture, class:'avatar-extra-small mr-2' %>
+            </div>
+            <div>
+              <div class="d-flex align-items-center">
+                <p class='mb-2 mr-2'><%= fr.requestor.full_name %></p>
+                <p class='mb-2 mr-2'><%= fr.requestor.email %></p>
+              </div>
+              <div class="d-flex align-items-center">
+                <%= link_to friend_request_path(fr, query: 'accept'), method: :patch ,class:'text-small text-deco-none' do %>
+                  <span class="mr-2 pill pill-green">Accepter</span>
+                <% end %>
+                <%= link_to friend_request_path(fr, query: 'reject'), method: :patch ,class:'text-small text-deco-none' do %>
+                  <span class="pill pill-red">Refuser</span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <h5 class='text-blue mt-5 text-blue'>Mes demandes d'amitié envoyées : </h5>
+        <% @my_friend_requests_as_requestor&.each do |fr| %>
+          <div class="d-flex align-items-center text-blue">
+            <%= cl_image_tag fr.receiver.profile_picture, class:'avatar-extra-small mr-2' %>
+            <p class='mb-0 mr-2'><%= fr.receiver.full_name %></p>
+            <% if fr.status == "pending"%>
+              <p class='mb-0 text-small'><em>En attente de validation</em></p>
+            <% end %>
           </div>
         <% end %>
       </div>
-      <h5 class='text-blue mt-5'>Demandes envoyées par mes amis</h5>
-      <% @my_friend_requests_as_receiver&.each do |fr| %>
-        <div class="d-flex align-items-center text-blue">
-          <div>
-            <%= cl_image_tag fr.receiver.profile_picture, class:'avatar-extra-small mr-2' %>
+    </div>
+    <div class="col-12 col-md-4 mt-3 mt-md-0">
+      <div class="card-blue card-blue-friends shadow p-4">
+        <h2 class='text-xbold pb-3'>MES AMIS</h2>
+        <% @my_friends&.each do |friendship| %>
+          <div class="d-flex align-items-center text-blue">
+            <% if friendship.friend_a == current_user %>
+              <%= cl_image_tag friendship.friend_b.profile_picture, class:'avatar-extra-small mr-2 mb-2' %>
+              <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friendship.friend_b.full_name %></p>
+            <% else %>
+              <%= cl_image_tag friendship.friend_a.profile_picture, class:'avatar-extra-small mr-2 mb-2' %>
+              <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friendship.friend_a.full_name %></p>
+            <% end %>
           </div>
-          <div>
-            <div class="d-flex align-items-center">
-              <p class='mb-2 mr-2'><%= fr.requestor.full_name %></p>
-              <p class='mb-2 mr-2'><%= fr.requestor.email %></p>
-            </div>
-            <div class="d-flex align-items-center">
-              <%= link_to friend_request_path(fr, query: 'accept'), method: :patch ,class:'text-small text-deco-none' do %>
-                <span class="mr-2 pill pill-green">Accepter</span>
-              <% end %>
-              <%= link_to friend_request_path(fr, query: 'reject'), method: :patch ,class:'text-small text-deco-none' do %>
-                <span class="pill pill-red">Refuser</span>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-      <h5 class='text-blue mt-5 text-blue'>Mes demandes d'amitié envoyées</h5>
-      <% @my_friend_requests_as_requestor&.each do |fr| %>
-        <div class="d-flex align-items-center text-blue">
-          <%= cl_image_tag fr.receiver.profile_picture, class:'avatar-extra-small mr-2' %>
-          <p class='mb-0 mr-2'><%= fr.receiver.full_name %></p>
-          <% if fr.status == "pending"%>
-            <p class='mb-0 text-small'><em>En attente de validation</em></p>
-          <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

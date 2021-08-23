@@ -1,0 +1,12 @@
+<h1>Hello <%= @user.email %></h1>
+
+<p>
+  Une séance est complète avec 5 élèves et n'a pas de coach.
+  Détails de la séance :
+</p>
+<p><%= @lesson.sport_type %></p>
+<p><%= @lesson.date %></p>
+<p><%= @lesson.location.name %></p>
+
+<p>Si tu souhaite to positionner, merci de clicker sur ce lien :</p>
+<%= link_to "Je me positionne", be_coach_via_mail_url(@lesson, @user)  %>

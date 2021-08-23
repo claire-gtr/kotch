@@ -8,7 +8,7 @@
     <p class="mb-0 text-blue text-bold text-condensed text-small"><%= booking.lesson.date.strftime(' %e %B %Y %lh%M')%></p>
     <% if !booking.lesson.public %>
       <%= link_to change_lesson_public_path(booking.lesson) do %>
-      <p class=" mb-0 text-small">Passer la séance en publique</p>
+      <p class=" mb-0 text-small text-condensed">Passer la séance en publique</p>
       <% end %>
     <% else %>
       <p class="mb-0 text-blue text-bold text-condensed text-small">Séance publique</p>
@@ -50,6 +50,10 @@
         <%= booking.lesson.status %>
       </div>
     <% end %>
+    <div class="pill pill-green" data-action="click->display-messages#display" id="<%= booking.id %>">
+      <div data-display-messages-target="booking" class="d-none"><%= booking.id %></div>
+      test
+    </div>
   </div>
   <div class="d-flex flex-column justify-content-between text-right">
     <span class="title-sport"><%= booking.lesson.sport_type.upcase %></span>

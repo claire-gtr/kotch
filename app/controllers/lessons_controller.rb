@@ -54,7 +54,16 @@ class LessonsController < ApplicationController
   end
 
   def public_lessons
-    @lessons = Lesson.where(public: true)
+    @lessons = Lesson.where(public: true)#.where("date >= ?", Time.now)
+    # if current_user.coach
+    #   @lessons = []
+    #   Lesson.all.each do |lesson|
+    #     if lesson.bookings.any? && lesson.bookings.where(status: "confirmé").count >= 5
+    #       @lessons << lesson
+    #     end
+    #   end
+    # else
+    # end
     authorize(:lesson, :public_lessons?)
   end
 
@@ -64,6 +73,23 @@ class LessonsController < ApplicationController
     if @lesson.user.nil?
       @lesson.user = current_user
       @lesson.save
+      # MAIL AUX PARTICIPANTS
+      flash[:notice] = "Vous êtes désormais le coach de cette séance."
+      redirect_to profile_path
+    else
+      flash[:alert] = "Un coach s'est déjà positionné sur cette séance."
+      redirect_to public_lessons_path
+    end
+  end
+
+  def be_coach_via_mail
+    @lesson = Lesson.find(params[:lesson_id])
+    @user = User.find(params[:user_id])
+    authorize @lesson
+    if @lesson.user.nil?
+      @lesson.user = @user
+      @lesson.save
+      # MAIL AUX PARTICIPANTS
       flash[:notice] = "Vous êtes désormais le coach de cette séance."
       redirect_to profile_path
     else

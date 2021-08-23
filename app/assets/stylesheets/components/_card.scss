@@ -1,21 +1,36 @@
 .card-red {
-  border-radius: 16px;
+  border-radius: 24px;
   background-color: $coral-kotch;
 }
 
 .card-blue {
-  border-radius: 16px;
+  border-radius: 24px;
   background-color: $light-blue-kotch;
 }
 
-@include media-breakpoint-up(md) {
-  .card-new-lesson {
-    min-height: 300px;
-  }
+.card-white {
+  border-radius: 24px;
+  background-color: transparent;
+}
+
+.card-white-friends {
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 70vh;
+}
+
+.card-blue-friends {
+  min-height: 70vh;
+}
+
+.card-new-lesson {
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 300px;
 }
 
 .card-kotch {
-  border-radius: 16px;
+  border-radius: 24px;
   border: none;
 }
 
@@ -36,4 +51,12 @@
 
 .card-subject {
   border-radius: 16px
+}
+
+.lesson-max-100 {
+  width: 100px;
+}
+
+.lesson-max-60 {
+  width: 60px;
 }

@@ -1,21 +1,21 @@
 <div class="container mb-3">
-  <h1 class='text-center mb-5'>PROGRAMMEZ VOTRE PROCHAINE SÉANCE</h1>
+  <h1 class='text-center mb-0 mb-md-5'>PROGRAMMEZ VOTRE PROCHAINE SÉANCE</h1>
   <%= simple_form_for @lesson do |f| %>
     <div class="row">
       <div class="col-12 col-md-4">
-        <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center">
+        <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>);">
           <h2><em>SPORT</em></h2>
-          <%= f.input :sport_type, label: false %>
+          <%= f.input :sport_type, collection: Lesson::SPORTS, label: false %>
         </div>
       </div>
       <div class="col-12 col-md-4">
-        <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center">
+        <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue2.png' %>);">
           <h2><em>DATE</em></h2>
-          <%= f.input :date, as: :string, label: false, input_html: {class: "datepicker"} %>
+          <%= f.input :date, as: :string, label: false, placeholder: "Date & heure", input_html: {class: "datepicker"} %>
         </div>
       </div>
       <div class="col-12 col-md-4">
-        <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center">
+        <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>);">
           <h2><em>LIEU</em></h2>
           <%= f.association :location, label: false %>
           <button type="button" class="btn btn-kotch btn-light-blue w-100" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux possible sur la carte</button>

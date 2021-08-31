@@ -1,25 +1,28 @@
-<div class="container pt-5">
+<% if current_user.coach %>
+<div class="container pt-3">
   <div class="row">
     <% if @lessons.empty? %>
       <div class="col-12 text-center">
         <h2 class="text-center">Vous n'avez pas de séances à venir</h2>
       </div>
     <% end %>
-    <div class="col-12 col-md-6">
+    <div class="col-12">
       <% @lessons.each do |lesson| %>
         <%= render 'lesson', lesson: lesson %>
       <% end %>
     </div>
-    <div class="col-12 col-md-6">
-      <% @lessons.each do |lesson| %>
-        <div class="card-messages card-blue px-4 pt-4 mb-3">
-          <p><%= lesson.sport_type %></p>
-          <% lesson.messages&.each do |message| %>
-            <%= render 'bookings/message', message: message, lesson: lesson %>
-          <% end %>
-          <%= render 'new_message', lesson: lesson, message: @message %>
-        </div>
-      <% end %>
-    </div>
   </div>
 </div>
+<% else %>
+  <div class="container pt-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="card-list-bookings-messages p-3">
+          <% @lessons.each do |lesson| %>
+            <%= render 'lesson', lesson: lesson %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

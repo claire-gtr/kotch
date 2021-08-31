@@ -1,7 +1,17 @@
 class LessonPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(user: user).where("date >= ?", Time.now)
+      if user.coach
+        scope.where(user: user).where("date >= ?", Time.now)
+      elsif !user.coach
+        ids = []
+        user.bookings.each do |booking|
+          ids << booking.lesson_id
+        end
+        scope.where(id: ids)
+      else
+        raise Pundit::NotAuthorizedError
+      end
     end
   end
 

@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   get '/mon-profil', to: 'users#profile', as: :profile
-  resources :lessons, only: [:index, :new, :create]
+  resources :lessons, only: [:index, :new, :create]  do
+    resources :messages, only: [:index, :create]
+  end
   get 'change-lesson-public/:id', to: 'lessons#change_lesson_public', as: :change_lesson_public
   get 'public-lessons', to: 'lessons#public_lessons', as: :public_lessons
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
@@ -14,9 +16,7 @@ Rails.application.routes.draw do
   resources :locations, only: [:create]
   resources :friendships, only: :index
   resources :friend_requests, only: [:create, :update]
-  resources :bookings, only: [:index, :create] do
-    resources :messages, only: :create
-  end
+  resources :bookings, only: [:index, :create]
   post 'lessons/:lesson_id/coach-messages', to: 'messages#coach_message', as: :coach_messages
   get 'accept-invitation/:booking_id', to: "bookings#accept_invitation", as: :accept_invitation
   get 'public-lesson-booking/:lesson_id', to: "bookings#public_lesson_booking", as: :public_lesson_booking

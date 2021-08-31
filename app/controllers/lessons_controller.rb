@@ -3,6 +3,9 @@ class LessonsController < ApplicationController
   def index
     @lessons = policy_scope(Lesson)
     @message = Message.new
+    @friends = current_user.my_friends
+    @booking = Booking.new
+
   end
 
   def new

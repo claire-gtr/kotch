@@ -1,16 +1,24 @@
 class MessagesController < ApplicationController
 
+  def index
+    @lesson = Lesson.find(params[:lesson_id])
+    @messages = policy_scope(Message)
+    @messages = @lesson.messages
+    @message = Message.new
+  end
+
   def create
-    @booking = Booking.find(params[:booking_id])
+    @lesson = Lesson.find(params[:lesson_id])
     @message = Message.new(message_params)
+    @booking = Booking.find_by(user: current_user, lesson: @lesson)
     @message.booking = @booking
     @message.lesson = @booking.lesson
     authorize @message
     if @message.save
-      redirect_to bookings_path(anchor: "form-message")
+      redirect_to lesson_messages_path#(anchor: "form-message")
     else
       @message = Message.new
-      render 'bookings#index'
+      render 'messages#index'
     end
   end
 
@@ -20,10 +28,10 @@ class MessagesController < ApplicationController
     @message.lesson = @lesson
     authorize(:message, :coach_message?)
     if @message.save
-      redirect_to lessons_path(anchor: "form-message")
+      redirect_to lesson_messages_path#(anchor: "form-message")
     else
       @message = Message.new
-      render 'bookings#index'
+      render 'messages#index'
     end
   end
 

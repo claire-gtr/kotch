@@ -41,6 +41,9 @@
 .card-messages {
   height: 75vh;
   overflow: scroll;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center bottom;
 }
 
 .card-header {
@@ -59,4 +62,18 @@
 
 .lesson-max-60 {
   width: 60px;
+}
+
+.card-dark-blue {
+  background-color: $blue-kotch;
+  p {
+    color: white !important;
+  }
+  .btn {
+    color: white !important;
+  }
+}
+.card-list-bookings-messages {
+  height: 75vh;
+  overflow: scroll;
 }

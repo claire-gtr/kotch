@@ -14,6 +14,20 @@ class ApplicationController < ActionController::Base
   #   redirect_to(root_path)
   # end
 
+  def average_rating
+    sum = 0
+    count = 0
+    if self.reviews.any?
+      self.reviews.each do |review|
+        sum =+ review.rating
+        count =+ 1
+      end
+      return sum/count
+    else
+      return 0
+    end
+  end
+
 
 
   def configure_permitted_parameters
@@ -30,3 +44,4 @@ class ApplicationController < ActionController::Base
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 end
+

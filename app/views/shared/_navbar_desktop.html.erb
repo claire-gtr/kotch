@@ -39,7 +39,7 @@
               <% if current_user.coach %>
                 <%= link_to "Mes coachings", lessons_path, class: "dropdown-item text-white px-0" %>
               <% else %>
-                <%= link_to "Mes réservations", bookings_path, class: "dropdown-item text-white px-0" %>
+                <%= link_to "Mes réservations", lessons_path, class: "dropdown-item text-white px-0" %>
               <% end %>
               <%= link_to "Voir les séances publiques", public_lessons_path, class: "dropdown-item text-white px-0" %>
               <% unless current_user.coach %>

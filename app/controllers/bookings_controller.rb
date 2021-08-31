@@ -1,12 +1,5 @@
 class BookingsController < ApplicationController
 
-  def index
-    @bookings = policy_scope(Booking)
-    @booking = Booking.new
-    @friends = current_user.my_friends
-    @message = Message.new
-  end
-
   def create
     @booking = Booking.new(booking_params)
     @booking.status = "invitation send"

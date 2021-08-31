@@ -54,37 +54,39 @@
   </div>
   <div class="d-flex flex-column justify-content-between text-right">
     <span class="title-sport"><%= lesson.sport_type.upcase %></span>
-    <% if lesson.bookings.count <= 10 %>
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#addUserModal-<%= lesson.id %>">
-        + ajouter des participants
-      </button>
+    <% if !current_user.coach %>
+      <% if lesson.bookings.count <= 10 %>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#addUserModal-<%= lesson.id %>">
+          + ajouter des participants
+        </button>
 
-      <!-- Modal -->
-      <div class="modal fade" id="addUserModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="addUserModal-<%= lesson.id %>Label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content card-kotch">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body text-blue py-5">
-              <% @users_to_invite = @friends - lesson.users.to_a %>
-              <%= simple_form_for @booking do |f| %>
-                <%= f.association :user, collection: @users_to_invite.map { |m| [m.full_name, m.id] }, label: "Sélectionner parmi vos amis" %>
-                <%= f.input :lesson_id, as: :hidden, input_html: {value: lesson.id } %>
-                <%= f.submit 'Envoyer une invitation', class:'btn btn-kotch btn-blue w-100' %>
-              <% end %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-kotch btn-light-blue" data-dismiss="modal">Annuler</button>
+        <!-- Modal -->
+        <div class="modal fade" id="addUserModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="addUserModal-<%= lesson.id %>Label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content card-kotch">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-blue py-5">
+                <% @users_to_invite = @friends - lesson.users.to_a %>
+                <%= simple_form_for @booking do |f| %>
+                  <%= f.association :user, collection: @users_to_invite.map { |m| [m.full_name, m.id] }, label: "Sélectionner parmi vos amis" %>
+                  <%= f.input :lesson_id, as: :hidden, input_html: {value: lesson.id } %>
+                  <%= f.submit 'Envoyer une invitation', class:'btn btn-kotch btn-blue w-100' %>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-kotch btn-light-blue" data-dismiss="modal">Annuler</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% else %>
-      <p class="text-blue text-condensed text-small"> <em>Il y a dejà 10 participants à cette séance</em></p>
+      <% else %>
+        <p class="text-blue text-condensed text-small"> <em>Il y a dejà 10 participants à cette séance</em></p>
+      <% end %>
     <% end %>
   </div>
 </div>

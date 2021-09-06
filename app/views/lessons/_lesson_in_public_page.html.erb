@@ -1,21 +1,11 @@
 <div class="card-blue shadow p-4 mb-3 d-flex justify-content-between align-items-center">
   <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime(' %e %B %Y %lh%M')%></p>
   <p class="mb-0 text-blue text-bold text-condensed text-small text-center lesson-max-100"><%= lesson.location.name%></p>
-  <% if !current_user.coach %>
-    <% if lesson.user_id %>
-      <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">Avec coach <%= lesson.user.first_name %></p>
-    <% else %>
-      <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">Pas de coach</p>
-    <% end %>
-    <%= link_to "JE RÉSERVE", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
-  <% end %>
   <span class="title-sport lesson-max-60 text-center"><%= lesson.sport_type.upcase %></span>
   <% if !lesson.public && !current_user.coach %>
     <%= link_to public_lesson_booking_path(lesson) do %>
       <p class=" mb-0 text-small text-condensed">Passer la séance en publique</p>
     <% end %>
-  <% else %>
-    <p class="mb-0 text-blue text-bold text-condensed text-small">Séance publique</p>
   <% end %>
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-transparent text-condensed" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
@@ -52,6 +42,14 @@
       </div>
     </div>
   </div>
+  <% if !current_user.coach %>
+    <% if lesson.user_id %>
+      <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">Avec coach <%= lesson.user.first_name %></p>
+    <% else %>
+      <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">Pas de coach</p>
+    <% end %>
+    <%= link_to "JE RÉSERVE", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
+  <% end %>
   <div class="d-flex justify-content-between align-items-center">
     <% if lesson.status == "pending" || "canceled" %>
       <div class="pill pill-red text-center mt-3">

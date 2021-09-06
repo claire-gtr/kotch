@@ -15,7 +15,7 @@
             </div>
           <% end %>
         </div>
-        <h5 class='text-blue mt-5'>Demandes envoyées par mes amis :</h5>
+        <h5 class='text-blue mt-5'>Demandes reçues :</h5>
         <% @my_friend_requests_as_receiver&.each do |fr| %>
           <div class="d-flex align-items-center text-blue">
             <div>
@@ -37,7 +37,7 @@
             </div>
           </div>
         <% end %>
-        <h5 class='text-blue mt-5 text-blue'>Mes demandes d'amitié envoyées : </h5>
+        <h5 class='text-blue mt-5 text-blue'>Demandes d'amitié envoyées : </h5>
         <% @my_friend_requests_as_requestor&.each do |fr| %>
           <div class="d-flex align-items-center text-blue">
             <%= cl_image_tag fr.receiver.profile_picture, class:'avatar-extra-small mr-2' %>
@@ -53,12 +53,12 @@
       <div class="card-blue card-blue-friends shadow p-4">
         <h2 class='text-xbold pb-3'>MES AMIS</h2>
         <% @my_friends&.each do |friendship| %>
-          <div class="d-flex align-items-center text-blue">
+          <div class="d-flex align-items-center text-blue mt-3">
             <% if friendship.friend_a == current_user %>
-              <%= cl_image_tag friendship.friend_b.profile_picture, class:'avatar-extra-small mr-2 mb-2' %>
+              <%= cl_image_tag friendship.friend_b.profile_picture, class:'avatar-extra-small mr-2' %>
               <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friendship.friend_b.full_name %></p>
             <% else %>
-              <%= cl_image_tag friendship.friend_a.profile_picture, class:'avatar-extra-small mr-2 mb-2' %>
+              <%= cl_image_tag friendship.friend_a.profile_picture, class:'avatar-extra-small mr-2' %>
               <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friendship.friend_a.full_name %></p>
             <% end %>
           </div>

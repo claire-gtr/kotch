@@ -5,6 +5,8 @@
  display: block;
  position: relative;
  padding-bottom: 190px; /* height of your footer */
+ background: rgb(187,201,254);
+background: linear-gradient(338deg, rgba(187,201,254,0.8225665266106442) 8%, rgba(255,255,255,0) 100%);
 }
 
 @include media-breakpoint-up(md) {
@@ -24,4 +26,6 @@
  display: block;
  position: relative;
  padding-bottom: 100px; /* height of your footer */
+ background: rgb(187,201,254);
+background: linear-gradient(338deg, rgba(187,201,254,0.8225665266106442) 8%, rgba(255,255,255,0) 100%);
 }

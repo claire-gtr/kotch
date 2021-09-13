@@ -30,6 +30,7 @@ import "bootstrap";
 
 import { initUpdateNavbarOnScroll } from '../components/navbar';
 import { initFlatpickr } from "../plugins/flatpickr";
+import { initFlatpickrBirth } from "../plugins/flatpickr";
 import { initAutocomplete } from "../plugins/init_autocomplete";
 import { initMapbox } from "../plugins/init_mapbox";
 
@@ -37,6 +38,7 @@ document.addEventListener('turbolinks:load', () => {
   // Call your JS functions here
   initUpdateNavbarOnScroll();
   initFlatpickr();
+  initFlatpickrBirth();
   initAutocomplete();
   initMapbox();
 });

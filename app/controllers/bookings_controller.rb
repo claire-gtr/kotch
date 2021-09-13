@@ -8,7 +8,7 @@ class BookingsController < ApplicationController
     if @booking.save
       mail = BookingMailer.with(user: @user, booking: @booking).invitation
       mail.deliver_now
-      redirect_to bookings_path
+      redirect_to lessons_path
     else
       @bookings = Booking.where(user: current_user)
       @booking = Booking.new
@@ -28,7 +28,7 @@ class BookingsController < ApplicationController
         mail.deliver_now
       end
     end
-    redirect_to bookings_path
+    redirect_to lessons_path
   end
 
   def public_lesson_booking
@@ -50,7 +50,7 @@ class BookingsController < ApplicationController
           mail.deliver_now
         end
       end
-      redirect_to bookings_path
+      redirect_to lessons_path
     end
   end
 

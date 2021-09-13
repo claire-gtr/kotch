@@ -5,7 +5,7 @@
     <% else %>
       <p class="mb-0 text-blue text-bold text-condensed text-small">Pas de coach</p>
     <% end %>
-    <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime(' %e %B %Y %lh%M')%></p>
+    <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime('%e-%m-%y à %Hh%M')%></p>
     <% if !lesson.public %>
       <%= link_to change_lesson_public_path(lesson) do %>
       <p class=" mb-0 text-small text-condensed">Passer la séance en publique</p>
@@ -58,7 +58,7 @@
       <% if lesson.bookings.count <= 10 %>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#addUserModal-<%= lesson.id %>">
-          + ajouter des participants
+          + inviter des participants
         </button>
 
         <!-- Modal -->

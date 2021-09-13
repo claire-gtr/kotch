@@ -2,6 +2,7 @@ class LessonsController < ApplicationController
 
   def index
     @lessons = policy_scope(Lesson)
+    @lessons = @lessons.order('date DESC')
     @message = Message.new
     @friends = current_user.my_friends
     @booking = Booking.new
@@ -53,11 +54,11 @@ class LessonsController < ApplicationController
     authorize @lesson
     @lesson.public = true
     @lesson.save
-    redirect_to bookings_path
+    redirect_to lessons_path
   end
 
   def public_lessons
-    @lessons = Lesson.where(public: true)#.where("date >= ?", Time.now)
+    @lessons = Lesson.where(public: true).where("date >= ?", Time.now).order('date DESC')#.where("date >= ?", Time.now)
     # if current_user.coach
     #   @lessons = []
     #   Lesson.all.each do |lesson|

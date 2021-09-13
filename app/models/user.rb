@@ -20,6 +20,7 @@ class User < ApplicationRecord
    has_many :friend_bs, through: :friendships_as_friend_a
    has_many :subjects
    has_many :answers
+   has_many :pack_orders
 
   enum gender: { homme: 0, femme: 1, autres: 2 }
   enum sport_habits: { regularly: 0, occasionnally: 1, rarely: 2 }

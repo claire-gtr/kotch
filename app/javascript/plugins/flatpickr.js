@@ -9,4 +9,12 @@ const initFlatpickr = () => {
   });
 }
 
+const initFlatpickrBirth = () => {
+  flatpickr(".datepickerbirth", {
+    enableTime: true,
+    dateFormat: "Y-m-d"
+  });
+}
+
 export { initFlatpickr };
+export { initFlatpickrBirth };

@@ -1,17 +1,12 @@
 module Stripe
   class CustomerSubscriptionUpdatedService
     def call(event)
-      puts "Hello"
       @event = event
       puts event.data.object
       @stripe_subscription = event.data.object
       @user = User.find_by(stripe_id: @stripe_subscription.customer)
-      puts @user
-      puts @user.subscription
 
       if @user.subscription.stripe_id.nil?
-        puts @user.subscription
-        puts "sub nil"
         @user.subscription.update(
           user: @user,
           stripe_id: @stripe_subscription.id,
@@ -20,20 +15,19 @@ module Stripe
           )
         send_first_sub_email
       else
-        puts @user.subscription
         @user.subscription.update(
           stripe_id: @stripe_subscription.id,
           status: @stripe_subscription.status,
           end_date: Time.at(@stripe_subscription.current_period_end).to_date
           )
       end
-      puts @user.subscription
-      # if @stripe_subscription&.items&.data[0]&.price
-      #   @user.subscription.update(
-      #     nickname: @stripe_subscription&.items&.data[0]&.price&.nickname
-      #     )
-      # end
-      # check_if_canceled
+      puts @stripe_subscription
+      if @stripe_subscription&.items&.data[0]&.plan
+        @user.subscription.update(
+          nickname: @stripe_subscription&.items&.data[0]&.plan&.nickname
+          )
+      end
+      check_if_canceled
       # check_change_price
       # if @first_sub
       #   send_first_sub_email
@@ -73,8 +67,7 @@ module Stripe
 
     def check_if_canceled
       if @event.data&.previous_attributes.keys.include?(:cancel_at_period_end) && (@event.data&.previous_attributes[:cancel_at_period_end] == false)
-          puts "Coucou cancelled"
-          # StripeMailer.with(user: @user).subscription_canceled.deliver_now
+          StripeMailer.with(user: @user).subscription_canceled.deliver_now
       end
     end
   end

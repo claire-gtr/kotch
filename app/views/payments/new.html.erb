@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row py-4">
+    <div class="col">
+      <h1>Checkout summary</h1>
+      <p>Achat de <strong><%= @pack_order.credit_count %></strong> sessions pour <strong><%= (@pack_order.amount / 100).round %>€</strong></p>
+      <button id="pay" class="btn btn-primary">Payer</button>
+
+      <script src="https://js.stripe.com/v3/"></script>
+      <script>
+        const paymentButton = document.getElementById('pay');
+        paymentButton.addEventListener('click', () => {
+          const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+          stripe.redirectToCheckout({
+            sessionId: '<%= @pack_order.checkout_session_id %>'
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>

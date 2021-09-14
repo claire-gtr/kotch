@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+PackOrder.destroy_all
 Answer.destroy_all
 Subject.destroy_all
 Location.destroy_all

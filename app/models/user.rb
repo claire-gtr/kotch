@@ -77,18 +77,13 @@ class User < ApplicationRecord
     bookings_count = 0
     if subscription.active?
       lessons_included = subscription.nickname.first(2).to_i
-      puts "#{lessons_included}"
       first_day_of_month = lesson_date.beginning_of_month
-      puts "#{first_day_of_month}"
       last_day_of_month = lesson_date.end_of_month
-      puts "#{last_day_of_month}"
       self.bookings.where.not(status: 'canceled').each do |b|
-        puts "#{b.lesson.date}"
         if b.lesson.date.to_date >= first_day_of_month && b.lesson.date.to_date <= last_day_of_month
           bookings_count += 1
         end
       end
-      puts "bookings count : #{bookings_count}"
       return true if bookings_count < lessons_included
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_29_132852) do
+ActiveRecord::Schema.define(version: 2021_09_13_123818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,17 @@ ActiveRecord::Schema.define(version: 2021_07_29_132852) do
     t.index ["lesson_id"], name: "index_messages_on_lesson_id"
   end
 
+  create_table "pack_orders", force: :cascade do |t|
+    t.string "state"
+    t.float "amount"
+    t.bigint "user_id", null: false
+    t.string "checkout_session_id"
+    t.integer "credit_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_pack_orders_on_user_id"
+  end
+
   create_table "subjects", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "content"
@@ -141,6 +152,7 @@ ActiveRecord::Schema.define(version: 2021_07_29_132852) do
     t.text "interests", default: [], array: true
     t.date "birth_date"
     t.integer "expectations"
+    t.integer "credit_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -154,5 +166,6 @@ ActiveRecord::Schema.define(version: 2021_07_29_132852) do
   add_foreign_key "locations", "users"
   add_foreign_key "messages", "bookings"
   add_foreign_key "messages", "lessons"
+  add_foreign_key "pack_orders", "users"
   add_foreign_key "subjects", "users"
 end

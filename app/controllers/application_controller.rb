@@ -38,10 +38,16 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :avatar, :address, :phone_number, :birth_date, :gender, :sport_habits, :level, :intensity, :expectations, :physical_pain])
   end
 
+  # def after_sign_up_path_for(resource_or_scope)
+  #   offers_path
+  # end
+
   private
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
+
+
 end
 

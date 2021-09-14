@@ -1,5 +1,5 @@
 class Lesson < ApplicationRecord
-  SPORTS = ["Yoga", "Pilate", "Stretching", "HIIT", "Cross Training", "Fit Boxing", "Cuisses Abdos Fessiers", "Renforcement musculaire" ]
+  SPORTS = ["Cross Training", "Cuisses Abdos Fessiers", "Fit Boxing", "HIIT", "Pilate", "Renforcement musculaire", "Stretching", "Yoga" ]
   belongs_to :user, optional: true
   belongs_to :location
   has_many :bookings

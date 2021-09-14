@@ -9,6 +9,11 @@
         <% if user_signed_in? %>
           <li class="nav-item">
             <em>
+              <%= link_to "SÉANCES PUBLIQUES", public_lessons_path, class: "nav-link ml-5" %>
+            </em>
+          </li>
+          <li class="nav-item">
+            <em>
               <% if current_user.coach %>
                 <%= link_to "CRÉER UNE SÉANCE", new_lesson_path, class: "nav-link ml-5" %>
               <% else %>
@@ -41,7 +46,6 @@
               <% else %>
                 <%= link_to "Mes réservations", lessons_path, class: "dropdown-item text-white px-0" %>
               <% end %>
-              <%= link_to "Voir les séances publiques", public_lessons_path, class: "dropdown-item text-white px-0" %>
               <% unless current_user.coach %>
                 <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0" %>
               <% end %>

@@ -21,7 +21,7 @@
             </div>
             <div class="row">
               <div class="col-6">
-                <%= f.input :birth_date, as: :string, label: false, input_html: {class: "datepickerbirth"} %>
+                <%= f.input :birth_date, as: :string, label: false, input_html: {class: "datepickerbirth"}, placeholder: "DATE DE NAISSANCE" %>
               </div>
               <div class="col-6">
                 <%= f.input :address, label: false %>
@@ -33,6 +33,7 @@
                         required: true,
                         autofocus: true,
                         input_html: { autocomplete: "email" }, label: false,
+                        placeholder: "EMAIL*",
                         hint: "*utilisez votre email professionnel pour profiter des offres CE"%>
               </div>
               <div class="col-6">

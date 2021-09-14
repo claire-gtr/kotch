@@ -24,7 +24,7 @@
           <% unless current_user.coach %>
           <li class="nav-item">
             <em>
-              <%= link_to "NOS OFFRES", "#", class: "nav-link ml-5" %>
+              <%= link_to "NOS OFFRES", offers_path, class: "nav-link ml-5" %>
             </em>
           </li>
           <% end %>
@@ -59,7 +59,7 @@
         <% else %>
           <li class="nav-item">
             <em>
-              <%= link_to "NOS OFFRES", "#", class: "nav-link ml-5" %>
+              <%= link_to "NOS OFFRES", offers_path, class: "nav-link ml-5" %>
             </em>
           </li>
           <li class="nav-item">

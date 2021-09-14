@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   end
   get 'change-lesson-public/:id', to: 'lessons#change_lesson_public', as: :change_lesson_public
   get 'public-lessons', to: 'lessons#public_lessons', as: :public_lessons
+  get 'lesson-done/:id', to: 'lessons#lesson_done', as: :lesson_done
+  get 'lesson-not-done/:id', to: 'lessons#lesson_not_done', as: :lesson_not_done
+
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
 
@@ -16,7 +19,7 @@ Rails.application.routes.draw do
   resources :locations, only: [:create]
   resources :friendships, only: :index
   resources :friend_requests, only: [:create, :update]
-  resources :bookings, only: [:index, :create]
+  resources :bookings, only: [:index, :create, :destroy]
   post 'lessons/:lesson_id/coach-messages', to: 'messages#coach_message', as: :coach_messages
   get 'accept-invitation/:booking_id', to: "bookings#accept_invitation", as: :accept_invitation
   get 'public-lesson-booking/:lesson_id', to: "bookings#public_lesson_booking", as: :public_lesson_booking

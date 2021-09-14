@@ -77,7 +77,6 @@ class LessonsController < ApplicationController
     if @lesson.user.nil?
       @lesson.user = current_user
       @lesson.save
-      # MAIL AUX PARTICIPANTS
       flash[:notice] = "Vous êtes désormais le coach de cette séance."
       redirect_to profile_path
     else
@@ -92,14 +91,29 @@ class LessonsController < ApplicationController
     authorize @lesson
     if @lesson.user.nil?
       @lesson.user = @user
+      @lesson.status = "validée"
       @lesson.save
-      # MAIL AUX PARTICIPANTS
       flash[:notice] = "Vous êtes désormais le coach de cette séance."
       redirect_to profile_path
     else
       flash[:alert] = "Un coach s'est déjà positionné sur cette séance."
       redirect_to public_lessons_path
     end
+  end
+
+  def lesson_done
+    @lesson = Lesson.find(params[:id])
+    @lesson.status = "effectuée"
+    authorize @lesson
+    @lesson.save
+    redirect_to profile_path
+  end
+  def lesson_not_done
+    @lesson = Lesson.find(params[:id])
+    @lesson.status = "non effectuée"
+    authorize @lesson
+    @lesson.save
+    redirect_to profile_path
   end
 
   private

@@ -34,4 +34,10 @@ class LessonPolicy < ApplicationPolicy
   def be_coach_via_mail?
     true
   end
+  def lesson_done?
+    record.user == user
+  end
+  def lesson_not_done?
+    record.user == user
+  end
 end

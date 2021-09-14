@@ -12,17 +12,21 @@ class BookingsController < ApplicationController
     else
       @bookings = Booking.where(user: current_user)
       @booking = Booking.new
-      render :index
+      @lessons = Lesson.where(user: current_user).where("date >= ?", Time.now).order('date DESC')
+      @message = Message.new
+      @friends = current_user.my_friends
+      render "lessons/index"
     end
   end
 
   def accept_invitation
+    # verifier assez de crédit
     @booking = Booking.find(params[:booking_id])
     @booking.status = "confirmé"
     authorize @booking
     @booking.save
     @lesson = @booking.lesson
-    if @lesson.bookings.where(status: "confirmé").count == 2 && @booking.lesson.user.nil?
+    if @lesson.bookings.where(status: "confirmé").count == 5 && @booking.lesson.user.nil?
       User.where(coach: true).each do |user|
         mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
         mail.deliver_now
@@ -44,14 +48,24 @@ class BookingsController < ApplicationController
       @booking.user = current_user
       authorize @booking
       @booking.save
-      if @lesson.bookings.where(status: "confirmé").count == 2 && @booking.lesson.user.nil?
+      if @lesson.bookings.where(status: "confirmé").count == 5 && @booking.lesson.user.nil?
         User.where(coach: true).each do |user|
           mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
           mail.deliver_now
         end
+      elsif @lesson.bookings.where(status: "confirmé").count == 5 && !@booking.lesson.user.nil?
+        @lesson.status = "validée"
+        @lesson.save
       end
       redirect_to lessons_path
     end
+  end
+
+  def destroy
+    @booking = Booking.find(params[:id])
+    authorize @booking
+    @booking.destroy
+    redirect_to lessons_path
   end
 
   private

@@ -1,5 +1,6 @@
 <div class="container">
-  <div class="card-messages card-blue px-4 pt-4 mb-3" id="messages-<%= @lesson.id %>" style="background-image: url(<%= asset_path 'background1.png' %>);">
+  <%= link_to "Retour", lessons_path, class:'btn-kotch btn-red btn-extra-small mb-5'  %>
+  <div class="card-messages card-blue px-4 pt-4 mb-3 mt-3" id="messages-<%= @lesson.id %>" style="background-image: url(<%= asset_path 'background1.png' %>);">
     <p><%= @lesson.sport_type %></p>
     <% @messages&.each do |message| %>
         <%= render 'message', message: message, lesson: @lesson %>

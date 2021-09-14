@@ -21,7 +21,7 @@ class FriendRequestsController < ApplicationController
         @my_friend_requests_as_receiver = FriendRequest.where(receiver: current_user).where(status: "pending")
         @my_friends = current_user.friendships
         render 'friendships/index'
-        flash[:alert] = "Cet email ne correspond à aucun de nos utilisateurs Koach."
+        flash[:alert] = "Cet email ne correspond à aucun des utilisateurs de Koach & Co."
       end
     end
   end

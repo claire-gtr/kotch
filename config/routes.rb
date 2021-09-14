@@ -25,12 +25,14 @@ Rails.application.routes.draw do
   get 'sportive-profile/:id', to:'users#sportive_profile', as: :sportive_profile
   get 'faq', to: "pages#faq", as: :faq
   get 'forum', to: "pages#forum", as: :forum
+  get 'abonnements', to: "pages#offers", as: :offers
   resources :subjects, only: [:new, :create, :show] do
     resources :answers, only: [:create]
   end
   resources :pack_orders, only: [:show, :create] do
     resources :payments, only: :new
   end
+  resources :customer_portal_sessions, only: [:create]
   mount StripeEvent::Engine, at: '/stripe-webhooks'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

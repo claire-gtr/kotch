@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  has_one :subscription
+
   has_many :bookings
   has_many :lessons
   has_many :friend_requests_as_requestor, foreign_key: :requestor_id, class_name: :FriendRequest
@@ -34,6 +36,7 @@ class User < ApplicationRecord
   validates :level, inclusion: { in: levels.keys }, allow_nil: true
   validates :intensity, inclusion: { in: intensities.keys }, allow_nil: true
   validates :expectations, inclusion: { in: expectations.keys }, allow_nil: true
+  after_create :create_empty_sub
 
   def friendships
       self.friendships_as_friend_a + self.friendships_as_friend_b
@@ -61,5 +64,11 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name.capitalize} #{last_name.upcase}"
+  end
+
+  def create_empty_sub
+    s = Subscription.new
+    s.user = self
+    s.save
   end
 end

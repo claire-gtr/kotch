@@ -56,7 +56,13 @@
               <td class='py-2'><%= lesson.date.strftime('%d/%m/%Y') %></td>
               <td class='py-2'><%= lesson.date.strftime('%H:%M') %></td>
               <td class='py-2'><%= lesson.location.name %></td>
-              <td class='py-2'><%= lesson.status %></td>
+              <td class='py-2'>
+                <% if lesson.status == "effectuée" || lesson.status == "non effectuée" %>
+                <%= lesson.status.capitalize %>
+                <% else %>
+                <%= link_to "Effectuée", lesson_done_path(lesson), class:'pill pill-green' %><%= link_to "Non effectuée", lesson_not_done_path(lesson), class:'pill pill-red' %>
+                <% end %>
+                </td>
               <td class='py-2'><%= lesson.bookings.count %> participant(s)</td>
             </tr>
           <% end %>

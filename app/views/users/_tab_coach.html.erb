@@ -86,9 +86,15 @@
                     </button>
                   </div>
                   <div class="modal-body">
+                    <h5>PARTICIPANTS</h5>
                     <% lesson.bookings.each do |booking| %>
                       <ul>
-                        <li><%= booking.user.first_name %></li>
+                        <li class="d-flex justify-content-between">
+                          <span><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></span>
+                          <%= link_to sportive_profile_path(booking.user) do %>
+                            <i class="fas fa-paper-plane pr-5"></i>
+                          <% end %>
+                        </li>
                       </ul>
                     <% end %>
                   </div>

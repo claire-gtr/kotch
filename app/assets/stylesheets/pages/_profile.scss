@@ -29,8 +29,13 @@
 .participants-modal {
   background-color: $coral-kotch;
 
-  h3,
+  h5,
   li {
+    color: $blue-kotch;
+    font-weight: 600;
+  }
+
+  h3 {
     color: white;
     font-weight: 500;
   }

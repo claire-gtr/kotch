@@ -3,17 +3,18 @@
 }
 
 .profile-box-bg {
+  background-color: #F4F6FF;
+  // background: linear-gradient(90deg, rgba(244,246,255,1) 0%, rgba(219,225,254,1) 100%);
   background-image: url(background1.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 @media only screen and (max-width: 600px) {
   .profile-box {
     height: auto;
-    overflow: scroll;
   }
 
   .profile-box-bg {

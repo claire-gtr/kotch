@@ -119,3 +119,17 @@
   top: 40px;
   right:-30px;
 }
+
+.banner-home-disconnected {
+  height: 70vh;
+  margin-top: 140px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: 400px;
+  }
+}

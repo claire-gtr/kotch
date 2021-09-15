@@ -15,6 +15,12 @@ class StripeMailer < ApplicationMailer
     mail(to: @user.email, subject: "Votre abonnement Koach & co ")
   end
 
+  def customer_bought_credits
+    @user = params[:user]
+    @pack_order = params[:pack_order]
+    mail(to: @user.email, subject: "Votre achat sur Koach & co ")
+  end
+
   # def invoice_payment_failed
   #   @user = params[:user]
   #   mail(to: @user.email, subject: "Votre paiement n'a pas fonctionné")

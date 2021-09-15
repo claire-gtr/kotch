@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :home, :faq, :forum ]
+  skip_before_action :authenticate_user!, only: [ :home, :faq, :forum, :offers ]
 
   def home
   end
@@ -12,28 +12,30 @@ class PagesController < ApplicationController
   end
 
   def offers
-    prices = [
-      { name: "4 séances / mois", price: "30€", id: ENV['PRICE_4_CLASSES'] },
-      { name: "8 séances / mois", price: "60€", id: ENV['PRICE_8_CLASSES'] },
-      { name: "12 séances / mois", price: "90€", id: ENV['PRICE_12_CLASSES'] }
-    ]
+    if current_user
+      prices = [
+        { name: "4 séances / mois", price: "30€", id: ENV['PRICE_4_CLASSES'] },
+        { name: "8 séances / mois", price: "60€", id: ENV['PRICE_8_CLASSES'] },
+        { name: "12 séances / mois", price: "90€", id: ENV['PRICE_12_CLASSES'] }
+      ]
 
-    @prices_and_sessions = prices.map do |price|
-      session = Stripe::Checkout::Session.create({
-        payment_method_types: ['card'],
-        line_items: [{
-          price: price[:id],
-          quantity: 1
-        }],
-        mode: 'subscription',
-        success_url: ENV['SUCCESS_URL_STRIPE'],
-        cancel_url: root_url,
-        client_reference_id: current_user.id,
-        customer: find_or_create_stripe_customer_id
-      })
-      checkout_id = session.id
+      @prices_and_sessions = prices.map do |price|
+        session = Stripe::Checkout::Session.create({
+          payment_method_types: ['card'],
+          line_items: [{
+            price: price[:id],
+            quantity: 1
+          }],
+          mode: 'subscription',
+          success_url: ENV['SUCCESS_URL_STRIPE'],
+          cancel_url: root_url,
+          client_reference_id: current_user.id,
+          customer: find_or_create_stripe_customer_id
+        })
+        checkout_id = session.id
 
-      { name: price[:name], price: price[:price], checkout_id: checkout_id }
+        { name: price[:name], price: price[:price], checkout_id: checkout_id }
+      end
     end
   end
 

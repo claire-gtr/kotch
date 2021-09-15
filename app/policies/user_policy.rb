@@ -17,6 +17,10 @@ class UserPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def coach_validation?
+    user.admin?
+  end
+
   def sportive_profile?
     coachs = []
     record.bookings.each do |booking|

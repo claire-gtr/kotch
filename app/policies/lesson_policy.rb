@@ -1,7 +1,7 @@
 class LessonPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.coach
+      if user.coach && user.validated_coach
         scope.where(user: user).where("date >= ?", Time.now)
       elsif !user.coach
         ids = []
@@ -18,7 +18,11 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    if (user.coach && !user.validated_coach)
+      false
+    else
+      true
+    end
   end
 
   def change_lesson_public?

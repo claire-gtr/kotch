@@ -37,6 +37,8 @@ class PagesController < ApplicationController
     end
   end
 
+  def our_offers; end
+
   private
 
   def find_or_create_stripe_customer_id

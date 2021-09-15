@@ -2,7 +2,7 @@
 
   <h2 class="my-5">SÉLECTIONNEZ L’ABONNEMENT QUI VOUS CONVIENT</h2>
 
-  <% if user_signed_in? && current_user.subscription.stripe_id %>
+  <% if user_signed_in? && current_user.subscription && current_user.subscription.stripe_id %>
 
     <form action="/customer_portal_sessions" method="POST">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">

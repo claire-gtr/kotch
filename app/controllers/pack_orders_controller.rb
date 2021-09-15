@@ -17,7 +17,7 @@ class PackOrdersController < ApplicationController
         quantity: 1
       }],
       success_url: pack_order_url(pack_order),
-      cancel_url: pack_order_url(pack_order)
+      cancel_url: offers_url
     )
 
     pack_order.update(checkout_session_id: session.id)

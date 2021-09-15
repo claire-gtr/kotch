@@ -25,6 +25,14 @@ class LessonPolicy < ApplicationPolicy
     end
   end
 
+  def cancel?
+    if record.user == user
+      true
+    else
+      false
+    end
+  end
+
   def change_lesson_public?
     true
   end

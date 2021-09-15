@@ -6,6 +6,7 @@ class LessonsController < ApplicationController
     @message = Message.new
     @friends = current_user.my_friends
     @booking = Booking.new
+    @pending_invitations = Booking.where(status: "invitation send", user: current_user)
 
   end
 
@@ -45,15 +46,24 @@ class LessonsController < ApplicationController
           render :new
         end
       else
-        @booking = Booking.new
-        @booking.user = current_user
-        @booking.lesson = @lesson
-        @booking.status = "confirmé"
-        @booking.save
-        if @lesson.save
-          redirect_to profile_path
+        has_credit = current_user.has_credit(@lesson.date)
+        if has_credit[:has_credit] == true
+          @booking = Booking.new
+          @booking.user = current_user
+          @booking.lesson = @lesson
+          @booking.status = "confirmé"
+          if has_credit[:origin] == 'credit'
+            @booking.used_credit = true
+          end
+          @booking.save
+          if @lesson.save
+            redirect_to profile_path
+          else
+            render :new
+          end
         else
-          render :new
+          flash[:alert] = "Vous n'avez pas de crédit pour réserver une leçon ce mois-ci."
+          redirect_to offers_path
         end
       end
     end
@@ -74,15 +84,6 @@ class LessonsController < ApplicationController
       redirect_to root_path
     else
       @lessons = Lesson.where(public: true).where("date >= ?", Time.now).order('date DESC')#.where("date >= ?", Time.now)
-      # if current_user.coach
-      #   @lessons = []
-      #   Lesson.all.each do |lesson|
-      #     if lesson.bookings.any? && lesson.bookings.where(status: "confirmé").count >= 5
-      #       @lessons << lesson
-      #     end
-      #   end
-      # else
-      # end
     end
   end
 

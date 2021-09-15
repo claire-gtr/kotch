@@ -71,4 +71,27 @@ class User < ApplicationRecord
     s.user = self
     s.save
   end
+
+  def has_credit(lesson_date)
+    subscription = self.subscription
+    bookings_count = 0
+    if subscription.active?
+      lessons_included = subscription.nickname.first(2).to_i
+      first_day_of_month = lesson_date.beginning_of_month
+      last_day_of_month = lesson_date.end_of_month
+      self.bookings.where(status: 'confirmé').each do |b|
+        if b.lesson.date.to_date >= first_day_of_month && b.lesson.date.to_date <= last_day_of_month
+          bookings_count += 1
+        end
+      end
+      return {has_credit: true, origin: "subscription"} if bookings_count < lessons_included
+    end
+
+    if self.credit_count > 0
+      self.update(credit_count: credit_count - 1)
+      return {has_credit: true, origin: "credit"}
+    end
+
+    {has_credit: false, origin: ""}
+  end
 end

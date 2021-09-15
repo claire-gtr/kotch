@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :home, :faq, :forum ]
+  skip_before_action :authenticate_user!, only: [ :home, :faq, :forum, :our_offers ]
 
   def home
   end
@@ -36,6 +36,8 @@ class PagesController < ApplicationController
       { name: price[:name], price: price[:price], checkout_id: checkout_id }
     end
   end
+
+  def our_offers; end
 
   private
 

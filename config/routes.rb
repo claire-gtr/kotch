@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'public-lessons', to: 'lessons#public_lessons', as: :public_lessons
   get 'lesson-done/:id', to: 'lessons#lesson_done', as: :lesson_done
   get 'lesson-not-done/:id', to: 'lessons#lesson_not_done', as: :lesson_not_done
+  patch 'cancel-lesson/:id', to: 'lessons#cancel', as: :cancel_lesson
 
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail

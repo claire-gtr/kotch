@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
 
   def index
     @lessons = policy_scope(Lesson)
-    @lessons = @lessons.order('date DESC')
+    @lessons = @lessons.where.not(status: 'canceled').order('date DESC')
     @message = Message.new
     @friends = current_user.my_friends
     @booking = Booking.new
@@ -69,6 +69,18 @@ class LessonsController < ApplicationController
     end
   end
 
+  def cancel
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson
+    @lesson.bookings.each do |b|
+      if b.used_credit
+        b.user.update(credit_count: b.user.credit_count + 1)
+      end
+      b.destroy
+    end
+    @lesson.update(status: 'canceled')
+  end
+
   def change_lesson_public
     @lesson = Lesson.find(params[:id])
     authorize @lesson
@@ -83,7 +95,7 @@ class LessonsController < ApplicationController
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else
-      @lessons = Lesson.where(public: true).where("date >= ?", Time.now).order('date DESC')#.where("date >= ?", Time.now)
+      @lessons = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')#.where("date >= ?", Time.now)
     end
   end
 

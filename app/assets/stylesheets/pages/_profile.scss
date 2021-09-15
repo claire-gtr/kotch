@@ -1,6 +1,5 @@
 .profile-box {
   height: 82vh;
-  overflow: scroll;
 }
 
 .profile-box-bg {
@@ -8,4 +7,16 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
+  overflow-y: scroll;
+}
+
+@media only screen and (max-width: 600px) {
+  .profile-box {
+    height: auto;
+    overflow: scroll;
+  }
+
+  .profile-box-bg {
+    height: 82vh;
+  }
 }

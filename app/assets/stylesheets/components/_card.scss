@@ -108,10 +108,16 @@
 
 .card-offer-lightblue {
   background-color: $light-blue-kotch;
+  overflow: hidden;
 
-  h3, span {
-    color: $coral-kotch !important;
+  .offer-content {
+    z-index: 1000;
+    
+    h3, span {
+      color: $coral-kotch !important;
+    }
   }
+
   .offer-img-bg {
     width: 28em;
     z-index: 100;

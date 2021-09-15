@@ -90,6 +90,7 @@
 
   .offer-content {
     @include centerer(true, false);
+    z-index: 1000;
     width: 75%;
 
     h3, span {
@@ -111,7 +112,7 @@
   overflow: hidden;
 
   .offer-content {
-    z-index: 1000;
+    // z-index: 1000;
 
     h3, span {
       color: $coral-kotch !important;

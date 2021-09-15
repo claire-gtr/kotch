@@ -7,11 +7,11 @@
 .profile-box {
   height: 82vh;
 
-  a {
+  .msg {
     text-decoration: underline;
   }
 
-  a:hover {
+  .msg:hover {
     color: $coral-kotch;
   }
 }

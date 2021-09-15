@@ -23,7 +23,7 @@
             <span class="text-light-blue">0/2 coachings efectués</span><br>
             <%= link_to "Messages", 
             lesson_messages_path(current_user.bookings[-1].lesson_id), 
-            class: "text-light-blue" %>
+            class: "text-light-blue msg" %>
           </div>
         <% end %>
         <div class="text-left mt-4 <%= current_user.coach ? "text-white" : "text-blue" %> font-condensed profile-info">

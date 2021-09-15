@@ -81,6 +81,7 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(params[:id])
+    @booking.user.update(credit_count: @booking.user.credit_count + 1) if @booking.used_credit
     authorize @booking
     @booking.destroy
     redirect_to lessons_path

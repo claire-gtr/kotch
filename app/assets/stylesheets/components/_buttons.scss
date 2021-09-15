@@ -141,3 +141,19 @@ a:hover {
 .text-deco-none:hover {
   text-decoration:none !important;
 }
+
+.btn-white {
+  background-color: white;
+  color: $blue-kotch;
+}
+
+.btn-white-offer {
+  font-size: 24px;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.btn-red-offer {
+  padding: 1em 2em;
+}
+

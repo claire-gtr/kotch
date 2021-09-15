@@ -1,44 +1,54 @@
-<div class="container">
-  <h1>SÉLECTIONNEZ L’ABONNEMENT QUI VOUS CONVIENT</h1>
+<div class="container text-center">
+  <h1 class="my-5">SÉLECTIONNEZ L’ABONNEMENT QUI VOUS CONVIENT</h1>
 
-  <div class="row">
-    <div class="col-4">
-      <h3>4 séances / mois</h3>
-      <p>sans engagement</p>
-      <p>X€ / MOIS</p>
-      <p>CHOISIR</p>
+  <div class="d-flex justify-content-between">
+    <div class="card-offer">
+      <div class="offer-content">
+        <h3>4 séances / mois</h3>
+        <span><u>sans engagement</u></span>
+        <p class="btn-kotch btn-white btn-white-offer my-4">X€ / MOIS</p>
+        <%= link_to 'CHOISIR', '#', class: "btn btn-kotch btn-red btn-red-offer" %>
+      </div>
     </div>
     
-    <div class="col-4">
-      <h3>8 séances / mois</h3>
-      <p>sans engagement</p>
-      <p>X€ / MOIS</p>
-      <p>CHOISIR</p>
+    <div class="card-offer">
+      <div class="offer-content">
+        <h3>8 séances / mois</h3>
+        <span><u>sans engagement</u></span>
+        <p class="btn-kotch btn-white btn-white-offer my-4">X€ / MOIS</p>
+        <%= link_to 'CHOISIR', '#', class: "btn btn-kotch btn-red btn-red-offer" %>
+      </div>
     </div>
 
-    <div class="col-4">
-      <h3>12 séances / mois</h3>
-      <p>sans engagement</p>
-      <p>X€ / MOIS</p>
-      <p>CHOISIR</p>
+    <div class="card-offer">
+      <div class="offer-content">
+        <h3>12 séances / mois</h3>
+        <span><u>sans engagement</u></span>
+        <p class="btn-kotch btn-white btn-white-offer my-4">X€ / MOIS</p>
+        <%= link_to 'CHOISIR', '#', class: "btn btn-kotch btn-red btn-red-offer" %>
+      </div>
     </div>
   </div>
 
-  <h1>OU BIEN PROFITEZ DE SÉANCES À L’UNITÉ</h1>
+  <h1 class="my-5">OU BIEN PROFITEZ DE SÉANCES À L’UNITÉ</h1>
 
-  <div class="row">
-    <div class="col-6">
-      <h3>Carte 1 séance</h3>
-      <p>valable xx jours</p>
-      <p>X€ / MOIS</p>
-      <p>CHOISIR</p>
+  <div class="d-flex justify-content-around">
+    <div class="card-offer">
+      <div class="offer-content">
+        <h3>Carte 1 séance</h3>
+        <p>valable xx jours</p>
+        <p class="btn-kotch btn-white btn-white-offer my-4">X€ / MOIS</p>
+        <%= link_to 'CHOISIR', '#', class: "btn btn-kotch btn-red btn-red-offer" %>
+      </div>
     </div>
 
-    <div class="col-6">
-      <h3>Carte 10 séance</h3>
-      <p>valable xx jours</p>
-      <p>X€ / MOIS</p>
-      <p>CHOISIR</p>
+    <div class="card-offer">
+      <div class="offer-content">
+        <h3>Carte 10 séance</h3>
+        <p>valable xx jours</p>
+        <p class="btn-kotch btn-white btn-white-offer my-4">X€ / MOIS</p>
+        <%= link_to 'CHOISIR', '#', class: "btn btn-kotch btn-red btn-red-offer" %>
+      </div>
     </div>
   </div>
 </div>

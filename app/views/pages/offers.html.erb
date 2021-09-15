@@ -3,22 +3,29 @@
     <div class="col">
       <h1 class='my-5 text-center'>Nos offres</h1>
       <h2>Abonnements</h2>
-      <% @prices_and_sessions.each do |ps| %>
-        <div class="col-12 col-lg-4">
-          <div class="mx-auto">
-            <div class="text-center">
-              <h3 class="mb-0">Abonnement <%= ps[:name] %></h3>
-            </div>
-            <div class="text-center">
-              <div class="my-2">
-                <%= ps[:price] %>
+      <% if user_signed_in? && current_user.subscription.stripe_id %>
+        <form action="/customer_portal_sessions" method="POST">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <button class="btn btn-primary btn-ee">Gérer mon abonnement</button>
+  </form>
+      <% else %>
+        <% @prices_and_sessions.each do |ps| %>
+          <div class="col-12 col-lg-4">
+            <div class="mx-auto">
+              <div class="text-center">
+                <h3 class="mb-0">Abonnement <%= ps[:name] %></h3>
               </div>
-              <button class="btn btn-primary my-3 checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
-                  JE M'ABONNE
-              </button>
+              <div class="text-center">
+                <div class="my-2">
+                  <%= ps[:price] %>
+                </div>
+                <button class="btn btn-primary my-3 checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
+                    JE M'ABONNE
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
 

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations"}
   root to: 'pages#home'
   get '/mon-profil', to: 'users#profile', as: :profile
   resources :lessons, only: [:index, :new, :create]  do

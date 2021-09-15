@@ -1,0 +1,14 @@
+.card-offer-container {
+  display: flex;
+}
+
+@media screen and (max-width: 1024px){
+  .card-offer-container {
+    flex-direction: column;
+    position: relative;
+
+    .card-offer {
+      margin: 2em auto;
+    }
+  }
+}

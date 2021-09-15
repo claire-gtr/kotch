@@ -27,6 +27,9 @@ class PagesController < ApplicationController
             quantity: 1
           }],
           mode: 'subscription',
+          discounts: [{
+            coupon: current_user.coupon,
+          }],
           success_url: ENV['SUCCESS_URL_STRIPE'],
           cancel_url: root_url,
           client_reference_id: current_user.id,

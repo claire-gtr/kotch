@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
   resources :locations, only: [:create]
+  resources :partners, only: [:create]
   resources :friendships, only: :index
   resources :friend_requests, only: [:create, :update]
   resources :bookings, only: [:index, :create, :destroy]

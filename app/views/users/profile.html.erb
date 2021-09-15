@@ -17,13 +17,16 @@
         <% if current_user.coach %>
           <div class="text-left mt-4">
             <p class="d-flex justify-content-between">
-              <i><span class="text-coral"><%= Date.today.strftime('%d/%m/%Y') %></span></i>
-              <i><span class="text-coral"><%= Date.today.strftime('%H:%M') %></span></i>
+              <i><span class="text-coral"><%= Date.today.strftime('%a %d/%m/%Y') %></span></i>
+              <i><span class="text-coral"><%= Time.now.strftime('%H:%M') %></span></i>
             </p>
-            <span class="text-light-blue">0/2 coachings efectués</span><br>
-            <%= link_to "Messages", 
-            lesson_messages_path(current_user.bookings[-1].lesson_id), 
-            class: "text-light-blue msg" %>
+            <span class="text-light-blue"><%= @coachings_in_past.count %>/<%= @bookings.count %> coachings efectués</span><br>
+            <div class="d-flex">
+              <%= link_to "Messages", 
+              lesson_messages_path(current_user.bookings[-1].lesson_id), 
+              class: "text-light-blue msg" %>
+              <div class="msg-icon"><p><%= rand(0..5) %></p></div>
+            </div>
           </div>
         <% end %>
         <div class="text-left mt-4 <%= current_user.coach ? "text-white" : "text-blue" %> font-condensed profile-info">

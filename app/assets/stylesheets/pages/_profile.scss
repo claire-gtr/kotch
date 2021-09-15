@@ -88,3 +88,17 @@
 .modal-content {
   border: none;
 }
+
+.msg-icon {
+  width: 14px;
+  height: 14px;
+  background-color: $coral-kotch;
+  border-radius: 50%;
+  margin-left: -5px;
+
+  p {
+    font-size: 12px;
+    padding-left: 0.4em;
+    margin-top: -.2em;
+  }
+}

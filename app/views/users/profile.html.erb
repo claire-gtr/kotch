@@ -21,9 +21,9 @@
               <i><span class="text-coral"><%= Date.today.strftime('%H:%M') %></span></i>
             </p>
             <span class="text-light-blue">0/2 coachings efectués</span><br>
-            <% if current_user.bookings.any? %>
+            <% if current_user.lessons.any? %>
               <%= link_to "Messages",
-            lesson_messages_path(current_user.bookings[-1].lesson_id),
+            lessons_path,
             class: "text-light-blue" %>
             <% end %>
           </div>

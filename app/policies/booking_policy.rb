@@ -16,4 +16,8 @@ class BookingPolicy < ApplicationPolicy
   def public_lesson_booking?
     true
   end
+
+  def destroy?
+    record.user == user
+  end
 end

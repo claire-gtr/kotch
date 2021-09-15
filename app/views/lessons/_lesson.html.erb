@@ -1,5 +1,14 @@
 <div class="card-white shadow d-flex justify-content-between p-4 mb-3">
   <div>
+    <% if lesson.status == "pending" || lesson.status == "canceled" %>
+      <div class="pill pill-red text-center mt-3">
+        <%= lesson.status %>
+      </div>
+    <% elsif lesson.status == 'validée' %>
+      <div class="pill pill-green text-center mt-3">
+        <%= lesson.status %>
+      </div>
+    <% end %>
     <% if lesson.user_id %>
       <p class="mb-0 text-blue text-bold text-condensed text-small">Avec coach <%= lesson.user.first_name %></p>
     <% else %>
@@ -41,15 +50,15 @@
         </div>
       </div>
     </div>
-    <% if lesson.status == "pending" || "canceled" %>
-      <div class="pill pill-red text-center mt-3">
-        <%= lesson.status %>
-      </div>
-    <% elsif booking.lessons.status == 'confirmé' %>
-      <div class="pill pill-green text-center mt-3">
-        <%= lesson.status %>
-      </div>
-    <% end %>
+    <div>
+      <% if lesson.diff_time >= DateTime.now %>
+        <% if !current_user.coach %>
+          <%= link_to "Annuler ma réservation à cette séance", booking_path(Booking.find_by(user: current_user, lesson: lesson)), method: :delete, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}  %>
+        <% end %>
+      <% else %>
+        <p class="text-blue mb-0 text-small text-condensed">Cette séance a lieu dans moins de 24h, vous ne pouvez pas l'annuler.</p>
+      <% end %>
+    </div>
     <%= link_to "messages", lesson_messages_path(lesson)  %>
   </div>
   <div class="d-flex flex-column justify-content-between text-right">

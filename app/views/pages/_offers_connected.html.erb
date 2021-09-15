@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class='my-5 text-center'>Nos offres</h1>
+      <h2>Abonnements</h2>
+      <% if user_signed_in? && current_user.subscription.stripe_id %>
+        <form action="/customer_portal_sessions" method="POST">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <button class="btn btn-primary btn-ee">Gérer mon abonnement</button>
+  </form>
+      <% else %>
+        <% @prices_and_sessions.each do |ps| %>
+          <div class="col-12 col-lg-4">
+            <div class="mx-auto">
+              <div class="text-center">
+                <h3 class="mb-0">Abonnement <%= ps[:name] %></h3>
+              </div>
+              <div class="text-center">
+                <div class="my-2">
+                  <%= ps[:price] %>
+                </div>
+                <button class="btn btn-primary my-3 checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
+                    JE M'ABONNE
+                </button>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+
+      <h2>Achats one shot</h2>
+    <div>
+      <%= link_to "10 jours MOFO", pack_orders_path(pack_number: 0), method: :post, class: "btn btn-primary" %>
+    </div>
+    <div>
+      <%= link_to "1 jour MOFO", pack_orders_path(pack_number: 1), method: :post, class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>
+<script src="https://js.stripe.com/v3/"></script>
+
+
+<script>
+  var stripe = Stripe("<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>");
+
+  var checkoutButtons = document.querySelectorAll('.checkout-button');
+  checkoutButtons.forEach(checkoutButton => {
+    checkoutButton.addEventListener('click', function () {
+      stripe.redirectToCheckout({
+        sessionId: checkoutButton.dataset.sessionId
+      })
+      .then(function (result) {
+        if (result.error) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer.
+          var displayError = document.getElementById('error-message');
+          displayError.textContent = result.error.message;
+        }
+      });
+    });
+  });
+
+</script>

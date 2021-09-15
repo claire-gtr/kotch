@@ -85,7 +85,7 @@
   width: 19em;
   background-color: $blue-kotch;
   padding: 3em 0;
-  border-radius: 8px;
+  border-radius: 16px;
   text-align: center;
 
   .offer-content {
@@ -112,7 +112,7 @@
 
   .offer-content {
     z-index: 1000;
-    
+
     h3, span {
       color: $coral-kotch !important;
     }

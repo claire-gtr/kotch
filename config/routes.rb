@@ -29,7 +29,6 @@ Rails.application.routes.draw do
   get 'faq', to: "pages#faq", as: :faq
   get 'forum', to: "pages#forum", as: :forum
   get 'abonnements', to: "pages#offers", as: :offers
-  get 'offres', to: "pages#our_offers", as: :our_offers
   resources :subjects, only: [:new, :create, :show] do
     resources :answers, only: [:create]
   end

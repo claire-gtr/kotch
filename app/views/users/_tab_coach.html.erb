@@ -31,7 +31,10 @@
               <td class='py-2'><%= lesson.date.strftime('%H:%M') %></td>
               <td class='py-2'><%= lesson.location.name %></td>
               <td class='py-2'><%= lesson.status %></td>
-              <td class='py-2'><%= lesson.bookings.count %> participant(s)</td>
+              <td class='py-2'>
+                <%= lesson.bookings.count %> participant(s)
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#participantsModal">+</button>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -63,7 +66,10 @@
                 <%= link_to "Effectuée", lesson_done_path(lesson), class:'pill pill-green' %><%= link_to "Non effectuée", lesson_not_done_path(lesson), class:'pill pill-red' %>
                 <% end %>
                 </td>
-              <td class='py-2'><%= lesson.bookings.count %> participant(s)</td>
+              <td class='py-2'>
+                <%= lesson.bookings.count %> participant(s)
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#participantsModal">+</button>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -75,8 +81,33 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="participantsModal" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="participantsModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#participantsModal">+</button>
+<%# ^^^ REMOVE ! Button here just for testing ^^^ %>
+
 <%#
 REFERENCES FOR CSS CLASSES
 
 .profile-box                              => pages/_profile.scss
+#participants-modal                       => pages/_profile.scss
 %>

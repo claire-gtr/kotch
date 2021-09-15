@@ -6,6 +6,14 @@
 
 .profile-box {
   height: 82vh;
+
+  a {
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: $coral-kotch;
+  }
 }
 
 .profile-box-bg {

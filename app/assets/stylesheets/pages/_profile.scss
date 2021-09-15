@@ -29,10 +29,33 @@
 .participants-modal {
   background-color: $coral-kotch;
 
+  .bullet {
+    font-size: 70px;
+    line-height: 0;
+    margin-left: 10px;
+  }
+  
+  span:nth-child(odd) {
+    color: $light-blue-kotch;
+  }
+  
+  span:nth-child(even) {
+    color: $blue-kotch;
+  }  
+
+  ul {
+    list-style: none;
+  }
+  
   h5,
   li {
     color: $blue-kotch;
     font-weight: 600;
+  }
+
+  li,
+  i {
+    font-size: 16px;
   }
 
   h3 {
@@ -46,7 +69,6 @@
     letter-spacing: -1.5px;
   }
 }
-
 
 .modal-header,
 .modal-content {

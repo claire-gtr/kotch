@@ -6,10 +6,18 @@ class FriendRequestPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    if user.coach?
+      false
+    else
+      true
+    end
   end
 
   def update?
-    true
+    if user.coach?
+      false
+    else
+      true
+    end
   end
 end

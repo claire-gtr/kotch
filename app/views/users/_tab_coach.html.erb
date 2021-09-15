@@ -37,7 +37,32 @@
               </td>
             </tr>
             <!-- Modal -->
-
+            <div class="modal fade" id="modal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content participants-modal">
+                  <div class="modal-header d-flex">
+                    <h3 class="modal-title" id="participantsModalLabel"><%= lesson.sport_type.upcase %></h3>
+                    <p><i><%= lesson.date.strftime("%d/%m/%Y") %></i></p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h5 class="my-3">PARTICIPANTS</h5>
+                    <% lesson.bookings.each do |booking| %>
+                      <span><div class="bullet">• &nbsp</div>
+                      <ul class="d-flex justify-content-between">
+                        <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
+                        <%= link_to sportive_profile_path(booking.user) do %>
+                          <i class="fas fa-paper-plane pr-5"></i>
+                        <% end %>
+                      </ul>
+                      </span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- End modal -->
           <% end %>
         </tbody>

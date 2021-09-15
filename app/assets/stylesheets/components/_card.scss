@@ -96,4 +96,20 @@
       color: white;
     }
   }
+
+  .offer-img-sm {
+    width: 32em;
+    z-index: 100;
+    position: absolute;
+    top: 15.5em;
+    right: -8em;
+  }
+
+  .offer-img-bg {
+    width: 28em;
+    z-index: 100;
+    position: absolute;
+    top: 13em;
+    right: -4.5em;
+  }
 }

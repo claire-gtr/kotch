@@ -29,7 +29,21 @@
 .participants-modal {
   background-color: $coral-kotch;
 
-  .modal-header {
-    border: none;
+  h3,
+  li {
+    color: white;
+    font-weight: 500;
   }
+
+  p {
+    color: white;
+    margin: auto;
+    letter-spacing: -1.5px;
+  }
+}
+
+
+.modal-header,
+.modal-content {
+  border: none;
 }

@@ -23,6 +23,25 @@
 
   <div class="row mt-5">
     <div class="col">
+      <h5 class='text-blue'><strong>Gérer les coachs</strong></h5>
+      <div>
+        <%= simple_form_for :user, url: coach_validation_path, method: :patch do |f| %>
+            <%= f.input :id, collection: @non_validated_coachs, label_method: :full_name, value_method: :id, label: false
+            %>
+            <%= submit_tag "Valider ce coach", class: "btn btn-kotch btn-blue" %>
+        <% end %>
+      </div>
+      <h5 class='mt-4 text-blue'> Coach validés :</h5>
+      <% @coachs.each do |user| %>
+        <div class="d-flex">
+          <p class='mb-0 mr-3 text-blue'><%= user.full_name%></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
       <h5 class='text-blue'><strong>Gérer les lieux</strong></h5>
       <div>
         <%= simple_form_for :location, url: locations_path, method: :post do |f| %>

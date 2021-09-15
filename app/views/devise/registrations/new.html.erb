@@ -13,10 +13,10 @@
             <%= f.input :gender, as: :radio_buttons, collection: User.genders.keys.map { |m| [I18n.t("gender.#{m}"), m] }, legend_tag: false %>
             <div class="row">
               <div class="col-6">
-                <%= f.input :last_name, label: false, required: true, %>
+                <%= f.input :last_name, label: false, required: true %>
               </div>
               <div class="col-6">
-                <%= f.input :first_name, label: false, required: true, %>
+                <%= f.input :first_name, label: false, required: true %>
               </div>
             </div>
             <div class="row">

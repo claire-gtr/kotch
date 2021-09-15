@@ -161,3 +161,11 @@ a:hover {
   box-shadow: 6px 6px 18px 5px rgba(0,0,0,0.22);
 }
 
+.btn-plus,
+.btn-plus:hover,
+.btn-plus:focus,
+.btn-plus:active {
+  background-color: transparent;
+  color: $blue-kotch;
+  border: none;
+}

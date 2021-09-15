@@ -1,3 +1,9 @@
+.profile-info {
+  position: absolute;
+  bottom: 15px;
+  padding-right: 22px;
+}
+
 .profile-box {
   height: 82vh;
 }
@@ -24,4 +30,53 @@
   .profile-box-bg {
     height: 82vh;
   }
+}
+
+.participants-modal {
+  background-color: $coral-kotch;
+
+  .bullet {
+    font-size: 70px;
+    line-height: 0;
+    margin-left: 10px;
+  }
+  
+  span:nth-child(odd) {
+    color: $light-blue-kotch;
+  }
+  
+  span:nth-child(even) {
+    color: $blue-kotch;
+  }  
+
+  ul {
+    list-style: none;
+  }
+  
+  h5,
+  li {
+    color: $blue-kotch;
+    font-weight: 600;
+  }
+
+  li,
+  i {
+    font-size: 16px;
+  }
+
+  h3 {
+    color: white;
+    font-weight: 500;
+  }
+
+  p {
+    color: white;
+    margin: auto;
+    letter-spacing: -1.5px;
+  }
+}
+
+.modal-header,
+.modal-content {
+  border: none;
 }

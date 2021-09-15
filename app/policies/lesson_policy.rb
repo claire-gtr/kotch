@@ -6,7 +6,9 @@ class LessonPolicy < ApplicationPolicy
       elsif !user.coach
         ids = []
         user.bookings.each do |booking|
-          ids << booking.lesson_id
+          unless booking.status == "invitation send"
+            ids << booking.lesson_id
+          end
         end
         scope.where(id: ids)
       else

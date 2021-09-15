@@ -13,6 +13,7 @@ class PackOrdersController < ApplicationController
       line_items: [{
         name: chosen_pack[:name],
         amount: chosen_pack[:amount],
+        promotion_code: 'sTDkk2L5',
         currency: 'eur',
         quantity: 1
       }],

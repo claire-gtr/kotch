@@ -1,44 +1,59 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h1 class='my-5 text-center'>Nos offres</h1>
-      <h2>Abonnements</h2>
-      <% if user_signed_in? && current_user.subscription.stripe_id %>
-        <form action="/customer_portal_sessions" method="POST">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <button class="btn btn-primary btn-ee">Gérer mon abonnement</button>
-  </form>
-      <% else %>
-        <% @prices_and_sessions.each do |ps| %>
-          <div class="col-12 col-lg-4">
-            <div class="mx-auto">
-              <div class="text-center">
-                <h3 class="mb-0">Abonnement <%= ps[:name] %></h3>
-              </div>
-              <div class="text-center">
-                <div class="my-2">
-                  <%= ps[:price] %>
-                </div>
-                <button class="btn btn-primary my-3 checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
-                    JE M'ABONNE
-                </button>
-              </div>
-            </div>
+<div class="container text-center">
+
+  <h2 class="my-5">SÉLECTIONNEZ L’ABONNEMENT QUI VOUS CONVIENT</h2>
+
+  <% if user_signed_in? && current_user.subscription.stripe_id %>
+
+    <form action="/customer_portal_sessions" method="POST">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <button class="btn btn-primary btn-ee">Gérer mon abonnement</button>
+    </form>
+
+  <% else %>
+
+    <div class="card-offer-container justify-content-between">
+      <% @prices_and_sessions.each do |ps| %>
+        <div class="card-offer">
+          <div class="offer-content">
+            <h3><%= ps[:name] %></h3>
+            <span><u>sans engagement</u></span>
+            <p class="btn-kotch btn-white btn-white-offer my-4"><%= ps[:price] %> / MOIS</p>
+            <button class="btn btn-kotch btn-red btn-red-offer checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
+                  CHOISIR
+            </button>
           </div>
-        <% end %>
+          <%= image_tag ps[:image], class: "offer-img-sm" %>
+        </div>
       <% end %>
     </div>
 
+  <% end %>
 
-      <h2>Achats one shot</h2>
-    <div>
-      <%= link_to "10 jours MOFO", pack_orders_path(pack_number: 0), method: :post, class: "btn btn-primary" %>
+  <h2 class="my-3 my-lg-5 py-0 py-lg-5">OU BIEN PROFITEZ DE SÉANCES À L’UNITÉ</h2>
+
+  <div class="card-offer-container justify-content-around">
+    <div class="card-offer card-offer-lightblue">
+      <div class="offer-content">
+        <h3>Carte 1 séance</h3>
+        <span><u>valable xx jours</u></span>
+        <p class="btn-kotch btn-white btn-white-offer my-4">X€ / MOIS</p>
+        <%= link_to 'CHOISIR', pack_orders_path(pack_number: 0), method: :post, class: "btn btn-kotch btn-red btn-red-offer" %>
+      </div>
+      <%= image_tag 'offer-4.png', class: "offer-img-bg" %>
     </div>
-    <div>
-      <%= link_to "1 jour MOFO", pack_orders_path(pack_number: 1), method: :post, class: "btn btn-danger" %>
+
+    <div class="card-offer card-offer-lightblue">
+      <div class="offer-content">
+        <h3>Carte 10 séance</h3>
+        <span><u>valable xx jours</u></span>
+        <p class="btn-kotch btn-white btn-white-offer my-4">X€ / MOIS</p>
+        <%= link_to 'CHOISIR', pack_orders_path(pack_number: 1), method: :post, class: "btn btn-kotch btn-red btn-red-offer" %>
+      </div>
+      <%= image_tag 'offer-5.png', class: "offer-img-bg" %>
     </div>
   </div>
 </div>
+
 <script src="https://js.stripe.com/v3/"></script>
 
 

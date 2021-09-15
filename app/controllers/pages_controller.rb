@@ -14,9 +14,9 @@ class PagesController < ApplicationController
   def offers
     if current_user
       prices = [
-        { name: "4 séances / mois", price: "30€", id: ENV['PRICE_4_CLASSES'] },
-        { name: "8 séances / mois", price: "60€", id: ENV['PRICE_8_CLASSES'] },
-        { name: "12 séances / mois", price: "90€", id: ENV['PRICE_12_CLASSES'] }
+        { name: "4 séances / mois", price: "50€", id: ENV['PRICE_4_CLASSES'], image: "offer-1.png" },
+        { name: "8 séances / mois", price: "90€", id: ENV['PRICE_8_CLASSES'], image: "offer-2.png" },
+        { name: "12 séances / mois", price: "120€", id: ENV['PRICE_12_CLASSES'], image: "offer-3.png"}
       ]
 
       @prices_and_sessions = prices.map do |price|
@@ -34,7 +34,7 @@ class PagesController < ApplicationController
         })
         checkout_id = session.id
 
-        { name: price[:name], price: price[:price], checkout_id: checkout_id }
+        { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image] }
       end
     end
   end

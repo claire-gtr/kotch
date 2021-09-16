@@ -1,7 +1,10 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: ENV['DEFAULT_URL_MAILER']}
+  config.action_mailer.default_url_options = { host: ENV["DEFAULT_URL"] }
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.delivery_method = :smtp
+
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  config.action_mailer.asset_host = ENV["DEFAULT_URL"]
   # Code is not reloaded between requests.
   config.cache_classes = true
 

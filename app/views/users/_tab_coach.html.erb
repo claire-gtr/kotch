@@ -9,7 +9,8 @@
     <li class="nav-item">
       <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-3" role="tab">Historique des coachings</a>
     </li>
-  </ul><!-- Tab panes -->
+  </ul>
+  <!-- Tab panes -->
   <div class="tab-content p-3">
     <div class="tab-pane active" id="tabs-1" role="tabpanel">
       <table class="w-100 text-center">
@@ -21,7 +22,7 @@
             <th>LIEU</th>
             <th>STATUT</th>
             <th>PARTICIPANTS</th>
-            </tr>
+          </tr>
         </thead>
         <tbody>
           <% @coachings_in_future&.each do |lesson| %>
@@ -31,11 +32,11 @@
               <td class='py-2'><%= lesson.date.strftime('%H:%M') %></td>
               <td class='py-2'><%= lesson.location.name %></td>
               <td class='py-2'>
-                  <% if lesson.status == "pending" %>
-                    En attente
-                  <% else %>
-                    <%= lesson.status %>
-                  <% end %>
+                <% if lesson.status == "pending" %>
+                  En attente
+                <% else %>
+                  <%= lesson.status %>
+                <% end %>
               </td>
               <td class='py-2'>
                 <%= lesson.bookings.count %> participant(s)
@@ -56,13 +57,14 @@
                   <div class="modal-body">
                     <h5 class="my-3">PARTICIPANTS</h5>
                     <% lesson.bookings.each do |booking| %>
-                      <span><div class="bullet">• &nbsp</div>
-                      <ul class="d-flex justify-content-between">
-                        <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
-                        <%= link_to sportive_profile_path(booking.user) do %>
-                          <i class="fas fa-paper-plane pr-5"></i>
-                        <% end %>
-                      </ul>
+                      <span>
+                        <div class="bullet">• &nbsp</div>
+                        <ul class="d-flex justify-content-between">
+                          <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
+                          <%= link_to sportive_profile_path(booking.user) do %>
+                            <i class="fas fa-paper-plane pr-5"></i>
+                          <% end %>
+                        </ul>
                       </span>
                     <% end %>
                   </div>
@@ -76,18 +78,18 @@
     </div>
     <div class="tab-pane" id="tabs-2" role="tabpanel">
       <table class="w-100 text-center">
-          <thead class="w-100">
-            <tr>
-              <th>SPORT</th>
-              <th>DATE</th>
-              <th>HEURE</th>
-              <th>LIEU</th>
-              <th>STATUT</th>
-              <th>PARTICIPANTS</th>
-              </tr>
-          </thead>
+        <thead class="w-100">
+          <tr>
+            <th>SPORT</th>
+            <th>DATE</th>
+            <th>HEURE</th>
+            <th>LIEU</th>
+            <th>STATUT</th>
+            <th>PARTICIPANTS</th>
+          </tr>
+        </thead>
         <tbody>
-        <%# FILL WITH CORRECT VARIABLE/MODAL %>
+          <%# FILL WITH CORRECT VARIABLE/MODAL %>
         </tbody>
       </table>
     </div>
@@ -101,7 +103,7 @@
             <th>LIEU</th>
             <th>STATUT</th>
             <th>PARTICIPANTS</th>
-            </tr>
+          </tr>
         </thead>
         <tbody>
           <% @coachings_in_past&.each do |lesson| %>
@@ -112,11 +114,11 @@
               <td class='py-2'><%= lesson.location.name %></td>
               <td class='py-2'>
                 <% if lesson.status == "effectuée" || lesson.status == "non effectuée" %>
-                <%= lesson.status.capitalize %>
+                  <%= lesson.status.capitalize %>
                 <% else %>
-                <%= link_to "Effectuée", lesson_done_path(lesson), class:'pill pill-green' %><%= link_to "Non effectuée", lesson_not_done_path(lesson), class:'pill pill-red' %>
+                  <%= link_to "Effectuée", lesson_done_path(lesson), class:'pill pill-green' %><%= link_to "Non effectuée", lesson_not_done_path(lesson), class:'pill pill-red' %>
                 <% end %>
-                </td>
+              </td>
               <td class='py-2'>
                 <%= lesson.bookings.count %> participant(s)
                 <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal-<%= lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>
@@ -136,13 +138,14 @@
                   <div class="modal-body">
                     <h5 class="my-3">PARTICIPANTS</h5>
                     <% lesson.bookings.each do |booking| %>
-                      <span><div class="bullet">• &nbsp</div>
-                      <ul class="d-flex justify-content-between">
-                        <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
-                        <%= link_to sportive_profile_path(booking.user) do %>
-                          <i class="fas fa-paper-plane pr-5"></i>
-                        <% end %>
-                      </ul>
+                      <span>
+                        <div class="bullet">• &nbsp</div>
+                        <ul class="d-flex justify-content-between">
+                          <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
+                          <%= link_to sportive_profile_path(booking.user) do %>
+                            <i class="fas fa-plus-circle"></i>
+                          <% end %>
+                        </ul>
                       </span>
                     <% end %>
                   </div>
@@ -156,8 +159,6 @@
     </div>
   </div>
 </div>
-
-
 <%#
 REFERENCES FOR CSS CLASSES
 

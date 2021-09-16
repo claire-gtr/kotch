@@ -30,7 +30,13 @@
               <td class='py-2'><%= lesson.date.strftime('%d/%m/%Y') %></td>
               <td class='py-2'><%= lesson.date.strftime('%H:%M') %></td>
               <td class='py-2'><%= lesson.location.name %></td>
-              <td class='py-2'><%= lesson.status %></td>
+              <td class='py-2'>
+                  <% if lesson.status == "pending" %>
+                    En attente
+                  <% else %>
+                    <%= lesson.status %>
+                  <% end %>
+              </td>
               <td class='py-2'>
                 <%= lesson.bookings.count %> participant(s)
                 <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal-<%= lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>

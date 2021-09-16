@@ -22,6 +22,7 @@ class UsersController < ApplicationController
       @coachings = current_user.lessons
       @coachings_in_future = []
       @coachings_in_past = []
+      @coachings_done = @coachings.where(status: "effectuée")
       @coachings.each do |lesson|
         if lesson.date >= Time.now
           @coachings_in_future << lesson

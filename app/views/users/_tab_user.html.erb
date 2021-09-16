@@ -73,8 +73,9 @@
     </div>
     <div class="tab-pane" id="tabs-3" role="tabpanel">
       <p class="text-blue">Mon abonnement</p>
-      <form method="POST" action="/create-customer-portal-session">
-        <button type="submit">Manage billing</button>
+      <form action="/customer_portal_sessions" method="POST">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <button class="btn btn-primary btn-ee">Gérer mon abonnement</button>
       </form>
     </div>
   </div>

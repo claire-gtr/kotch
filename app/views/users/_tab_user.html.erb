@@ -82,7 +82,7 @@
       </table>
     </div>
     <div class="tab-pane" id="tabs-3" role="tabpanel">
-      <% if current_user.subscription.stripe_id %>
+      <% if current_user.subscription && current_user.subscription.stripe_id %>
         <div class="text-center">
           <p class="text-blue mt-5">Vous êtes actuellement abonné(e) au plan <%= current_user.subscription.nickname %>.</p>
           <form action="/customer_portal_sessions" method="POST">

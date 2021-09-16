@@ -65,6 +65,11 @@
                       </ul>
                       </span>
                     <% end %>
+                    <h5 class="my-3">ÉLÉMENTS TRAVAILLÉS PENDANT LA SÉANCES</h5>
+                    <%= simple_form_for lesson, url: focus_lesson_path(lesson), method: :get do |f| %>
+                      <%= f.input :focus, label: false %>
+                    <%= f.submit "Enregistré les éléments travaillés", class:'btn btn-kotch btn-ghost' %>
+                    <% end %>
                   </div>
                 </div>
               </div>

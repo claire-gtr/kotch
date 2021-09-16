@@ -164,9 +164,17 @@ class LessonsController < ApplicationController
     redirect_to profile_path
   end
 
+  def focus_lesson
+    @lesson = Lesson.find(params[:id])
+    @lesson.update(lesson_params)
+    authorize @lesson
+    @lesson.save
+    redirect_to profile_path
+  end
+
   private
 
   def lesson_params
-    params.require(:lesson).permit(:date, :location_id, :sport_type)
+    params.require(:lesson).permit(:date, :location_id, :sport_type, :focus)
   end
 end

@@ -16,4 +16,11 @@ class BookingMailer < ApplicationMailer
     @lesson = params[:lesson]
     mail(to: @user.email, subject: "Une séance Koach a besoin d'un coach !")
   end
+
+  def coach_confirmed
+    @user = params[:user]
+    @lesson = params[:lesson]
+    @booking = params[:booking]
+    mail(to: @user.email, subject: "Une séance Koach a besoin d'un coach !")
+  end
 end

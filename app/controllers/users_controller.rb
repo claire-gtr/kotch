@@ -33,6 +33,13 @@ class UsersController < ApplicationController
           @coachings_in_past << lesson
         end
       end
+      @all_coachings_in_future_without_coach = Lesson.where("date >= ?", Time.now).where(user: nil)
+      @coachings_requests = []
+      @all_coachings_in_future_without_coach.each do |lesson|
+        if lesson.bookings.count >= 5
+          @coachings_requests << lesson
+        end
+      end
 
     end
   end

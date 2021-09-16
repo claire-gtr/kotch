@@ -18,26 +18,46 @@ class PagesController < ApplicationController
         { name: "8 séances / mois", price: "90€", id: ENV['PRICE_8_CLASSES'], image: "offer-2.png" },
         { name: "12 séances / mois", price: "120€", id: ENV['PRICE_12_CLASSES'], image: "offer-3.png"}
       ]
+      coupon = current_user.coupon
+      if coupon[:exist]
+        @prices_and_sessions = prices.map do |price|
+          session = Stripe::Checkout::Session.create({
+            payment_method_types: ['card'],
+            line_items: [{
+              price: price[:id],
+              quantity: 1
+            }],
+            mode: 'subscription',
+            discounts: [{
+              coupon: coupon[:code],
+            }],
+            success_url: ENV['SUCCESS_URL_STRIPE'],
+            cancel_url: root_url,
+            client_reference_id: current_user.id,
+            customer: find_or_create_stripe_customer_id
+          })
+          checkout_id = session.id
 
-      @prices_and_sessions = prices.map do |price|
-        session = Stripe::Checkout::Session.create({
-          payment_method_types: ['card'],
-          line_items: [{
-            price: price[:id],
-            quantity: 1
-          }],
-          mode: 'subscription',
-          discounts: [{
-            coupon: current_user.coupon,
-          }],
-          success_url: ENV['SUCCESS_URL_STRIPE'],
-          cancel_url: root_url,
-          client_reference_id: current_user.id,
-          customer: find_or_create_stripe_customer_id
-        })
-        checkout_id = session.id
+          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image] }
+        end
+      else
+        @prices_and_sessions = prices.map do |price|
+          session = Stripe::Checkout::Session.create({
+            payment_method_types: ['card'],
+            line_items: [{
+              price: price[:id],
+              quantity: 1
+            }],
+            mode: 'subscription',
+            success_url: ENV['SUCCESS_URL_STRIPE'],
+            cancel_url: root_url,
+            client_reference_id: current_user.id,
+            customer: find_or_create_stripe_customer_id
+          })
+          checkout_id = session.id
 
-        { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image] }
+          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image] }
+        end
       end
     end
   end

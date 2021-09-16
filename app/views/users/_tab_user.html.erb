@@ -33,7 +33,9 @@
                 <td class='py-2'><%= booking.lesson.location.name %></td>
                 <td class='py-2'>
                   <% if booking.lesson.status == "pending" %>
-                  En attente
+                    En attente
+                  <% else %>
+                    <%= booking.lesson.status %>
                   <% end %>
                 </td>
                 <td class='py-2'><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
@@ -59,12 +61,20 @@
           <% if @bookings_in_past.any? %>
             <% @bookings_in_past.each do |booking| %>
               <tr>
-                <td><%= booking.lesson.sport_type %></td>
-                <td><%= booking.lesson.date.strftime('%d/%m/%Y') %></td>
-                <td><%= booking.lesson.date.strftime('%H:%M') %></td>
-                <td><%= booking.lesson.location.name %></td>
-                <td><%= booking.lesson.status %></td>
-                <td><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
+                <td class="py-2"><%= booking.lesson.sport_type %></td>
+                <td class="py-2"><%= booking.lesson.date.strftime('%d/%m/%Y') %></td>
+                <td class="py-2"><%= booking.lesson.date.strftime('%H:%M') %></td>
+                <td class="py-2"><%= booking.lesson.location.name %></td>
+                <td class="py-2">
+                  <% if booking.lesson.status == "pending" %>
+                    En attente
+                  <% elsif booking.lesson.status == "canceled" %>
+                    Annulée
+                  <% else %>
+                    <%= booking.lesson.status.capitalize %>
+                  <% end %>
+                </td>
+                <td class="py-2"><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
               </tr>
             <% end %>
           <% end %>

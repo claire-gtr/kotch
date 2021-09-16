@@ -4,10 +4,14 @@
 
   <% if user_signed_in? && current_user.subscription && current_user.subscription.stripe_id %>
 
+    <h3 class="text-blue"> Vous avez déjà souscrit à un abonnement Koach, cliquez ci-dessous pour gérer votre abonnement.</h3>
+
     <form action="/customer_portal_sessions" method="POST">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-      <button class="btn btn-primary btn-ee">Gérer mon abonnement</button>
+      <button class="btn btn-kotch btn-red mb-5">Gérer mon abonnement</button>
     </form>
+
+    <%= render 'static_offers_subscription' %>
 
   <% else %>
 

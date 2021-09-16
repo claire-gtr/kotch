@@ -16,18 +16,18 @@
         </div>
         <% if current_user.coach %>
           <div class="text-left mt-4">
-            <p class="d-flex justify-content-between">
-              <i><span class="text-coral"><%= Date.today.strftime('%a %d/%m/%Y') %></span></i>
-              <i><span class="text-coral"><%= Time.now.strftime('%H:%M') %></span></i>
-            </p>
-            <span class="text-light-blue"><%= @coachings_in_past.count %>/<%= @bookings.count %> coachings efectués</span><br>
+            <!-- <p class="d-flex justify-content-between">
+              <i><span class="text-coral"><%#= Date.today.strftime('%a %d/%m/%Y') %></span></i>
+              <i><span class="text-coral"><%#= Time.now.strftime('%H:%M') %></span></i>
+            </p> -->
+            <span class="text-light-blue"><%= @coachings_done.count %> coachings effectués ce mois ci</span><br>
             <div class="d-flex">
               <% if current_user.lessons.any? %>
                 <%= link_to "Messages",
                   lessons_path,
-                  class: "text-light-blue" %>
+                  class: "text-light-blue hover-underline" %>
                 <% end %>
-              <div class="msg-icon"><p><%= rand(0..5) %></p></div>
+              <!-- <div class="msg-icon"><p><%#= rand(0..5) %></p></div> -->
             </div>
           </div>
         <% end %>

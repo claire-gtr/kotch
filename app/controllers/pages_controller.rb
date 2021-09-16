@@ -58,7 +58,7 @@ class PagesController < ApplicationController
           })
           checkout_id = session.id
 
-          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image], percentage: 0, discounted_price: price[:price] }
+          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image], percentage: false, discounted_price: price[:price] }
         end
       end
     end

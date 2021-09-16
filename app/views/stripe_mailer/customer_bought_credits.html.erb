@@ -11,14 +11,17 @@
     margin-bottom: 20px;
   }
 </style>
-<p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
 
-<p>Merci pour votre achat de <%= @pack_order.credit_count %> crédit(s) sur Koach & Co.</p>
+<p class="mb-3">Félicitations <%= @user.first_name.capitalize %> !</p>
 
-<p></p>
+<p>Tu viens d’acheter <%= @pack_order.credit_count %> séance(s) de sport Koach & Co.</p>
 
-<p class="mb-3">Nous vous remercions pour votre confiance.</p>
+<p>A compter d’aujourd’hui, tu as 6 mois pour l’utiliser. Réserve rapidement ta séance idéale !</p>
 
-<p>Bien à vous,</p>
-<p class="mb-3">L'équipe Koach</p>
+<p><%= link_to "Réserve ta séance", new_lesson_url %></p>
+
+<p class="mb-3">À très vite </p>
+
+<p class="mb-3">Ton équipe Koach & Co</p>
 <%#= image_tag 'logo-pink.png' %>
+<!-- link to insta + facebook -->

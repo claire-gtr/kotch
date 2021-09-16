@@ -1,5 +1,36 @@
-<h1>Booking#invitation</h1>
+<style>
+  p {
+    font-family: sans-serif;
+    margin-bottom: 8px;
+    margin-top: 0px;
+  }
+  img {
+    width: 200px;
+  }
+  .mb-3 {
+    margin-bottom: 20px;
+  }
+</style>
 
-<p>
-  acceptez l'invitation ici : <%= accept_invitation_url(booking_id: @booking.id) %>
-</p>
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
+
+<p>Un ami vient de t’envoyer une invitation pour participer à une séance Koach</p>
+
+<p>Ne tarde pas et réponds vite à son invitation !</p>
+
+<p class="mb-3"><%= link_to "Valide ta séance", accept_invitation_url(booking_id: @booking.id) %></p>
+
+<p>Ce créneau ne correspond pas à ton planning ?</p>
+<p>Connecte-toi sur Koach & Co, définis la séance qui te convient le mieux et partage-la avec tes amis !</p>
+
+<p class="mb-3"><%= link_to "Propose une nouvelle séance", new_lesson_path %></p>
+
+<p class="mb-3">Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!</p>
+
+<p class="mb-3">À très vite </p>
+
+<p class="mb-3">Ton équipe Koach & Co</p>
+<%#= image_tag 'logo-pink.png' %>
+<!-- link to insta + facebook -->
+
+

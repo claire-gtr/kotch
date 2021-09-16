@@ -12,13 +12,13 @@ class StripeMailer < ApplicationMailer
   def customer_changed_plan
     @user = params[:user]
     @subscription = params[:subscription]
-    mail(to: @user.email, subject: "Votre abonnement Koach & co ")
+    mail(to: @user.email, subject: "Confirmation d'abonnement à Koach & Co")
   end
 
   def customer_bought_credits
     @user = params[:user]
     @pack_order = params[:pack_order]
-    mail(to: @user.email, subject: "Votre achat sur Koach & co ")
+    mail(to: @user.email, subject: "Confirmation d’achat d’une séance Koach & Co")
   end
 
   # def invoice_payment_failed

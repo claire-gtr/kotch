@@ -1,8 +1,14 @@
-Bonjour <%= @user.first_name.capitalize %>,
+Félicitations <%= @user.first_name.capitalize %> !
 
-Merci pour votre achat sur Koach & Co.
+Tu viens d’acheter <%= @pack_order.credit_count %> séance(s) de sport Koach & Co.
 
-Nous vous remercions pour votre confiance.
 
-Bien à vous,
-L'équipe Koach
+A compter d’aujourd’hui, tu as 6 mois pour l’utiliser. Réserve rapidement ta séance idéale !
+
+
+<%= link_to "Réserve ta séance", new_lesson_url %>
+
+
+À très vite
+
+Ton équipe Koach & Co

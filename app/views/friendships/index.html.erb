@@ -53,14 +53,13 @@
       <div class="card-blue card-blue-friends shadow p-4">
         <h2 class='text-xbold pb-3'>MES AMIS</h2>
         <div class="search-friends">
-          <%= form_tag friendships_path, method: :get do %>
+          <%= form_tag friendships_path, method: :get, class: 'shadow' do %>
             <%= text_field_tag :query,
               params[:query],
-              class: "form-control",
               placeholder: "Recherche..."
             %>
-            <%= button_tag type: 'submit' do %>
-              <i class="fas fa-search"></i>
+            <%= button_tag type: 'submit', class: 'd-flex align-items-center' do %>
+              <i class="fas fa-search fa-xs"></i>
             <% end %>
           <% end %>
         </div>

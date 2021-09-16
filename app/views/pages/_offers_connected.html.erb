@@ -1,6 +1,9 @@
 <div class="container text-center">
 
-  <h2 class="my-5">SÉLECTIONNEZ L’ABONNEMENT QUI VOUS CONVIENT</h2>
+  <h2 class="mt-5 mb-3">SÉLECTIONNEZ L’ABONNEMENT QUI VOUS CONVIENT</h2>
+  <% if @prices_and_sessions[0][:percentage] %>
+    <h3 class="mb-5">Vous avez le droit à une réduction de <%= @prices_and_sessions[0][:percentage] %>% grâce à votre entreprise (inclue dans les prix affichés)</h3>
+  <% end %>
 
   <% if user_signed_in? && current_user.subscription && current_user.subscription.stripe_id %>
 
@@ -15,13 +18,13 @@
 
   <% else %>
 
-    <div class="card-offer-container justify-content-between">
+    <div class="card-offer-container justify-content-between mt-5">
       <% @prices_and_sessions.each do |ps| %>
         <div class="card-offer">
           <div class="offer-content">
             <h3><%= ps[:name] %></h3>
             <span><u>sans engagement</u></span>
-            <p class="btn-kotch btn-white btn-white-offer my-4"><%= ps[:price] %> / MOIS</p>
+            <p class="btn-kotch btn-white btn-white-offer my-4"><%= ps[:discounted_price] %> / MOIS</p>
             <button class="btn btn-kotch btn-red btn-red-offer checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
                   CHOISIR
             </button>

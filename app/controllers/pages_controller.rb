@@ -14,9 +14,9 @@ class PagesController < ApplicationController
   def offers
     if current_user
       prices = [
-        { name: "4 séances / mois", price: "50€", id: ENV['PRICE_4_CLASSES'], image: "offer-1.png" },
-        { name: "8 séances / mois", price: "90€", id: ENV['PRICE_8_CLASSES'], image: "offer-2.png" },
-        { name: "12 séances / mois", price: "120€", id: ENV['PRICE_12_CLASSES'], image: "offer-3.png"}
+        { name: "4 séances / mois", price: "50€", price_integer: 50, id: ENV['PRICE_4_CLASSES'], image: "offer-1.png" },
+        { name: "8 séances / mois", price: "90€", price_integer: 90, id: ENV['PRICE_8_CLASSES'], image: "offer-2.png" },
+        { name: "12 séances / mois", price: "120€", price_integer: 120, id: ENV['PRICE_12_CLASSES'], image: "offer-3.png"}
       ]
       coupon = current_user.coupon
       if coupon[:exist]
@@ -38,7 +38,9 @@ class PagesController < ApplicationController
           })
           checkout_id = session.id
 
-          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image] }
+          discounted_price = (price[:price_integer] - (price[:price_integer] * coupon[:percentage] / 100)).to_s + "€"
+
+          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image], percentage: coupon[:percentage], discounted_price: discounted_price }
         end
       else
         @prices_and_sessions = prices.map do |price|
@@ -56,7 +58,7 @@ class PagesController < ApplicationController
           })
           checkout_id = session.id
 
-          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image] }
+          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image], percentage: false, discounted_price: price[:price] }
         end
       end
     end

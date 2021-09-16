@@ -102,8 +102,8 @@ class User < ApplicationRecord
     partners_domains = Partner.all.pluck(:domain_name)
     if partners_domains.include?(domain_to_check)
       partner = Partner.find_by(domain_name: domain_to_check)
-      return {exist: true, code: partner.coupon_code}
+      return {exist: true, code: partner.coupon_code, percentage: partner.percentage}
     end
-    {exist: false, code: nil}
+    {exist: false, code: nil, percentage: nil}
   end
 end

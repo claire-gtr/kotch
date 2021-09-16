@@ -12,6 +12,6 @@ class PartnersController < ApplicationController
   private
 
   def partner_params
-    params.require(:partner).permit(:name, :domain_name, :coupon_code)
+    params.require(:partner).permit(:name, :domain_name, :coupon_code, :percentage)
   end
 end

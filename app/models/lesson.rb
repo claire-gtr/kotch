@@ -6,6 +6,7 @@ class Lesson < ApplicationRecord
   has_many :users, through: :bookings
   has_many :messages
   validates :sport_type, inclusion: {in: SPORTS}
+  validates :date, presence: true
 
   def diff_time
     (self.date.to_time - 24.hours).to_datetime

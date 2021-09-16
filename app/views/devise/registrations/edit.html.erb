@@ -94,6 +94,7 @@
                 required: true,
                 input_html: { autocomplete: "current-password",
                 label: false  } %>
+            <%= f.input :terms, as: :boolean, label: "En cochant cette case, vous consentez à recevoir des propositions commerciales par voie électronique. Vous pouvez vous désinscrire à tout moment en modifiant vos paramètres sur votre compte et à travers les liens de désinscription." %>
           </div>
 
           <div class="form-actions">

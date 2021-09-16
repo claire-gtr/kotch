@@ -4,7 +4,7 @@
  overflow: hidden;
  display: block;
  position: relative;
- padding-bottom: 190px; /* height of your footer */
+ padding-bottom: 240px; /* height of your footer */
  background-image: linear-gradient(to left top, #bbc9fe, #cbd2fe, #d9dcfe, #e6e6fe, #f1f0fe, #f6f5fe, #fbfaff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
 }
 @include media-breakpoint-up(md) {
@@ -23,6 +23,12 @@
  overflow: hidden;
  display: block;
  position: relative;
- padding-bottom: 160px; /* height of your footer */
+ padding-bottom: 240px; /* height of your footer */
  background-image: linear-gradient(to left top, #bbc9fe, #cbd2fe, #d9dcfe, #e6e6fe, #f1f0fe, #f6f5fe, #fbfaff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
+}
+
+@include media-breakpoint-up(md) {
+  .main-container-home {
+   padding-bottom: 130px; /* height of your footer */
+  }
 }

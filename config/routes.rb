@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations"}
   root to: 'pages#home'
   get '/mon-profil', to: 'users#profile', as: :profile
   resources :lessons, only: [:index, :new, :create]  do
@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'public-lessons', to: 'lessons#public_lessons', as: :public_lessons
   get 'lesson-done/:id', to: 'lessons#lesson_done', as: :lesson_done
   get 'lesson-not-done/:id', to: 'lessons#lesson_not_done', as: :lesson_not_done
+  patch 'cancel-lesson/:id', to: 'lessons#cancel', as: :cancel_lesson
 
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
   resources :locations, only: [:create]
+  resources :partners, only: [:create]
   resources :friendships, only: :index
   resources :friend_requests, only: [:create, :update]
   resources :bookings, only: [:index, :create, :destroy]

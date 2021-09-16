@@ -7,5 +7,6 @@ class DashboardsController < ApplicationController
     @non_validated_coachs = User.where(coach: true).where(validated_coach: false)
     @coachs = User.where(coach: true).where(validated_coach: true)
     @locations = Location.all
+    @partners = Partner.all
   end
 end

@@ -22,9 +22,11 @@
             </p>
             <span class="text-light-blue"><%= @coachings_in_past.count %>/<%= @bookings.count %> coachings efectués</span><br>
             <div class="d-flex">
-              <%= link_to "Messages", 
-              lesson_messages_path(current_user.bookings[-1].lesson_id), 
-              class: "text-light-blue msg" %>
+              <% if current_user.lessons.any? %>
+                <%= link_to "Messages",
+                  lessons_path,
+                  class: "text-light-blue" %>
+                <% end %>
               <div class="msg-icon"><p><%= rand(0..5) %></p></div>
             </div>
           </div>

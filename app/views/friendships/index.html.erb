@@ -52,6 +52,18 @@
     <div class="col-12 col-md-4 mt-3 mt-md-0">
       <div class="card-blue card-blue-friends shadow p-4">
         <h2 class='text-xbold pb-3'>MES AMIS</h2>
+        <div class="search-friends">
+          <%= form_tag friendships_path, method: :get do %>
+            <%= text_field_tag :query,
+              params[:query],
+              class: "form-control",
+              placeholder: "Recherche..."
+            %>
+            <%= button_tag type: 'submit' do %>
+              <i class="fas fa-search"></i>
+            <% end %>
+          <% end %>
+        </div>
         <% @my_friends&.each do |friendship| %>
           <div class="d-flex align-items-center text-blue mt-3">
             <% if friendship.friend_a == current_user %>

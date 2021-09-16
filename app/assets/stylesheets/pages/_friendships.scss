@@ -1,0 +1,21 @@
+.search-friends {
+  form {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+
+  input {
+    border-radius: 20px 0 0 20px;
+    background-color: white;
+    border: none;
+  }
+
+  button {
+    border-radius: 0 20px 20px 0;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    padding-right: 15px;
+  }
+}

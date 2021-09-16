@@ -1,0 +1,24 @@
+.select2-container *:focus {
+    outline: none;
+    border: none;
+}
+
+.select2 {
+  width: 240px !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    cursor: text;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    position: relative;
+    min-height: 45px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: 1px solid #ced4da;
+  outline: 0;
+}

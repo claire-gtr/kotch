@@ -10,13 +10,8 @@
       </div>
       <div class="col-12 col-md-4">
         <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue2.png' %>);">
-          <h2><em>DATE</em></h2>
+          <h2><em>DATE & LIEU</em></h2>
           <%= f.input :date, as: :string, label: false, placeholder: "Date & heure", input_html: {class: "datepicker"} %>
-        </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>);">
-          <h2><em>LIEU</em></h2>
           <%= f.association :location, label: false %>
           <button type="button" class="btn btn-kotch btn-light-blue w-100" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux disponibles sur la carte</button>
 
@@ -30,6 +25,15 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>);">
+          <h2><em>INVITEZ VOS AMIS</em></h2>
+          <%= select_tag "friends", options_from_collection_for_select(
+          @friends, :id, :full_name), multiple: true,
+          class: 'select2' %>
+
         </div>
       </div>
     </div>

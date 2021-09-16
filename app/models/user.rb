@@ -37,6 +37,8 @@ class User < ApplicationRecord
   validates :intensity, inclusion: { in: intensities.keys }, allow_nil: true
   validates :expectations, inclusion: { in: expectations.keys }, allow_nil: true
   after_create :create_empty_sub
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   def friendships
       self.friendships_as_friend_a + self.friendships_as_friend_b

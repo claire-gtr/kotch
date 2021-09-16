@@ -12,6 +12,7 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
+    @friends = current_user.my_friends
     authorize @lesson
     if current_user.coach && !current_user.validated_coach
       flash[:alert] = "Un administrateur doit valider votre compte coach."
@@ -60,6 +61,15 @@ class LessonsController < ApplicationController
             redirect_to profile_path
           else
             render :new
+          end
+          friend_ids= params[:friends]
+          friend_ids.each do |id|
+            user = User.find(id.to_i)
+            booking = Booking.new(user: user, lesson: @lesson)
+            booking.status = "invitation send"
+            booking.save
+            mail = BookingMailer.with(user: user, booking: booking).invitation
+            mail.deliver_now
           end
         else
           flash[:alert] = "Vous n'avez pas de crédit pour réserver une leçon ce mois-ci."

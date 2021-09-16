@@ -33,6 +33,8 @@ import { initFlatpickr } from "../plugins/flatpickr";
 import { initFlatpickrBirth } from "../plugins/flatpickr";
 import { initAutocomplete } from "../plugins/init_autocomplete";
 import { initMapbox } from "../plugins/init_mapbox";
+import { initSelect2 } from '../components/init_select2';
+
 
 document.addEventListener('turbolinks:load', () => {
   // Call your JS functions here
@@ -41,6 +43,7 @@ document.addEventListener('turbolinks:load', () => {
   initFlatpickrBirth();
   initAutocomplete();
   initMapbox();
+  initSelect2();
 });
 
 import "controllers"

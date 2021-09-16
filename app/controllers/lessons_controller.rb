@@ -104,8 +104,16 @@ class LessonsController < ApplicationController
     if current_user.coach && !current_user.validated_coach
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
+    elsif current_user.coach
+      @lessons_in_future = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+      @lessons = []
+      @lessons_in_future.each do |lesson|
+        if lesson.bookings.where(status: "confirmé").count >= 5
+          @lessons << lesson
+        end
+      end
     else
-      @lessons = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')#.where("date >= ?", Time.now)
+      @lessons = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
     end
   end
 
@@ -118,8 +126,10 @@ class LessonsController < ApplicationController
       authorize @lesson
       if @lesson.user.nil?
         @lesson.user = current_user
+        @lesson.status = "validée"
         @lesson.save
         flash[:notice] = "Vous êtes désormais le coach de cette séance."
+        #envoyer un mail aux participants
         redirect_to profile_path
       else
         flash[:alert] = "Un coach s'est déjà positionné sur cette séance."
@@ -140,6 +150,7 @@ class LessonsController < ApplicationController
         @lesson.user = @user
         @lesson.status = "validée"
         @lesson.save
+        #envoyer un mail aux participants
         flash[:notice] = "Vous êtes désormais le coach de cette séance."
         redirect_to profile_path
       else
@@ -156,6 +167,7 @@ class LessonsController < ApplicationController
     @lesson.save
     redirect_to profile_path
   end
+
   def lesson_not_done
     @lesson = Lesson.find(params[:id])
     @lesson.status = "non effectuée"
@@ -173,6 +185,13 @@ class LessonsController < ApplicationController
   end
 
   private
+
+  def send_email_to_users
+    @lesson.bookings.where(status: "confirmé").each do |booking|
+      mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed
+      mail.deliver_now
+    end
+  end
 
   def lesson_params
     params.require(:lesson).permit(:date, :location_id, :sport_type, :focus)

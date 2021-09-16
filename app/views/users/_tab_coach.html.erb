@@ -32,11 +32,11 @@
               <td class='py-2'><%= lesson.date.strftime('%H:%M') %></td>
               <td class='py-2'><%= lesson.location.name %></td>
               <td class='py-2'>
-                <% if lesson.status == "pending" %>
-                  En attente
-                <% else %>
-                  <%= lesson.status %>
-                <% end %>
+                  <% if lesson.status == "pending" %>
+                    En attente
+                  <% else %>
+                    <%= lesson.status.capitalize %>
+                  <% end %>
               </td>
               <td class='py-2'>
                 <%= lesson.bookings.count %> participant(s)
@@ -83,18 +83,61 @@
     </div>
     <div class="tab-pane" id="tabs-2" role="tabpanel">
       <table class="w-100 text-center">
-        <thead class="w-100">
-          <tr>
-            <th>SPORT</th>
-            <th>DATE</th>
-            <th>HEURE</th>
-            <th>LIEU</th>
-            <th>STATUT</th>
-            <th>PARTICIPANTS</th>
-          </tr>
-        </thead>
+          <thead class="w-100">
+            <tr>
+              <th>SPORT</th>
+              <th>DATE</th>
+              <th>HEURE</th>
+              <th>LIEU</th>
+              <th>STATUT</th>
+              <th>PARTICIPANTS</th>
+              </tr>
+          </thead>
+
         <tbody>
-          <%# FILL WITH CORRECT VARIABLE/MODAL %>
+        <% @coachings_requests&.each do |lesson| %>
+            <tr>
+              <td class='py-2'><%= lesson.sport_type %></td>
+              <td class='py-2'><%= lesson.date.strftime('%d/%m/%Y') %></td>
+              <td class='py-2'><%= lesson.date.strftime('%H:%M') %></td>
+              <td class='py-2'><%= lesson.location.name %></td>
+              <td class='py-2'>
+                <%= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link'  %>
+              </td>
+              <td class='py-2'>
+                <%= lesson.bookings.count %> participant(s)
+                <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal-<%= lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>
+              </td>
+            </tr>
+            <!-- Modal -->
+            <div class="modal fade" id="modal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content participants-modal">
+                  <div class="modal-header d-flex">
+                    <h3 class="modal-title" id="participantsModalLabel"><%= lesson.sport_type.upcase %></h3>
+                    <p><i><%= lesson.date.strftime("%d/%m/%Y") %></i></p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h5 class="my-3">PARTICIPANTS</h5>
+                    <% lesson.bookings.each do |booking| %>
+                      <span><div class="bullet">• &nbsp</div>
+                      <ul class="d-flex justify-content-between">
+                        <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
+                        <%= link_to sportive_profile_path(booking.user) do %>
+                          <i class="fas fa-paper-plane pr-5"></i>
+                        <% end %>
+                      </ul>
+                      </span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End modal -->
+          <% end %>
         </tbody>
       </table>
     </div>

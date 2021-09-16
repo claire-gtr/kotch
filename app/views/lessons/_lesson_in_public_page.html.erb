@@ -52,8 +52,8 @@
       <% if !current_user.coach %>
         <%= link_to "JE RÉSERVE", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
       <% end %>
-      <!-- <div class="d-flex justify-content-between align-items-center d-none">
-        <%# if lesson.status == "pending" || "canceled" %>
+      <div class="d-flex justify-content-between align-items-center d-none">
+        <!-- <%# if lesson.status == "pending" || "canceled" %>
           <div class="pill pill-red text-center mt-3">
             <%#= lesson.status %>
           </div>
@@ -62,16 +62,17 @@
             <%#= lesson.status %>
           </div>
         <%# end %>
-        <%# if current_user.coach %>
-          <%# if lesson.user.nil?  %>
+         -->
+        <% if current_user.coach %>
+          <% if lesson.user.nil?  %>
             <div>
-              <%#= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link'  %>
+              <%= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link'  %>
             </div>
-          <%# else %>
+          <% else %>
             <p class='mb-0 text-small text-blue text-condensed'>Il y a déjà un coach sur cette séance</p>
-          <%# end %>
-        <%# end %>
-      </div> -->
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

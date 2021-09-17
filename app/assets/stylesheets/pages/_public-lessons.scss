@@ -1,0 +1,28 @@
+.dropdown {
+  .btn-dropdown {
+    background-color: $blue-kotch;
+    color: white;
+    border-radius: 15px;
+    width: 14em;
+    height: 2.5em;
+  }
+
+  .dropdown-menu {
+    background-color: $blue-kotch;
+    color: white;
+    border-radius: 0 0 15px 15px;
+    width: 14em;
+
+    a,
+    a:hover {
+      color: white;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .dropdown {
+    padding: 1em;
+    text-align: center;
+  }
+}

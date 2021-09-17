@@ -4,26 +4,26 @@
       <h2 class="text-center">Il n'y a pas de séances publiques disponibles actuellement.</h2>
     </div>
   <% else %>
-    <div class="row">
-      <div class="col-4">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            JOUR
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuJour">
-            <%= link_to "Lundi", public_lessons_path(day: 1)  %>
-            <%= link_to "Mardi", public_lessons_path(day: 2)  %>
-            <%= link_to "Mercredi", public_lessons_path(day: 3)  %>
-            <%= link_to "Jeudi", public_lessons_path(day: 4)  %>
-            <%= link_to "Vendredi", public_lessons_path(day: 5)  %>
-            <%= link_to "Samedi", public_lessons_path(day: 6)  %>
-            <%= link_to "Dimanche", public_lessons_path(day: 7)  %>
-          </div>
+    <div class="d-flex justify-content-between flex-column flex-md-row py-4">
+      <div class="dropdown">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          JOUR
+          <i class="fas fa-caret-down"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuJour">
+          <%= link_to "Lundi", public_lessons_path(day: 1)  %>
+          <%= link_to "Mardi", public_lessons_path(day: 2)  %>
+          <%= link_to "Mercredi", public_lessons_path(day: 3)  %>
+          <%= link_to "Jeudi", public_lessons_path(day: 4)  %>
+          <%= link_to "Vendredi", public_lessons_path(day: 5)  %>
+          <%= link_to "Samedi", public_lessons_path(day: 6)  %>
+          <%= link_to "Dimanche", public_lessons_path(day: 7)  %>
         </div>
       </div>
-      <div class="col-4">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuHoraire" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="dropdown">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuHoraire" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           HORAIRE
+          <i class="fas fa-caret-down"></i>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuHoraire">
           <%= link_to "Matin", public_lessons_path(start: 1, end: 10)  %>
@@ -32,9 +32,10 @@
           <%= link_to "Soir", public_lessons_path(start: 18, end: 24)  %>
         </div>
       </div>
-      <div class="col-4">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuLieu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="dropdown">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuLieu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           LIEU
+          <i class="fas fa-caret-down"></i>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLieu">
           <%= link_to "Location TEST", public_lessons_path %>
@@ -50,3 +51,7 @@
     <% end %>
   </div>
 </div>
+<%# 
+CSS REFERENCES
+.btn-dropdown                    => _public-lessons.scss 
+%>

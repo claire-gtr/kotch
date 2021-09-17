@@ -66,6 +66,18 @@
   background-position: center bottom;
   background-color: #F4F6FF;
   background-size: cover;
+  position: relative;
+
+  .msg-cards-box {
+    max-height: 18em;
+    overflow: auto;
+  }
+
+  .msg-bar {
+    position: absolute;
+    width: 83vw;
+    bottom: 0;
+  }
 
   form {
     button:focus {

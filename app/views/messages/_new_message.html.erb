@@ -1,6 +1,6 @@
   <% if current_user.coach %>
   <%= simple_form_for message, url: coach_messages_path(lesson), remote: true do |f| %>
-    <div class="input-relative pr-5 mt-5">
+    <div class="input-relative msg-bar pr-5 mt-5">
       <%= f.input :content, label: false, input_html: {class: "mr-5"}, placeholder: "Message..." %>
       <%= f.button :button do %>
         <%= image_tag "arrow-up.svg", class: 'submit-icon' %>
@@ -10,7 +10,7 @@
   <% end %>
 <% else %>
   <%= simple_form_for [@lesson, @message], remote: true do |f| %>
-    <div class="input-relative pr-5 mt-5">
+    <div class="input-relative msg-bar pr-5 mt-5">
       <i class="fas fa-plus-circle text-blue"></i>
       <%= f.input :content, label: false, input_html: {class: "mr-5 pl-5"}, placeholder: "Message..." %>
       <%= f.button :button do %>

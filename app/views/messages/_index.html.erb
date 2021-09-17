@@ -1,0 +1,12 @@
+<div class="container">
+  <%# <%= link_to "Retour", lessons_path, class:'btn-kotch btn-red btn-extra-small mb-5'  %>
+  <div class="card-messages card-blue px-4 pt-4 mb-3 mt-3" id="messages-<%= @lesson.id %>" style="background-image: url(<%= asset_path 'background1.png' %>);">
+    <p><%= @lesson.sport_type %></p>
+    <% if @messages %>
+      <% @messages&.each do |message| %>
+        <%= render 'messages/message', message: message, lesson: @lesson %>
+      <% end %>
+    <% end %>
+    <%= render 'messages/new_message', lesson: @lesson, message: @message %>
+  </div>
+</div>

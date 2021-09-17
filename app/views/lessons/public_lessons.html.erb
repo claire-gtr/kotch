@@ -5,37 +5,47 @@
     </div>
   <% else %>
     <div class="d-flex justify-content-between flex-column flex-md-row py-4">
-      <div class="dropdown">
+      <div class="dropdown-lesson">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          JOUR
-          <i class="fas fa-caret-down"></i>
+          <div class="d-flex justify-content-between">
+            JOUR
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuJour">
-          <%= link_to "Lundi", public_lessons_path(day: 1)  %>
-          <%= link_to "Mardi", public_lessons_path(day: 2)  %>
-          <%= link_to "Mercredi", public_lessons_path(day: 3)  %>
-          <%= link_to "Jeudi", public_lessons_path(day: 4)  %>
-          <%= link_to "Vendredi", public_lessons_path(day: 5)  %>
-          <%= link_to "Samedi", public_lessons_path(day: 6)  %>
-          <%= link_to "Dimanche", public_lessons_path(day: 7)  %>
+          <ul>
+            <li><%= link_to "Lundi", public_lessons_path(day: 1)  %></li>
+            <li><%= link_to "Mardi", public_lessons_path(day: 2)  %></li>
+            <li><%= link_to "Mercredi", public_lessons_path(day: 3)  %></li>
+            <li><%= link_to "Jeudi", public_lessons_path(day: 4)  %></li>
+            <li><%= link_to "Vendredi", public_lessons_path(day: 5)  %></li>
+            <li><%= link_to "Samedi", public_lessons_path(day: 6)  %></li>
+            <li><%= link_to "Dimanche", public_lessons_path(day: 7)  %></li>
+          </ul>
         </div>
       </div>
-      <div class="dropdown">
+      <div class="dropdown-lesson">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuHoraire" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          HORAIRE
-          <i class="fas fa-caret-down"></i>
+          <div class="d-flex justify-content-between">
+            HORAIRE
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuHoraire">
-          <%= link_to "Matin", public_lessons_path(start: 1, end: 10)  %>
-          <%= link_to "Midi", public_lessons_path(start: 11, end: 14)  %>
-          <%= link_to "Après-midi", public_lessons_path(start: 15, end: 18)  %>
-          <%= link_to "Soir", public_lessons_path(start: 18, end: 24)  %>
+          <ul>
+            <li><%= link_to "Matin", public_lessons_path(start: 1, end: 10)  %></li>
+            <li><%= link_to "Midi", public_lessons_path(start: 11, end: 14)  %></li>
+            <li><%= link_to "Après-midi", public_lessons_path(start: 15, end: 18)  %></li>
+            <li><%= link_to "Soir", public_lessons_path(start: 18, end: 24)  %></li>
+          </ul>
         </div>
       </div>
-      <div class="dropdown">
+      <div class="dropdown-lesson">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuLieu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          LIEU
-          <i class="fas fa-caret-down"></i>
+          <div class="d-flex justify-content-between">
+            LIEU
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLieu">
           <%= link_to "Location TEST", public_lessons_path %>
@@ -51,6 +61,15 @@
     <% end %>
   </div>
 </div>
+<%# <script type="text/javascript">
+  const btn = document.getElementById('dropdownMenuJour');
+  
+  console.log(btn.getAttribute('aria-expanded'));
+  
+  if (btn.attr('aria-expanded')) {
+    btn.classList.add('btn-dropdown-open');
+  }
+</script> %>
 <%# 
 CSS REFERENCES
 .btn-dropdown                    => _public-lessons.scss 

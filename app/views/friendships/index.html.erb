@@ -24,8 +24,8 @@
                       <%= cl_image_tag friend.profile_picture, class:'avatar-extra-small mr-2' %>
                       <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friend.full_name %></p>
                     </div>
-                    <span class="text-blue">Crédit du Nord Corporate Finance</span>
-                  </div>
+<!--                     <span class="text-blue">Crédit du Nord Corporate Finance</span>
+ -->                  </div>
                   <%= link_to friend_requests_path(friend_email: friend.email), method: :post do %>
                     <i class="fas fa-paper-plane pr-5"></i>
                   <% end %>
@@ -70,7 +70,7 @@
     </div>
     <div class="col-12 col-md-4 mt-3 mt-md-0">
       <div class="card-blue card-blue-friends shadow p-4">
-        <h2 class='text-xbold pb-3'>MES AMIS</h2>
+        <h2 class='text-xbold pb-3 text-center'>MES AMIS</h2>
         <div class="search-friends pb-3">
           <%= form_tag friendships_path, method: :get, class: 'shadow' do %>
             <%= text_field_tag :friend_query,
@@ -88,13 +88,13 @@
               <%= cl_image_tag friendship.friend_b.profile_picture, class:'avatar-extra-small mr-2' %>
               <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friendship.friend_b.full_name %></p>
             </div>
-            <span class="text-blue">Crédit du Nord Corporate Finance</span>
+            <!-- <span class="text-blue">Crédit du Nord Corporate Finance</span> -->
           <% else %>
             <div class="d-flex align-items-center text-blue mt-3">
               <%= cl_image_tag friendship.friend_a.profile_picture, class:'avatar-extra-small mr-2' %>
               <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friendship.friend_a.full_name %></p>
             </div>
-            <span class="text-blue">Crédit du Nord Corporate Finance</span>
+            <!-- <span class="text-blue">Crédit du Nord Corporate Finance</span> -->
           <% end %>
         <% end %>
       </div>

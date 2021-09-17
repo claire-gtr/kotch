@@ -4,16 +4,26 @@
       <div class="p-4 shadow card-white card-white-friends" style="background-image: url(<%= asset_path 'background1.png' %>);">
         <div>
           <h2 class='text-xbold text-center pb-3'>AGRANDISSEZ VOTRE COMMUNAUTÉ !</h2>
-          <%= form_tag friend_requests_path, method: :post do |f| %>
-            <div class="d-flex align-items-center">
-              <%= text_field_tag :email,
-                params[:email],
-                class: "form-control",
-                placeholder: "Email de mon ami"
-              %>
-              <%= submit_tag "Ajouter en ami", class: "btn btn-kotch btn-blue btn-extra-small" %>
+          <div class="friends-tab">
+            <div class="search-new-friends">
+              <%= form_tag friendships_path, method: :get, class: 'shadow friends-form' do %>
+                <%= text_field_tag :new_friend_query,
+                  params[:new_friend_query],
+                  placeholder: "Recherche..."
+                %>
+                <%= button_tag type: 'submit', class: 'd-flex align-items-center' do %>
+                  <i class="fas fa-search fa-s"></i>
+                <% end %>
+              <% end %>
             </div>
-          <% end %>
+            <% @new_friends.each do |friend| %>
+              <div class="d-flex align-items-center text-blue mt-3">
+                <%= cl_image_tag friend.profile_picture, class:'avatar-extra-small mr-2' %>
+                <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friend.full_name %></p>
+              </div>
+              <span class="text-blue">Crédit du Nord Corporate Finance</span>
+            <% end %>
+          </div>
         </div>
         <h5 class='text-blue mt-5'>Demandes reçues :</h5>
         <% @my_friend_requests_as_receiver&.each do |fr| %>
@@ -52,18 +62,44 @@
     <div class="col-12 col-md-4 mt-3 mt-md-0">
       <div class="card-blue card-blue-friends shadow p-4">
         <h2 class='text-xbold pb-3'>MES AMIS</h2>
+        <div class="search-friends pb-3">
+          <%= form_tag friendships_path, method: :get, class: 'shadow' do %>
+            <%= text_field_tag :friend_query,
+              params[:friend_query],
+              placeholder: "Recherche..."
+            %>
+            <%= button_tag type: 'submit', class: 'd-flex align-items-center' do %>
+              <i class="fas fa-search fa-xs"></i>
+            <% end %>
+          <% end %>
+        </div>
         <% @my_friends&.each do |friendship| %>
-          <div class="d-flex align-items-center text-blue mt-3">
-            <% if friendship.friend_a == current_user %>
+          <% if friendship.friend_a == current_user %>
+            <div class="d-flex align-items-center text-blue mt-3">
               <%= cl_image_tag friendship.friend_b.profile_picture, class:'avatar-extra-small mr-2' %>
               <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friendship.friend_b.full_name %></p>
-            <% else %>
+            </div>
+            <span class="text-blue">Crédit du Nord Corporate Finance</span>
+          <% else %>
+            <div class="d-flex align-items-center text-blue mt-3">
               <%= cl_image_tag friendship.friend_a.profile_picture, class:'avatar-extra-small mr-2' %>
               <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friendship.friend_a.full_name %></p>
-            <% end %>
-          </div>
+            </div>
+            <span class="text-blue">Crédit du Nord Corporate Finance</span>
+          <% end %>
         <% end %>
       </div>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  const tab = document.querySelector('.friends-tab');
+  const form = document.querySelector('.friends-form');
+  const friends = '<%= @new_friends %>';
+  
+  if (friends.length) {
+    tab.classList.add('friends-tab-result');
+    tab.classList.add('shadow');
+    form.classList.remove('shadow');
+  }
+</script>

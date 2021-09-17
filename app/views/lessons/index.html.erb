@@ -18,6 +18,7 @@
   <div class="container pt-3">
     <div class="row">
       <div class="col-12">
+        <h2 class="text-center">MES RÉSERVATIONS</h2>
         <% if @pending_invitations.count > 0 %>
           <h2>Vous avez des invitations en attente</h2>
           <div class="card-list-bookings-messages p-3">
@@ -31,7 +32,6 @@
             <% end %>
           </div>
         <% end %>
-
         <div class="card-list-bookings-messages p-3">
           <% @lessons.each do |lesson| %>
             <%= render 'lesson', lesson: lesson %>

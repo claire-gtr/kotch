@@ -52,7 +52,12 @@
       </div>
       <h5 class='mt-4 text-blue'> Tous les lieux :</h5>
       <% @locations.each do |location| %>
-        <p class='mb-0 mr-3 text-blue'><%= location.name%></p>
+      <div class="d-flex">
+        <%= link_to location_path(location), method: :delete, data: {confirm: "Etes vous sûre de vouloir supprimer ce lieu ?"} do %>
+            <i class="far fa-trash-alt"></i>
+          <% end %>
+        <p class='mb-0 ml-2 text-blue'><%= location.name%></p>
+      </div>
       <% end %>
     </div>
   </div>

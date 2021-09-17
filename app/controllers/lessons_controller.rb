@@ -7,7 +7,6 @@ class LessonsController < ApplicationController
     @friends = current_user.my_friends
     @booking = Booking.new
     @pending_invitations = Booking.where(status: "invitation send", user: current_user)
-
   end
 
   def new
@@ -61,13 +60,15 @@ class LessonsController < ApplicationController
             render :new
           end
           friend_ids= params[:friends]
-          friend_ids.each do |id|
-            user = User.find(id.to_i)
-            booking = Booking.new(user: user, lesson: @lesson)
-            booking.status = "invitation send"
-            booking.save
-            mail = BookingMailer.with(user: user, booking: booking).invitation
-            mail.deliver_now
+          if friend_ids
+            friend_ids.each do |id|
+              user = User.find(id.to_i)
+              booking = Booking.new(user: user, lesson: @lesson)
+              booking.status = "invitation send"
+              booking.save
+              mail = BookingMailer.with(user: user, booking: booking).invitation
+              mail.deliver_now
+            end
           end
         else
           flash[:alert] = "Vous n'avez pas de séance pour réserver une séance ce mois-ci.."
@@ -130,7 +131,7 @@ class LessonsController < ApplicationController
       authorize @lesson
       if @lesson.user.nil?
         @lesson.user = current_user
-        @lesson.status = "validée"
+        @lesson.status = "Validée"
         @lesson.save
         flash[:notice] = "Vous êtes désormais le coach de cette séance."
         send_email_to_users
@@ -152,7 +153,7 @@ class LessonsController < ApplicationController
       authorize @lesson
       if @lesson.user.nil?
         @lesson.user = @user
-        @lesson.status = "validée"
+        @lesson.status = "Validée"
         @lesson.save
         send_email_to_users
         flash[:notice] = "Vous êtes désormais le coach de cette séance."

@@ -7,14 +7,6 @@ class LessonsController < ApplicationController
     @friends = current_user.my_friends
     @booking = Booking.new
     @pending_invitations = Booking.where(status: "invitation send", user: current_user)
-
-    # @lesson = Lesson.find(params[:lesson_id])
-    # @messages = policy_scope(Message)
-    
-    @lesson = Lesson.first
-    # ^^^ TO UPDATE! for testing only
-    @messages = @lesson.messages
-    @message = Message.new
   end
 
   def new

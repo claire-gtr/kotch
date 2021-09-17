@@ -17,9 +17,9 @@ class FriendshipsController < ApplicationController
       @my_friends = current_user.friendships
     end
 
-    if params[:new_friend_query].present?
+    if params[:email].present?
       @new_friends = User.all.select do |user|
-        user.email.downcase == params[:new_friend_query].downcase      
+        user.email.downcase == params[:email].downcase      
       end
     else
       @new_friends = []

@@ -7,8 +7,8 @@
           <div class="friends-tab">
             <div class="search-new-friends">
               <%= form_tag friendships_path, method: :get, class: 'shadow friends-form' do %>
-                <%= text_field_tag :new_friend_query,
-                  params[:new_friend_query],
+                <%= text_field_tag :email,
+                  params[:email],
                   placeholder: "Recherche..."
                 %>
                 <%= button_tag type: 'submit', class: 'd-flex align-items-center' do %>
@@ -26,7 +26,7 @@
                     </div>
                     <span class="text-blue">Crédit du Nord Corporate Finance</span>
                   </div>
-                  <%= link_to friend_requests_path, method: :post do %>
+                  <%= link_to friend_requests_path(friend_email: friend.email), method: :post do %>
                     <i class="fas fa-plus-circle text-blue"></i>
                   <% end %>
                 </div>

@@ -1,17 +1,12 @@
 <div class="card-blue shadow p-4 mb-3 d-flex justify-content-between align-items-center">
   <div class="d-block d-md-flex justify-content-between w-100 align-items-center mt-3 mt-md-0">
     <div class="d-flex justify-content-between w-100 align-items-center">
-      <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime('%e-%m-%y à %Hh%M')%></p>
-      <p class="mb-0 text-blue text-bold text-condensed text-small text-center lesson-max-100"><%= lesson.location.name%></p>
+      <p class="mb-0 text-blue text-bold text-condensed text-small"><%= I18n.l(lesson.date, format: '%A').upcase %> <%= lesson.date.strftime('%e/%m À %Hh%M')%></p>
+      <p class="mb-0 text-blue text-bold text-condensed text-small text-center lesson-max-100"><%= lesson.location.name.upcase %></p>
       <span class="title-sport lesson-max-60 text-center"><%= lesson.sport_type.upcase %></span>
-      <% if !lesson.public && !current_user.coach %>
-        <%= link_to public_lesson_booking_path(lesson) do %>
-          <p class=" mb-0 text-small text-condensed">Passer la séance en publique</p>
-        <% end %>
-      <% end %>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-transparent text-condensed" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
-        <%= lesson.users.count %> participants
+        <%= lesson.users.count %> INSCRITS
       </button>
 
       <!-- Modal -->
@@ -45,9 +40,9 @@
         </div>
       </div>
       <% if lesson.user_id %>
-        <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">Avec coach <%= lesson.user.first_name %></p>
+        <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">AVEC COACH <%= lesson.user.first_name.upcase %></p>
       <% else %>
-        <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">Pas de coach</p>
+        <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">PAS DE COACH</p>
       <% end %>
       <% if !current_user.coach %>
         <%= link_to "JE RÉSERVE", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
@@ -66,10 +61,10 @@
         <% if current_user.coach %>
           <% if lesson.user.nil?  %>
             <div>
-              <%= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link'  %>
+              <%= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link lesson-max-60'  %>
             </div>
           <% else %>
-            <p class='mb-0 text-small text-blue text-condensed'>Il y a déjà un coach sur cette séance</p>
+            <p class='mb-0 text-small text-blue text-condensed lesson-max-60'>Il y a déjà un coach sur cette séance</p>
           <% end %>
         <% end %>
       </div>

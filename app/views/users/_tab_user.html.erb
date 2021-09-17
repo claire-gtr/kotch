@@ -7,7 +7,7 @@
       <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-2" role="tab">Historique des séances</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-3" role="tab">Mon abonnement</a>
+      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-3" role="tab">Mon abonnement / Mes achats</a>
     </li>
   </ul><!-- Tab panes -->
   <div class="tab-content p-3">
@@ -33,11 +33,42 @@
                 <td class='py-2'><%= booking.lesson.location.name %></td>
                 <td class='py-2'>
                   <% if booking.lesson.status == "pending" %>
-                  En attente
+                    En attente
+                  <% else %>
+                    <%= booking.lesson.status %>
                   <% end %>
                 </td>
-                <td class='py-2'><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
+                <td class='py-2'>
+                  <%= booking.lesson.user.first_name if booking.lesson.user_id%>
+                  <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-<%= booking.lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>
+                </td>
               </tr>
+              <!-- Modal -->
+              <div class="modal fade" id="modal1-<%= booking.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content participants-modal">
+                    <div class="modal-header d-flex">
+                      <h3 class="modal-title" id="participantsModalLabel"><%= booking.lesson.sport_type.upcase %></h3>
+                      <p><i><%= booking.lesson.date.strftime("%d/%m/%Y") %></i></p>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <h5 class="my-3">PARTICIPANTS</h5>
+                      <% booking.lesson.bookings.each do |booking| %>
+                        <span>
+                          <div class="bullet">• &nbsp</div>
+                          <ul class="d-flex justify-content-between">
+                            <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
+                          </ul>
+                        </span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End modal -->
             <% end %>
           <% end %>
         </tbody>
@@ -59,21 +90,62 @@
           <% if @bookings_in_past.any? %>
             <% @bookings_in_past.each do |booking| %>
               <tr>
-                <td><%= booking.lesson.sport_type %></td>
-                <td><%= booking.lesson.date.strftime('%d/%m/%Y') %></td>
-                <td><%= booking.lesson.date.strftime('%H:%M') %></td>
-                <td><%= booking.lesson.location.name %></td>
-                <td><%= booking.lesson.status %></td>
-                <td><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
+                <td class="py-2"><%= booking.lesson.sport_type %></td>
+                <td class="py-2"><%= booking.lesson.date.strftime('%d/%m/%Y') %></td>
+                <td class="py-2"><%= booking.lesson.date.strftime('%H:%M') %></td>
+                <td class="py-2"><%= booking.lesson.location.name %></td>
+                <td class="py-2">
+                  <% if booking.lesson.status == "pending" %>
+                    En attente
+                  <% elsif booking.lesson.status == "canceled" %>
+                    Annulée
+                  <% else %>
+                    <%= booking.lesson.status.capitalize %>
+                  <% end %>
+                </td>
+                <td class="py-2">
+                  <%= booking.lesson.user.first_name if booking.lesson.user_id%>
+                  <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal-past-bookings-<%= booking.lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>
+                </td>
               </tr>
+              <!-- Modal -->
+              <div class="modal fade" id="modal-past-bookings-<%= booking.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content participants-modal">
+                    <div class="modal-header d-flex">
+                      <h3 class="modal-title" id="participantsModalLabel"><%= booking.lesson.sport_type.upcase %></h3>
+                      <p><i><%= booking.lesson.date.strftime("%d/%m/%Y") %></i></p>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <h5 class="my-3">PARTICIPANTS</h5>
+                      <% booking.lesson.bookings.each do |booking| %>
+                        <span>
+                          <div class="bullet">• &nbsp</div>
+                          <ul class="d-flex justify-content-between">
+                            <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
+                          </ul>
+                        </span>
+                      <% end %>
+                      <h5 class="my-3">ÉLÉMENTS TRAVAILLÉS PENDANT LA SÉANCES</h5>
+                      <%= simple_form_for booking.lesson, url: focus_lesson_path(booking.lesson), method: :get do |f| %>
+                        <%= f.input :focus, label: false %>
+                      <%= f.submit "Enregistré les éléments travaillés", class:'btn btn-kotch btn-ghost' %>
+                      <% end %>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End modal -->
             <% end %>
           <% end %>
         </tbody>
       </table>
     </div>
     <div class="tab-pane" id="tabs-3" role="tabpanel">
-      <h3 class="text-blue text-center">Mon abonnement</h3>
-      <% if current_user.subscription.stripe_id %>
+      <% if current_user.subscription && current_user.subscription.stripe_id %>
         <div class="text-center">
           <p class="text-blue mt-5">Vous êtes actuellement abonné(e) au plan <%= current_user.subscription.nickname %>.</p>
           <form action="/customer_portal_sessions" method="POST">
@@ -89,7 +161,7 @@
       <% else %>
         <div class="text-center">
           <p class="text-blue">Vous n'avez pas d'abonnement à Koach.</p>
-          <%= link_to "Je m'abonne", offers_path, class:'btn btn-red btn-kotch'  %>
+          <%= link_to "Je m'abonne", offers_path, data: {turbolinks: "false"}, class:'btn btn-red btn-kotch'  %>
         </div>
       <% end %>
     </div>

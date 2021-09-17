@@ -51,7 +51,12 @@ class LessonPolicy < ApplicationPolicy
   def lesson_done?
     record.user == user
   end
+
   def lesson_not_done?
     record.user == user
+  end
+
+  def focus_lesson?
+    true
   end
 end

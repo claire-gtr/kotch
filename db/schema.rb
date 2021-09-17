@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_15_142112) do
+ActiveRecord::Schema.define(version: 2021_09_16_133256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_142112) do
     t.string "status", default: "pending"
     t.bigint "location_id"
     t.boolean "public", default: false
+    t.text "focus"
     t.index ["location_id"], name: "index_lessons_on_location_id"
     t.index ["user_id"], name: "index_lessons_on_user_id"
   end
@@ -176,6 +177,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_142112) do
     t.integer "credit_count", default: 0
     t.string "stripe_id"
     t.boolean "validated_coach", default: false
+    t.boolean "terms", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

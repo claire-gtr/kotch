@@ -1,3 +1,20 @@
-Booking#invitation
+Bonjour <%= @user.first_name.capitalize %> !
 
-<%= @greeting %>, find me in app/views/booking_mailer/invitation.text.erb
+Un ami vient de t’envoyer une invitation pour participer à une séance Koach
+
+Ne tarde pas et réponds vite à son invitation !
+
+<%= link_to "Valide ta séance", accept_invitation_url(booking_id: @booking.id) %>
+
+Ce créneau ne correspond pas à ton planning ?
+Connecte-toi sur Koach & Co, définis la séance qui te convient le mieux et partage-la avec tes amis !
+
+<%= link_to "Propose une nouvelle séance", new_lesson_url%>
+
+Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!
+
+À très vite
+
+Ton équipe Koach & Co
+<%#= image_tag 'logo-pink.png' %>
+<!-- link to insta + facebook -->

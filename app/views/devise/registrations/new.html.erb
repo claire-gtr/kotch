@@ -13,10 +13,10 @@
             <%= f.input :gender, as: :radio_buttons, collection: User.genders.keys.map { |m| [I18n.t("gender.#{m}"), m] }, legend_tag: false %>
             <div class="row">
               <div class="col-6">
-                <%= f.input :last_name, label: false, required: true %>
+                <%= f.input :first_name, label: false, required: true %>
               </div>
               <div class="col-6">
-                <%= f.input :first_name, label: false, required: true %>
+                <%= f.input :last_name, label: false, required: true %>
               </div>
             </div>
             <div class="row">
@@ -89,7 +89,8 @@
           </div>
 
           <div class="form-actions">
-            <%= f.button :submit, "JE CRÉE MON COMPTE", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
+            <%= f.input :terms, as: :boolean, label: "En cochant cette case, vous consentez à recevoir des propositions commerciales par voie électronique. Vous pouvez vous désinscrire à tout moment en modifiant vos paramètres sur votre compte et à travers les liens de désinscription." %>
+            <%= f.button :submit, "VALIDER MON PROFIL", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
           </div>
           <div class="mt-4">
             <%= render "devise/shared/links" %>

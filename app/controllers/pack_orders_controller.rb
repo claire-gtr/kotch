@@ -1,7 +1,7 @@
 class PackOrdersController < ApplicationController
   def create
-    packs = [{amount: 500, credit_count: 10, name: 'All inclusive'},
-             {amount: 100, credit_count: 1, name: 'Minimal'}]
+    packs = [{amount: 12000, credit_count: 10, name: 'All inclusive'},
+             {amount: 1500, credit_count: 1, name: 'Minimal'}]
     chosen_pack = packs[params[:pack_number].to_i]
 
     pack_order  = PackOrder.new(credit_count: chosen_pack[:credit_count] , amount: chosen_pack[:amount], state: 'pending', user: current_user)

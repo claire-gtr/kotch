@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'lesson-done/:id', to: 'lessons#lesson_done', as: :lesson_done
   get 'lesson-not-done/:id', to: 'lessons#lesson_not_done', as: :lesson_not_done
   patch 'cancel-lesson/:id', to: 'lessons#cancel', as: :cancel_lesson
+  get 'focus-lesson/:id', to: 'lessons#focus_lesson', as: :focus_lesson
 
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
@@ -31,6 +32,8 @@ Rails.application.routes.draw do
   get 'faq', to: "pages#faq", as: :faq
   get 'forum', to: "pages#forum", as: :forum
   get 'abonnements', to: "pages#offers", as: :offers
+  get 'cgv', to: "pages#cgv", as: :cgv
+  get 'mentions-légales', to: "pages#legals", as: :legals
   patch '/coach-validation', to: "users#coach_validation", as: :coach_validation
   resources :subjects, only: [:new, :create, :show] do
     resources :answers, only: [:create]

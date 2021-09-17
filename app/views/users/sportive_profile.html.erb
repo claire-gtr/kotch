@@ -1,14 +1,14 @@
 <div class="container">
   <div class="row mt-4">
     <div class="col text-blue">
-      <h1>PROFIL SPORTIF DE <%= @user.full_name %> </h1>
+      <h1>Profil sportif de <%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %> </h1>
       <p>Année de naissance : <%= @user.birth_date.strftime('%Y') unless @user.birth_date.nil? %></p>
       <p>Habitudes sportives : <%= @user.sport_habits %></p>
       <p>Douleurs : <%= @user.physical_pain %></p>
       <p>Niveau sportif : <%= @user.level %></p>
       <p>Intensité habituelle : <%= @user.intensity %></p>
       <p>Attentes : <%= @user.expectations %></p>
-      <%= link_to "Retour à mon profil coach", lessons_path, class: 'btn btn-kotch btn-red'  %>
+      <%= link_to "Retour à mon profil coach", profile_path, class: 'btn btn-kotch btn-red'  %>
     </div>
   </div>
 </div>

@@ -1,0 +1,17 @@
+Bonjour <%= @user.first_name.capitalize %> !
+
+Une séance est complète avec 5 élèves et n'a pas de coach.
+Détails de la séance :
+<%= @lesson.sport_type %>
+<%= @lesson.date %>
+<%= @lesson.location.name %>
+
+Si tu souhaite to positionner, merci de clicker sur ce lien :
+<%= link_to "Je me positionne", be_coach_via_mail_url(@lesson, @user) %>
+
+À très vite
+
+Ton équipe Koach & Co
+<%#= image_tag 'logo-pink.png' %>
+<!-- link to insta + facebook -->
+

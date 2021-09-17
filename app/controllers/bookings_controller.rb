@@ -40,7 +40,7 @@ class BookingsController < ApplicationController
       flash[:info] = "Vous êtes bien inscrit(e) à la séance"
       redirect_to lessons_path
     else
-      flash[:alert] = "Vous n'avez pas de crédit pour réserver une leçon ce mois-ci."
+      flash[:alert] = "Vous n'avez pas de crédit pour réserver une séance ce mois-ci.."
       redirect_to offers_path
     end
   end
@@ -73,7 +73,7 @@ class BookingsController < ApplicationController
         flash[:info] = "Vous êtes bien inscrit(e) à la séance"
         redirect_to lessons_path
       else
-        flash[:alert] = "Vous n'avez pas de crédit pour réserver une leçon ce mois-ci."
+        flash[:alert] = "Vous n'avez pas de crédit pour réserver une séance ce mois-ci.."
         redirect_to offers_path
       end
     end

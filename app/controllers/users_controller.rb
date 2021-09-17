@@ -17,7 +17,14 @@ class UsersController < ApplicationController
           @coachings_in_past << lesson
         end
       end
-      # totest
+      @all_coachings_in_future_without_coach = Lesson.where("date >= ?", Time.now).where(user: nil)
+      @coachings_requests = []
+      @all_coachings_in_future_without_coach.each do |lesson|
+        if lesson.bookings.count >= 5
+          @coachings_requests << lesson
+        end
+      end
+
       first_lesson_date = current_user.lessons.pluck(:date).min
       first_day = first_lesson_date.beginning_of_month
       last_day = first_lesson_date.end_of_month

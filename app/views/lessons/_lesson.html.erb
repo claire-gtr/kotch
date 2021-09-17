@@ -1,7 +1,7 @@
 <div class="card-white bg-white shadow d-flex justify-content-between p-4 mb-3">
   <div class="d-flex">
-    <div>
-      <% if lesson.user.avatar.attached? %>
+    <div class="d-flex align-items-center">
+      <% if lesson.user && lesson.user.avatar.attached? %>
         <%= cl_image_tag lesson.user.avatar %>
       <% else %>
         <%= image_tag 'avatar_default.png', class:'avatar-small mr-3' %>

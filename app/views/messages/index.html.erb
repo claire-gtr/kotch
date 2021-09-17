@@ -1,10 +1,16 @@
 <div class="container">
-  <%# <%= link_to "Retour", lessons_path, class:'btn-kotch btn-red btn-extra-small mb-5'  %>
+  <%= link_to "Retour", lessons_path, class:'btn-kotch btn-red btn-extra-small mb-5'  %>
   <div class="card-messages card-blue px-4 pt-4 mb-3 mt-3" id="messages-<%= @lesson.id %>" style="background-image: url(<%= asset_path 'background1.png' %>);">
     <div class="d-flex justify-content-between">
       <p class="title-sport"><%= @lesson.sport_type %></p>
       <p class="text-blue"><b><%= Date.today.strftime('%d %b %Y') %></b></p>
-      <p class="title-sport">Coach <%= @lesson.user.first_name %></p>
+      <p class="title-sport">
+        <% if @lesson.user %>
+          Coach <%= @lesson.user.first_name %>
+        <% else %>
+          Il n'y a pas encore de coach
+        <% end %>
+        </p>
     </div>
     <div class="msg-cards-box">
       <% if @messages %>

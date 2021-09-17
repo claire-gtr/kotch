@@ -60,13 +60,15 @@ class LessonsController < ApplicationController
             render :new
           end
           friend_ids= params[:friends]
-          friend_ids.each do |id|
-            user = User.find(id.to_i)
-            booking = Booking.new(user: user, lesson: @lesson)
-            booking.status = "invitation send"
-            booking.save
-            mail = BookingMailer.with(user: user, booking: booking).invitation
-            mail.deliver_now
+          if friend_ids
+            friend_ids.each do |id|
+              user = User.find(id.to_i)
+              booking = Booking.new(user: user, lesson: @lesson)
+              booking.status = "invitation send"
+              booking.save
+              mail = BookingMailer.with(user: user, booking: booking).invitation
+              mail.deliver_now
+            end
           end
         else
           flash[:alert] = "Vous n'avez pas de séance pour réserver une séance ce mois-ci.."

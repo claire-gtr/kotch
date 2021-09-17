@@ -31,16 +31,18 @@
                 <% end %>
               <!-- <div class="msg-icon"><p><%#= rand(0..5) %></p></div> -->
             </div>
-            <div class= 'mt-2'>
-              <p class="text-light-blue mb-0"><b> Nombre de séances effectuées par mois</b></p>
-              <div>
-                <% @all_lessons.each do |month| %>
-                  <% if month[:count] != 0 %>
-                    <p class="mb-0"><%= month[:month] %> : <%= month[:count] %></p>
+            <% if @all_lessons %>
+              <div class= 'mt-2'>
+                <p class="text-light-blue mb-0"><b> Nombre de séances effectuées par mois</b></p>
+                <div>
+                  <% @all_lessons.each do |month| %>
+                    <% if month[:count] != 0 %>
+                      <p class="mb-0"><%= month[:month] %> : <%= month[:count] %></p>
+                    <% end %>
                   <% end %>
-                <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
           </div>
         <% end %>
         <div class="text-left mt-4 <%= current_user.coach ? "text-white" : "text-blue" %> font-condensed profile-info">

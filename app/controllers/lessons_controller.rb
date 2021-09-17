@@ -7,7 +7,6 @@ class LessonsController < ApplicationController
     @friends = current_user.my_friends
     @booking = Booking.new
     @pending_invitations = Booking.where(status: "invitation send", user: current_user)
-
   end
 
   def new

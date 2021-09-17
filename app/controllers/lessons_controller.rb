@@ -113,6 +113,8 @@ class LessonsController < ApplicationController
     else
       if params[:day].present?
         @lessons = Lesson.where("DATE_PART('dow', date)=?", params[:day]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+      elsif params[:start].present?
+        @lessons = Lesson.where('EXTRACT(hour FROM date) BETWEEN ? AND ?', params[:start], params[:end]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
       else
         @lessons = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
       end

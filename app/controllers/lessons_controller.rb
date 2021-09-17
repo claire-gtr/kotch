@@ -124,7 +124,7 @@ class LessonsController < ApplicationController
       authorize @lesson
       if @lesson.user.nil?
         @lesson.user = current_user
-        @lesson.status = "validée"
+        @lesson.status = "Validée"
         @lesson.save
         flash[:notice] = "Vous êtes désormais le coach de cette séance."
         send_email_to_users
@@ -146,7 +146,7 @@ class LessonsController < ApplicationController
       authorize @lesson
       if @lesson.user.nil?
         @lesson.user = @user
-        @lesson.status = "validée"
+        @lesson.status = "Validée"
         @lesson.save
         send_email_to_users
         flash[:notice] = "Vous êtes désormais le coach de cette séance."

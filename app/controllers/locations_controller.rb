@@ -11,6 +11,13 @@ class LocationsController < ApplicationController
     end
   end
 
+  def destroy
+    @location = Location.find(params[:id])
+    authorize @location
+    @location.destroy
+    redirect_to dashboard_path
+  end
+
   private
 
   def location_params

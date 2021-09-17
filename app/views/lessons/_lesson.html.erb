@@ -1,5 +1,8 @@
 <div class="card-white shadow d-flex justify-content-between p-4 mb-3">
   <div>
+    <%= image_tag 'avatar_default.png', class:'avatar-small mr-3' %>
+  </div>
+  <div>
     <% if lesson.status == "pending" || lesson.status == "canceled" %>
       <div class="pill pill-red text-center mt-3">
         <%= lesson.status %>
@@ -17,7 +20,7 @@
     <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime('%e-%m-%y à %Hh%M')%></p>
     <% if !lesson.public %>
       <%= link_to change_lesson_public_path(lesson) do %>
-      <p class=" mb-0 text-small text-condensed">Passer la séance en publique</p>
+        <p class=" mb-0 text-small text-condensed">Passer la séance en publique</p>
       <% end %>
     <% else %>
       <p class="mb-0 text-blue text-bold text-condensed text-small">Séance publique</p>
@@ -26,7 +29,6 @@
     <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
       <%= lesson.users.count %> participants
     </button>
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModal-<%= lesson.id %>Label" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -69,9 +71,8 @@
       <% if lesson.bookings.count <= 10 %>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#addUserModal-<%= lesson.id %>">
-          + inviter des participants
+          <i class="fas fa-plus-circle fa-xs"></i> inviter des participants
         </button>
-
         <!-- Modal -->
         <div class="modal fade" id="addUserModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="addUserModal-<%= lesson.id %>Label" aria-hidden="true">
           <div class="modal-dialog" role="document">

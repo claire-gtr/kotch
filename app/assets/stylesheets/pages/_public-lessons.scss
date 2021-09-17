@@ -1,0 +1,37 @@
+.dropdown-lesson {
+  .btn-dropdown {
+    background-color: $blue-kotch;
+    color: white;
+    border-radius: 15px;
+    width: 14em;
+    height: 2.5em;
+  }
+
+  .dropdown-menu {
+    background-color: $blue-kotch;
+    color: white;
+    border-radius: 15px;
+    width: 14em;
+    padding-top: 15px;
+
+    a,
+    a:hover {
+      color: white;
+    }
+  }
+
+  *:focus {
+    outline: none !important;
+  }
+}
+
+// .btn-dropdown-open {
+//   border-radius: 15px 15px 0 0 !important;
+// }
+
+@media only screen and (max-width: 600px) {
+  .dropdown-lesson {
+    padding: 1em;
+    text-align: center;
+  }
+}

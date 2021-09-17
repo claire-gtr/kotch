@@ -1,6 +1,6 @@
 <div class="card-blue shadow p-4 mb-3 d-flex justify-content-between align-items-center">
   <div class="d-block d-md-flex justify-content-between w-100 align-items-center mt-3 mt-md-0">
-    <div class="d-flex justify-content-between w-100 align-items-center">
+    <div class="d-flex justify-content-between flex-column flex-md-row w-100 align-items-center">
       <p class="mb-0 text-blue text-bold text-condensed text-small"><%= I18n.l(lesson.date, format: '%A').upcase %> <%= lesson.date.strftime('%e/%m À %Hh%M')%></p>
       <p class="mb-0 text-blue text-bold text-condensed text-small text-center lesson-max-100"><%= lesson.location.name.upcase %></p>
       <span class="title-sport lesson-max-60 text-center"><%= lesson.sport_type.upcase %></span>
@@ -8,7 +8,6 @@
       <button type="button" class="btn btn-transparent text-condensed" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
         <%= lesson.users.count %> INSCRITS
       </button>
-
       <!-- Modal -->
       <div class="modal fade" id="exampleModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModal-<%= lesson.id %>Label" aria-hidden="true">
         <div class="modal-dialog" role="document">

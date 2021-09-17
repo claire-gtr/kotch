@@ -25,7 +25,9 @@
                   </div>
                   <span class="text-blue">Crédit du Nord Corporate Finance</span>
                 </div>
-                <i class="fas fa-plus-circle text-blue"></i>
+                <%= link_to friend_requests_path, method: :post do %>
+                  <i class="fas fa-plus-circle text-blue"></i>
+                <% end %>
               </div>
             <% end %>
           </div>

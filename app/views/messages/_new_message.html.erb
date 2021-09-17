@@ -1,4 +1,4 @@
-<% if current_user.coach %>
+  <% if current_user.coach %>
   <%= simple_form_for message, url: coach_messages_path(lesson), remote: true do |f| %>
     <div class="input-relative pr-5 mt-5">
       <%= f.input :content, label: false, input_html: {class: "mr-5"}, placeholder: "Message..." %>

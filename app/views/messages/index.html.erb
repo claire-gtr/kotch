@@ -4,9 +4,9 @@
     <p class="title-sport"><%= @lesson.sport_type %></p>
     <% if @messages %>
       <% @messages&.each do |message| %>
-        <%= render 'messages/message', message: message, lesson: @lesson %>
+        <%= render 'message', message: message, lesson: @lesson %>
       <% end %>
     <% end %>
-    <%= render 'messages/new_message', lesson: @lesson, message: @message %>
+    <%= render 'new_message', lesson: @lesson, message: @message %>
   </div>
 </div>

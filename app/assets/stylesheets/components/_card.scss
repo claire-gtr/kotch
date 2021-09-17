@@ -65,6 +65,13 @@
   background-size: contain;
   background-position: center bottom;
   background-color: #F4F6FF;
+  background-size: cover;
+
+  form {
+    button:focus {
+      outline: none !important;
+    }
+  }
 }
 
 .card-header {
@@ -95,7 +102,7 @@
   }
 }
 .card-list-bookings-messages {
-  height: 76vh;
+  height: 85vh;
   overflow: auto;
 }
 

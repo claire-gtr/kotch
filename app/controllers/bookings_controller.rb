@@ -2,7 +2,7 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
-    @booking.status = "invitation send"
+    @booking.status = "Invitation envoyée"
     @user = @booking.user
     authorize @booking
     if @booking.save
@@ -25,12 +25,12 @@ class BookingsController < ApplicationController
     @lesson = @booking.lesson
     has_credit = current_user.has_credit(@lesson.date)
     if has_credit[:has_credit] == true
-      @booking.status = "confirmé"
+      @booking.status = "Confirmé"
       if has_credit[:origin] == 'credit'
         @booking.used_credit = true
       end
       @booking.save
-      if @lesson.bookings.where(status: "confirmé").count == 5 && @booking.lesson.user.nil?
+      if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil?
         User.where(coach: true).each do |user|
           mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
           mail.deliver_now
@@ -57,19 +57,19 @@ class BookingsController < ApplicationController
     elsif !current_user.coach
       if has_credit[:has_credit] == true
         @booking.lesson = @lesson
-        @booking.status = "confirmé"
+        @booking.status = "Confirmé"
         @booking.user = current_user
         if has_credit[:origin] == 'credit'
           @booking.used_credit = true
         end
         @booking.save
-        if @lesson.bookings.where(status: "confirmé").count == 5 && @booking.lesson.user.nil?
+        if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil?
           User.where(coach: true).each do |user|
             mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
             mail.deliver_now
           end
         end
-        if @lesson.bookings.where(status: "confirmé").count == 5 && !@booking.lesson.user.nil?
+        if @lesson.bookings.where(status: "Confirmé").count == 5 && !@booking.lesson.user.nil?
           send_confirmation_email_to_coach
         end
         flash[:info] = "Vous êtes bien inscrit(e) à la séance"

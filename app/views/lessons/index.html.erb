@@ -23,11 +23,37 @@
           <h2>Vous avez des invitations en attente</h2>
           <div class="card-list-bookings-messages p-3">
             <% @pending_invitations.each do |pi| %>
-              <div class="card-white shadow d-flex justify-content-between p-4 mb-3">
-                <p><%= pi.lesson.date %></p>
-                <p><%= pi.lesson.sport_type %></p>
-                <p><%= pi.lesson.location.name %></p>
-                <%= link_to "Accepter l'invitation", accept_invitation_path(pi), class:"btn btn-primary" %>
+              <div class="card-white text-bold shadow d-flex justify-content-between align-items-center p-4 mb-3">
+                <p class='mb-0 text-blue'><%= pi.lesson.date.strftime('%e-%m-%y à %Hh%M')%></p>
+                <p class='mb-0 text-coral'><%= pi.lesson.sport_type.upcase %></p>
+                <p class='mb-0 text-blue'><%= pi.lesson.location.name %></p>
+                <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#invitationModal-<%= pi.lesson.id %>">
+                  <i class="fas fa-plus-circle fa-xs"></i> voir les participants
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="invitationModal-<%= pi.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="invitationModal-<%= pi.lesson.id %>Label" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content card-kotch">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body text-blue py-5">
+                        <% pi.lesson.users.each do |user| %>
+                          <div class="d-flex justify-content-between">
+                            <p><%= user.full_name %></p>
+                            <p><em><%= Booking.find_by(user: user, lesson: pi.lesson).status %></em></p>
+                          </div>
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-kotch btn-light-blue" data-dismiss="modal">Annuler</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%= link_to "Accepter l'invitation", accept_invitation_path(pi), class:"btn btn-kotch btn-red" %>
               </div>
             <% end %>
           </div>

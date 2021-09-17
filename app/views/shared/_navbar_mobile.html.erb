@@ -10,9 +10,9 @@
       </div>
       <div class="dropdown-menu dropdown-menu-mobile mt-2 dropdown-menu-right p-3" aria-labelledby="navbarDropdown">
         <% if user_signed_in? %>
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center mb-3">
             <%= cl_image_tag current_user.profile_picture, class:'avatar-small' %>
-            <p class='text-blue text-bold mb-0 ml-2'>BONJOUR <%= current_user.first_name.upcase %></p>
+            <p class='text-blue text-bold ml-2 mb-0'>BONJOUR <%= current_user.first_name.upcase %></p>
           </div>
           <% if current_user.coach %>
             <%= link_to "Ajouter une séance", new_lesson_path, class: "dropdown-item text-white px-0" %>

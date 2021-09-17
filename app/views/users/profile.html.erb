@@ -13,7 +13,7 @@
         <div class="text-center mt-4">
           <%= cl_image_tag @user.profile_picture, class:'avatar' %>
           <% unless current_user.coach %>
-            <p class='text-coral text-bold'>0/4 crédits restants</p>
+            <p class='text-coral text-bold'><%= @used_this_month %>/<%= @included_lessons %> crédits utilisés ce mois</p>
           <% end %>
         </div>
         <% if current_user.coach %>

@@ -87,5 +87,16 @@ class UsersController < ApplicationController
         @bookings_in_past << booking
       end
     end
+
+    if current_user.subscription.active?
+      subscription = current_user.subscription
+      @included_lessons = subscription.nickname.first(2).to_i
+      @used_this_month = 0
+      current_user.bookings.where(used_credit: false).each do |b|
+        if b.lesson.date >= Date.today.beginning_of_month && b.lesson.date <= Date.today.end_of_month && b.lesson.status != "canceled"
+          @used_this_month += 1
+        end
+      end
+    end
   end
 end

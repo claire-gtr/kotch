@@ -75,4 +75,10 @@
 .friends-tab-result {
   border-radius: 20px;
   background-color: white;
+  overflow: auto;
+  max-height: 50vh;
+
+  i {
+    cursor: pointer;
+  }
 }

@@ -6,7 +6,7 @@ class LessonsController < ApplicationController
     @message = Message.new
     @friends = current_user.my_friends
     @booking = Booking.new
-    @pending_invitations = Booking.where(status: "invitation send", user: current_user)
+    @pending_invitations = Booking.where(status: "Invitation envoyée", user: current_user)
   end
 
   def new
@@ -49,7 +49,7 @@ class LessonsController < ApplicationController
           @booking = Booking.new
           @booking.user = current_user
           @booking.lesson = @lesson
-          @booking.status = "confirmé"
+          @booking.status = "Confirmé"
           if has_credit[:origin] == 'credit'
             @booking.used_credit = true
           end
@@ -64,7 +64,7 @@ class LessonsController < ApplicationController
             friend_ids.each do |id|
               user = User.find(id.to_i)
               booking = Booking.new(user: user, lesson: @lesson)
-              booking.status = "invitation send"
+              booking.status = "Invitation envoyée"
               booking.save
               mail = BookingMailer.with(user: user, booking: booking).invitation
               mail.deliver_now
@@ -107,7 +107,7 @@ class LessonsController < ApplicationController
       @lessons_in_future = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
       @lessons = []
       @lessons_in_future.each do |lesson|
-        if lesson.bookings.where(status: "confirmé").count >= 5
+        if lesson.bookings.where(status: "Confirmé").count >= 5
           @lessons << lesson
         end
       end
@@ -192,7 +192,7 @@ class LessonsController < ApplicationController
   private
 
   def send_email_to_users
-    @lesson.bookings.where(status: "confirmé").each do |booking|
+    @lesson.bookings.where(status: "Confirmé").each do |booking|
       mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed
       mail.deliver_now
     end

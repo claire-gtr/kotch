@@ -10,9 +10,9 @@
       <%= link_to "Dimanche", public_lessons_path(day: 7)  %>
     </div>
     <div class="col-12">
-      <%= link_to "Matin", public_lessons_path(start: 1, end: 11)  %>
+      <%= link_to "Matin", public_lessons_path(start: 1, end: 10)  %>
       <%= link_to "Midi", public_lessons_path(start: 11, end: 14)  %>
-      <%= link_to "Après-midi", public_lessons_path(start: 14, end: 18)  %>
+      <%= link_to "Après-midi", public_lessons_path(start: 15, end: 18)  %>
       <%= link_to "Soir", public_lessons_path(start: 18, end: 24)  %>
     </div>
     <% if @lessons.empty? %>

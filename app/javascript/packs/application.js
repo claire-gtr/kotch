@@ -42,8 +42,8 @@ document.addEventListener('turbolinks:load', () => {
   initFlatpickr();
   initFlatpickrBirth();
   initAutocomplete();
-  initMapbox();
   initSelect2();
+  initMapbox();
 });
 
 import "controllers"

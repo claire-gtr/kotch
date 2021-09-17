@@ -57,6 +57,6 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def focus_lesson?
-    record.user == user
+    true
   end
 end

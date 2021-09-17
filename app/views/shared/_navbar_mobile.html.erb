@@ -20,9 +20,6 @@
             <%= link_to "Réserver une séance", new_lesson_path, class: "dropdown-item text-white px-0" %>
           <% end %>
           <%= link_to "Mon profil", profile_path, class: "dropdown-item text-white px-0" %>
-          <% unless current_user.coach %>
-            <%= link_to "Mon abonnement", "#", class: "dropdown-item text-white px-0" %>
-          <% end %>
           <% if current_user.coach %>
             <%= link_to "Mes coachings", lessons_path, class: "dropdown-item text-white px-0" %>
           <% else %>
@@ -33,7 +30,7 @@
             <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0" %>
           <% end %>
           <%= link_to "DÉCONNEXION", destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-extra-small w-100 text-center mt-3" %>
-          <%= link_to "Besoin d'aide ?", "#", class:"small-link" %>
+          <%= link_to "Besoin d'aide ?", faq_path, class:"small-link" %>
         <% else %>
           <%= link_to "Nos offres", offers_path, data: {turbolinks: "false"}, class: "dropdown-item text-white" %>
           <%= link_to "Connexion", new_user_session_path, class: "dropdown-item text-white" %>

@@ -72,7 +72,7 @@ class LessonsController < ApplicationController
             mail.deliver_now
           end
         else
-          flash[:alert] = "Vous n'avez pas de crédit pour réserver une leçon ce mois-ci."
+          flash[:alert] = "Vous n'avez pas de crédit pour réserver une séance ce mois-ci.."
           redirect_to offers_path
         end
       end

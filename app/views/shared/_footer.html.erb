@@ -5,7 +5,9 @@
       <u><%= link_to "FAQ", faq_path, class:'footer-link mx-4'%></u>
       <u><%= link_to "Forum", forum_path, class:'footer-link mx-4'%></u>
       <u><a href="mailto:contact@koachandco.com" class="footer-link mx-4">Contact</a></u>
-      <u><%= link_to "Je suis coach", coach_sign_up_path, class:'footer-link mx-4'%></u>
+      <% unless user_signed_in? %>
+        <u><%= link_to "Je suis coach", coach_sign_up_path, class:'footer-link mx-4'%></u>
+      <% end %>
       <u><%= link_to "Mentions Légales", legals_path, class:'footer-link mx-4'%></u>
       <u><%= link_to "CGV", cgv_path, class:'footer-link mx-4'%></u>
     </div>
@@ -14,7 +16,9 @@
       <div><u><%= link_to "FAQ", faq_path, class:'footer-link mr-4'%></u></div>
       <div><u><%= link_to "Forum", forum_path, class:'footer-link mr-4'%></u></div>
       <div><u><a href="mailto:contact@koachandco.com" class="footer-link mr-4">Contact</a></u></div>
+      <% unless user_signed_in? %>
       <div><u><%= link_to "Je suis coach", coach_sign_up_path, class:'footer-link mr-4'%></u></div>
+      <% end %>
       <div><u><%= link_to "Mentions Légales", legals_path, class:'footer-link mr-4'%></u></div>
       <div><u><%= link_to "CGV", cgv_path, class:'footer-link mr-4'%></u></div>
     </div>

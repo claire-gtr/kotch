@@ -17,11 +17,16 @@
               <% end %>
             </div>
             <% @new_friends.each do |friend| %>
-              <div class="d-flex align-items-center text-blue mt-3">
-                <%= cl_image_tag friend.profile_picture, class:'avatar-extra-small mr-2' %>
-                <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friend.full_name %></p>
+              <div class="d-flex mt-3 justify-content-between px-3 pb-3">
+                <div class="friend">
+                  <div class="d-flex align-items-center text-blue">
+                    <%= cl_image_tag friend.profile_picture, class:'avatar-extra-small mr-2' %>
+                    <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friend.full_name %></p>
+                  </div>
+                  <span class="text-blue">Crédit du Nord Corporate Finance</span>
+                </div>
+                <i class="fas fa-plus-circle text-blue"></i>
               </div>
-              <span class="text-blue">Crédit du Nord Corporate Finance</span>
             <% end %>
           </div>
         </div>
@@ -100,6 +105,8 @@
   if (friends.length) {
     tab.classList.add('friends-tab-result');
     tab.classList.add('shadow');
+    form.classList.add('border-bottom');
+    form.classList.add('rounded-0');
     form.classList.remove('shadow');
   }
 </script>

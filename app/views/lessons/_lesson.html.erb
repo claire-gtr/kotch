@@ -8,11 +8,11 @@
       <% end %>
     </div>
     <div>
-      <% if lesson.status == "pending" || lesson.status == "canceled" %>
+      <% if lesson.status == "pending" %>
         <div class="pill pill-red text-center mt-3">
-          <%= lesson.status %>
+          En attente
         </div>
-      <% elsif lesson.status == 'validée' %>
+      <% elsif lesson.status == 'Validée' %>
         <div class="pill pill-green text-center mt-3">
           <%= lesson.status %>
         </div>
@@ -25,15 +25,34 @@
       <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime('%e-%m-%y à %Hh%M')%></p>
       <% if !lesson.public %>
         <%= link_to change_lesson_public_path(lesson) do %>
-          <p class=" mb-0 text-small text-condensed">Passer la séance en publique</p>
+          <p class=" mb-0 text-small text-condensed"><u>Passer la séance en publique</u></p>
         <% end %>
       <% else %>
         <p class="mb-0 text-blue text-bold text-condensed text-small">Séance publique</p>
       <% end %>
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
-        <%= lesson.users.count %> participants
-      </button>
+      <div>
+        <% if !current_user.coach %>
+          <% if lesson.diff_time >= DateTime.now %>
+            <%= link_to "Annuler ma réservation à cette séance", booking_path(Booking.find_by(user: current_user, lesson: lesson)), method: :delete, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}  %>
+          <% else %>
+            <p class="text-blue mb-0 text-small text-condensed">Cette séance a lieu dans moins de 24h, vous ne pouvez pas l'annuler.</p>
+          <% end %>
+        <% else %>
+          <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}  %>
+        <% end %>
+      </div>
+      <p><u><%= link_to "Voir les messages", lesson_messages_path(lesson), class:'mb-0 text-small text-condensed'  %></u></p>
+    </div>
+  </div>
+  <div class="d-flex flex-column justify-content-between text-right">
+    <span class="title-sport"><%= lesson.sport_type.upcase %></span>
+    <div>
+      <div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
+          <em><%= lesson.users.count %> participant(s)</em>
+        </button>
+      </div>
       <!-- Modal -->
       <div class="modal fade" id="exampleModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModal-<%= lesson.id %>Label" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -57,54 +76,41 @@
           </div>
         </div>
       </div>
-      <div>
-        <% if !current_user.coach %>
-          <% if lesson.diff_time >= DateTime.now %>
-            <%= link_to "Annuler ma réservation à cette séance", booking_path(Booking.find_by(user: current_user, lesson: lesson)), method: :delete, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}  %>
-          <% else %>
-            <p class="text-blue mb-0 text-small text-condensed">Cette séance a lieu dans moins de 24h, vous ne pouvez pas l'annuler.</p>
-          <% end %>
-        <% else %>
-          <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}  %>
-        <% end %>
-      </div>
-      <%= link_to "messages", lesson_messages_path(lesson)  %>
-    </div>
-  </div>
-  <div class="d-flex flex-column justify-content-between text-right">
-    <span class="title-sport"><%= lesson.sport_type.upcase %></span>
-    <% if !current_user.coach %>
-      <% if lesson.bookings.count <= 10 %>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#addUserModal-<%= lesson.id %>">
-          <i class="fas fa-plus-circle fa-xs"></i> inviter des participants
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="addUserModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="addUserModal-<%= lesson.id %>Label" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content card-kotch">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body text-blue py-5">
-                <% @users_to_invite = @friends - lesson.users.to_a %>
-                <%= simple_form_for @booking do |f| %>
-                  <%= f.association :user, collection: @users_to_invite.map { |m| [m.full_name, m.id] }, label: "Sélectionner parmi vos amis" %>
-                  <%= f.input :lesson_id, as: :hidden, input_html: {value: lesson.id } %>
-                  <%= f.submit 'Envoyer une invitation', class:'btn btn-kotch btn-blue w-100' %>
-                <% end %>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-kotch btn-light-blue" data-dismiss="modal">Annuler</button>
+      <% if !current_user.coach %>
+        <% if lesson.bookings.count <= 10 %>
+          <div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#addUserModal-<%= lesson.id %>">
+              <i class="fas fa-plus-circle fa-xs"></i> inviter des participants
+            </button>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="addUserModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="addUserModal-<%= lesson.id %>Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content card-kotch">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-blue py-5">
+                  <% @users_to_invite = @friends - lesson.users.to_a %>
+                  <%= simple_form_for @booking do |f| %>
+                    <%= f.association :user, collection: @users_to_invite.map { |m| [m.full_name, m.id] }, label: "Sélectionner parmi vos amis" %>
+                    <%= f.input :lesson_id, as: :hidden, input_html: {value: lesson.id } %>
+                    <%= f.submit 'Envoyer une invitation', class:'btn btn-kotch btn-blue w-100' %>
+                  <% end %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-kotch btn-light-blue" data-dismiss="modal">Annuler</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      <% else %>
-        <p class="text-blue text-condensed text-small"> <em>Il y a dejà 10 participants à cette séance</em></p>
+        <% else %>
+          <p class="text-blue text-condensed text-small"> <em>Il y a dejà 10 participants à cette séance</em></p>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>

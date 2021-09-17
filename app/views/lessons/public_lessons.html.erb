@@ -1,22 +1,6 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-12">
-      <%= link_to "Lundi", public_lessons_path(day: 1)  %>
-      <%= link_to "Mardi", public_lessons_path(day: 2)  %>
-      <%= link_to "Mercredi", public_lessons_path(day: 3)  %>
-      <%= link_to "Jeudi", public_lessons_path(day: 4)  %>
-      <%= link_to "Vendredi", public_lessons_path(day: 5)  %>
-      <%= link_to "Samedi", public_lessons_path(day: 6)  %>
-      <%= link_to "Dimanche", public_lessons_path(day: 7)  %>
-    </div>
-    <div class="col-12">
-      <%= link_to "Matin", public_lessons_path(start: 1, end: 10)  %>
-      <%= link_to "Midi", public_lessons_path(start: 11, end: 14)  %>
-      <%= link_to "Après-midi", public_lessons_path(start: 15, end: 18)  %>
-      <%= link_to "Soir", public_lessons_path(start: 18, end: 24)  %>
-    </div>
-
     <% if @lessons.empty? %>
       <div class="col-12 text-center">
         <h2 class="text-center">Il n'y a pas de séances publiques disponibles actuellement.</h2>
@@ -31,6 +15,12 @@
         <%= link_to "Samedi", public_lessons_path(day: 6)  %>
         <%= link_to "Dimanche", public_lessons_path(day: 7)  %>
       </div>
+      <div class="col-12">
+      <%= link_to "Matin", public_lessons_path(start: 1, end: 10)  %>
+      <%= link_to "Midi", public_lessons_path(start: 11, end: 14)  %>
+      <%= link_to "Après-midi", public_lessons_path(start: 15, end: 18)  %>
+      <%= link_to "Soir", public_lessons_path(start: 18, end: 24)  %>
+    </div>
       <div class="col-12">
         <% @lessons.each do |lesson| %>
           <%= render 'lesson_in_public_page', lesson: lesson %>

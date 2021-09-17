@@ -27,7 +27,7 @@
                     <span class="text-blue">Crédit du Nord Corporate Finance</span>
                   </div>
                   <%= link_to friend_requests_path(friend_email: friend.email), method: :post do %>
-                    <i class="fas fa-plus-circle text-blue"></i>
+                    <i class="fas fa-paper-plane pr-5"></i>
                   <% end %>
                 </div>
               <% end %>
@@ -105,7 +105,7 @@
   const tab = document.querySelector('.friends-tab');
   const form = document.querySelector('.friends-form');
   const friends = '<%= @new_friends %>';
-  
+
   if (friends.length) {
     tab.classList.add('friends-tab-result');
     tab.classList.add('shadow');

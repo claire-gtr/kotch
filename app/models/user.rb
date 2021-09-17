@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
   enum gender: { homme: 0, femme: 1, autres: 2 }
   enum sport_habits: { regularly: 0, occasionnally: 1, rarely: 2 }
-  enum physical_pain: { pain_regular: 0, pain_occasionnal: 1, pain_rare: 2 }
+  enum physical_pain: { oui: 0, non: 1 }
   enum level: { inexperimente: 0, occasionnel: 1, regulier: 2, inconditionnel:3, athlete: 4 }
   enum intensity: { intense: 0, endurance: 1, fun: 2, learn: 3 }
   enum expectations: { relax: 0, letgo: 1, unstress: 2, muscle: 3, tonification: 4, weight_loss: 5, healthy: 6}

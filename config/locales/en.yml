@@ -9,6 +9,8 @@ en:
     occasionnally: occasionnelles
     rarely: rares
   physical_pain:
+    oui: oui
+    non: non
     pain_regular: régulières
     pain_occasionnal: occasionnelles
     pain_rare: rares

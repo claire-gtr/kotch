@@ -10,10 +10,15 @@ class FriendRequestsController < ApplicationController
       redirect_to friendships_path
     else
       if user
-        friend_request = FriendRequest.new(requestor: current_user, receiver: user)
-        friend_request.save
-        flash[:notice] = "Une demande d'amitié a bien été envoyé à #{email}"
-        redirect_to friendships_path
+        if Friendship.where(friend_a: user, friend_b: current_user).any? || Friendship.where(friend_a: current_user, friend_b: user).any? || FriendRequest.where(requestor: user, receiver: current_user).any?
+          flash[:notice] = "Il y a déjà une demande d'amitié entre vous et #{email}"
+          redirect_to friendships_path
+        else
+          friend_request = FriendRequest.new(requestor: current_user, receiver: user)
+          friend_request.save
+          flash[:notice] = "Une demande d'amitié a bien été envoyé à #{email}"
+          redirect_to friendships_path
+        end
       else
         @friendships = policy_scope(Friendship)
         @friend_request = FriendRequest.new

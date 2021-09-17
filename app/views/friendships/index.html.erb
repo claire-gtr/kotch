@@ -16,19 +16,21 @@
                 <% end %>
               <% end %>
             </div>
-            <% @new_friends.each do |friend| %>
-              <div class="d-flex mt-3 justify-content-between px-3 pb-3">
-                <div class="friend">
-                  <div class="d-flex align-items-center text-blue">
-                    <%= cl_image_tag friend.profile_picture, class:'avatar-extra-small mr-2' %>
-                    <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friend.full_name %></p>
+            <% if @new_friends %>
+              <% @new_friends.each do |friend| %>
+                <div class="d-flex mt-3 justify-content-between px-3 pb-3">
+                  <div class="friend">
+                    <div class="d-flex align-items-center text-blue">
+                      <%= cl_image_tag friend.profile_picture, class:'avatar-extra-small mr-2' %>
+                      <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= friend.full_name %></p>
+                    </div>
+                    <span class="text-blue">Crédit du Nord Corporate Finance</span>
                   </div>
-                  <span class="text-blue">Crédit du Nord Corporate Finance</span>
+                  <%= link_to friend_requests_path, method: :post do %>
+                    <i class="fas fa-plus-circle text-blue"></i>
+                  <% end %>
                 </div>
-                <%= link_to friend_requests_path, method: :post do %>
-                  <i class="fas fa-plus-circle text-blue"></i>
-                <% end %>
-              </div>
+              <% end %>
             <% end %>
           </div>
         </div>

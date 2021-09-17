@@ -17,7 +17,7 @@
 <% else %>
   <div class="container pt-3">
     <div class="row">
-      <div class="col-4">
+      <div class="col-12 col-md-4">
         <h2 class="text-center">MES RÉSERVATIONS</h2>
         <% if @pending_invitations.count > 0 %>
           <h2>Vous avez des invitations en attente</h2>
@@ -38,7 +38,7 @@
           <% end %>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-12 col-md-8">
         <%= render 'messages/index' %>
       </div>
     </div>

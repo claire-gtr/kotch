@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       if first_day <= Date.today
         until last_day.strftime("%m%Y") == Date.today.next_month.strftime("%m%Y") do
           lessons_count = current_user.lessons.where('date >= ? AND date <= ?', first_day, last_day).where(status: "effectuée").count
-          month = l(first_day, format: '%B %Y')
+          month = l(first_day, format: '%B %Y').capitalize
           @all_lessons << {month: month, count: lessons_count}
           first_day = first_day.next_month
           last_day = first_day.end_of_month

@@ -40,6 +40,7 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'stripe'
 gem 'stripe_event'
+gem 'rails-i18n'
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'

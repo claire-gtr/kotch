@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-between">
       <p class="title-sport"><%= @lesson.sport_type %></p>
       <p class="text-blue"><b><%= Date.today.strftime('%d %b %Y') %></b></p>
-      <p class="title-sport"><b>Coach <%= @lesson.user.first_name %></b></p>
+      <p class="title-sport">Coach <%= @lesson.user.first_name %></p>
     </div>
     <div class="msg-cards-box">
       <% if @messages %>

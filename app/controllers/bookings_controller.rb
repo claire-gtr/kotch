@@ -20,7 +20,6 @@ class BookingsController < ApplicationController
   end
 
   def accept_invitation
-    # verifier assez de crédit
     @booking = Booking.find(params[:booking_id])
     authorize @booking
     @lesson = @booking.lesson
@@ -70,6 +69,9 @@ class BookingsController < ApplicationController
             mail.deliver_now
           end
         end
+        if @lesson.bookings.where(status: "confirmé").count == 5 && !@booking.lesson.user.nil?
+          send_confirmation_email_to_coach
+        end
         flash[:info] = "Vous êtes bien inscrit(e) à la séance"
         redirect_to lessons_path
       else
@@ -88,6 +90,11 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def send_confirmation_email_to_coach
+    mail = BookingMailer.with(user: @lesson.user, lesson: @lesson).confirmation_email_to_coach
+    mail.deliver_now
+  end
 
   def booking_params
     params.require(:booking).permit(:user_id, :lesson_id)

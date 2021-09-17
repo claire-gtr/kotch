@@ -19,8 +19,6 @@ class LessonsController < ApplicationController
       redirect_to root_path
     else
       @locations = Location.all
-
-      # the `geocoded` scope filters only flats with coordinates (latitude & longitude)
       @markers = @locations.geocoded.map do |location|
         {
           lat: location.latitude,
@@ -129,7 +127,7 @@ class LessonsController < ApplicationController
         @lesson.status = "validée"
         @lesson.save
         flash[:notice] = "Vous êtes désormais le coach de cette séance."
-        #envoyer un mail aux participants
+        send_email_to_users
         redirect_to profile_path
       else
         flash[:alert] = "Un coach s'est déjà positionné sur cette séance."
@@ -150,7 +148,7 @@ class LessonsController < ApplicationController
         @lesson.user = @user
         @lesson.status = "validée"
         @lesson.save
-        #envoyer un mail aux participants
+        send_email_to_users
         flash[:notice] = "Vous êtes désormais le coach de cette séance."
         redirect_to profile_path
       else

@@ -23,10 +23,10 @@
           <h2>Vous avez des invitations en attente</h2>
           <div class="card-list-bookings-messages p-3">
             <% @pending_invitations.each do |pi| %>
-              <div class="card-white text-bold shadow d-flex justify-content-between align-items-center p-4 mb-3">
+              <div class="card-white shadow d-flex justify-content-between align-items-center p-4 mb-3">
+                <p class='mb-0 text-coral text-bold'><%= pi.lesson.sport_type.upcase %></p>
                 <p class='mb-0 text-blue'><%= pi.lesson.date.strftime('%e-%m-%y à %Hh%M')%></p>
-                <p class='mb-0 text-coral'><%= pi.lesson.sport_type.upcase %></p>
-                <p class='mb-0 text-blue'><%= pi.lesson.location.name %></p>
+                <p class='mb-0 text-blue text-small lesson-max-100'><%= pi.lesson.location.name %></p>
                 <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#invitationModal-<%= pi.lesson.id %>">
                   <i class="fas fa-plus-circle fa-xs"></i> voir les participants
                 </button>

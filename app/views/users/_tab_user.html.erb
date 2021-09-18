@@ -20,7 +20,7 @@
             <th>HEURE</th>
             <th>LIEU</th>
             <th>STATUT</th>
-            <th>COACH</th>
+            <th>PARTICIPANTS</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +39,6 @@
                   <% end %>
                 </td>
                 <td class='py-2'>
-                  <%= booking.lesson.user.first_name if booking.lesson.user_id%>
                   <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-<%= booking.lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>
                 </td>
               </tr>
@@ -55,6 +54,12 @@
                       </button>
                     </div>
                     <div class="modal-body">
+                      <h5 class="my-3">COACH</h5>
+                      <% if  booking.lesson.user %>
+                        <p class="text-blue text-condensed"><%= booking.lesson.user.first_name if booking.lesson.user_id%></p>
+                      <% else %>
+                        <p class="text-blue">Il n'y a pas encore de coach</p>
+                      <% end %>
                       <h5 class="my-3">PARTICIPANTS</h5>
                       <% booking.lesson.bookings.each do |booking| %>
                         <span>

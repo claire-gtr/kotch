@@ -4,8 +4,9 @@
       <h2 class="text-center">Il n'y a pas de séances publiques disponibles actuellement.</h2>
     </div>
   <% else %>
+    <h2 class="text-center">Filtre tes séances en fonction de :</h2>
     <div class="d-flex justify-content-between flex-column flex-md-row py-4">
-      <div class="dropdown-lesson">
+      <div class="dropdown-lesson mt-2 mt-md-0">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="d-flex justify-content-between">
             JOUR
@@ -24,7 +25,7 @@
           </ul>
         </div>
       </div>
-      <div class="dropdown-lesson">
+      <div class="dropdown-lesson mt-2 mt-md-0">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuHoraire" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="d-flex justify-content-between">
             HORAIRE
@@ -40,7 +41,7 @@
           </ul>
         </div>
       </div>
-      <div class="dropdown-lesson">
+      <div class="dropdown-lesson mt-2 mt-md-0">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuLieu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="d-flex justify-content-between">
             LIEU
@@ -63,14 +64,14 @@
 </div>
 <%# <script type="text/javascript">
   const btn = document.getElementById('dropdownMenuJour');
-  
+
   console.log(btn.getAttribute('aria-expanded'));
-  
+
   if (btn.attr('aria-expanded')) {
     btn.classList.add('btn-dropdown-open');
   }
 </script> %>
-<%# 
+<%#
 CSS REFERENCES
-.btn-dropdown                    => _public-lessons.scss 
+.btn-dropdown                    => _public-lessons.scss
 %>

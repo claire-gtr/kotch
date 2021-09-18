@@ -1,6 +1,6 @@
-<div class="container">
+ <div class="container">
   <div class="row py-4 justify-content-around">
-    <div class="col-6 card-red card-new-lesson text-center py-4" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>); background-position: bottom;">
+    <div class="col-8 card-red card-new-lesson text-center py-4" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>); background-position: bottom;">
       <div class="card-pay-content">
         <h1>Votre panier</h1>
         <p class='text-blue'>Achat de <strong><%= @pack_order.credit_count %></strong> crédit(s) Koach pour <strong><%= (@pack_order.amount / 100).round %>€</strong></p>

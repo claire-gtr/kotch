@@ -24,12 +24,12 @@
       <div class="lesson-max-100">
         <% if !current_user.coach %>
           <% if lesson.diff_time >= DateTime.now %>
-            <%= link_to "Annuler ma réservation à cette séance", booking_path(Booking.find_by(user: current_user, lesson: lesson)), method: :delete, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}  %>
+            <%= link_to "Annuler ma réservation à cette séance", booking_path(Booking.find_by(user: current_user, lesson: lesson)), method: :delete, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}, class:'text-small text-condensed'  %>
           <% else %>
             <p class="text-blue mb-0 text-small text-condensed">Cette séance a lieu dans moins de 24h, vous ne pouvez pas l'annuler.</p>
           <% end %>
         <% else %>
-          <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}  %>
+          <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}, class:'text-small text-condensed'  %>
         <% end %>
       </div>
     </div>

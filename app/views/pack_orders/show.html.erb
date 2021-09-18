@@ -1,9 +1,11 @@
 <div class="container">
-  <div class="row py-5 text-center">
-    <div class="col">
-      <h1 class="mb-5">Paiement validé !</h1>
-      <div>
-        <%= link_to "RÉSERVER UNE SÉANCE", new_lesson_path, class:'btn btn-medium btn-red btn-kotch' %>
+  <div class="row py-5 text-center justify-content-around">
+    <div class="col-8 card-blue card-new-lesson" style="background-image: url(<%= asset_path 'background1.png' %>); background-position: bottom;">
+      <div class="card-order-content">
+        <h1 class="mb-5">Paiement validé !</h1>
+        <div>
+          <%= link_to "RÉSERVER UNE SÉANCE", new_lesson_path, class:'btn btn-medium btn-red btn-kotch' %>
+        </div>
       </div>
     </div>
   </div>

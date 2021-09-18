@@ -32,6 +32,7 @@ import { initUpdateNavbarOnScroll } from '../components/navbar';
 import { initFlatpickr } from "../plugins/flatpickr";
 import { initFlatpickrBirth } from "../plugins/flatpickr";
 import { initAutocomplete } from "../plugins/init_autocomplete";
+import { initAutocompleteLieu } from "../plugins/init_autocomplete";
 import { initMapbox } from "../plugins/init_mapbox";
 import { initSelect2 } from '../components/init_select2';
 
@@ -43,6 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   initFlatpickrBirth();
   initAutocomplete();
   initSelect2();
+  initAutocompleteLieu();
   initMapbox();
 });
 

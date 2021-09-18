@@ -25,6 +25,18 @@
   }
 }
 
+
+@media only screen and (min-width: 700px) {
+  #dropdown-lesson-lieu {
+    .btn-dropdown {
+      width: 29em;
+    }
+  }
+  #dropdown-menu-lieu {
+    width: 29em;
+  }
+}
+
 // .btn-dropdown-open {
 //   border-radius: 15px 15px 0 0 !important;
 // }

@@ -5,8 +5,8 @@
     </div>
   <% else %>
     <h2 class="text-center">Filtre tes séances en fonction de :</h2>
-    <div class="d-flex justify-content-between flex-column flex-md-row py-4">
-      <div class="dropdown-lesson mt-2 mt-md-0">
+    <div class="d-flex justify-content-center flex-column flex-md-row pt-4 align-items-center">
+      <div class="dropdown-lesson mt-2 mt-md-0 mx-1">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="d-flex justify-content-between">
             JOUR
@@ -25,7 +25,7 @@
           </ul>
         </div>
       </div>
-      <div class="dropdown-lesson mt-2 mt-md-0">
+      <div class="dropdown-lesson mt-2 mt-md-0 mx-1">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuHoraire" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="d-flex justify-content-between">
             HORAIRE
@@ -41,15 +41,26 @@
           </ul>
         </div>
       </div>
-      <div class="dropdown-lesson mt-2 mt-md-0">
+    </div>
+    <div class="d-flex justify-content-center pt-0 pt-md-4 pb-4">
+      <div class="dropdown-lesson mt-2 mt-md-0" id="dropdown-lesson-lieu">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuLieu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="d-flex justify-content-between">
             LIEU
             <i class="fas fa-caret-down fa-lg"></i>
           </div>
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLieu">
-          <%= link_to "Location TEST", public_lessons_path %>
+        <div class="dropdown-menu text-blue p-2" aria-labelledby="dropdownMenuLieu" id="dropdown-menu-lieu">
+          <%= form_tag public_lessons_path, method: :get do %>
+            <div class="d-flex">
+              <%= text_field_tag :lieu,
+                params[:lieu],
+                class: "form-control",
+                placeholder: "Rechercher..."
+              %>
+              <%= submit_tag "Rechercher", class: "btn btn-kotch btn-extra-small-narrow btn-red" %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

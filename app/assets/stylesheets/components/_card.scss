@@ -169,3 +169,18 @@
     right: -4.5em;
   }
 }
+
+// .card-payment {
+//   height: 40vh;
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+//   background-image: image-url('background1.png');
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   background-position: bottom;
+// }
+
+.card-pay-content {
+  @include centerer(true,true);
+}

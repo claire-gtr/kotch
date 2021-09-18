@@ -2,7 +2,7 @@
   <div class="row py-4">
     <div class="col text-center">
       <h1>Votre panier</h1>
-      <p class='text-blue'>Achat de <strong><%= @pack_order.credit_count %></strong> crédits Koach pour <strong><%= (@pack_order.amount / 100).round %>€</strong></p>
+      <p class='text-blue'>Achat de <strong><%= @pack_order.credit_count %></strong> crédit(s) Koach pour <strong><%= (@pack_order.amount / 100).round %>€</strong></p>
       <button id="pay" class="btn btn-kotch btn-red">PAIEMENT</button>
 
       <script src="https://js.stripe.com/v3/"></script>

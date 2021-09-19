@@ -164,7 +164,9 @@
                 <% if lesson.status == "effectuée" || lesson.status == "non effectuée" %>
                   <%= lesson.status.capitalize %>
                 <% else %>
-                  <%= link_to "Effectuée", lesson_done_path(lesson), class:'pill pill-green' %><%= link_to "Non effectuée", lesson_not_done_path(lesson), class:'pill pill-red' %>
+                  <%= link_to "Effectuée", lesson_done_path(lesson), class:'pill pill-green pill-fixed-size' %>
+                  <br>
+                  <%= link_to "Non effectuée", lesson_not_done_path(lesson), class:'pill pill-red pill-fixed-size' %>
                 <% end %>
               </td>
               <td class='py-2'>

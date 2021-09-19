@@ -69,14 +69,14 @@ en:
     pain_occasionnal: occasionnelles
     pain_rare: rares
   level:
-    inexperimente: inexpérimenté – l’activité physique ne fait pas parti de mon quotidien
+    inexperimente: inexpérimenté – l’activité physique ne fait pas partie de mon quotidien
     occasionnel: occasionnel – je fais de l’exercice de temps en temps
     regulier: régulier – au moins deux fois par semaine
     inconditionnel: inconditionnel – j’ai une activité physique la plupart des jours de la semaine
     athlete: athlète – rien ne m’arrête
   intensity:
     intense: je recherche l’intensité
-    endurance: je souhaite améliorer mon endurance et mes capacités respiratoire
+    endurance: je souhaite améliorer mon endurance et mes capacités respiratoires
     fun: je veux prendre du bon temps et m’amuser
     learn: je souhaite apprendre et améliorer ma technique
   expectations:

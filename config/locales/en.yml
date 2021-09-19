@@ -1,4 +1,10 @@
 en:
+  activerecord:
+    models:
+      users:
+        attributes:
+          optin_cgv:
+            blank: "Vous devez accepter les CGV pour utiliser Koach and Co."
   date:
     abbr_day_names:
     - dim

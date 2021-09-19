@@ -88,8 +88,10 @@
             </div>
           </div>
 
-          <div class="form-actions">
+          <div class="form-actions text-condensed text-small">
             <%= f.input :terms, as: :boolean, label: "En cochant cette case, vous consentez à recevoir des propositions commerciales par voie électronique. Vous pouvez vous désinscrire à tout moment en modifiant vos paramètres sur votre compte et à travers les liens de désinscription." %>
+            <p class="mb-0 text-small"><%= link_to "Conditions générales de vente", cgv_path  %></p>
+            <%= f.input :optin_cgv, as: :boolean, label:  "Je reconnais avoir lu et accepté les conditions générales de vente", error: 'Vous devez accepter les CGV pour utiliser Koach and Co.' %>
             <%= f.button :submit, "VALIDER MON PROFIL", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
           </div>
           <div class="mt-4">

@@ -39,6 +39,7 @@ class User < ApplicationRecord
   after_create :create_empty_sub
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :optin_cgv, presence: true
 
   def friendships
       self.friendships_as_friend_a + self.friendships_as_friend_b

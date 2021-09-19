@@ -23,14 +23,16 @@ claire = User.new(
   first_name: 'claire',
   last_name: 'gautier',
   admin: true,
-  coach: true)
+  coach: true,
+  optin_cgv: true)
 claire.save
 
 nico = User.new(
   email: "nicolasvandenbussche0@gmail.com",
   password: 'password',
   first_name: 'nico',
-  last_name: 'vandenbussche')
+  last_name: 'vandenbussche',
+  optin_cgv: true)
 nico.save
 
 noemie = User.new(
@@ -39,7 +41,8 @@ noemie = User.new(
   first_name: 'noemie',
   last_name: 'vanhove',
   admin: true,
-  coach: true)
+  coach: true,
+  optin_cgv: true)
 noemie.save
 
 corentin = User.new(
@@ -47,5 +50,6 @@ corentin = User.new(
   password: 'password',
   first_name: 'corentin',
   last_name: 'grandin',
-  admin: true)
+  admin: true,
+  optin_cgv: true)
 corentin.save

@@ -9,4 +9,9 @@ class DashboardsController < ApplicationController
     @locations = Location.all
     @partners = Partner.all
   end
+
+  def analytics
+    authorize(:dashboard, :analytics?)
+    @users = User.all
+  end
 end

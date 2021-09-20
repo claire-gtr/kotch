@@ -9,6 +9,8 @@ class PagesController < ApplicationController
 
   def legals; end
 
+  def about; end
+
   def forum
     @subjects = Subject.all
   end

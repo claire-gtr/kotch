@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'faq', to: "pages#faq", as: :faq
   get 'forum', to: "pages#forum", as: :forum
   get 'abonnements', to: "pages#offers", as: :offers
+  get 'a-propos', to: "pages#about", as: :about
   get 'cgv', to: "pages#cgv", as: :cgv
   get 'mentions-légales', to: "pages#legals", as: :legals
   patch '/coach-validation', to: "users#coach_validation", as: :coach_validation

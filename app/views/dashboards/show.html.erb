@@ -1,5 +1,10 @@
 <div class="container">
   <div class="row">
+    <div class="col mb-4 text-condensed">
+      <h5><u><%= link_to "Voir les données", analytics_path  %></u></h5>
+    </div>
+  </div>
+  <div class="row">
     <div class="col">
       <h5 class='text-blue'><strong>Gérer les rôles</strong></h5>
       <div>
@@ -45,7 +50,7 @@
       <h5 class='text-blue'><strong>Gérer les lieux</strong></h5>
       <div>
         <%= simple_form_for :location, url: locations_path, method: :post do |f| %>
-            <%= f.input :name, label:'Nom du lieu' %>
+            <%= f.input :name, label: 'Nom du lieu' %>
             <%= hidden_field_tag user_id: current_user.id %>
             <%= submit_tag "Ajouter ce lieu", class: "btn btn-kotch btn-blue" %>
         <% end %>

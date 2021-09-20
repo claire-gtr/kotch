@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
 
   get 'dashboard', to: 'dashboards#show'
+  get 'analytics', to: 'dashboards#analytics', as: :analytics
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
   resources :locations, only: [:create, :destroy]

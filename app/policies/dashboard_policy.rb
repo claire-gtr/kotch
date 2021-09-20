@@ -8,4 +8,8 @@ class DashboardPolicy < ApplicationPolicy
   def show?
     user.admin?
   end
+
+  def analytics?
+    user.admin?
+  end
 end

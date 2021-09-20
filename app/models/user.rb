@@ -40,6 +40,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :optin_cgv, presence: true
+  scope :group_by_month,   -> { group("date_trunc('month', created_at) ") }
 
   def friendships
       self.friendships_as_friend_a + self.friendships_as_friend_b

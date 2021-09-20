@@ -1,6 +1,78 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      <h5 class='text-blue text-condensed text-bold mt-4'>Évolution du nombre d'abonnés</h5>
+      <table>
+        <thead>
+          <tr class="text-center">
+            <% @users.keys.each do |month| %>
+              <th><%= month.strftime('%b %Y') %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <% @users.values.each do |value| %>
+              <th>
+                <%= value %>
+              </th>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+      <h5 class='text-blue text-condensed text-bold mt-4'>Évolution du nombre de coach</h5>
+      <table>
+        <thead>
+          <tr class="text-center">
+            <% @coachs.keys.each do |month| %>
+              <th><%= month.strftime('%b %Y') %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <% @users.values.each do |value| %>
+              <th>
+                <%= value %>
+              </th>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+      <h5 class='text-blue text-condensed text-bold mt-4'>Réservations via abonnement</h5>
+      <table>
+        <thead>
+          <tr class="text-center">
+            <% @bookings.keys.each do |month| %>
+              <th><%= month.strftime('%b %Y') %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <% @bookings.values.each do |bookings| %>
+              <th><%= bookings.count %></th>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+      <h5 class='text-blue text-condensed text-bold mt-4'>Réservations via crédits</h5>
+      <table>
+        <thead>
+          <tr class="text-center">
+            <% @bookings_credit.keys.each do |month| %>
+              <th><%= month.strftime('%b %Y') %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <% @bookings_credit.values.each do |bookings| %>
+              <th><%= bookings.count %></th>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

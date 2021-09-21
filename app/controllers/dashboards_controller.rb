@@ -44,7 +44,7 @@ class DashboardsController < ApplicationController
           last_day = first_day.end_of_month
         end
       else
-        @lessons_filling_rate << {month: Septembre 2021, average_filling_rate: 0}
+        @lessons_filling_rate << {month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0}
       end
     end
   end

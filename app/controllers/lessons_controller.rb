@@ -113,6 +113,8 @@ class LessonsController < ApplicationController
             @lessons << lesson
           end
         end
+      else
+        @lessons = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
       end
     else
       if params[:day].present?

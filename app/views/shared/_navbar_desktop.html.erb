@@ -56,6 +56,11 @@
         <% else %>
           <li class="nav-item">
             <em>
+              <%= link_to "SÉANCES PUBLIQUES", public_lessons_path, class: "nav-link ml-5" %>
+            </em>
+          </li>
+          <li class="nav-item">
+            <em>
               <%= link_to "NOS OFFRES", offers_path, data: {turbolinks: "false"}, class: "nav-link ml-5" %>
             </em>
           </li>

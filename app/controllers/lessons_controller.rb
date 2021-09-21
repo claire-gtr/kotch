@@ -1,4 +1,5 @@
 class LessonsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :public_lessons]
 
   def index
     @lessons = policy_scope(Lesson)
@@ -100,15 +101,17 @@ class LessonsController < ApplicationController
 
   def public_lessons
     authorize(:lesson, :public_lessons?)
-    if current_user.coach && !current_user.validated_coach
-      flash[:alert] = "Un administrateur doit valider votre compte coach."
-      redirect_to root_path
-    elsif current_user.coach
-      @lessons_in_future = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
-      @lessons = []
-      @lessons_in_future.each do |lesson|
-        if lesson.bookings.where(status: "Confirmé").count >= 5
-          @lessons << lesson
+    if user_signed_in?
+      if current_user.coach && !current_user.validated_coach
+        flash[:alert] = "Un administrateur doit valider votre compte coach."
+        redirect_to root_path
+      elsif current_user.coach
+        @lessons_in_future = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = []
+        @lessons_in_future.each do |lesson|
+          if lesson.bookings.where(status: "Confirmé").count >= 5
+            @lessons << lesson
+          end
         end
       end
     else

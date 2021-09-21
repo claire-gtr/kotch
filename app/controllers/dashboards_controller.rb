@@ -17,7 +17,7 @@ class DashboardsController < ApplicationController
     @bookings = Booking.where(status: "effectuée").where(used_credit: false).group_by{ |u| u.lesson.date.beginning_of_month }
     @bookings_credit = Booking.where(status: "effectuée").where(used_credit: true).group_by{ |u| u.lesson.date.beginning_of_month }
      # la moyenne du taux de remplissage des séances de sport par mois
-     if Lesson.all.any?
+    if Lesson.all.any?
       first_lesson_date = Lesson.all.pluck(:date).min
       first_day = first_lesson_date.beginning_of_month
       last_day = first_lesson_date.end_of_month
@@ -43,9 +43,9 @@ class DashboardsController < ApplicationController
           first_day = first_day.next_month
           last_day = first_day.end_of_month
         end
-      else
-        @lessons_filling_rate << {month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0}
       end
+    else
+        @lessons_filling_rate << {month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0}
     end
   end
 end

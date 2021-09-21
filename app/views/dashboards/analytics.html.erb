@@ -73,6 +73,23 @@
           </tr>
         </tbody>
       </table>
+      <h5 class='text-blue text-condensed text-bold mt-4'>Moyenne du taux de remplissage des séances de sport</h5>
+      <table>
+        <thead>
+          <tr class="text-center">
+            <% @lessons_filling_rate.each do |rate| %>
+              <th><%= rate[:month] %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <% @lessons_filling_rate.each do |rate| %>
+              <th><%= rate[:average_filling_rate]*100 %>%</th>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

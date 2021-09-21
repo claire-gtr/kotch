@@ -45,7 +45,8 @@ class DashboardsController < ApplicationController
         end
       end
     else
-        @lessons_filling_rate << {month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0}
+      @lessons_filling_rate = []
+      @lessons_filling_rate << {month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0}
     end
   end
 end

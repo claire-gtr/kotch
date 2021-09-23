@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   get 'dashboard', to: 'dashboards#show'
   get 'analytics', to: 'dashboards#analytics', as: :analytics
+  get 'export-abonnés', to: 'dashboards#export_number_of_users', as: :export_number_of_users
+  get 'export-coach', to: 'dashboards#export_number_of_coachs', as: :export_number_of_coachs
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
   resources :locations, only: [:create, :destroy]

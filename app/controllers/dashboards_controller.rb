@@ -1,3 +1,5 @@
+require 'csv'
+
 class DashboardsController < ApplicationController
 
   def show
@@ -48,5 +50,39 @@ class DashboardsController < ApplicationController
       @lessons_filling_rate = []
       @lessons_filling_rate << {month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0}
     end
+  end
+
+  def export_number_of_users
+    authorize(:dashboard, :export_number_of_users?)
+    @users = params[:data]
+    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath    = 'abonnes.csv'
+
+    csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
+      csv << @users.keys.map { |date| l(date.to_date, format: '%B %Y').capitalize}
+      csv << @users.values
+    end
+    send_file(
+      "#{Rails.root}/abonnes.csv",
+      filename: "abonnes.csv",
+      type: "application/csv"
+    )
+  end
+
+  def export_number_of_coachs
+    authorize(:dashboard, :export_number_of_coachs?)
+    @coachs = params[:data]
+    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath    = 'coachs.csv'
+
+    csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
+      csv << @coachs.keys.map { |date| l(date.to_date, format: '%B %Y').capitalize}
+      csv << @coachs.values
+    end
+    send_file(
+      "#{Rails.root}/coachs.csv",
+      filename: "coachs.csv",
+      type: "application/csv"
+    )
   end
 end

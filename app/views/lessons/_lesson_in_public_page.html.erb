@@ -24,7 +24,7 @@
                     <p class="mb-0"><%= user.full_name %></p>
                     <p class="mb-0"><em><%= Booking.find_by(user: user, lesson: lesson).status %></em></p>
                   </div>
-                  <% if current_user.coach %>
+                  <% if user_signed_in? && current_user.coach %>
                     <div>
                       <%= link_to "Voir le profil sportif", sportive_profile_path(user), class:'btn btn-kotch btn-light-blue btn-extra-small-narrow '  %>
                     </div>
@@ -43,8 +43,12 @@
       <% else %>
         <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">PAS DE COACH</p>
       <% end %>
-      <% if !current_user.coach %>
-        <%= link_to "JE RÉSERVE", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
+      <% if user_signed_in? %>
+        <% if !current_user.coach %>
+          <%= link_to "JE RÉSERVE", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
+        <% end %>
+      <% else %>
+        <%= link_to "JE RÉSERVE", new_user_session_path, class:'btn btn-kotch btn-red'  %>
       <% end %>
       <div class="d-flex justify-content-between align-items-center d-none">
         <!-- <%# if lesson.status == "pending" || "canceled" %>
@@ -57,7 +61,7 @@
           </div>
         <%# end %>
          -->
-        <% if current_user.coach %>
+        <% if user_signed_in? && current_user.coach %>
           <% if lesson.user.nil?  %>
             <div>
               <%= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link lesson-max-60'  %>

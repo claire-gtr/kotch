@@ -30,7 +30,7 @@ class BookingsController < ApplicationController
         @booking.used_credit = true
       end
       @booking.save
-      if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil?
+      if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil? && @booking.lesson.status != "Pre-validée"
         User.where(coach: true).each do |user|
           mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
           mail.deliver_now
@@ -63,7 +63,7 @@ class BookingsController < ApplicationController
           @booking.used_credit = true
         end
         @booking.save
-        if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil?
+        if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil? && @booking.lesson.status != "Pre-validée"
           User.where(coach: true).each do |user|
             mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
             mail.deliver_now

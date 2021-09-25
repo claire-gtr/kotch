@@ -12,4 +12,8 @@ class DashboardPolicy < ApplicationPolicy
   def analytics?
     user.admin?
   end
+
+  def all_lessons?
+    user.admin?
+  end
 end

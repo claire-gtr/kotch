@@ -49,4 +49,9 @@ class DashboardsController < ApplicationController
       @lessons_filling_rate << {month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0}
     end
   end
+
+  def all_lessons
+    authorize(:dashboard, :all_lessons?)
+    @lessons = Lesson.where("date >= ?", Time.now).order('date DESC')
+  end
 end

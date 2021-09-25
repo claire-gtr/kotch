@@ -24,7 +24,7 @@
                     <p class="mb-0"><%= user.full_name %></p>
                     <p class="mb-0"><em><%= Booking.find_by(user: user, lesson: lesson).status %></em></p>
                   </div>
-                  <% if user_signed_in? && current_user.coach %>
+                  <% if user_signed_in? && (current_user.coach || current_user.admin) %>
                     <div>
                       <%= link_to "Voir le profil sportif", sportive_profile_path(user), class:'btn btn-kotch btn-light-blue btn-extra-small-narrow '  %>
                     </div>
@@ -44,7 +44,7 @@
         <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">PAS DE COACH</p>
       <% end %>
       <% if user_signed_in? %>
-        <% if !current_user.coach %>
+        <% if !current_user.coach && !current_user.admin %>
           <%= link_to "JE RÉSERVE", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
         <% end %>
       <% else %>
@@ -61,7 +61,7 @@
           </div>
         <%# end %>
          -->
-        <% if user_signed_in? && current_user.coach %>
+        <% if user_signed_in? && current_user.coach && !current_user.admin %>
           <% if lesson.user.nil?  %>
             <div>
               <%= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link lesson-max-60'  %>
@@ -69,6 +69,14 @@
           <% else %>
             <p class='mb-0 text-small text-blue text-condensed lesson-max-60'>Il y a déjà un coach sur cette séance</p>
           <% end %>
+        <% end %>
+        <% if user_signed_in? && current_user.admin? %>
+          <% if lesson.status != "Pre-validée"  %>
+            <%= link_to "Admin : pre-valider cette séance", pre_validate_lesson_path(lesson), class: 'small-link lesson-max-60'  %>
+          <% end %>
+          <div class="pill pill-red">
+            <%= lesson.status %>
+          </div>
         <% end %>
       </div>
     </div>

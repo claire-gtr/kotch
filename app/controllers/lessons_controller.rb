@@ -109,7 +109,7 @@ class LessonsController < ApplicationController
         @lessons_in_future = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
         @lessons = []
         @lessons_in_future.each do |lesson|
-          if lesson.bookings.where(status: "Confirmé").count >= 5
+          if (lesson.bookings.where(status: "Confirmé").count >= 5) || lesson.status =="Pre-validée"
             @lessons << lesson
           end
         end
@@ -202,6 +202,18 @@ class LessonsController < ApplicationController
     authorize @lesson
     @lesson.save
     redirect_to profile_path
+  end
+
+  def pre_validate_lesson
+    @lesson = Lesson.find(params[:id])
+    @lesson.status = "Pre-validée"
+    authorize @lesson
+    @lesson.save
+    User.where(coach: true).each do |user|
+      mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+      mail.deliver_now
+    end
+    redirect_to all_lessons_path
   end
 
   private

@@ -11,12 +11,14 @@ Rails.application.routes.draw do
   get 'lesson-not-done/:id', to: 'lessons#lesson_not_done', as: :lesson_not_done
   patch 'cancel-lesson/:id', to: 'lessons#cancel', as: :cancel_lesson
   get 'focus-lesson/:id', to: 'lessons#focus_lesson', as: :focus_lesson
+  get 'pre-validate-lesson/:id', to: 'lessons#pre_validate_lesson', as: :pre_validate_lesson
 
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
 
   get 'dashboard', to: 'dashboards#show'
   get 'analytics', to: 'dashboards#analytics', as: :analytics
+  get 'all-lessons', to: 'dashboards#all_lessons', as: :all_lessons
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
   resources :locations, only: [:create, :destroy]

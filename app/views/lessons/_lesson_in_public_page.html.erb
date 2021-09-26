@@ -61,7 +61,7 @@
           </div>
         <%# end %>
          -->
-        <% if user_signed_in? && current_user.coach && !current_user.admin %>
+        <% if user_signed_in? && current_user.coach %>
           <% if lesson.user.nil?  %>
             <div>
               <%= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link lesson-max-60'  %>

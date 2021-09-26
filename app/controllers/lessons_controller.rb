@@ -107,7 +107,11 @@ class LessonsController < ApplicationController
         redirect_to root_path
       elsif current_user.coach
         @lessons_in_future = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @pre_validated_lessons = Lesson.where("date >= ?", Time.now).where(status: "Pre-validée")
         @lessons = []
+        @pre_validated_lessons.each do |lesson|
+          @lessons << lesson
+        end
         @lessons_in_future.each do |lesson|
           if (lesson.bookings.where(status: "Confirmé").count >= 5) || lesson.status =="Pre-validée"
             @lessons << lesson

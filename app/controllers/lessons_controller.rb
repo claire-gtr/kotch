@@ -113,7 +113,7 @@ class LessonsController < ApplicationController
           @lessons << lesson
         end
         @lessons_in_future.each do |lesson|
-          if (lesson.bookings.where(status: "Confirmé").count >= 5) || lesson.status =="Pre-validée"
+          if (lesson.bookings.where(status: "Confirmé").count >= 5) && !@lessons.includes(lesson)
             @lessons << lesson
           end
         end

@@ -56,7 +56,7 @@ class UsersController < ApplicationController
       @coachings_requests << lesson
     end
     @all_coachings_in_future_without_coach.each do |lesson|
-      if lesson.bookings.count >= 5
+      if lesson.bookings.count >= 5 && !@coachings_requests.includes(lesson)
         @coachings_requests << lesson
       end
     end

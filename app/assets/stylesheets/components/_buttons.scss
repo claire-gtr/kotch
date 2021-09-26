@@ -139,6 +139,8 @@ a:hover {
 }
 .pill-fixed-size {
   width: 70px;
+  display: flex;
+  justify-content: center;
 }
 
 .text-deco-none:hover {

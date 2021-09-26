@@ -48,8 +48,8 @@
 <p><%= @lesson.date %></p>
 <p class="mb-3"><%= @lesson.location.name %></p>
 
-<p>Si tu souhaites te positionner, merci de cliquer sur ce lien :</p>
-<%= link_to "Je me positionne", be_coach_via_mail_url(lesson_id: @lesson.id, user_id: @user.id), class:'btn-red' %>
+<p>Si tu souhaites te positionner, tu peux le faire dans ton profil :</p>
+<%= link_to "Je me positionne", profile_url, class:'btn-red' %>
 
 <p class="mb-3">À très vite </p>
 

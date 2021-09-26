@@ -50,7 +50,11 @@ class UsersController < ApplicationController
     @coachings_done = @coachings.where(status: "effectuée")
 
     @all_coachings_in_future_without_coach = @coachings_in_future.where(user: nil)
+    @pre_validated_coachings = Lesson.where("date >= ?", Time.now).where(status: "Pre-validée").where(user: nil)
     @coachings_requests = []
+    @pre_validated_coachings.each do |lesson|
+      @coachings_requests << lesson
+    end
     @all_coachings_in_future_without_coach.each do |lesson|
       if lesson.bookings.count >= 5
         @coachings_requests << lesson

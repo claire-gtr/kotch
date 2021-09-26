@@ -12,7 +12,7 @@
         <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue2.png' %>);">
           <h2><em>DATE & LIEU</em></h2>
           <%= f.input :date, as: :string, label: false, placeholder: "Date & heure", input_html: {class: "datepicker"} %>
-          <%= f.association :location, label: false %>
+          <%= f.association :location, collection: Location.order('name ASC'), label: false %>
           <button type="button" class="btn btn-kotch btn-light-blue w-100" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux disponibles sur la carte</button>
 
           <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

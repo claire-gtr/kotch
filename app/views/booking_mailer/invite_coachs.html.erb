@@ -42,14 +42,14 @@
 
 <p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
 
-<p>Une séance est complète avec 5 élèves ou a été pre-validée et n'a pas de coach.</p>
+<p>Une séance est complète avec 5 élèves ou a été pré-validée et n'a pas de coach.</p>
 <p>Détails de la séance :</p>
 <p><%= @lesson.sport_type %></p>
 <p><%= @lesson.date %></p>
 <p class="mb-3"><%= @lesson.location.name %></p>
 
 <p>Si tu souhaites te positionner, merci de cliquer sur ce lien :</p>
-<%= link_to "Je me positionne", be_coach_via_mail_url(@lesson, @user), class:'btn-red' %>
+<%= link_to "Je me positionne", be_coach_via_mail_url(lesson_id: @lesson.id, user_id: @user.id), class:'btn-red' %>
 
 <p class="mb-3">À très vite </p>
 

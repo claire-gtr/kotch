@@ -70,6 +70,8 @@
             <p class='mb-0 text-small text-blue text-condensed lesson-max-60'>Il y a déjà un coach sur cette séance</p>
           <% end %>
         <% end %>
+      </div>
+      <div class="d-flex justify-content-between align-items-center d-none">
         <% if user_signed_in? && current_user.admin? %>
           <% if lesson.status != "Pre-validée"  %>
             <%= link_to "Admin : pre-valider cette séance", pre_validate_lesson_path(lesson), class: 'small-link lesson-max-60'  %>

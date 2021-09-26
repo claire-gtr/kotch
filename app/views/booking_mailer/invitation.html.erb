@@ -42,16 +42,16 @@
 
 <p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
 
-<p>Un ami vient de t’envoyer une invitation pour participer à une séance Koach</p>
+<p>Un ami vient de t’envoyer une invitation pour participer à une séance Koach & Co</p>
 
 <p>Ne tarde pas et réponds vite à son invitation !</p>
 
-<a href="https://www.koachandco.com/lessons" class='btn-red mb-3'> Valide ta séance</a>
+<%= link_to "Valide ta séance", lessons_url, class:'btn-red mb-3'  %>
 
 <p>Ce créneau ne correspond pas à ton planning ?</p>
 <p>Connecte-toi sur Koach & Co, définis la séance qui te convient le mieux et partage-la avec tes amis !</p>
 
-<a href="https://www.koachandco.com/lessons/new" class='btn-red mb-3'> Valide ta séance</a>
+<%= link_to "Propose une nouvelle séance", new_lesson_url, class:'btn-red mb-3'  %>
 
 <p class="mb-3">Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!</p>
 

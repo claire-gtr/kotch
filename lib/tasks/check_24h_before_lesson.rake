@@ -4,7 +4,7 @@ namespace :check_24h_before_lesson do
     @lessons = Lesson.where("date >= ?", Time.now)
     @lessons_not_complete = []
     @lessons.each do |lesson|
-      if lesson.bookings.count < 5
+      if lesson.bookings.count < 5 && !lesson.status = "Pre-validée"
         @lessons_not_complete << lesson
       end
     end

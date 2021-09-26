@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Google Tag Manager -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script async src=https://www.googletagmanager.com/gtag/js?id=G-Q4LCFFJ0TS></script>
 
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    <script>
 
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      window.dataLayer = window.dataLayer || [];
 
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      function gtag(){dataLayer.push(arguments);}
 
-    })(window,document,'script','dataLayer','GTM-M8CKGN8');</script>
+      gtag('js', new Date());
+
+
+
+      gtag('config', 'G-Q4LCFFJ0TS');
+
+    </script>
 
     <!-- End Google Tag Manager -->
     <title>Koach & Co : vos séances de sport en plein air et à proximité</title>
@@ -29,13 +35,6 @@
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) -->
-
-    <noscript><iframe src=https://www.googletagmanager.com/ns.html?id=GTM-M8CKGN8
-
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-    <!-- End Google Tag Manager (noscript) -->
     <% if action_name == "home" %>
       <div class="main-container-home">
     <% else %>

@@ -1,10 +1,13 @@
 Rails.application.configure do
-  config.hosts << "7bd5-2a01-cb19-24-e400-a5b3-897b-c49d-c3fe.ngrok.io"
+  # config.hosts << "7bd5-2a01-cb19-24-e400-a5b3-897b-c49d-c3fe.ngrok.io"
+  config.hosts << "f3f7-109-24-233-77.ngrok.io"
   config.action_mailer.default_url_options = { host: "http://localhost:3000" }
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.asset_host = "7bd5-2a01-cb19-24-e400-a5b3-897b-c49d-c3fe.ngrok.io"
+  # config.action_mailer.asset_host = "7bd5-2a01-cb19-24-e400-a5b3-897b-c49d-c3fe.ngrok.io"
+  config.action_mailer.asset_host = "3f7-109-24-233-77.ngrok.io"
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

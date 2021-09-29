@@ -83,9 +83,11 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(params[:id])
-    @booking.user.update(credit_count: @booking.user.credit_count + 1) if @booking.used_credit
     authorize @booking
+    @booking.user.update(credit_count: @booking.user.credit_count + 1) if @booking.used_credit
+    mail = BookingMailer.with(user: @booking.user, lesson: @booking.lesson).booking_canceled
     @booking.destroy
+    mail.deliver_now
     redirect_to lessons_path
   end
 

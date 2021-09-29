@@ -1,12 +1,10 @@
-Bonne nouvelle <%= @user.first_name.capitalize %> !
+Bienvenue <%= @user.first_name.capitalize %> !
 
-Ta réservation de séance de sport vient d’être validée par ton coach.
+Ton compte sur le site Koach & Co vient d'être créé.
 
-Soit au point sur l’organisation de la séance en accédant à la messagerie et en communiquant avec ton coach et les participants.
+<%= link_to "Voir nos offres", offers_url %>
 
-<%= link_to "Accède à la messagerie", lessons_url %>
-
-Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!
+Nous te souhaitons un bon moment parmi nous !
 
 À très vite
 

@@ -42,15 +42,13 @@
   }
 </style>
 
-<p class="mb-3">Bonne nouvelle <%= @user.first_name.capitalize %> !</p>
+<p class="mb-3">Bienvenue <%= @user.first_name.capitalize %> !</p>
 
-<p>Ta réservation de séance de sport vient d’être validée par ton coach.</p>
+<p>Ton compte sur le site Koach & Co vient d'être créé.</p>
 
-<p>Soit au point sur l’organisation de la séance en accédant à la messagerie et en communiquant avec ton coach et les participants.</p>
+<p class="mb-3"><%= link_to "Voir nos offres", offers_url, class:'btn-red' %></p>
 
-<p class="mb-3"><%= link_to "Accède à la messagerie", lessons_url, class:'btn-red' %></p>
-
-<p>Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!</p>
+<p>Nous te souhaitons un bon moment parmi nous !</p>
 
 <p class="mb-3">À très vite </p>
 

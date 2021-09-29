@@ -52,6 +52,6 @@
       <a href="https://instagram.com/koachandco?utm_medium=copy_link", target="_blank", rel="noopener noreferrer"><%= image_tag 'instagram.png' %></a>
       <a href="https://www.facebook.com/profile.php?id=100060081436490", target="_blank", rel="noopener noreferrer"><%= image_tag 'facebook.png' %></a>
     </div>
-    <p class="mb-3"><%= link_to 'Se désinscrire à la newsletter', unsubscribe_newsletter_url(@user.id), class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+    <p class="mb-3"><%= link_to 'Se désinscrire à la newsletter', unsubscribe_newsletter_url(id: @user.id), class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
   </body>
 </html>

@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations"}
   root to: 'pages#home'
   get '/mon-profil', to: 'users#profile', as: :profile
+
   resources :lessons, only: [:index, :new, :create]  do
     resources :messages, only: [:index, :create]
   end
+
   get 'change-lesson-public/:id', to: 'lessons#change_lesson_public', as: :change_lesson_public
   get 'public-lessons', to: 'lessons#public_lessons', as: :public_lessons
   get 'lesson-done/:id', to: 'lessons#lesson_done', as: :lesson_done
@@ -21,13 +23,14 @@ Rails.application.routes.draw do
   get 'all-lessons', to: 'dashboards#all_lessons', as: :all_lessons
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
-  patch '/desabonnement-newsletter', to: "users#unsubscribe_newsletter", as: :unsubscribe_newsletter
+  get '/desabonnement-newsletter', to: "users#unsubscribe_newsletter", as: :unsubscribe_newsletter
 
   resources :locations, only: [:create, :destroy]
   resources :partners, only: [:create]
   resources :friendships, only: :index
   resources :friend_requests, only: [:create, :update]
   resources :bookings, only: [:index, :create, :destroy]
+
   post 'lessons/:lesson_id/coach-messages', to: 'messages#coach_message', as: :coach_messages
   get 'accept-invitation/:booking_id', to: "bookings#accept_invitation", as: :accept_invitation
   get 'public-lesson-booking/:lesson_id', to: "bookings#public_lesson_booking", as: :public_lesson_booking
@@ -41,6 +44,7 @@ Rails.application.routes.draw do
   get 'cgv', to: "pages#cgv", as: :cgv
   get 'mentions-légales', to: "pages#legals", as: :legals
   patch '/coach-validation', to: "users#coach_validation", as: :coach_validation
+
   resources :subjects, only: [:new, :create, :show] do
     resources :answers, only: [:create]
   end
@@ -48,6 +52,7 @@ Rails.application.routes.draw do
     resources :payments, only: :new
   end
   resources :customer_portal_sessions, only: [:create]
+
   mount StripeEvent::Engine, at: '/stripe-webhooks'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

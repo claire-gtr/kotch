@@ -3,7 +3,7 @@
 Ton équipe Koach & Co
 
 Rejoins la communauté :
-<%= link_to 'https://instagram.com/koachandco?utm_medium=copy_link', target:'_blank', rel:'noopener noreferrer' do %><%= image_tag 'instagram.png' %><% end %>
-<%= link_to 'https://www.facebook.com/profile.php?id=100060081436490', target:'_blank', rel:'noopener noreferrer' do %><%= image_tag 'facebook.png' %><% end %>
+<%= link_to 'https://instagram.com/koachandco?utm_medium=copy_link' do %><%= image_tag 'instagram.png' %><% end %>
+<%= link_to 'https://www.facebook.com/profile.php?id=100060081436490' do %><%= image_tag 'facebook.png' %><% end %>
 
-<%= link_to 'Se désinscrire à la newsletter', unsubscribe_newsletter_url(@user.id), target:'_blank', rel:'noopener noreferrer' %>
+<%= link_to 'Se désinscrire à la newsletter', unsubscribe_newsletter_url(id: @user.id) %>

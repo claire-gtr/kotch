@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:unsubscribe_newsletter]
+
   def profile
     @user = current_user
     authorize @user
@@ -50,6 +52,7 @@ class UsersController < ApplicationController
     @user.save
     mail = UserMailer.with(user: @user).unsubscribed_newsletter
     mail.deliver_now
+    redirect_to root_path
   end
 
   private

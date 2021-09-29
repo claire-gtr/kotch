@@ -116,7 +116,7 @@ class LessonsController < ApplicationController
           @lessons << lesson
         end
         @lessons_in_future.each do |lesson|
-          if (lesson.bookings.where(status: "Confirmé").count >= 5) && !@lessons.includes(lesson)
+          if (lesson.bookings.where(status: "Confirmé").count >= 5) && !@lessons.include?(lesson)
             @lessons << lesson
           end
         end

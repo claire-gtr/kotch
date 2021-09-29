@@ -6,8 +6,8 @@
 <p><%= @lesson.date %></p>
 <p class="mb-3"><%= @lesson.location.name %></p>
 
-<p>Si tu souhaites te positionner, tu peux le faire dans ton profil :</p>
+<p>Si tu souhaites te positionner, tu peux le faire ici :</p>
 
-<%= link_to "Je me positionne", profile_url, class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %>
+<%= link_to "Je me positionne", public_lessons_url, class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %>
 
 <p class="mb-3">À très vite </p>

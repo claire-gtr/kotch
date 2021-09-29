@@ -1,13 +1,21 @@
-Bienvenue <%= @user.first_name.capitalize %> !
+Félicitations <%= @user.first_name.capitalize %> !
 
-Ton compte sur le site Koach & Co vient d'être créé.
+Ton compte a bien été créé. Tu fais maintenant partie de la grande communauté Koach & Co !
 
-<%= link_to 'Voir nos offres', offers_url %>
+C’est à toi de jouer : rends-toi sur le site sans plus attendre pour ajouter tes amis et réserver ta première séance.
 
-Nous te souhaitons un bon moment parmi nous !
+Fonce !!
+
+Choisis le sport que tu souhaites pratiquer, le moment qui correspond à ton emploi du temps, et ton lieu idéal 😉
+
+<%= link_to 'Réserve ta séance', new_lesson_url, target:'_blank', rel:'noopener noreferrer' %>
+
+Tu préfères rejoindre une séance ?
+
+Navigue jusqu’à la rubrique “séances publiques” : elle te permettra d’accéder à un ensemble de séances créées par d’autres abonnés ou directement par nos coachs !
+
+(Profites en pour agrandir ta propre communauté de sportifs en ajoutant les membres de ton choix)
+
+<%= link_to 'Accède aux séances publiques', public_lessons_url, target:'_blank', rel:'noopener noreferrer' %>
 
 À très vite
-
-Ton équipe Koach & Co
-<%#= image_tag 'logo-pink.png' %>
-<!-- link to insta + facebook -->

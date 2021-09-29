@@ -4,7 +4,7 @@ class BookingMailer < ApplicationMailer
   # with the following lookup:
   #
   #   en.booking_mailer.invitation.subject
-  #
+
   def invitation
     @user = params[:user] # Instance variable => available in view
     @booking = params[:booking]

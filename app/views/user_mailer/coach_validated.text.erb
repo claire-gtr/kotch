@@ -1,11 +1,9 @@
-Bienvenue <%= @user.first_name.capitalize %> !
+Félicitations <%= @user.first_name.capitalize %> !
 
-Ton compte sur le site Koach & Co vient d'être validé.
+Ton compte a été validé. Tu fais maintenant partie de la grande communauté Koach & Co !
 
-Commence dès maintenant à créer une nouvelle séance de sport.
+Rends-toi sur le site sans plus attendre et propose des séances en fonction de tes disponibilités.
 
-<%= link_to 'Nouvelle séance', new_lesson_url %>
-
-Nous te souhaitons un bon moment parmi nous !
+<%= link_to 'Crée ta séance', new_lesson_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %>
 
 À très vite

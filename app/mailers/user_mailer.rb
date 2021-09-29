@@ -6,6 +6,6 @@ class UserMailer < ApplicationMailer
 
   def coach_validated
     @user = params[:user]
-    mail(to: @user.email, subject: 'Votre compte est validé sur Koach & Co')
+    mail(to: @user.email, subject: 'Validation de ton compte Koach & Co')
   end
 end

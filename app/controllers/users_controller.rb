@@ -35,10 +35,12 @@ class UsersController < ApplicationController
 
   def coach_validation
     @user = User.find(params[:user][:id])
+    authorize @user
     @user.validated_coach = true
     @user.save
+    mail = UserMailer.with(user: @user).coach_validated
+    mail.deliver_now
     redirect_to dashboard_path
-    authorize @user
   end
 
   private

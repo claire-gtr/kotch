@@ -44,9 +44,11 @@
 
 <p class="mb-3">Bienvenue <%= @user.first_name.capitalize %> !</p>
 
-<p>Ton compte sur le site Koach & Co vient d'être créé.</p>
+<p>Ton compte sur le site Koach & Co vient d'être validé.</p>
 
-<p class="mb-3"><%= link_to 'Voir nos offres', offers_url, class:'btn-red' %></p>
+<p>Commence dès maintenant à créer une nouvelle séance de sport.</p>
+
+<p class="mb-3"><%= link_to 'Nouvelle séance', new_lesson_url, class:'btn-red' %></p>
 
 <p>Nous te souhaitons un bon moment parmi nous !</p>
 

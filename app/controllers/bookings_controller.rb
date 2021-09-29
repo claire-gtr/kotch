@@ -6,7 +6,7 @@ class BookingsController < ApplicationController
     @user = @booking.user
     authorize @booking
     if @booking.save
-      mail = BookingMailer.with(user: @user, booking: @booking).invitation
+      mail = BookingMailer.with(user: @user, booking: @booking, friend: current_user).invitation
       mail.deliver_now
       redirect_to lessons_path
     else

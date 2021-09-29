@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # before the location can be stored.
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+
   include Pundit
 
   # Pundit: white-list approach.
@@ -13,6 +14,7 @@ class ApplicationController < ActionController::Base
 
   # Uncomment when you *really understand* Pundit!
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def user_not_authorized
     flash[:alert] = "Vous ne pouvez pas faire cette action."
     redirect_to(root_path)
@@ -32,7 +34,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :avatar, :address, :phone_number, :birth_date, :gender, :sport_habits, :level, :intensity, :expectations, :physical_pain, :coach, :terms, :optin_cgv])
@@ -46,25 +47,22 @@ class ApplicationController < ActionController::Base
   end
 
   private
-    # Its important that the location is NOT stored if:
-    # - The request method is not GET (non idempotent)
-    # - The request is handled by a Devise controller such as Devise::SessionsController as that could cause an
-    #    infinite redirect loop.
-    # - The request is an Ajax request as this can lead to very unexpected behaviour.
-    def storable_location?
-      request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
-    end
 
-    def store_user_location!
-      # :user is the scope we are authenticating
-      store_location_for(:user, request.fullpath)
-    end
+  # Its important that the location is NOT stored if:
+  # - The request method is not GET (non idempotent)
+  # - The request is handled by a Devise controller such as Devise::SessionsController as that could cause an
+  #    infinite redirect loop.
+  # - The request is an Ajax request as this can lead to very unexpected behaviour.
+  def storable_location?
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
+  end
 
+  def store_user_location!
+    # :user is the scope we are authenticating
+    store_location_for(:user, request.fullpath)
+  end
 
-    def skip_pundit?
-      devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
-    end
-
-
+  def skip_pundit?
+    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+  end
 end
-

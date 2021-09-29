@@ -8,6 +8,7 @@ class BookingMailer < ApplicationMailer
   def invitation
     @user = params[:user] # Instance variable => available in view
     @booking = params[:booking]
+    @friend = params[:friend]
     mail(to: @user.email, subject: 'Invitation à une séance Koach & Co')
   end
 

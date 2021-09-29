@@ -1,0 +1,17 @@
+Mauvaise nouvelle <%= @user.first_name.capitalize %>,
+
+Ta réservation de séance de sport vient d’être annulée par ton coach.
+
+Pour rappel, il s'agissait de <%= @lesson.user.first_name %> qui devait t’attendra a <%= @lesson.location.name %>, le <%= @lesson.date %> pour une séance de <%= @lesson.sport_type %>.
+
+La messagerie reste ouverte avec ton coach et les participants pour de plus amples informations.
+
+<%= link_to "Accède à la messagerie", lessons_url %>
+
+Demande-lui de trouver une nouvelle date pour cette séance !
+
+À très vite
+
+Ton équipe Koach & Co
+<%#= image_tag 'logo-pink.png' %>
+<!-- link to insta + facebook -->

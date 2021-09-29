@@ -83,10 +83,13 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize @lesson
     @lesson.bookings.each do |b|
+      @customer = b.user
       if b.used_credit
-        b.user.update(credit_count: b.user.credit_count + 1)
+        @customer.update(credit_count: @customer.credit_count + 1)
       end
       b.destroy
+      mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+      mail.deliver_now
     end
     @lesson.update(status: 'canceled')
   end

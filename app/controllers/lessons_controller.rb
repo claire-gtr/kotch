@@ -67,7 +67,7 @@ class LessonsController < ApplicationController
               booking = Booking.new(user: user, lesson: @lesson)
               booking.status = "Invitation envoyée"
               booking.save
-              mail = BookingMailer.with(user: user, booking: booking).invitation
+              mail = BookingMailer.with(user: user, booking: booking, friend: current_user).invitation
               mail.deliver_now
             end
           end

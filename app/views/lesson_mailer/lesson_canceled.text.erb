@@ -1,13 +1,9 @@
-Mauvaise nouvelle <%= @user.first_name.capitalize %>,
+Bonjour <%= @user.first_name.capitalize %>,
 
-Ta réservation de séance de sport vient d’être annulée par ton coach.
+Malheureusement, ton coach <%= @lesson.user.first_name %> ne pourra pas assurer ta séance de  <%= @lesson.sport_type %> programmée le <%= @lesson.date %> à <%= @lesson.location.name %>
 
-Pour rappel, il s'agissait de <%= @lesson.user.first_name %> qui devait t’attendra a <%= @lesson.location.name %>, le <%= @lesson.date %> pour une séance de <%= @lesson.sport_type %>.
+Ne perds pas la forme et réserve vite une nouvelle session.
 
-La messagerie reste ouverte avec ton coach et les participants pour de plus amples informations.
-
-<%= link_to "Accède à la messagerie", lessons_url %>
-
-Demande-lui de trouver une nouvelle date pour cette séance !
+<%= link_to 'Réserver une nouvelle séance', new_lesson_url, target:'_blank', rel:'noopener noreferrer' %>
 
 À très vite

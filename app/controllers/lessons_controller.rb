@@ -88,8 +88,8 @@ class LessonsController < ApplicationController
         @customer.update(credit_count: @customer.credit_count + 1)
       end
       b.destroy
-      # mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
-      # mail.deliver_now
+      mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+      mail.deliver_now
     end
     @lesson.update(status: 'canceled')
   end

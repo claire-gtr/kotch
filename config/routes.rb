@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get 'all-lessons', to: 'dashboards#all_lessons', as: :all_lessons
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
+  patch '/desabonnement-newsletter', to: "users#unsubscribe_newsletter", as: :unsubscribe_newsletter
+
   resources :locations, only: [:create, :destroy]
   resources :partners, only: [:create]
   resources :friendships, only: :index

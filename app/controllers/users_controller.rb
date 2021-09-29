@@ -43,6 +43,15 @@ class UsersController < ApplicationController
     redirect_to dashboard_path
   end
 
+  def unsubscribe_newsletter
+    @user = User.find(params[:id].to_i)
+    authorize @user
+    @user.terms = false
+    @user.save
+    mail = UserMailer.with(user: @user).unsubscribed_newsletter
+    mail.deliver_now
+  end
+
   private
 
   def define_coach_profile

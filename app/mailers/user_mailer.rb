@@ -8,4 +8,9 @@ class UserMailer < ApplicationMailer
     @user = params[:user]
     mail(to: @user.email, subject: 'Validation de ton compte Koach & Co')
   end
+
+  def unsubscribed_newsletter
+    @user = params[:user]
+    mail(to: @user.email, subject: 'Désabonnement à la newsletter Koach & Co')
+  end
 end

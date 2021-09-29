@@ -48,9 +48,10 @@
 
     <p class="mb-3">Ton équipe Koach & Co</p>
     <p>Rejoins la communauté :</p>
-    <div class="d-flex">
+    <div class="d-flex mb-3">
       <a href="https://instagram.com/koachandco?utm_medium=copy_link", target="_blank", rel="noopener noreferrer"><%= image_tag 'instagram.png' %></a>
       <a href="https://www.facebook.com/profile.php?id=100060081436490", target="_blank", rel="noopener noreferrer"><%= image_tag 'facebook.png' %></a>
     </div>
+    <p class="mb-3"><%= link_to 'Se désinscrire à la newsletter', unsubscribe_newsletter_url(@user.id), class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
   </body>
 </html>

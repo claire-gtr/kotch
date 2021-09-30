@@ -3,10 +3,10 @@ Bonjour <%= @user.first_name.capitalize %> !
 Une séance est complète avec 5 élèves ou a été pre-validée et n'a pas de coach.
 Détails de la séance :
 <%= @lesson.sport_type %>
-<%= @lesson.date %>
+<%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %>
 <%= @lesson.location.name %>
 
 Si tu souhaites te positionner, tu peux le faire dans ton profil :
-<%= link_to "Je me positionne", profile_url, target:'_blank', rel:'noopener noreferrer' %>
+<%= link_to "Je me positionne", profile_url %>
 
 À très vite

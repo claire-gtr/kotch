@@ -9,6 +9,7 @@ class LessonMailer < ApplicationMailer
     @user_email = params[:user_email]
     @lesson = params[:lesson]
     @friend = params[:friend]
+    @user = User.new
     # @user = params[:user]
     # @temporay_password = params[:password]
     mail(to: @user_email, subject: 'Invitation à participer à une séance Koach & Co')

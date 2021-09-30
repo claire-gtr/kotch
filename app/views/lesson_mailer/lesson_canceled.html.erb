@@ -1,6 +1,6 @@
 <p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
 
-<p>Malheureusement, ton coach <%= @lesson.user.first_name %> ne pourra pas assurer ta séance de  <%= @lesson.sport_type %> programmée le <%= @lesson.date %> à <%= @lesson.location.name %></p>
+<p>Malheureusement, ton coach <%= @lesson.user.first_name %> ne pourra pas assurer ta séance de  <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> au <%= @lesson.location.name %></p>
 
 <p>Ne perds pas la forme et réserve vite une nouvelle session.</p>
 

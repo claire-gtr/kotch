@@ -82,7 +82,15 @@ class LessonsController < ApplicationController
                 # booking.status = "Invitation envoyée"
                 # booking.save
                 # mail = BookingMailer.with(user: user, booking: booking, friend: current_user, password: temporay_password).new_user_inviation
-                mail = LessonMailer.with(user_email: email, lesson: @lesson, friend: current_user).new_user_inviation
+                user = User.find_by(email: email)
+                if user.present?
+                  booking = Booking.new(user: user, lesson: @lesson)
+                  booking.status = "Invitation envoyée"
+                  booking.save
+                  mail = BookingMailer.with(user: user, booking: booking, friend: current_user).invitation
+                else
+                  mail = LessonMailer.with(user_email: email, lesson: @lesson, friend: current_user).new_user_inviation
+                end
                 mail.deliver_now
               end
             end

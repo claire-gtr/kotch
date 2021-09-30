@@ -1,6 +1,6 @@
 Bonjour <%= @user.first_name.capitalize %> !
 
-Ta séance de <%= @lesson.sport_type %> du <%= @lesson.date %> à <%= @lesson.location.name %> est validée.
+Ta séance de <%= @lesson.sport_type %> <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> au <%= @lesson.location.name %> est validée.
 
 Organise ta séance et utilise la messagerie instantanée pour communiquer avec les participants, connaître leurs attentes, et préparer la séance à venir !
 

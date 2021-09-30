@@ -1,0 +1,13 @@
+<p class="mb-3">Bonjour !</p>
+
+<p>Ton ami <%= @friend.first_name.capitalize %> vient de t’envoyer une invitation pour participer à une séance de <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> au <%= @lesson.location.name %></p>
+
+<p>Afin de participer à la séance, il te faudra tout d’abord t’inscrire sur le site Koach & Co grâce au lien ci-dessous.</p>
+
+<p>Une fois ton compte Koach & Co créé, tu pourras accepter l’invitation de ton ami dans la rubrique « Mes réservations ».</p>
+
+<p class="mb-3"><%= link_to "M'inscrire", new_user_registration_url, class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %></p>
+
+<p class="mb-3">Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!</p>
+
+<p class="mb-3">À très vite </p>

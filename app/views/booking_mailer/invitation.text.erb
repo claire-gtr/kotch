@@ -1,15 +1,15 @@
 Bonjour <%= @user.first_name.capitalize %> !
 
-<%= @friend.first_name.capitalize %> vient de t’envoyer une invitation pour participer à la séance de <%= @booking.lesson.sport_type %> du <%= @booking.lesson.date %> à <%= @booking.lesson.location.name %> avec le coach <%= @booking.lesson.user ? @booking.lesson.user.first_name.capitalize : '(pas de coach)' %>
+<%= @friend.first_name.capitalize %> vient de t’envoyer une invitation pour participer à la séance de <%= @booking.lesson.sport_type %> <%= @booking.lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> au <%= @booking.lesson.location.name %> avec le coach <%= @booking.lesson.user ? @booking.lesson.user.first_name.capitalize : '(pas de coach)' %>
 
 Ne tarde pas et réponds vite à son invitation !
 
-<%= link_to 'Valide ta séance', lessons_url, target:'_blank', rel:'noopener noreferrer' %>
+<%= link_to 'Valide ta séance', lessons_url %>
 
 Ce créneau ne correspond pas à ton planning ?
 Connecte-toi sur Koach & Co, définis la séance qui te convient le mieux et partage-la avec tes amis !
 
-<%= link_to 'Propose une nouvelle séance', new_lesson_url, target:'_blank', rel:'noopener noreferrer' %>
+<%= link_to 'Propose une nouvelle séance', new_lesson_url %>
 
 Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!
 

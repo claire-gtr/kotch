@@ -34,6 +34,11 @@ class BookingsController < ApplicationController
           mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
           mail.deliver_now
         end
+      elsif @lesson.bookings.where(status: "Confirmé").count == 5 && !@lesson.user.nil?
+        @lesson.bookings.where(status: "Confirmé").each do |booking|
+          mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed
+          mail.deliver_now
+        end
       end
       flash[:info] = "Vous êtes bien inscrit(e) à la séance"
       redirect_to lessons_path
@@ -65,6 +70,11 @@ class BookingsController < ApplicationController
         if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil? && @booking.lesson.status != "Pre-validée"
           User.where(coach: true).each do |user|
             mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+            mail.deliver_now
+          end
+        elsif @lesson.bookings.where(status: "Confirmé").count == 5 && !@lesson.user.nil?
+          @lesson.bookings.where(status: "Confirmé").each do |booking|
+            mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed
             mail.deliver_now
           end
         end

@@ -21,6 +21,10 @@ class UserPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def unsubscribe_newsletter?
+    true
+  end
+
   def sportive_profile?
     coachs = []
     record.bookings.each do |booking|

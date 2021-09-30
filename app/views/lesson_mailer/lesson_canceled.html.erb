@@ -1,0 +1,9 @@
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
+
+<p>Malheureusement, ton coach <%= @lesson.user.first_name %> ne pourra pas assurer ta séance de  <%= @lesson.sport_type %> programmée le <%= @lesson.date %> à <%= @lesson.location.name %></p>
+
+<p>Ne perds pas la forme et réserve vite une nouvelle session.</p>
+
+<p class="mb-3"><%= link_to 'Réserver une nouvelle séance', new_lesson_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+
+<p class="mb-3">À très vite </p>

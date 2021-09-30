@@ -67,7 +67,7 @@ class LessonsController < ApplicationController
               booking = Booking.new(user: user, lesson: @lesson)
               booking.status = "Invitation envoyée"
               booking.save
-              mail = BookingMailer.with(user: user, booking: booking).invitation
+              mail = BookingMailer.with(user: user, booking: booking, friend: current_user).invitation
               mail.deliver_now
             end
           end
@@ -83,10 +83,13 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize @lesson
     @lesson.bookings.each do |b|
+      @customer = b.user
       if b.used_credit
-        b.user.update(credit_count: b.user.credit_count + 1)
+        @customer.update(credit_count: @customer.credit_count + 1)
       end
       b.destroy
+      mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+      mail.deliver_now
     end
     @lesson.update(status: 'canceled')
   end
@@ -113,7 +116,7 @@ class LessonsController < ApplicationController
           @lessons << lesson
         end
         @lessons_in_future.each do |lesson|
-          if (lesson.bookings.where(status: "Confirmé").count >= 5) && !@lessons.includes(lesson)
+          if (lesson.bookings.where(status: "Confirmé").count >= 5) && !@lessons.include?(lesson)
             @lessons << lesson
           end
         end

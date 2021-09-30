@@ -1,0 +1,9 @@
+<%= @user.first_name.capitalize %>,
+
+Nous confirmons l’annulation de ta séance de <%= @lesson.sport_type %> programmée le <%= @lesson.date %> à <%= @lesson.location.name %> avec ton coach <%= @lesson.user ? @lesson.user.first_name : 'pas de coach' %> !
+
+Ne perds pas la forme ! Nous sommes pressés de te revoir, réserve vite une nouvelle session.
+
+<%= link_to 'Réserve ta séance', new_lesson_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %>
+
+À très vite

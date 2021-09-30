@@ -1,12 +1,11 @@
 class BookingsController < ApplicationController
-
   def create
     @booking = Booking.new(booking_params)
     @booking.status = "Invitation envoyée"
     @user = @booking.user
     authorize @booking
     if @booking.save
-      mail = BookingMailer.with(user: @user, booking: @booking).invitation
+      mail = BookingMailer.with(user: @user, booking: @booking, friend: current_user).invitation
       mail.deliver_now
       redirect_to lessons_path
     else
@@ -83,9 +82,11 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(params[:id])
-    @booking.user.update(credit_count: @booking.user.credit_count + 1) if @booking.used_credit
     authorize @booking
+    @booking.user.update(credit_count: @booking.user.credit_count + 1) if @booking.used_credit
+    mail = BookingMailer.with(user: @booking.user, lesson: @booking.lesson).booking_canceled
     @booking.destroy
+    mail.deliver_now
     redirect_to lessons_path
   end
 

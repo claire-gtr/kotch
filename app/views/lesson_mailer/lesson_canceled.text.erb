@@ -1,0 +1,9 @@
+Bonjour <%= @user.first_name.capitalize %>,
+
+Malheureusement, ton coach <%= @lesson.user.first_name %> ne pourra pas assurer ta séance de  <%= @lesson.sport_type %> programmée le <%= @lesson.date %> à <%= @lesson.location.name %>
+
+Ne perds pas la forme et réserve vite une nouvelle session.
+
+<%= link_to 'Réserver une nouvelle séance', new_lesson_url, target:'_blank', rel:'noopener noreferrer' %>
+
+À très vite

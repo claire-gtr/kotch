@@ -4,6 +4,28 @@
 
 <p>Participe à l’amélioration du service Koach & Co en renseignant les raisons de ton départ :</p>
 
-<p class="mb-3"><%= link_to 'Désinscris-toi', new_lesson_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+<%= form_with url: unsubscribe_newsletter_form_url, method: :get, class: 'p-3' do |form| %>
+  <div class="flex-column">
+    <%= form.radio_button :reason, 'many_mails' %>
+    <%= form.label :reason_many_mails, "Je reçois trop d'emails" %>
+    <br>
+    <%= form.radio_button :reason, 'not_relevant' %>
+    <%= form.label :reason_not_relevant, "Le contenu n’est pas pertinent" %>
+    <br>
+    <%= form.radio_button :reason, 'not_interested' %>
+    <%= form.label :reason_not_interested, "Je ne suis pas intéressé" %>
+    <br>
+    <%= form.radio_button :reason, 'stop_receive_mails' %>
+    <%= form.label :reason_stop_receive_mails, "Je ne veux plus recevoir d’emails" %>
+    <br>
+    <%= form.radio_button :reason, 'other' %>
+    <%= form.label :reason_other, "Autres (à compléter)" %>
+    <%= form.text_field :reason_other_text, label: false %>
+
+    <%= form.hidden_field :user_id, value: @user.id %>
+    <br>
+    <%= form.submit 'Envoyer', class:'btn-red' %>
+  </div>
+<% end %>
 
 <p class="mb-3">À très vite </p>

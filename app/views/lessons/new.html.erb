@@ -33,10 +33,15 @@
           <% if current_user.coach %>
             <em class="text-blue">Réservé aux clients</em>
           <% else %>
-          <%= select_tag "friends", options_from_collection_for_select(
-            @friends, :id, :full_name), multiple: true,
-            class: 'select2' %>
+            <%= select_tag "friends", options_from_collection_for_select(
+              @friends, :id, :full_name), multiple: true,
+              class: 'select2' %>
           <% end %>
+          <%= text_area_tag :emails,
+            nil,
+            placeholder: "Liste d'adresses mail séparées par une virgule, sans espace.",
+            # size: 50,
+            class: 'w-100 mt-3' %>
         </div>
       </div>
     </div>

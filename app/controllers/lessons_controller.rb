@@ -71,6 +71,22 @@ class LessonsController < ApplicationController
               mail.deliver_now
             end
           end
+          friends_emails = params[:emails]
+          if friends_emails && (friends_emails != "")
+            emails = friends_emails.split(',').map { |email| email.gsub(/\s+/, '').downcase }
+            emails.each do |email|
+              if a_valid_email?(email)
+                # temporay_password = (0...12).map { ('a'..'z').to_a[rand(26)] }.join
+                # user = User.create(email: email, password: temporay_password, password_confirmation: temporay_password, first_name: 'Invité', last_name: 'Invité')
+                # booking = Booking.new(user: user, lesson: @lesson)
+                # booking.status = "Invitation envoyée"
+                # booking.save
+                # mail = BookingMailer.with(user: user, booking: booking, friend: current_user, password: temporay_password).new_user_inviation
+                mail = LessonMailer.with(user_email: email, lesson: @lesson, friend: current_user).new_user_inviation
+                mail.deliver_now
+              end
+            end
+          end
         else
           flash[:alert] = "Vous n'avez pas de séance pour réserver une séance ce mois-ci.."
           redirect_to offers_path
@@ -224,6 +240,10 @@ class LessonsController < ApplicationController
   end
 
   private
+
+  def a_valid_email?(email)
+    email =~ /\A[^@\s]+@[^@\s]+\z/
+  end
 
   def send_email_to_users
     @lesson.bookings.where(status: "Confirmé").each do |booking|

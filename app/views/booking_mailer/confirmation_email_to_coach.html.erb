@@ -1,9 +1,9 @@
-<p class="mb-3">Bonne nouvelle <%= @user.first_name.capitalize %> !</p>
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
 
 <p>Ta séance de <%= @lesson.sport_type %> du <%= @lesson.date %> à <%= @lesson.location.name %> est validée.</p>
 
 <p>Organise ta séance et utilise la messagerie instantanée pour communiquer avec les participants, connaître leurs attentes, et préparer la séance à venir !</p>
 
-<p class="mb-3"><%= link_to "Envoie un message", lessons_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+<p class="mb-3"><%= link_to 'Envoie un message', lesson_messages_url(@lesson), class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
 
 <p class="mb-3">À très vite </p>

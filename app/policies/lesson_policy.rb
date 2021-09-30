@@ -42,7 +42,7 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def be_coach?
-    user.coach
+    user.coach?
   end
 
   def be_coach_via_mail?

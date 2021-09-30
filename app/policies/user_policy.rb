@@ -25,10 +25,6 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
-  def unsubscribe_newsletter_form?
-    true
-  end
-
   def sportive_profile?
     coachs = []
     record.bookings.each do |booking|

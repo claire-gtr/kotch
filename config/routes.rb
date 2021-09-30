@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
   get '/desabonnement-newsletter', to: "users#unsubscribe_newsletter", as: :unsubscribe_newsletter
-  get '/desabonnement-newsletter-reponses', to: "users#unsubscribe_newsletter_form", as: :unsubscribe_newsletter_form
+
+  post '/desabonnement-newsletter-reponses', to: "reasons#create", as: :reasons
 
   resources :locations, only: [:create, :destroy]
   resources :partners, only: [:create]

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:unsubscribe_newsletter, :unsubscribe_newsletter_form]
+  skip_before_action :authenticate_user!, only: [:unsubscribe_newsletter]
 
   def profile
     @user = current_user
@@ -55,17 +55,7 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  def unsubscribe_newsletter_form
-    raise
-    @user = User.find(params[:user_id].to_i)
-    authorize @user
-    redirect_to root_path
-  end
-
   private
-
-  def unsubscribe_newsletter_params
-  end
 
   def define_coach_profile
     @coachings = current_user.lessons

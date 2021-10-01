@@ -91,6 +91,15 @@
                   <%= f.input :lesson_id, as: :hidden, input_html: {value: lesson.id } %>
                   <%= f.submit 'Envoyer une invitation', class:'btn btn-kotch btn-blue w-100' %>
                 <% end %>
+
+                <%= simple_form_for lesson, method: :post, url: create_by_emails_path, class: 'mt-4' do |f| %>
+                  <%= text_area_tag :emails,
+                    nil,
+                    placeholder: "Renseignez les adresses email de vos amis pas encore inscrits et séparez-les par une virgule",
+                    label: 'Envoyez des invitations par mail',
+                    class: 'w-100 mt-3 p-2' %>
+                  <%= f.submit "Envoyer les invitations", class:'btn btn-kotch btn-blue w-100 mt-2' %>
+                <% end %>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-kotch btn-light-blue" data-dismiss="modal">Annuler</button>

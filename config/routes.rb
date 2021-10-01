@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   post 'lessons/:lesson_id/coach-messages', to: 'messages#coach_message', as: :coach_messages
   get 'accept-invitation/:booking_id', to: "bookings#accept_invitation", as: :accept_invitation
   get 'public-lesson-booking/:lesson_id', to: "bookings#public_lesson_booking", as: :public_lesson_booking
+  post 'invitations-par-emails', to: "bookings#create_by_emails", as: :create_by_emails
 
   get 'sign-up-coach', to: "coachs#sign_up", as: :coach_sign_up
   get 'sportive-profile/:id', to:'users#sportive_profile', as: :sportive_profile

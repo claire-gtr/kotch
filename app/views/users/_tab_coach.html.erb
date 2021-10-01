@@ -1,13 +1,13 @@
 <div class="card-blue profile-box profile-box-bg">
   <ul class="nav nav-tabs justify-content-between rounded-top-right rounded-top-left" role="tablist">
     <li class="nav-item">
-      <a class="active btn btn-big rounded-0" data-toggle="tab" href="#tabs-1" role="tab">Coachings à venir</a>
+      <a class="active btn btn-big rounded-0" data-toggle="tab" href="#tabs-1" role="tab" id="tab-1">Coachings à venir</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-2" role="tab">Demandes de coachings</a>
+      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-2" role="tab" id="tab-2">Demandes de coachings</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-3" role="tab">Historique des coachings</a>
+      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-3" role="tab" id="tab-3">Historique des coachings</a>
     </li>
   </ul>
   <!-- Tab panes -->
@@ -216,3 +216,14 @@ REFERENCES FOR CSS CLASSES
 .participants-modal                       => pages/_profile.scss
 .btn-plus                                 => _buttons.scss
 %>
+<script>
+  tab1 = document.querySelector('#tab-1');
+  tab2 = document.querySelector('#tab-2');
+  tab3 = document.querySelector('#tab-3');
+
+  window.addEventListener('load', function () {
+    <% if @tab.present? && (@tab == 'tab-2') %>
+      tab2.click();
+    <% end %>
+  })
+</script>

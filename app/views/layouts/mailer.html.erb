@@ -20,6 +20,9 @@
       .ml-2 {
         margin-left: 10px;
       }
+      .mt-5 {
+        margin-top: 40px;
+      }
       .d-flex {
         display: flex;
         justify-content: start;
@@ -29,7 +32,7 @@
       }
       .btn-red {
         background-color: #ff5f57;
-        color: white;
+        color: #ffffff;
         border-radius: 8px;
         font-family: "Barlow Condensed";
         font-weight: 600;
@@ -54,13 +57,12 @@
 
   <body>
     <%= yield %>
-
-    <p class="mb-3">Ton équipe Koach & Co</p>
+    <p>Ton équipe Koach & Co</p>
     <p>Rejoins la communauté :</p>
     <div class="d-flex mb-3">
       <a href="https://instagram.com/koachandco?utm_medium=copy_link", target="_blank", rel="noopener noreferrer"><%= image_tag 'instagram.png' %></a>
       <a href="https://www.facebook.com/profile.php?id=100060081436490", target="_blank", rel="noopener noreferrer"><%= image_tag 'facebook.png' %></a>
     </div>
-    <p class="mb-3"><%= link_to 'Se désinscrire à la newsletter', unsubscribe_newsletter_url(id: @user.id), class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+    <p class="mb-3"><em><%= link_to 'Se désinscrire à la newsletter', unsubscribe_newsletter_url(id: @user.id), class:'text-decoration-none', target:'_blank', rel:'noopener noreferrer' %></em></p>
   </body>
 </html>

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:unsubscribe_newsletter]
 
   def profile
+    @tab = params[:tab]
     @user = current_user
     authorize @user
     if current_user.coach && !current_user.validated_coach

@@ -67,6 +67,22 @@ label.password {
 
 .many-emails-input {
   border-radius: 8px;
+  height: 7rem;
+  width: 240px !important;
+  border: 1px solid #ced4da;
+  outline: 0;
+  background-color: white;
+  border-radius: 8px;
+  cursor: text;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  position: relative;
+  // min-height: 45px;
+  box-sizing: border-box;
+  display: inline-block;
+  -webkit-user-select: none;
+  text-align: left;
+  vertical-align: middle;
 }
 
 // #form-message {

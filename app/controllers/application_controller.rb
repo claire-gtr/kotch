@@ -48,6 +48,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def a_valid_email?(email)
+    email =~ /\A[^@\s]+@[^@\s]+\z/
+  end
+
   # Its important that the location is NOT stored if:
   # - The request method is not GET (non idempotent)
   # - The request is handled by a Devise controller such as Devise::SessionsController as that could cause an

@@ -256,10 +256,6 @@ class LessonsController < ApplicationController
 
   private
 
-  def a_valid_email?(email)
-    email =~ /\A[^@\s]+@[^@\s]+\z/
-  end
-
   def send_email_to_users
     @lesson.bookings.where(status: "Confirmé").each do |booking|
       mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed

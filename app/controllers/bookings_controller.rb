@@ -20,6 +20,8 @@ class BookingsController < ApplicationController
 
   def create_by_emails
     friends_emails = params[:emails]
+    @lesson = Lesson.find(params[:booking][:lesson_id])
+    authorize Booking.new
     if friends_emails && (friends_emails != "")
       emails = friends_emails.split(',').map { |email| email.gsub(/\s+/, '').downcase }
       emails.each do |email|
@@ -43,6 +45,7 @@ class BookingsController < ApplicationController
         end
       end
     end
+    redirect_to lessons_path, notice: 'Les invitations ont bien été envoyées.'
   end
 
   def accept_invitation

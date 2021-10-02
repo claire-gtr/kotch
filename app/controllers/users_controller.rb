@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:unsubscribe_newsletter]
 
   def profile
+    @tab = params[:tab]
     @user = current_user
     authorize @user
     if current_user.coach && !current_user.validated_coach
@@ -46,12 +47,16 @@ class UsersController < ApplicationController
   end
 
   def unsubscribe_newsletter
-    @user = User.find(params[:id].to_i)
-    authorize @user
-    @user.terms = false
-    @user.save
-    mail = UserMailer.with(user: @user).unsubscribed_newsletter
-    mail.deliver_now
+    @user = User.find(params[:id].to_i) if params[:id]
+    if @user
+      authorize @user
+      @user.terms = false
+      @user.save
+      mail = UserMailer.with(user: @user).unsubscribed_newsletter
+      mail.deliver_now
+    else
+      authorize User.new
+    end
     redirect_to root_path
   end
 

@@ -36,11 +36,11 @@
             <%= select_tag "friends", options_from_collection_for_select(
               @friends, :id, :full_name), multiple: true,
               class: 'select2' %>
+            <%= text_area_tag :emails,
+              nil,
+              placeholder: "Renseignez les adresses email de vos amis pas encore inscrits et séparez-les par une virgule",
+              class: 'mt-3 p-2 many-emails-input' %>
           <% end %>
-          <%= text_area_tag :emails,
-            nil,
-            placeholder: "Liste d'adresses mail séparées par une virgule.",
-            class: 'w-100 mt-3 p-2 many-emails-input' %>
         </div>
       </div>
     </div>

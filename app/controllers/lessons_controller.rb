@@ -237,21 +237,24 @@ class LessonsController < ApplicationController
 
   def pre_validate_lesson
     @lesson = Lesson.find(params[:id])
-    @lesson.status = "Pre-validée"
     authorize @lesson
+    @lesson.status = "Pre-validée"
     @lesson.save
-    User.where(coach: true).each do |user|
-      mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+
+    if @lesson.user
+      mail = BookingMailer.with(user: @lesson.user, lesson: @lesson).confirmation_email_to_coach
       mail.deliver_now
+    else
+      User.where(coach: true).each do |user|
+        mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+        mail.deliver_now
+      end
     end
+
     redirect_to all_lessons_path
   end
 
   private
-
-  def a_valid_email?(email)
-    email =~ /\A[^@\s]+@[^@\s]+\z/
-  end
 
   def send_email_to_users
     @lesson.bookings.where(status: "Confirmé").each do |booking|

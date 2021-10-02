@@ -1,6 +1,6 @@
 <p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
 
-<p><%= @friend.first_name.capitalize %> vient de t’envoyer une invitation pour participer à la séance de <%= @booking.lesson.sport_type %> <%= @booking.lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> au <%= @booking.lesson.location.name %> avec le coach <%= @booking.lesson.user ? @booking.lesson.user.first_name.capitalize : '(pas de coach)' %></p>
+<p><%= @friend.first_name.capitalize %> vient de t’envoyer une invitation pour participer à la séance de <%= @booking.lesson.sport_type %> <%= @booking.lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> et te donne rendez-vous à l'adresse suivante : <%= @booking.lesson.location.name %>.</p>
 
 <p>Ne tarde pas et réponds vite à son invitation !</p>
 
@@ -13,4 +13,4 @@
 
 <p class="mb-3">Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!</p>
 
-<p class="mb-3">À très vite </p>
+<p class="mt-5">À très vite </p>

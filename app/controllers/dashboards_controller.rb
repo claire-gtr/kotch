@@ -6,12 +6,21 @@ class DashboardsController < ApplicationController
     @non_admins = User.where(admin:false)
     @non_validated_coachs = User.where(coach: true).where(validated_coach: false)
     @coachs = User.where(coach: true).where(validated_coach: true)
-    @locations = Location.all
-    @partners = Partner.all
+    @locations = Location.all.order(id: :asc)
+    @partners = Partner.all.order(id: :asc)
+    @promo_codes = PromoCode.all.order(id: :asc)
   end
 
   def analytics
     authorize(:dashboard, :analytics?)
+
+    @reasons_many_mails = Reason.where(title: helpers.many_mails).count
+    @reasons_not_relevant = Reason.where(title: helpers.not_relevant).count
+    @reasons_not_interested = Reason.where(title: helpers.not_interested).count
+    @reasons_stop_receive_mails = Reason.where(title: helpers.stop_receive_mails).count
+    @reasons_others = Reason.where(title: helpers.others).count
+    @reasons_others_text = Reason.where(title: helpers.others).map { |reason| reason.other_text }
+
     @users = User.where(coach: false).group_by_month.count
     @coachs = User.where(coach: true).group_by_month.count
     @bookings = Booking.where(status: "effectuée").where(used_credit: false).group_by{ |u| u.lesson.date.beginning_of_month }

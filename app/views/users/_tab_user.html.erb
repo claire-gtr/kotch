@@ -1,13 +1,13 @@
 <div class="card-blue profile-box profile-box-bg">
   <ul class="nav nav-tabs justify-content-between rounded-top-right rounded-top-left" role="tablist">
     <li class="nav-item">
-      <a class="active btn btn-big rounded-0" data-toggle="tab" href="#tabs-1" role="tab">Séance à venir</a>
+      <a class="active btn btn-big rounded-0" data-toggle="tab" href="#tabs-1" role="tab" id="tab-1">Séance à venir</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-2" role="tab">Historique des séances</a>
+      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-2" role="tab" id="tab-2">Historique des séances</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-3" role="tab">Mon abonnement / Mes achats</a>
+      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-3" role="tab" id="tab-3">Mon abonnement / Mes achats</a>
     </li>
   </ul><!-- Tab panes -->
   <div class="tab-content p-3">
@@ -171,6 +171,18 @@
           <p class="text-blue mt-5">Vous n'avez pas de séances hors abonnement.</p>
         <% end %>
       </div>
+      <div class="text-center">
+        <% if current_user.promo_code_used == false %>
+          <p class="text-blue mt-5">Entrer un code promotionnel :</p>
+          <%= simple_form_for current_user, url: use_a_promo_code_path(current_user), method: :patch do |f| %>
+            <%= text_field_tag :name, nil, label: "Nom du code", class:'text-uppercase' %>
+            <br>
+            <%= submit_tag "Utiliser ce code promo", class:'btn btn-red btn-kotch mt-2' %>
+          <% end %>
+        <% else %>
+          <p class="text-blue mt-5">Vous avez déjà utilisé un code promotionnel.</p>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -181,3 +193,15 @@ REFERENCES FOR CSS CLASSES
 
 .profile-box, .profile-box-bg                         => pages/_profile.scss
 %>
+
+<script>
+  tab1 = document.querySelector('#tab-1');
+  tab2 = document.querySelector('#tab-2');
+  tab3 = document.querySelector('#tab-3');
+
+  window.addEventListener('load', function () {
+    <% if @tab.present? && (@tab == 'tab-3') %>
+      tab3.click();
+    <% end %>
+  })
+</script>

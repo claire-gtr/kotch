@@ -60,6 +60,19 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def use_a_promo_code
+    @user = User.find(params[:id])
+    authorize @user
+    @promo_code = PromoCode.find_by(active: true, name: params[:name].upcase!)
+    if @promo_code
+      @user.update(promo_code_used: true, credit_count: @user.credit_count + 1)
+      @promo_code.update(uses_count: @promo_code.uses_count + 1)
+      redirect_to profile_path(tab: 'tab-3'), notice: 'Le code promo a bien été pris en compte.'
+    else
+      redirect_back fallback_location: profile_path(tab: 'tab-3'), alert: "Ce code promo n'existe pas ou n'est plus actif."
+    end
+  end
+
   private
 
   def define_coach_profile

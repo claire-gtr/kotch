@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
   get '/desabonnement-newsletter', to: "users#unsubscribe_newsletter", as: :unsubscribe_newsletter
+  patch '/utiliser-code-promo/:id', to: "users#use_a_promo_code", as: :use_a_promo_code
 
   post '/desabonnement-newsletter-reponses', to: "reasons#create", as: :reasons
 
@@ -55,6 +56,9 @@ Rails.application.routes.draw do
     resources :payments, only: :new
   end
   resources :customer_portal_sessions, only: [:create]
+
+  post 'nouveau-code-promo', to: "promo_codes#create", as: :promo_codes
+  patch 'modifier-code-promo/:id', to: "promo_codes#toggle_active_status", as: :toggle_active_status
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

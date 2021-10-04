@@ -12,13 +12,7 @@ class UserMailer < ApplicationMailer
   def unsubscribed_newsletter
     @user = params[:user]
     @reason = Reason.new
-    @all_reasons = [
-      "Je reçois trop d'emails",
-      "Le contenu n’est pas pertinent",
-      "Je ne suis pas intéressé",
-      "Je ne veux plus recevoir d’emails",
-      "Autres (à compléter ci-dessous)"
-    ]
+    @all_reasons = all_reasons
     mail(to: @user.email, subject: 'Désabonnement à la newsletter Koach & Co')
   end
 end

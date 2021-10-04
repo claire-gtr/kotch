@@ -56,6 +56,9 @@ Rails.application.routes.draw do
   end
   resources :customer_portal_sessions, only: [:create]
 
+  post 'nouveau-code-promo', to: "promo_codes#create", as: :promo_codes
+  patch 'modifier-code-promo/:id', to: "promo_codes#toggle_active_status", as: :toggle_active_status
+
   mount StripeEvent::Engine, at: '/stripe-webhooks'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -6,8 +6,9 @@ class DashboardsController < ApplicationController
     @non_admins = User.where(admin:false)
     @non_validated_coachs = User.where(coach: true).where(validated_coach: false)
     @coachs = User.where(coach: true).where(validated_coach: true)
-    @locations = Location.all
-    @partners = Partner.all
+    @locations = Location.all.order(id: :asc)
+    @partners = Partner.all.order(id: :asc)
+    @promo_codes = PromoCode.all.order(id: :asc)
   end
 
   def analytics

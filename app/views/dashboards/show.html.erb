@@ -87,4 +87,25 @@
     </div>
   </div>
 
+  <div class="row mt-5">
+    <div class="col">
+      <h5 class='text-blue'><strong>Gérer les codes promo</strong></h5>
+      <div>
+        <%= simple_form_for :promo_code, url: promo_codes_path, method: :post do |f| %>
+          <%= f.input :name, label: "Nom du code", input_html: { class:'text-uppercase' } %>
+          <%= submit_tag "Ajouter ce code", class: "btn btn-kotch btn-blue" %>
+        <% end %>
+      </div>
+      <h5 class='mt-4 text-blue'> Tous les codes promo :</h5>
+      <% @promo_codes.each do |promo_code| %>
+        <p class='mb-0 mr-3 text-blue'>
+          <%= promo_code.name %> - <%= promo_code.active ? 'Actif' : 'Non-actif' %> - utilisé <%= promo_code.uses_count %> fois -
+          <%= link_to toggle_active_status_path(promo_code), method: :patch do %>
+            <%= promo_code.active ? 'Désactiver' : 'Activer' %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+
 </div>

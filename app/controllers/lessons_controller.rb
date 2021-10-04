@@ -1,5 +1,5 @@
 class LessonsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :public_lessons]
+  skip_before_action :authenticate_user!, only: [:public_lessons]
 
   def index
     @lessons = policy_scope(Lesson)

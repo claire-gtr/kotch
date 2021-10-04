@@ -1,6 +1,6 @@
 <p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
 
-<p>Ta séance de <%= @lesson.sport_type %> <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> au <%= @lesson.location.name %> est validée.</p>
+<p>Ta séance de <%= @lesson.sport_type %> <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> à l'adresse suivante : <%= @lesson.location.name %> est validée.</p>
 
 <p>Organise ta séance et utilise la messagerie instantanée pour communiquer avec les participants, connaître leurs attentes, et préparer la séance à venir !</p>
 

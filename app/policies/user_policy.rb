@@ -25,6 +25,10 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def use_a_promo_code?
+    !user.promo_code_used?
+  end
+
   def sportive_profile?
     coachs = []
     record.bookings.each do |booking|

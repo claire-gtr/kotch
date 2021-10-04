@@ -171,6 +171,18 @@
           <p class="text-blue mt-5">Vous n'avez pas de séances hors abonnement.</p>
         <% end %>
       </div>
+      <div class="text-center">
+        <% if current_user.promo_code_used == false %>
+          <p class="text-blue mt-5">Entrer un code promotionnel :</p>
+          <%= simple_form_for current_user, url: use_a_promo_code_path(current_user), method: :patch do |f| %>
+            <%= text_field_tag :name, nil, label: "Nom du code", class:'text-uppercase' %>
+            <br>
+            <%= submit_tag "Utiliser ce code promo", class:'btn btn-red btn-kotch mt-2' %>
+          <% end %>
+        <% else %>
+          <p class="text-blue mt-5">Vous avez déjà utilisé un code promotionnel.</p>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

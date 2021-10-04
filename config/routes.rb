@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   patch '/admin', to: "users#become_admin", as: :become_admin
   patch '/undo-admin/:id', to: "users#undo_admin", as: :undo_admin
   get '/desabonnement-newsletter', to: "users#unsubscribe_newsletter", as: :unsubscribe_newsletter
+  patch '/utiliser-code-promo/:id', to: "users#use_a_promo_code", as: :use_a_promo_code
 
   post '/desabonnement-newsletter-reponses', to: "reasons#create", as: :reasons
 

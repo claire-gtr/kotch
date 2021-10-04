@@ -1,8 +1,8 @@
 <p class="mb-3">Bonne nouvelle <%= @user.first_name.capitalize %> !</p>
 
-<p>Ta réservation de séance de sport vient d’être validée par ton coach.</p>
+<p>Ta réservation de séance de sport vient d’être validée.</p>
 
-<p><%= @lesson.user.first_name %> t’attendra au <%= @lesson.location.name %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> pour une séance de <%= @lesson.sport_type %> !</p>
+<p><%= @lesson.user.first_name %> te donne rendez-vous à l'adresse suivante : <%= @lesson.location.name %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> pour une séance de <%= @lesson.sport_type %> !</p>
 
 <p>Soit au point sur l’organisation de la séance en accédant à la messagerie et en communiquant avec ton coach et les participants.</p>
 

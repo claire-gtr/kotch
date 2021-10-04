@@ -1,6 +1,6 @@
 Bonjour <%= @user.first_name.capitalize %>,
 
-Malheureusement, ton coach <%= @lesson.user.first_name %> ne pourra pas assurer ta séance de  <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> au <%= @lesson.location.name %>
+Malheureusement, ton coach <%= @lesson.user.first_name %> ne pourra pas assurer ta séance de  <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %>, à l'adresse suivante : <%= @lesson.location.name %>.
 
 Ne perds pas la forme et réserve vite une nouvelle session.
 

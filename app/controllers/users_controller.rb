@@ -48,16 +48,20 @@ class UsersController < ApplicationController
 
   def unsubscribe_newsletter
     @user = User.find(params[:id].to_i) if params[:id]
-    if @user
+    if @user.present? && (@user.terms == true)
       authorize @user
       @user.terms = false
       @user.save
       mail = UserMailer.with(user: @user).unsubscribed_newsletter
       mail.deliver_now
+      return redirect_to root_path, notice: 'Ta désinscription à la newsletter a bien été prise en compte.'
+    elsif @user.present? && (@user.terms == false)
+      authorize @user
+      return redirect_to root_path, alert: "Tu n'es pas inscrit à la newsletter de Koach & Co."
     else
       authorize User.new
+      return redirect_to root_path, alert: "Ce compte n'existe pas."
     end
-    redirect_to root_path
   end
 
   def use_a_promo_code

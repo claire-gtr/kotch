@@ -17,7 +17,15 @@ module Stripe
           nickname: @stripe_subscription&.items&.data[0]&.plan&.nickname
           )
       end
-      send_first_sub_email if first_sub
+
+      if first_sub
+        @new_referral_code = [*('a'..'z'), *('0'..'9')].sample(10).join.upcase
+        while User.find_by(referral_code: @new_referral_code).present?
+          @new_referral_code = [*('a'..'z'), *('0'..'9')].sample(10).join.upcase
+        end
+        @user.update(referral_code: @new_referral_code)
+        send_first_sub_email
+      end
 
       check_if_canceled
       # check_change_price
@@ -53,7 +61,8 @@ module Stripe
 
     def check_if_canceled
       if @event.data&.previous_attributes.keys.include?(:cancel_at_period_end) && (@event.data&.previous_attributes[:cancel_at_period_end] == false)
-          StripeMailer.with(user: @user).subscription_canceled.deliver_now
+        @user.update(referral_code: "")
+        StripeMailer.with(user: @user).subscription_canceled.deliver_now
       end
     end
   end

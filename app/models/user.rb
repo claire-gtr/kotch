@@ -43,15 +43,10 @@ class User < ApplicationRecord
 
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
 
+  before_save :remove_empty_spaces
+
   after_create :create_empty_sub
   after_create :send_welcome_mail
-
-  def send_welcome_mail
-    if (admin == false) && (coach == false)
-      mail = UserMailer.with(user: self).welcome_mail
-      mail.deliver_now
-    end
-  end
 
   def friendships
     self.friendships_as_friend_a + self.friendships_as_friend_b
@@ -79,12 +74,6 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name.capitalize} #{last_name.upcase}"
-  end
-
-  def create_empty_sub
-    s = Subscription.new
-    s.user = self
-    s.save
   end
 
   def has_credit(lesson_date)
@@ -118,5 +107,26 @@ class User < ApplicationRecord
       return { exist: true, code: partner.coupon_code, percentage: partner.percentage }
     end
     { exist: false, code: nil, percentage: nil }
+  end
+
+  private
+
+  def create_empty_sub
+    s = Subscription.new
+    s.user = self
+    s.save
+  end
+
+  def send_welcome_mail
+    if (admin == false) && (coach == false)
+      mail = UserMailer.with(user: self).welcome_mail
+      mail.deliver_now
+    end
+  end
+
+  def remove_empty_spaces
+    self.email = self.email.gsub(/\s+/, '').downcase
+    self.first_name = self.first_name.gsub(/\s+/, '')
+    self.last_name = self.last_name.gsub(/\s+/, '')
   end
 end

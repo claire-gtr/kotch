@@ -1,7 +1,7 @@
 class FriendRequestsController < ApplicationController
 
   def create
-    email = params[:friend_email]
+    email = params[:friend_email].gsub(/\s+/, '').downcase
     user = User.find_by(email: email)
     friend_request = FriendRequest.new
     authorize friend_request

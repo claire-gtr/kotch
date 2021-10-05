@@ -63,13 +63,19 @@ class UsersController < ApplicationController
   def use_a_promo_code
     @user = User.find(params[:id])
     authorize @user
-    @promo_code = PromoCode.find_by(active: true, name: params[:name].upcase!)
-    if @promo_code
+    @promo_code = PromoCode.find_by(active: true, name: params[:code].upcase!)
+    @user_sponsor = User.find_by(referral_code: params[:code].upcase)
+    if @promo_code.present?
       @user.update(promo_code_used: true, credit_count: @user.credit_count + 1)
       @promo_code.update(uses_count: @promo_code.uses_count + 1)
       redirect_to profile_path(tab: 'tab-3'), notice: 'Le code promo a bien été pris en compte.'
+    elsif @user_sponsor.present? && (@user_sponsor == current_user)
+      redirect_to profile_path(tab: 'tab-3'), alert: 'Vous ne pouvez pas utiliser votre propre code de parrainage.'
+    elsif @user_sponsor.present?
+      @user.update(promo_code_used: true, credit_count: @user.credit_count + 1)
+      redirect_to profile_path(tab: 'tab-3'), notice: 'Le code de parrainage a bien été pris en compte.'
     else
-      redirect_back fallback_location: profile_path(tab: 'tab-3'), alert: "Ce code promo n'existe pas ou n'est plus actif."
+      redirect_to profile_path(tab: 'tab-3'), alert: "Ce code n'existe pas ou n'est plus actif."
     end
   end
 

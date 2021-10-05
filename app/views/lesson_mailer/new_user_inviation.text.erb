@@ -6,6 +6,10 @@ Afin de participer à la séance, il te faudra tout d’abord t’inscrire sur l
 
 Une fois ton compte Koach & Co créé, tu pourras accepter l’invitation de ton ami dans la rubrique « Mes réservations ».
 
+<% unless @friend.referral_code == "" %>
+Une fois ton compte créé, tu pourra bénéficier d'une séance gratuite grâce au code de parrainage de ton ami : <%= @friend.referral_code %>
+<% end %>
+
 <%= link_to "M'inscrire", new_user_registration_url %>
 
 Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!

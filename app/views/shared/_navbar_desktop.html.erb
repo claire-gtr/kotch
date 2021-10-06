@@ -38,10 +38,20 @@
                 <p class='text-blue text-bold mb-0 ml-2'>BONJOUR <%= current_user.first_name.upcase %></p>
               </div>
               <%= link_to "Mon profil", profile_path, class: "dropdown-item text-white px-0" %>
-              <% if current_user.coach %>
-                <%= link_to "Mes coachings", lessons_path, class: "dropdown-item text-white px-0" %>
+              <% if current_user.coach? %>
+                <div class="d-flex align-items-center justify-content-start">
+                  <%= link_to "Mes coachings", lessons_path, class: "dropdown-item text-white px-0 w-50" %>
+                  <% if @message_not_readed_coach.present? %>
+                    <div class="blue-dot mt-1"></div>
+                  <% end %>
+                </div>
               <% else %>
-                <%= link_to "Mes réservations", lessons_path, class: "dropdown-item text-white px-0" %>
+                <div class="d-flex align-items-center">
+                  <%= link_to "Mes réservations", lessons_path, class: "dropdown-item text-white px-0 w-50" %>
+                  <% if @message_not_readed_customer.present? %>
+                    <div class="blue-dot ml-3 mt-1"></div>
+                  <% end %>
+                </div>
               <% end %>
               <% unless current_user.coach %>
                 <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0" %>

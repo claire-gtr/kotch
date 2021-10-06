@@ -2,14 +2,7 @@
   <%= location.name %>
 </p>
 
-<button class="btn btn-kotch btn-blue mt-3"
-        id="location-<%= location.id %>"
+<a class="btn btn-kotch btn-blue mt-3 btn-location"
         data-id="<%= location.id %>">
   Sélectionner
-</button>
-
-<script>
-  button = document.querySelector('#location-<%= location.id %>');
-  locationID = button.dataset.id;
-  locationCollection = document.querySelector('#location-collection');
-</script>
+</a>

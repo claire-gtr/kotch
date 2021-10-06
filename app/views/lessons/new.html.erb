@@ -14,8 +14,8 @@
           <%= f.input :date, as: :string, label: false, placeholder: "Date & heure", input_html: { class: "datepicker" } %>
           <%= text_field_tag :address, nil, placeholder: 'adresse postale', id: 'location_name', class:'new-address-input' %>
           <div class="mb-3"></div>
-          <%= f.association :location, collection: Location.order('name ASC'), label_method: :name, value_method: :id, label: false, id: 'location-collection' %>
-          <button type="button" class="btn btn-kotch btn-light-blue w-100" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux disponibles sur la carte</button>
+          <%= f.association :location, collection: Location.order('name ASC'), label_method: :name, value_method: :id, label: false, input_html: { id: "location-collection" } %>
+          <button type="button" class="btn btn-kotch btn-light-blue w-100 btn-modal" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux disponibles sur la carte</button>
 
           <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -51,3 +51,23 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  modalBtn = document.querySelector('.btn-modal');
+  modal = document.querySelector('.modal');
+  locationCollection = document.querySelector('#location-collection');
+
+  modalBtn.addEventListener('click', () => {
+    buttons = document.querySelectorAll('.btn-location');
+    console.log(locationCollection);
+    console.log(mocal);
+    console.log(buttons);
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        locationID = button.dataset.id;
+        modal.style.display = "none";
+        locationCollection.value = locationID;
+      });
+    });
+  });
+</script>

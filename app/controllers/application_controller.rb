@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
 
   def friend_request_received
     if current_user && !current_user.coach?
-      @new_friend_requests_received = FriendRequest.where(receiver: current_user).where(status: "pending").first
+      @new_friend_requests_received = FriendRequest.where(receiver: current_user, status: "pending").first
     end
   end
 

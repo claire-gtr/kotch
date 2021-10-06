@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   def use_a_promo_code
     @user = User.find(params[:id])
     authorize @user
-    @promo_code = PromoCode.find_by(active: true, name: params[:code].upcase!)
+    @promo_code = PromoCode.find_by(active: true, name: params[:code].upcase)
     @user_sponsor = User.find_by(referral_code: params[:code].upcase)
     if @promo_code.present?
       @user.update(promo_code_used: true, credit_count: @user.credit_count + 1)

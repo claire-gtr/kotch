@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :messages_not_readed
+  before_action :friend_request_received
 
   include Pundit
 
@@ -48,6 +49,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def friend_request_received
+    if current_user && !current_user.coach?
+      @new_friend_requests_received = FriendRequest.where(receiver: current_user).where(status: "pending").first
+    end
+  end
 
   def messages_not_readed
     if current_user && current_user.coach?

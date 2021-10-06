@@ -14,7 +14,12 @@
         <% else %>
           <p class="mb-0 text-blue text-bold text-condensed text-small">Pas de coach</p>
         <% end %>
-        <p class="mb-0"><%= link_to "Voir les messages", lesson_messages_path(lesson), class:'mb-0 text-small text-condensed'  %></p>
+        <div class="d-flex align-items-center">
+          <p class="mb-0"><%= link_to "Voir les messages", lesson_messages_path(lesson), class:'mb-0 text-small text-condensed' %></p>
+          <% if lesson.messages.find_by(readed: false) %>
+            <div class="blue-dot ml-2 mt-1"></div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

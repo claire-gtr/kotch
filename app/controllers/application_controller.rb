@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # before the location can be stored.
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :messages_not_readed
 
   include Pundit
 
@@ -47,6 +48,14 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def messages_not_readed
+    if current_user && current_user.coach?
+      @message_not_readed_coach = current_user.lessons&.map { |lesson| lesson.messages }.flatten.select { |message| message.readed == false }.first
+    elsif current_user
+      @message_not_readed_customer = current_user.bookings&.find_by(messages_readed: false)
+    end
+  end
 
   def a_valid_email?(email)
     email =~ /\A[^@\s]+@[^@\s]+\z/

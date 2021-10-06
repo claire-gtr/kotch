@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_05_093505) do
+ActiveRecord::Schema.define(version: 2021_10_06_093135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_10_05_093505) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "used_credit", default: false
+    t.boolean "messages_readed", default: false, null: false
     t.index ["lesson_id"], name: "index_bookings_on_lesson_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -108,6 +109,7 @@ ActiveRecord::Schema.define(version: 2021_10_05_093505) do
     t.bigint "lesson_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "readed", default: false, null: false
     t.index ["booking_id"], name: "index_messages_on_booking_id"
     t.index ["lesson_id"], name: "index_messages_on_lesson_id"
   end

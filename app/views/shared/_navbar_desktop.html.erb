@@ -53,8 +53,13 @@
                   <% end %>
                 </div>
               <% end %>
-              <% unless current_user.coach %>
-                <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0" %>
+              <% unless current_user.coach? %>
+                <div class="d-flex align-items-center">
+                  <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0 w-25" %>
+                  <% if @new_friend_requests_received.present? %>
+                    <div class="blue-dot ml-3 mt-1"></div>
+                  <% end %>
+                </div>
               <% end %>
               <%= link_to "DÉCONNEXION", destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-extra-small w-100 text-center mt-3" %>
               <%= link_to "Besoin d'aide ?", faq_path, class:"small-link" %>

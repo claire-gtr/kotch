@@ -16,8 +16,14 @@
         <% end %>
         <div class="d-flex align-items-center">
           <p class="mb-0"><%= link_to "Voir les messages", lesson_messages_path(lesson), class:'mb-0 text-small text-condensed' %></p>
-          <% if lesson.messages.find_by(readed: false) %>
-            <div class="blue-dot ml-2 mt-1"></div>
+          <% if current_user.coach? %>
+            <% if lesson.messages&.find_by(readed: false)&.present? %>
+              <div class="blue-dot ml-2 mt-1"></div>
+            <% end %>
+          <% else %>
+            <% if lesson.bookings&.find_by(user: current_user, messages_readed: false)&.present? %>
+              <div class="blue-dot ml-2 mt-1"></div>
+            <% end %>
           <% end %>
         </div>
       </div>

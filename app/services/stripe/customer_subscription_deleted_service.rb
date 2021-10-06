@@ -10,7 +10,6 @@ module Stripe
         end_date: Time.at(stripe_subscription.current_period_end).to_date
       )
       puts @user.subscription
-      @user.update(referral_code: "")
       StripeMailer.with(user: @user).subscription_canceled.deliver_now
     # rescue StandardError => e
     #   channel = Rails.env.development? ? 'DEVELOPMENT' : 'PRODUCTION'

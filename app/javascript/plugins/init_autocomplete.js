@@ -8,7 +8,7 @@ import places from 'places.js';
 // };
 
 const initAutocompleteLieu = () => {
-  const lieuInput = document.getElementById('lieu');
+  const lieuInput = document.getElementById('location_name');
   if (lieuInput) {
     places({ container: lieuInput });
   }

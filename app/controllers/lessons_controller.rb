@@ -44,7 +44,7 @@ class LessonsController < ApplicationController
         @lesson.public = true
         @lesson.user = current_user
         if @lesson.save
-          @new_location.save
+          @new_location&.save
           redirect_to profile_path
         else
           render :new
@@ -61,7 +61,7 @@ class LessonsController < ApplicationController
           end
           @booking.save
           if @lesson.save
-            @new_location.save
+            @new_location&.save
             redirect_to profile_path
           else
             render :new

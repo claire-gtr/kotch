@@ -1,9 +1,7 @@
-<div data-controller="mapbox">
-  <p class="text-blue text-bold text-condensed mb-0 mt-2 location-name">
-    <%= location.name %>
-  </p>
+<p class="text-blue text-bold text-condensed mb-0 mt-2 location-name">
+  <%= location.name %>
+</p>
 
-  <a class="btn btn-kotch btn-blue mt-3 btn-location" data-id="<%= location.id %>" data-action="click->mapbox#locationSelect">
-    Sélectionner
-  </a>
-</div>
+<a class="btn btn-kotch btn-blue mt-3 btn-location" data-id="<%= location.id %>" data-action="click->mapbox#locationSelect">
+  Sélectionner
+</a>

@@ -112,7 +112,7 @@ class LessonsController < ApplicationController
   def cancel
     @lesson = Lesson.find(params[:id])
     authorize @lesson
-    @lesson.bookings.each do |b|
+    @lesson.bookings&.each do |b|
       @customer = b.user
       if b.used_credit
         @customer.update(credit_count: @customer.credit_count + 1)
@@ -122,6 +122,7 @@ class LessonsController < ApplicationController
       mail.deliver_now
     end
     @lesson.update(status: 'canceled')
+    redirect_to lessons_path, notice: 'La séance a bien été annulée.'
   end
 
   def change_lesson_public

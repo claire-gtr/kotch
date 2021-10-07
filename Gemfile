@@ -41,6 +41,7 @@ gem 'simple_form'
 gem 'stripe'
 gem 'stripe_event'
 gem 'rails-i18n'
+gem 'sitemap_generator'
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'

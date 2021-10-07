@@ -1,3 +1,5 @@
+<% canonical(new_user_registration_url) %>
+
 <div class="container">
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= f.error_notification %>

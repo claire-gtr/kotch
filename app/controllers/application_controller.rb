@@ -85,4 +85,8 @@ class ApplicationController < ActionController::Base
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
+
+  # def default_url_options
+  #   { host: ENV["DEFAULT_URL"] || "localhost:3000" }
+  # end
 end

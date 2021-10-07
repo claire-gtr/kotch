@@ -1,4 +1,4 @@
-<div class="container mb-3">
+<div class="container mb-3" data-controller="mapbox">
   <h1 class='text-center mb-0 mb-md-5'>PROGRAMMEZ VOTRE PROCHAINE SÉANCE</h1>
   <%= simple_form_for @lesson do |f| %>
     <div class="row">
@@ -12,12 +12,12 @@
         <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue2.png' %>);">
           <h2><em>DATE & LIEU</em></h2>
           <%= f.input :date, as: :string, label: false, placeholder: "Date & heure", input_html: { class: "datepicker" } %>
-          <%= text_field_tag :address, nil, placeholder: 'adresse postale', id: 'location_name', class:'new-address-input' %>
+          <%= text_field_tag :address, nil, placeholder: 'adresse postale', data: { target: 'mapbox.address'}, id: 'location_name', class:'new-address-input' %>
           <div class="mb-3"></div>
-          <%= f.association :location, collection: Location.order('name ASC'), label_method: :name, value_method: :id, label: false, input_html: { id: "location-collection" } %>
+          <%= f.association :location, collection: @locations, label_method: :name, value_method: :id, label: false, input_html: { id: "location-collection", class: "", 'data-target' => 'mapbox.collection' } %>
           <button type="button" class="btn btn-kotch btn-light-blue w-100 btn-modal" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux disponibles sur la carte</button>
 
-          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-target="mapbox.modal">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div id="map"
@@ -52,7 +52,7 @@
   <% end %>
 </div>
 
-<script>
+<!-- <script>
   modalBtn = document.querySelector('.btn-modal');
   modal = document.querySelector('.modal');
   locationCollection = document.querySelector('#location-collection');
@@ -70,4 +70,4 @@
       });
     });
   });
-</script>
+</script> -->

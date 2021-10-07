@@ -18,7 +18,7 @@ class LessonsController < ApplicationController
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else
-      @locations = Location.all
+      @locations = Location.where(visible: true).order(name: :asc)
       @markers = @locations.geocoded.map do |location|
         {
           lat: location.latitude,

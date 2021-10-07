@@ -72,22 +72,28 @@ label.password {
   border: 1px solid #ced4da;
   outline: 0;
   background-color: white;
-  border-radius: 8px;
-  cursor: text;
+  // cursor: text;
   padding-bottom: 5px;
   padding-right: 5px;
   position: relative;
-  // min-height: 45px;
   box-sizing: border-box;
   display: inline-block;
-  -webkit-user-select: none;
+  // -webkit-user-select: none;
   text-align: left;
-  vertical-align: middle;
+  // vertical-align: middle;
 }
 
 .many-emails-input-modal {
   border-radius: 8px;
   color: #495057;
+  border: 1px solid #ced4da;
+}
+
+.new-address-input {
+  height: 45px;
+  border-radius: 8px;
+  width: 100%;
+  background-color: white;
   border: 1px solid #ced4da;
 }
 

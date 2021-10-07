@@ -18,7 +18,7 @@ class LessonsController < ApplicationController
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else
-      @locations = Location.all
+      @locations = Location.where(visible: true).order(name: :asc)
       @markers = @locations.geocoded.map do |location|
         {
           lat: location.latitude,
@@ -36,10 +36,15 @@ class LessonsController < ApplicationController
     else
       @lesson = Lesson.new(lesson_params)
       authorize @lesson
+      if params[:address].present?
+        @new_location = Location.new(user: current_user, name: params[:address])
+        @lesson.location = @new_location
+      end
       if current_user.coach
         @lesson.public = true
         @lesson.user = current_user
         if @lesson.save
+          @new_location.save
           redirect_to profile_path
         else
           render :new
@@ -56,6 +61,7 @@ class LessonsController < ApplicationController
           end
           @booking.save
           if @lesson.save
+            @new_location.save
             redirect_to profile_path
           else
             render :new

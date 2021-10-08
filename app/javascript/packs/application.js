@@ -38,14 +38,21 @@ import { initSelect2 } from '../components/init_select2';
 
 
 document.addEventListener('turbolinks:load', () => {
-  // Call your JS functions here
+
   initUpdateNavbarOnScroll();
-  initFlatpickr();
-  initFlatpickrBirth();
-  // initAutocomplete();
-  initSelect2();
-  initAutocompleteLieu();
-  initMapbox();
+
+  const keywords = ['utilisateur/inscription', 'utilisateur/edit', '/inscription-coach'];
+  if (keywords.some(el => window.location.pathname.includes(el))) {
+    initFlatpickrBirth();
+  }
+
+  if (window.location.pathname.includes('/seance-de-sport-personnalisee')) {
+    initSelect2();
+    initFlatpickr();
+    // initAutocomplete();
+    initAutocompleteLieu();
+    initMapbox();
+  }
 });
 
 import "controllers"

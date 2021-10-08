@@ -10,7 +10,7 @@
   <% else %>
     <%= simple_form_for(User.new, as: :user, url: registration_path(:user)) do |f| %>
             <%= f.error_notification %>
-            <%= f.input :coach, as: :hidden, input_html: {value: true } %>
+            <%= f.input :coach, as: :hidden, input_html: { value: true } %>
       <div class="row mt-2 h-100">
         <div class="col-12 col-lg-6 px-5 my-auto">
           <div class="card-red p-3 p-lg-4">
@@ -32,7 +32,7 @@
               </div>
               <div class="row">
                 <div class="col-6">
-                  <%= f.input :birth_date, as: :string, label: false, input_html: {class: "datepickerbirth"} %>
+                  <%= f.input :birth_date, as: :string, placeholder: 'DATE DE NAISSANCE', label: false, input_html: { class: "datepickerbirth" } %>
                 </div>
                 <div class="col-6">
                   <%= f.input :address, label: false %>

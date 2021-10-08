@@ -1,4 +1,6 @@
 <% canonical(new_user_registration_url) %>
+<% content_for :meta_title, "Koach & Co | Une inscription simple et gratuite" %>
+<% content_for :meta_description, "Saisissez votre adresse email pour vous créer rapidement et simplement votre compte." %>
 
 <div class="container">
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>

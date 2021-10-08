@@ -13,25 +13,25 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.koachandco.com/public-lessons</loc>
+    <loc>https://www.koachandco.com/seances-de-sport-a-la-demande</loc>
     <lastmod>2021-10-07T17:48:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.koachandco.com/users/sign_up</loc>
+    <loc>https://www.koachandco.com/utilisateur/inscription</loc>
     <lastmod>2021-10-07T17:48:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.koachandco.com/users/sign_in</loc>
+    <loc>https://www.koachandco.com/utilisateur/connexion</loc>
     <lastmod>2021-10-07T17:48:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.koachandco.com/sign-up-coach</loc>
+    <loc>https://www.koachandco.com/inscription-coach</loc>
     <lastmod>2021-10-07T17:48:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -49,13 +49,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.koachandco.com/faq</loc>
+    <loc>https://www.koachandco.com/foire-aux-questions</loc>
     <lastmod>2021-10-07T17:48:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.koachandco.com/cgv</loc>
+    <loc>https://www.koachandco.com/conditions-generales-de-ventes</loc>
     <lastmod>2021-10-07T17:48:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

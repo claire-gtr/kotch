@@ -61,7 +61,7 @@
                         <p class="text-blue">Il n'y a pas encore de coach</p>
                       <% end %>
                       <h5 class="my-3">PARTICIPANTS</h5>
-                      <% booking.lesson.bookings.each do |booking| %>
+                      <% booking.lesson.bookings.includes([:user]).each do |booking| %>
                         <span>
                           <div class="bullet">• &nbsp</div>
                           <ul class="d-flex justify-content-between">
@@ -126,7 +126,7 @@
                     </div>
                     <div class="modal-body">
                       <h5 class="my-3">PARTICIPANTS</h5>
-                      <% booking.lesson.bookings.each do |booking| %>
+                      <% booking.lesson.bookings.includes([:user]).each do |booking| %>
                         <span>
                           <div class="bullet">• &nbsp</div>
                           <ul class="d-flex justify-content-between">

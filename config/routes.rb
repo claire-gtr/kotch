@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
 
-  get 'tableau-de-suivi', to: 'dashboards#show'
+  get 'tableau-de-suivi', to: 'dashboards#show', as: :dashboard
   get 'analytics', to: 'dashboards#analytics', as: :analytics
   get 'all-lessons', to: 'dashboards#all_lessons', as: :all_lessons
   patch '/admin', to: "users#become_admin", as: :become_admin

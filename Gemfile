@@ -42,6 +42,8 @@ gem 'stripe'
 gem 'stripe_event'
 gem 'rails-i18n'
 gem 'sitemap_generator'
+gem 'bullet', group: 'development'
+gem 'rack-mini-profiler'
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'

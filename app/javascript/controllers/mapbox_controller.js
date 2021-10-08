@@ -21,6 +21,7 @@ export default class extends Controller {
     // window.click();
     // this.containerTarget.click();
 
+    this.addressTarget.value = '';
     this.addressTarget.disabled = true;
     this.addressTarget.removeAttribute('placeholder');
     // this.addressTarget.classList.add('disabled');

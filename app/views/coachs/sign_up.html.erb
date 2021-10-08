@@ -1,8 +1,12 @@
+<% canonical(coach_sign_up_url) %>
+<% content_for :meta_title, "Koach & Co | Inscris toi en tant que coach sportif" %>
+<% content_for :meta_description, "Tu es un coach sportif diplômé et tu souhaites rejoindre les équipes de Koach & Co ? Inscris toi directement sur ce lien ou bien contacte nous directement." %>
+
 <div class="container">
   <% if user_signed_in? %>
-  <div class="text-center">
-    Vous avez déjà créé votre compte.
-  </div>
+    <div class="text-center">
+      Vous avez déjà créé votre compte.
+    </div>
   <% else %>
     <%= simple_form_for(User.new, as: :user, url: registration_path(:user)) do |f| %>
             <%= f.error_notification %>
@@ -68,7 +72,7 @@
           </div>
         </div>
         <div class="col-12 col-lg-6 px-5 d-none d-lg-block my-auto">
-          <%= image_tag "image-account.png", class:'w-100' %>
+          <%= image_tag "femme_prete_pour_sa_séance_de_sport.png", alt: "Une femme souriante après une séance de sport", class:'w-100' %>
         </div>
     <% end %>
   <% end %>

@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { :registrations => "registrations"}
+  # devise_for :users, :controllers => { :registrations => "registrations"}
+  devise_for :users,
+            :controllers => { :registrations => 'registrations' },
+            :path => 'utilisateur',
+            :path_names => { :sign_in => 'connexion', :sign_up => 'inscription', :sign_out => 'deconnexion', :password => 'mot-de-passe' }
+
   root to: 'pages#home'
   get '/mon-profil', to: 'users#profile', as: :profile
+  get '/mes-reservations', to: 'lessons#index', as: :lessons
+  post '/mes-reservations', to: 'lessons#create'
+  get '/seance-de-sport-personnalisee', to: 'lessons#new', as: :new_lesson
 
-  resources :lessons, only: [:index, :new, :create]  do
+  resources :lessons, only: []  do
     resources :messages, only: [:index, :create]
   end
 
   get 'change-lesson-public/:id', to: 'lessons#change_lesson_public', as: :change_lesson_public
-  get 'public-lessons', to: 'lessons#public_lessons', as: :public_lessons
+  get 'seances-de-sport-a-la-demande', to: 'lessons#public_lessons', as: :public_lessons
   get 'lesson-done/:id', to: 'lessons#lesson_done', as: :lesson_done
   get 'lesson-not-done/:id', to: 'lessons#lesson_not_done', as: :lesson_not_done
   patch 'cancel-lesson/:id', to: 'lessons#cancel', as: :cancel_lesson
@@ -18,7 +26,7 @@ Rails.application.routes.draw do
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
 
-  get 'dashboard', to: 'dashboards#show'
+  get 'tableau-de-suivi', to: 'dashboards#show', as: :dashboard
   get 'analytics', to: 'dashboards#analytics', as: :analytics
   get 'all-lessons', to: 'dashboards#all_lessons', as: :all_lessons
   patch '/admin', to: "users#become_admin", as: :become_admin
@@ -30,7 +38,8 @@ Rails.application.routes.draw do
 
   resources :locations, only: [:create, :destroy]
   resources :partners, only: [:create]
-  resources :friendships, only: :index
+  # resources :friendships, only: :index
+  get 'mes-amis', to: 'friendships#index', as: :friendships
   resources :friend_requests, only: [:create, :update]
   resources :bookings, only: [:index, :create, :destroy]
 
@@ -39,14 +48,14 @@ Rails.application.routes.draw do
   get 'public-lesson-booking/:lesson_id', to: "bookings#public_lesson_booking", as: :public_lesson_booking
   post 'invitations-par-emails', to: "bookings#create_by_emails", as: :create_by_emails
 
-  get 'sign-up-coach', to: "coachs#sign_up", as: :coach_sign_up
+  get 'inscription-coach', to: "coachs#sign_up", as: :coach_sign_up
   get 'sportive-profile/:id', to:'users#sportive_profile', as: :sportive_profile
-  get 'faq', to: "pages#faq", as: :faq
+  get 'foire-aux-questions', to: "pages#faq", as: :faq
   get 'forum', to: "pages#forum", as: :forum
-  get 'abonnements', to: "pages#offers", as: :offers
+  get 'nos-tarifs', to: "pages#offers", as: :offers
   get 'a-propos', to: "pages#about", as: :about
-  get 'cgv', to: "pages#cgv", as: :cgv
-  get 'mentions-légales', to: "pages#legals", as: :legals
+  get 'conditions-generales-de-ventes', to: "pages#cgv", as: :cgv
+  get 'mentions-legales', to: "pages#legals", as: :legals
   patch '/coach-validation', to: "users#coach_validation", as: :coach_validation
 
   resources :subjects, only: [:new, :create, :show] do

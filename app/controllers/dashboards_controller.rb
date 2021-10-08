@@ -60,6 +60,6 @@ class DashboardsController < ApplicationController
 
   def all_lessons
     authorize(:dashboard, :all_lessons?)
-    @lessons = Lesson.where("date >= ?", Time.now).order('date DESC')
+    @lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).order('date DESC')
   end
 end

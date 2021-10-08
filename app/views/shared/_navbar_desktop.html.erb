@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon-desktop fixed-top">
   <div class="container align-items-end px-2">
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag 'logo.png' %>
+      <%= image_tag 'logo.png', alt: "logo Koach & Co" %>
       <% end %>
 
     <div>
@@ -34,7 +34,7 @@
             </div>
             <div class="dropdown-menu mt-2 dropdown-menu-right p-3" aria-labelledby="navbarDropdown">
               <div class="d-flex align-items-center mb-3">
-                <%= cl_image_tag current_user.profile_picture, class:'avatar-small' %>
+                <%= cl_image_tag current_user.profile_picture, class:'avatar-small', alt: "avatar" %>
                 <p class='text-blue text-bold mb-0 ml-2'>BONJOUR <%= current_user.first_name.upcase %></p>
               </div>
               <%= link_to "Mon profil", profile_path, class: "dropdown-item text-white px-0" %>

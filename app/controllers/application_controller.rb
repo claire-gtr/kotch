@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
 
   def messages_not_readed
     if current_user && current_user.coach?
-      @message_not_readed_coach = current_user.lessons&.map { |lesson| lesson.messages }.flatten.select { |message| message.readed == false }.first
+      @message_not_readed_coach = current_user.lessons&.includes([:messages]).map { |lesson| lesson.messages }.flatten.select { |message| message.readed == false }.first
     elsif current_user
       @message_not_readed_customer = current_user.bookings&.find_by(messages_readed: false)
     end
@@ -85,4 +85,8 @@ class ApplicationController < ActionController::Base
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
+
+  # def default_url_options
+  #   { host: ENV["DEFAULT_URL"] || "localhost:3000" }
+  # end
 end

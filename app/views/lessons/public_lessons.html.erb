@@ -1,3 +1,7 @@
+<% canonical(public_lessons_url) %>
+<% content_for :meta_title, "Koach & Co | Vos séances de sport à la demande et partagées" %>
+<% content_for :meta_description, "Accédez aux séances de sport proposées par les membres de la communauté Koach & Co ou par tes coachs, et réservez les en quelques clics !" %>
+
 <div class="container">
   <% if @lessons.empty? %>
     <div class="col-12 text-center">
@@ -74,6 +78,7 @@
     <% end %>
   </div>
 </div>
+
 <%# <script type="text/javascript">
   const btn = document.getElementById('dropdownMenuJour');
 

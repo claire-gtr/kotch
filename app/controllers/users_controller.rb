@@ -86,7 +86,7 @@ class UsersController < ApplicationController
   private
 
   def define_coach_profile
-    @coachings = current_user.lessons
+    @coachings = current_user.lessons.includes([:location, bookings: :user])
     @coachings_in_future = @coachings.where("date >= ?", Time.now)
     @coachings_in_past = @coachings.where("date < ?", Time.now)
     @coachings_done = @coachings.where(status: "effectuée")
@@ -124,7 +124,7 @@ class UsersController < ApplicationController
   end
 
   def define_user_profile
-    @bookings = current_user.bookings
+    @bookings = current_user.bookings.includes([[lesson: [:user, :location]], :user])
     @bookings_in_future = []
     @bookings_in_past = []
     @bookings.each do |booking|
@@ -139,7 +139,7 @@ class UsersController < ApplicationController
       subscription = current_user.subscription
       @included_lessons = subscription.nickname.first(2).to_i
       @used_this_month = 0
-      current_user.bookings.where(used_credit: false).each do |b|
+      current_user.bookings.includes([:lesson, :user]).where(used_credit: false).each do |b|
         if b.lesson.date >= Date.today.beginning_of_month && b.lesson.date <= Date.today.end_of_month && b.lesson.status != "canceled"
           @used_this_month += 1
         end

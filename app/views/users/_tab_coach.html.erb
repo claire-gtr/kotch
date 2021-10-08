@@ -122,7 +122,7 @@
                   </div>
                   <div class="modal-body">
                     <h5 class="my-3">PARTICIPANTS</h5>
-                    <% lesson.bookings.each do |booking| %>
+                    <% lesson.bookings.includes([:user]).each do |booking| %>
                       <span><div class="bullet">• &nbsp</div>
                       <ul class="d-flex justify-content-between">
                         <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>

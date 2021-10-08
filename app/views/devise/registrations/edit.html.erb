@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="col-12 col-lg-6 px-5 d-none d-lg-block my-auto">
-        <%= image_tag "image-account.png", class:'w-100' %>
+        <%= image_tag "image-account.png", alt: "Une femme souriante après une séance de sport", loading: 'lazy', class:'w-100' %>
       </div>
     </div>
     <div class="row">
@@ -66,7 +66,7 @@
                     <%= f.input :physical_pain, as: :radio_buttons, collection: User.physical_pains.keys.map { |m| [I18n.t("physical_pain.#{m}"), m] }, legend_tag: false %>
                   </div>
                   <div>
-                    <%= image_tag 'sign_up.png', class:'w-100 d-none d-lg-block' %>
+                    <%= image_tag 'sign_up.png', alt: "Une femme parlant d'elle en regardant vers le haut", loading: 'lazy', class:'w-100 d-none d-lg-block' %>
                   </div>
                 </div>
                 <div class="col-12 col-lg-6 px-lg-5">

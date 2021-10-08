@@ -1,17 +1,17 @@
 <div class="navbar navbar-light navbar-lewagon fixed-top">
   <div class="container align-items-end px-2">
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag 'logo.png' %>
+      <%= image_tag 'logo.png', alt: "logo Koach & Co" %>
     <% end %>
 
     <div class="nav-item dropdown">
       <div class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-        <%= image_tag "burger-icon.png", class:'navbar-icon mb-2' %>
+        <%= image_tag "burger-icon.png", class:'navbar-icon mb-2', alt: "menu déroulant" %>
       </div>
       <div class="dropdown-menu dropdown-menu-mobile mt-2 dropdown-menu-right p-3" aria-labelledby="navbarDropdown">
         <% if user_signed_in? %>
           <div class="d-flex align-items-center mb-3">
-            <%= cl_image_tag current_user.profile_picture, class:'avatar-small' %>
+            <%= cl_image_tag current_user.profile_picture, class:'avatar-small', alt: "avatar" %>
             <p class='text-blue text-bold ml-2 mb-0'>BONJOUR <%= current_user.first_name.upcase %></p>
           </div>
           <% if current_user.coach %>

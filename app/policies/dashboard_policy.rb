@@ -20,4 +20,8 @@ class DashboardPolicy < ApplicationPolicy
   def export_number_of_coachs?
     user.admin?
   end
+  
+  def all_lessons?
+    user.admin?
+  end
 end

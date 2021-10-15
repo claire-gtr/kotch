@@ -1,9 +1,9 @@
 class LessonsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :public_lessons]
+  skip_before_action :authenticate_user!, only: [:public_lessons]
 
   def index
     @lessons = policy_scope(Lesson)
-    @lessons = @lessons.where.not(status: 'canceled').order('date DESC')
+    @lessons = @lessons.includes([:user, :bookings, :users, :location]).where.not(status: 'canceled').order('date DESC')
     @message = Message.new
     @friends = current_user.my_friends
     @booking = Booking.new
@@ -18,7 +18,7 @@ class LessonsController < ApplicationController
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else
-      @locations = Location.all
+      @locations = Location.where(visible: true).order(name: :asc)
       @markers = @locations.geocoded.map do |location|
         {
           lat: location.latitude,
@@ -36,10 +36,15 @@ class LessonsController < ApplicationController
     else
       @lesson = Lesson.new(lesson_params)
       authorize @lesson
+      if params[:address].present?
+        @new_location = Location.new(user: current_user, name: params[:address])
+        @lesson.location = @new_location
+      end
       if current_user.coach
         @lesson.public = true
         @lesson.user = current_user
         if @lesson.save
+          @new_location&.save
           redirect_to profile_path
         else
           render :new
@@ -56,6 +61,7 @@ class LessonsController < ApplicationController
           end
           @booking.save
           if @lesson.save
+            @new_location&.save
             redirect_to profile_path
           else
             render :new
@@ -67,8 +73,32 @@ class LessonsController < ApplicationController
               booking = Booking.new(user: user, lesson: @lesson)
               booking.status = "Invitation envoyée"
               booking.save
-              mail = BookingMailer.with(user: user, booking: booking).invitation
+              mail = BookingMailer.with(user: user, booking: booking, friend: current_user).invitation
               mail.deliver_now
+            end
+          end
+          friends_emails = params[:emails]
+          if friends_emails && (friends_emails != "")
+            emails = friends_emails.split(',').map { |email| email.gsub(/\s+/, '').downcase }
+            emails.each do |email|
+              if a_valid_email?(email)
+                # temporay_password = (0...12).map { ('a'..'z').to_a[rand(26)] }.join
+                # user = User.create(email: email, password: temporay_password, password_confirmation: temporay_password, first_name: 'Invité', last_name: 'Invité')
+                # booking = Booking.new(user: user, lesson: @lesson)
+                # booking.status = "Invitation envoyée"
+                # booking.save
+                # mail = BookingMailer.with(user: user, booking: booking, friend: current_user, password: temporay_password).new_user_inviation
+                user = User.find_by(email: email)
+                if user.present?
+                  booking = Booking.new(user: user, lesson: @lesson)
+                  booking.status = "Invitation envoyée"
+                  booking.save
+                  mail = BookingMailer.with(user: user, booking: booking, friend: current_user).invitation
+                else
+                  mail = LessonMailer.with(user_email: email, lesson: @lesson, friend: current_user).new_user_inviation
+                end
+                mail.deliver_now
+              end
             end
           end
         else
@@ -82,13 +112,17 @@ class LessonsController < ApplicationController
   def cancel
     @lesson = Lesson.find(params[:id])
     authorize @lesson
-    @lesson.bookings.each do |b|
+    @lesson.bookings&.each do |b|
+      @customer = b.user
       if b.used_credit
-        b.user.update(credit_count: b.user.credit_count + 1)
+        @customer.update(credit_count: @customer.credit_count + 1)
       end
       b.destroy
+      mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+      mail.deliver_now
     end
     @lesson.update(status: 'canceled')
+    redirect_to lessons_path, notice: 'La séance a bien été annulée.'
   end
 
   def change_lesson_public
@@ -106,23 +140,27 @@ class LessonsController < ApplicationController
         flash[:alert] = "Un administrateur doit valider votre compte coach."
         redirect_to root_path
       elsif current_user.coach
-        @lessons_in_future = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons_in_future = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @pre_validated_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).where(status: "Pre-validée")
         @lessons = []
+        @pre_validated_lessons.each do |lesson|
+          @lessons << lesson
+        end
         @lessons_in_future.each do |lesson|
-          if lesson.bookings.where(status: "Confirmé").count >= 5
+          if (lesson.bookings.where(status: "Confirmé").count >= 5) && !@lessons.include?(lesson)
             @lessons << lesson
           end
         end
       else
-        @lessons = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
       end
     else
       if params[:day].present?
-        @lessons = Lesson.where("DATE_PART('dow', date)=?", params[:day]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where("DATE_PART('dow', date)=?", params[:day]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
       elsif params[:start].present?
-        @lessons = Lesson.where('EXTRACT(hour FROM date) BETWEEN ? AND ?', params[:start], params[:end]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where('EXTRACT(hour FROM date) BETWEEN ? AND ?', params[:start], params[:end]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
       elsif params[:lieu].present?
-        all_lessons = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        all_lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
         @lessons = []
         all_lessons.each do |lesson|
           locations = Location.near(params[:lieu], 1)
@@ -132,7 +170,7 @@ class LessonsController < ApplicationController
         end
 
       else
-        @lessons = Lesson.where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
       end
     end
   end
@@ -202,6 +240,25 @@ class LessonsController < ApplicationController
     authorize @lesson
     @lesson.save
     redirect_to profile_path
+  end
+
+  def pre_validate_lesson
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson
+    @lesson.status = "Pre-validée"
+    @lesson.save
+
+    if @lesson.user
+      mail = BookingMailer.with(user: @lesson.user, lesson: @lesson).confirmation_email_to_coach
+      mail.deliver_now
+    else
+      User.where(coach: true).each do |user|
+        mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+        mail.deliver_now
+      end
+    end
+
+    redirect_to all_lessons_path
   end
 
   private

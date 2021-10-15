@@ -2,13 +2,10 @@ Félicitations <%= @user.first_name.capitalize %> !
 
 Tu viens d’acheter <%= @pack_order.credit_count %> séance(s) de sport Koach & Co.
 
-
 A compter d’aujourd’hui, tu as 6 mois pour l’utiliser. Réserve rapidement ta séance idéale !
-
 
 <%= link_to "Réserve ta séance", new_lesson_url %>
 
+Tu peux également faire bénéficier tes amis d'une séance gratuite chacun en leur partageant ton code de parrainage : <%= @user.referral_code %>
 
 À très vite
-
-Ton équipe Koach & Co

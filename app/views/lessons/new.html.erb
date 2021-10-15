@@ -1,4 +1,8 @@
-<div class="container mb-3">
+<% canonical(new_lesson_url) %>
+<% content_for :meta_title, "Koach & Co | Votre séance de sport personnalisée" %>
+<% content_for :meta_description, "Créez votre séance idéale et adaptée vos contraintes en quelques clics ! Sélectionnez une activité sportive, une date, une heure, un lieu en extérieur et invitez vos amis à y participer." %>
+
+<div class="container mb-3" data-controller="mapbox" data-mapbox-target="container">
   <h1 class='text-center mb-0 mb-md-5'>PROGRAMMEZ VOTRE PROCHAINE SÉANCE</h1>
   <%= simple_form_for @lesson do |f| %>
     <div class="row">
@@ -11,11 +15,13 @@
       <div class="col-12 col-md-4">
         <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue2.png' %>);">
           <h2><em>DATE & LIEU</em></h2>
-          <%= f.input :date, as: :string, label: false, placeholder: "Date & heure", input_html: {class: "datepicker"} %>
-          <%= f.association :location, label: false %>
-          <button type="button" class="btn btn-kotch btn-light-blue w-100" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux disponibles sur la carte</button>
+          <%= f.input :date, as: :string, label: false, placeholder: "Date & heure", input_html: { class: "datepicker" } %>
+          <%= text_field_tag :address, nil, placeholder: 'adresse postale', id: 'location_name', class:'new-address-input', 'data-mapbox-target' => 'address', 'data-action' => "click->mapbox#addressSelect" %>
+          <div class="mb-3"></div>
+          <%= f.association :location, collection: @locations, label_method: :name, value_method: :id, label: false, input_html: { id: "location-collection", 'data-mapbox-target' => 'collection', disabled: true } %>
+          <button type="button" class="btn btn-kotch btn-light-blue w-100 btn-modal" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux disponibles sur la carte</button>
 
-          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-mapbox-target="modal">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div id="map"
@@ -33,9 +39,13 @@
           <% if current_user.coach %>
             <em class="text-blue">Réservé aux clients</em>
           <% else %>
-          <%= select_tag "friends", options_from_collection_for_select(
-            @friends, :id, :full_name), multiple: true,
-            class: 'select2' %>
+            <%= select_tag "friends", options_from_collection_for_select(
+              @friends, :id, :full_name), multiple: true,
+              class: 'select2' %>
+            <%= text_area_tag :emails,
+              nil,
+              placeholder: "Renseignez les adresses email de vos amis pas encore inscrits et séparez-les par une virgule",
+              class: 'mt-3 p-2 many-emails-input' %>
           <% end %>
         </div>
       </div>
@@ -45,3 +55,23 @@
     </div>
   <% end %>
 </div>
+
+<!-- <script>
+  modalBtn = document.querySelector('.btn-modal');
+  modal = document.querySelector('.modal');
+  locationCollection = document.querySelector('#location-collection');
+
+  modalBtn.addEventListener('click', () => {
+    buttons = document.querySelectorAll('.btn-location');
+    console.log(locationCollection);
+    console.log(mocal);
+    console.log(buttons);
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        locationID = button.dataset.id;
+        modal.style.display = "none";
+        locationCollection.value = locationID;
+      });
+    });
+  });
+</script> -->

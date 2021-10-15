@@ -53,6 +53,9 @@
             <p class='mb-1'>ADRESSE POSTALE : <%= @user.address %></p>
             <p class='mb-1'>EMAIL : <%= @user.email %></p>
             <p class='mb-1'>TÉLÉPHONE : <%= @user.phone_number %></p>
+            <% unless @user.referral_code == "" %>
+              <p class='mb-1'>CODE PARRAIN : <%= @user.referral_code %></p>
+            <% end %>
           <% end %>
         </div>
       </div>

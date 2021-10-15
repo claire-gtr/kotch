@@ -1,63 +1,9 @@
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed&display=swap');
-  p {
-    font-family: 'Barlow Condensed', sans-serif;
-    margin-bottom: 8px;
-    margin-top: 0px;
-    font-size: 14px;
-    color: #292D6A;
-  }
-  img {
-    width: 40px;
-  }
-  .mb-3 {
-    margin-bottom: 20px;
-  }
-  .d-flex {
-    display: flex;
-    justify-content: start;
-  }
-
-  .btn-red {
-    background-color: #ff5f57;
-    color: white;
-    border-radius: 8px;
-    font-family: "Barlow Condensed";
-    font-weight: 600;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    user-select: none;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    text-decoration: none;
-
-  }
-</style>
-
 <p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
 
-<p>Une séance est complète avec 5 élèves et n'a pas de coach.</p>
-<p>Détails de la séance :</p>
-<p><%= @lesson.sport_type %></p>
-<p><%= @lesson.date %></p>
-<p class="mb-3"><%= @lesson.location.name %></p>
+<p>Tu viens de recevoir une proposition de séance pour un <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> et te donne rendez-vous à l'adresse suivante : <%= @lesson.location.name %>.</p>
 
-<p>Si tu souhaite to positionner, merci de clicker sur ce lien :</p>
-<%= link_to "Je me positionne", be_coach_via_mail_url(@lesson, @user), class:'btn-red' %>
+<p>Cette séance te convient ? Alors donne ta réponse sur ton compte personnel, rubrique Mon profil > Demandes de coaching.</p>
 
-<p class="mb-3">À très vite </p>
+<p><%= link_to 'Accepte cette séance', profile_url(tab: 'tab-2'), class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %></p>
 
-<p class="mb-3">Ton équipe Koach & Co</p>
-<p>Rejoins la communauté :</p>
-<div class="d-flex">
-  <a href="https://instagram.com/koachandco?utm_medium=copy_link"><%= image_tag 'instagram.png' %></a>
-  <a href="https://www.facebook.com/profile.php?id=100060081436490"><%= image_tag 'facebook.png' %></a>
-</div>
-
-
+<p class="mt-5">À très vite </p>

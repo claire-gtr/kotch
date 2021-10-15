@@ -9,6 +9,10 @@ class BookingPolicy < ApplicationPolicy
     true
   end
 
+  def create_by_emails?
+    true
+  end
+
   def accept_invitation?
     true
   end

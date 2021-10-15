@@ -42,7 +42,7 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def be_coach?
-    user.coach
+    user.coach?
   end
 
   def be_coach_via_mail?
@@ -58,5 +58,9 @@ class LessonPolicy < ApplicationPolicy
 
   def focus_lesson?
     true
+  end
+
+  def pre_validate_lesson?
+    user.admin?
   end
 end

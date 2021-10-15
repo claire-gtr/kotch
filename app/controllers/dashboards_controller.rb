@@ -92,6 +92,7 @@ class DashboardsController < ApplicationController
       filename: "coachs.csv",
       type: "application/csv"
     )
+  end
 
   def all_lessons
     authorize(:dashboard, :all_lessons?)

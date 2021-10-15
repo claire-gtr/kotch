@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col">
       <h5 class='text-blue text-condensed text-bold mt-4'>Évolution du nombre d'abonnés</h5>
+      <%= link_to "Export CSV", export_number_of_users_path(data: @users)  %>
       <table>
         <thead>
           <tr class="text-center">
@@ -21,6 +22,7 @@
         </tbody>
       </table>
       <h5 class='text-blue text-condensed text-bold mt-4'>Évolution du nombre de coach</h5>
+      <%= link_to "Export CSV", export_number_of_coachs_path(data: @coachs)  %>
       <table>
         <thead>
           <tr class="text-center">

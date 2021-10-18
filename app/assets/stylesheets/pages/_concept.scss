@@ -34,6 +34,10 @@
   font-size: 0.85rem;
 }
 
+.our-concept-img {
+  width: 125px;
+}
+
 @media screen and (min-width: 1024px){
   .our-concept-title {
     font-weight: 800;
@@ -58,7 +62,6 @@
     font-weight: 700;
     line-height: 1;
     font-size: 1.75rem;
-    text-align: left;
   }
 
   .our-concept-subtext {
@@ -71,6 +74,9 @@
   .our-concept-text {
     line-height: 1;
     font-size: 1.1rem;
-    text-align: left;
+  }
+
+  .our-concept-img {
+    width: 250px;
   }
 }

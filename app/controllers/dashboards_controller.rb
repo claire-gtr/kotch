@@ -85,4 +85,55 @@ class DashboardsController < ApplicationController
       type: "application/csv"
     )
   end
+
+  def export_lessons_sub
+    authorize(:dashboard, :export_lessons_sub?)
+    @bookings = params[:data]
+    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath    = 'lessons_with_subscriptions.csv'
+
+    csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
+      csv << @bookings.keys.map { |date| l(date.to_date, format: '%B %Y').capitalize}
+      csv << @bookings.values
+    end
+    send_file(
+      "#{Rails.root}/lessons_with_subscriptions.csv",
+      filename: "lessons_with_subscriptions.csv",
+      type: "application/csv"
+    )
+  end
+
+  def export_lessons_credit
+    authorize(:dashboard, :export_lessons_credit?)
+    @bookings_credit = params[:data]
+    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath    = 'lessons_with_credit.csv'
+
+    csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
+      csv << @bookings_credit.keys.map { |date| l(date.to_date, format: '%B %Y').capitalize}
+      csv << @bookings_credit.values
+    end
+    send_file(
+      "#{Rails.root}/lessons_with_credit.csv",
+      filename: "lessons_with_credit.csv",
+      type: "application/csv"
+    )
+  end
+
+  def export_filling_rate
+    authorize(:dashboard, :export_filling_rate?)
+    @lessons_filling_rate = params[:data]
+    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath    = 'lessons_filling_rate.csv'
+
+    csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
+      csv << @lessons_filling_rate.map { |hash| hash["month"]}
+      csv << @lessons_filling_rate.map { |hash| hash["average_filling_rate"]}
+    end
+    send_file(
+      "#{Rails.root}/lessons_filling_rate.csv",
+      filename: "lessons_filling_rate.csv",
+      type: "application/csv"
+    )
+  end
 end

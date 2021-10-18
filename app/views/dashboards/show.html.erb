@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col mb-4 text-condensed">
+      <h5><u><%= link_to "Voir toutes les séances futures", all_lessons_path  %></u></h5>
       <h5><u><%= link_to "Voir les données", analytics_path  %></u></h5>
     </div>
   </div>
@@ -82,6 +83,27 @@
       <h5 class='mt-4 text-blue'> Tous les partenaires :</h5>
       <% @partners.each do |partner| %>
         <p class='mb-0 mr-3 text-blue'><%= partner.name %> - <%= partner.percentage %>% - code : <%= partner.coupon_code %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <h5 class='text-blue'><strong>Gérer les codes promo</strong></h5>
+      <div>
+        <%= simple_form_for :promo_code, url: promo_codes_path, method: :post do |f| %>
+          <%= f.input :name, label: "Nom du code", input_html: { class:'text-uppercase' } %>
+          <%= submit_tag "Ajouter ce code", class: "btn btn-kotch btn-blue" %>
+        <% end %>
+      </div>
+      <h5 class='mt-4 text-blue'> Tous les codes promo :</h5>
+      <% @promo_codes.each do |promo_code| %>
+        <p class='mb-0 mr-3 text-blue'>
+          <%= promo_code.name %> - <%= promo_code.active ? 'Actif' : 'Non-actif' %> - utilisé <%= promo_code.uses_count %> fois -
+          <%= link_to toggle_active_status_path(promo_code), method: :patch do %>
+            <%= promo_code.active ? 'Désactiver' : 'Activer' %>
+          <% end %>
+        </p>
       <% end %>
     </div>
   </div>

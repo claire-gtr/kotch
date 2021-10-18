@@ -1,0 +1,9 @@
+Bonjour <%= @user.first_name.capitalize %> !
+
+Ta séance de <%= @lesson.sport_type %> <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> à l'adresse suivante : <%= @lesson.location.name %> est validée.
+
+Organise ta séance et utilise la messagerie instantanée pour communiquer avec les participants, connaître leurs attentes, et préparer la séance à venir !
+
+<%= link_to 'Envoie un message', lesson_messages_url(@lesson) %>
+
+À très vite

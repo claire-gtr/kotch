@@ -32,4 +32,8 @@ class DashboardPolicy < ApplicationPolicy
   def export_filling_rate?
     user.admin?
   end
+
+  def all_lessons?
+    user.admin?
+  end
 end

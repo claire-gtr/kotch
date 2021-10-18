@@ -9,7 +9,23 @@
               <%= form_tag friendships_path, method: :get, class: 'shadow friends-form' do %>
                 <%= text_field_tag :email,
                   params[:email],
-                  placeholder: "Recherche..."
+                  placeholder: "Recherche par adresse mail..."
+                %>
+                <%= button_tag type: 'submit', class: 'd-flex align-items-center' do %>
+                  <i class="fas fa-search fa-s"></i>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="search-new-friends">
+              <%= form_tag friendships_path, method: :get, class: 'shadow friends-form' do %>
+                <%= text_field_tag :first_name,
+                  params[:first_name],
+                  placeholder: "Ou par prénom..."
+                %>
+                <%= text_field_tag :last_name,
+                  params[:last_name],
+                  placeholder: "et nom...",
+                  class:'border-left'
                 %>
                 <%= button_tag type: 'submit', class: 'd-flex align-items-center' do %>
                   <i class="fas fa-search fa-s"></i>

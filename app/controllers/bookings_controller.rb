@@ -1,12 +1,11 @@
 class BookingsController < ApplicationController
-
   def create
     @booking = Booking.new(booking_params)
     @booking.status = "Invitation envoyée"
     @user = @booking.user
     authorize @booking
     if @booking.save
-      mail = BookingMailer.with(user: @user, booking: @booking).invitation
+      mail = BookingMailer.with(user: @user, booking: @booking, friend: current_user).invitation
       mail.deliver_now
       redirect_to lessons_path
     else
@@ -17,6 +16,36 @@ class BookingsController < ApplicationController
       @friends = current_user.my_friends
       render "lessons/index"
     end
+  end
+
+  def create_by_emails
+    friends_emails = params[:emails]
+    @lesson = Lesson.find(params[:booking][:lesson_id])
+    authorize Booking.new
+    if friends_emails && (friends_emails != "")
+      emails = friends_emails.split(',').map { |email| email.gsub(/\s+/, '').downcase }
+      emails.each do |email|
+        if a_valid_email?(email)
+          # temporay_password = (0...12).map { ('a'..'z').to_a[rand(26)] }.join
+          # user = User.create(email: email, password: temporay_password, password_confirmation: temporay_password, first_name: 'Invité', last_name: 'Invité')
+          # booking = Booking.new(user: user, lesson: @lesson)
+          # booking.status = "Invitation envoyée"
+          # booking.save
+          # mail = BookingMailer.with(user: user, booking: booking, friend: current_user, password: temporay_password).new_user_inviation
+          user = User.find_by(email: email)
+          if user.present?
+            booking = Booking.new(user: user, lesson: @lesson)
+            booking.status = "Invitation envoyée"
+            booking.save
+            mail = BookingMailer.with(user: user, booking: booking, friend: current_user).invitation
+          else
+            mail = LessonMailer.with(user_email: email, lesson: @lesson, friend: current_user).new_user_inviation
+          end
+          mail.deliver_now
+        end
+      end
+    end
+    redirect_to lessons_path, notice: 'Les invitations ont bien été envoyées.'
   end
 
   def accept_invitation
@@ -30,9 +59,14 @@ class BookingsController < ApplicationController
         @booking.used_credit = true
       end
       @booking.save
-      if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil?
+      if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil? && @booking.lesson.status != "Pre-validée"
         User.where(coach: true).each do |user|
           mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+          mail.deliver_now
+        end
+      elsif @lesson.bookings.where(status: "Confirmé").count == 5 && !@lesson.user.nil?
+        @lesson.bookings.where(status: "Confirmé").each do |booking|
+          mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed
           mail.deliver_now
         end
       end
@@ -63,9 +97,14 @@ class BookingsController < ApplicationController
           @booking.used_credit = true
         end
         @booking.save
-        if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil?
+        if @lesson.bookings.where(status: "Confirmé").count == 5 && @booking.lesson.user.nil? && @booking.lesson.status != "Pre-validée"
           User.where(coach: true).each do |user|
             mail = BookingMailer.with(lesson: @lesson, user: user).invite_coachs
+            mail.deliver_now
+          end
+        elsif @lesson.bookings.where(status: "Confirmé").count == 5 && !@lesson.user.nil?
+          @lesson.bookings.where(status: "Confirmé").each do |booking|
+            mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed
             mail.deliver_now
           end
         end
@@ -83,9 +122,11 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(params[:id])
-    @booking.user.update(credit_count: @booking.user.credit_count + 1) if @booking.used_credit
     authorize @booking
+    @booking.user.update(credit_count: @booking.user.credit_count + 1) if @booking.used_credit
+    mail = BookingMailer.with(user: @booking.user, lesson: @booking.lesson).booking_canceled
     @booking.destroy
+    mail.deliver_now
     redirect_to lessons_path
   end
 

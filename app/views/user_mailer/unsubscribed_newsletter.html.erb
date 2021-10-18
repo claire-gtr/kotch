@@ -1,0 +1,21 @@
+<p class="mb-3"><%= @user.first_name.capitalize %>,</p>
+
+<p>Nous sommes tristes de te voir partir !</p>
+
+<p>Participe à l’amélioration du service Koach & Co en renseignant les raisons de ton départ :</p>
+
+<%= simple_form_for(@reason, method: :post, url: reasons_url) do |f| %>
+  <%= f.input :title,
+              label: 'Ta raison : ',
+              as: :radio_buttons,
+              collection: @all_reasons,
+              input_html: { autocomplete: 'title' },
+              wrapper_html: { class:'mb-3'} %>
+  <%= f.input :other_text,
+              label: 'autre raison :',
+              input_html: { autocomplete: 'other_text', class:'ml-2' } %>
+  <%= f.hidden_field :user_id, value: @user.id %>
+  <%= f.submit 'Envoyer', class:'btn-red'%>
+<% end %>
+
+<p class="mt-5">À très vite </p>

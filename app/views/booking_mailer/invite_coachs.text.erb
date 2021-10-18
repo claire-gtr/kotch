@@ -1,17 +1,9 @@
 Bonjour <%= @user.first_name.capitalize %> !
 
-Une séance est complète avec 5 élèves et n'a pas de coach.
-Détails de la séance :
-<%= @lesson.sport_type %>
-<%= @lesson.date %>
-<%= @lesson.location.name %>
+Tu viens de recevoir une proposition de séance pour un <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> et te donne rendez-vous à l'adresse suivante : <%= @lesson.location.name %>.
 
-Si tu souhaite to positionner, merci de clicker sur ce lien :
-<%= link_to "Je me positionne", be_coach_via_mail_url(@lesson, @user) %>
+Cette séance te convient ? Alors donne ta réponse sur ton compte personnel, rubrique Mon profil > Demandes de coaching.
+
+<%= link_to 'Accepte cette séance', profile_url(tab: 'tab-2') %>
 
 À très vite
-
-Ton équipe Koach & Co
-<%#= image_tag 'logo-pink.png' %>
-<!-- link to insta + facebook -->
-

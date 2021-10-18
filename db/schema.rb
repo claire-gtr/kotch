@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_19_133553) do
+ActiveRecord::Schema.define(version: 2021_10_07_101305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_09_19_133553) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "used_credit", default: false
+    t.boolean "messages_readed", default: false, null: false
     t.index ["lesson_id"], name: "index_bookings_on_lesson_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(version: 2021_09_19_133553) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
+    t.boolean "visible", default: false, null: false
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
@@ -108,6 +110,7 @@ ActiveRecord::Schema.define(version: 2021_09_19_133553) do
     t.bigint "lesson_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "readed", default: false, null: false
     t.index ["booking_id"], name: "index_messages_on_booking_id"
     t.index ["lesson_id"], name: "index_messages_on_lesson_id"
   end
@@ -130,6 +133,23 @@ ActiveRecord::Schema.define(version: 2021_09_19_133553) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "coupon_code"
     t.integer "percentage"
+  end
+
+  create_table "promo_codes", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "uses_count", default: 0
+  end
+
+  create_table "reasons", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "other_text"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_reasons_on_user_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -179,6 +199,8 @@ ActiveRecord::Schema.define(version: 2021_09_19_133553) do
     t.boolean "validated_coach", default: false
     t.boolean "terms", default: false
     t.boolean "optin_cgv", default: false
+    t.boolean "promo_code_used", default: false, null: false
+    t.string "referral_code", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -193,6 +215,7 @@ ActiveRecord::Schema.define(version: 2021_09_19_133553) do
   add_foreign_key "messages", "bookings"
   add_foreign_key "messages", "lessons"
   add_foreign_key "pack_orders", "users"
+  add_foreign_key "reasons", "users"
   add_foreign_key "subjects", "users"
   add_foreign_key "subscriptions", "users"
 end

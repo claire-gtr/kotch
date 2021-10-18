@@ -1,8 +1,8 @@
 Bonne nouvelle <%= @user.first_name.capitalize %> !
 
-Ta réservation de séance de sport vient d’être validée par ton coach.
+Ta réservation de séance de sport vient d’être validée.
 
-<%= @lesson.user.first_name %> t’attendra a <%= @lesson.location.name %>, le <%= @lesson.date %> pour une séance de <%= @lesson.sport_type %> !
+<%= @lesson.user.first_name %> te donne rendez-vous à l'adresse suivante : <%= @lesson.location.name %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> pour une séance de <%= @lesson.sport_type %> !
 
 Soit au point sur l’organisation de la séance en accédant à la messagerie et en communiquant avec ton coach et les participants.
 
@@ -11,9 +11,3 @@ Soit au point sur l’organisation de la séance en accédant à la messagerie e
 Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!
 
 À très vite
-
-Ton équipe Koach & Co
-<%#= image_tag 'logo-pink.png' %>
-<!-- link to insta + facebook -->
-
-

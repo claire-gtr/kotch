@@ -1,3 +1,7 @@
+<% canonical(offers_url) %>
+<% content_for :meta_title, "Koach & Co | Des offres sans engagement pour un budget maitrisé" %>
+<% content_for :meta_description, "Choisissez une formule simple, adaptée à votre budget et à votre pratique, sous forme d'abonnement mensuel sans engagement ou d'achat de séances à l'unité." %>
+
 <% if user_signed_in? %>
   <%= render 'offers_connected' %>
 <% else %>

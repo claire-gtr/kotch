@@ -1,15 +1,17 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :home, :faq, :forum, :offers, :cgv, :legals, :about ]
+  skip_before_action :authenticate_user!, only: [:home, :faq, :forum, :offers, :cgv, :legals, :about, :concept]
 
   def home; end
 
-  def faq;end
+  def faq; end
 
   def cgv; end
 
   def legals; end
 
   def about; end
+
+  def concept; end
 
   def forum
     @subjects = Subject.all

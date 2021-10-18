@@ -47,6 +47,7 @@
           <%= link_to "DÉCONNEXION", destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-extra-small w-100 text-center mt-3" %>
           <%= link_to "Besoin d'aide ?", faq_path, class:"small-link" %>
         <% else %>
+          <%= link_to "Notre concept", concept_path, class: "dropdown-item text-white" %>
           <%= link_to "Nos offres", offers_path, data: {turbolinks: "false"}, class: "dropdown-item text-white" %>
           <%= link_to "Voir les séances publiques", public_lessons_path, class: "dropdown-item text-white" %>
           <%= link_to "Connexion", new_user_session_path, class: "dropdown-item text-white" %>

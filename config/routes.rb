@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get 'a-propos', to: "pages#about", as: :about
   get 'conditions-generales-de-ventes', to: "pages#cgv", as: :cgv
   get 'mentions-legales', to: "pages#legals", as: :legals
+  get 'notre-concept', to: "pages#concept", as: :concept
   patch '/coach-validation', to: "users#coach_validation", as: :coach_validation
 
   resources :subjects, only: [:new, :create, :show] do

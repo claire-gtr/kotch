@@ -44,4 +44,5 @@ SitemapGenerator::Sitemap.create(compress: false) do
   add faq_path
   add cgv_path
   add legals_path
+  add concept_path
 end

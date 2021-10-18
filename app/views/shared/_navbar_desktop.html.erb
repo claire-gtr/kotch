@@ -7,6 +7,11 @@
     <div>
       <ul class="navbar-nav mr-auto align-items-end">
         <% if user_signed_in? %>
+          <li class="nav-item">
+            <em>
+              <%= link_to "NOTRE CONCEPT", concept_path, class: "nav-link ml-5" %>
+            </em>
+          </li>
           <% if !current_user.coach %>
             <li class="nav-item">
               <em>
@@ -69,6 +74,11 @@
             </div>
           </li>
         <% else %>
+          <li class="nav-item">
+            <em>
+              <%= link_to "NOTRE CONCEPT", concept_path, class: "nav-link ml-5" %>
+            </em>
+          </li>
           <li class="nav-item">
             <em>
               <%= link_to "NOS OFFRES", offers_path, data: {turbolinks: "false"}, class: "nav-link ml-5" %>

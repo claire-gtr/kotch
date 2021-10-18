@@ -19,6 +19,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://www.koachandco.com/notre-concept</loc>
+    <lastmod>2021-10-07T17:48:11+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://www.koachandco.com/utilisateur/inscription</loc>
     <lastmod>2021-10-07T17:48:11+02:00</lastmod>
     <changefreq>weekly</changefreq>

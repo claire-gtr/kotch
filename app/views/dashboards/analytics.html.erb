@@ -42,6 +42,7 @@
         </tbody>
       </table>
       <h5 class='text-blue text-condensed text-bold mt-4'>Nombre de participation à une séance via abonnement</h5>
+      <%= link_to "Export CSV", export_lessons_sub_path(data: @bookings)  %>
       <table>
         <thead>
           <tr class="text-center">
@@ -59,6 +60,7 @@
         </tbody>
       </table>
       <h5 class='text-blue text-condensed text-bold mt-4'>Nombre de participation à une séance via crédits</h5>
+      <%= link_to "Export CSV", export_lessons_credit_path(data: @bookings_credit)  %>
       <table>
         <thead>
           <tr class="text-center">
@@ -76,6 +78,7 @@
         </tbody>
       </table>
       <h5 class='text-blue text-condensed text-bold mt-4'>Moyenne du taux de remplissage des séances de sport</h5>
+      <%= link_to "Export CSV", export_filling_rate_path(data: @lessons_filling_rate )  %>
       <table>
         <thead>
           <tr class="text-center">

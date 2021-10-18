@@ -140,8 +140,8 @@ class LessonsController < ApplicationController
         flash[:alert] = "Un administrateur doit valider votre compte coach."
         redirect_to root_path
       elsif current_user.coach
-        @lessons_in_future = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
-        @pre_validated_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).where(status: "Pre-validée")
+        @lessons_in_future = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
+        @pre_validated_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).where(status: "Pre-validée").order('date ASC')
         @lessons = []
         @pre_validated_lessons.each do |lesson|
           @lessons << lesson
@@ -152,15 +152,15 @@ class LessonsController < ApplicationController
           end
         end
       else
-        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
       end
     else
       if params[:day].present?
-        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where("DATE_PART('dow', date)=?", params[:day]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where("DATE_PART('dow', date)=?", params[:day]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
       elsif params[:start].present?
-        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where('EXTRACT(hour FROM date) BETWEEN ? AND ?', params[:start], params[:end]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where('EXTRACT(hour FROM date) BETWEEN ? AND ?', params[:start], params[:end]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
       elsif params[:lieu].present?
-        all_lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        all_lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
         @lessons = []
         all_lessons.each do |lesson|
           locations = Location.near(params[:lieu], 1)
@@ -170,7 +170,7 @@ class LessonsController < ApplicationController
         end
 
       else
-        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date DESC')
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
       end
     end
   end

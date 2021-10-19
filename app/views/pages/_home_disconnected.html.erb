@@ -1,6 +1,6 @@
 <div class="p-3">
   <div class="card-banner-home shadow">
-    <%= image_tag "rond_bleu_claire_min.png", class:'shape-home d-none d-lg-block' %>
+    <%= image_tag "rond_bleu_claire_min.png", alt: 'rond bleu claire', class:'shape-home d-none d-lg-block' %>
     <%= image_tag "lacets.png", alt: "Une femme se prépare pour sa séance de sport", class:'ml-0 ml-lg-5' %>
     <div class="mt-5 pt-lg-5">
       <div class="text-center">
@@ -19,10 +19,12 @@
                             required: false,
                             autofocus: true,
                             label: false,
+                            aria: { label: 'adresse mail' },
                             placeholder: "Adresse e-mail" %>
                 <%= f.input :password,
                             required: false,
                             label: false,
+                            aria: { label: 'mot de passe' },
                             placeholder: "Mot de passe",
                             wrapper_html: { class: 'mb-2' } %>
                 <%= link_to "Mot de passe oublié ?", new_password_path(:user), class:'link-password' %>
@@ -47,10 +49,12 @@
                       required: false,
                       autofocus: true,
                       label: false,
+                      aria: { label: 'adresse mail' },
                       placeholder: "Adresse e-mail" %>
           <%= f.input :password,
                       required: false,
                       label: false,
+                      aria: { label: 'mot de passe' },
                       placeholder: "Mot de passe",
                       wrapper_html: { class: 'mb-2' } %>
           <%= link_to "Mot de passe oublié ?", new_password_path(:user), class:'link-password' %>

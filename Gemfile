@@ -44,6 +44,8 @@ gem 'rails-i18n'
 gem 'sitemap_generator'
 gem 'bullet', group: 'development'
 gem 'rack-mini-profiler', group: 'development'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'

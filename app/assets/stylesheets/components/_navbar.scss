@@ -62,7 +62,7 @@
 }
 
 .dropdown-menu {
-  border-radius: 24px;
+  border-radius: 10px;
   border: none;
   background-color: $coral-kotch;
 }
@@ -70,4 +70,8 @@
 a.dropdown-item:hover {
   text-decoration:underline;
   background-color: $coral-kotch;
+}
+
+.navbar-name {
+  font-size: 1.25rem;
 }

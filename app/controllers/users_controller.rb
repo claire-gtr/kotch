@@ -87,13 +87,13 @@ class UsersController < ApplicationController
 
   def define_coach_profile
     @coachings = current_user.lessons.includes([:location, bookings: :user])
-    @coachings_in_future = @coachings.where("date >= ?", Time.now)
-    @coachings_in_past = @coachings.where("date < ?", Time.now)
+    @coachings_in_future = @coachings.where("date >= ?", Time.now).order('date ASC')
+    @coachings_in_past = @coachings.where("date < ?", Time.now).order('date DESC')
     @coachings_done = @coachings.where(status: "effectuée")
 
     # @all_coachings_in_future_without_coach = @coachings_in_future.where(user: nil)
-    @all_coachings_in_future_without_coach = Lesson.all.where("date >= ?", Time.now).where(user: nil)
-    @pre_validated_coachings = Lesson.where("date >= ?", Time.now).where(status: "Pre-validée").where(user: nil)
+    @all_coachings_in_future_without_coach = Lesson.all.where("date >= ?", Time.now).where(user: nil).order('date ASC')
+    @pre_validated_coachings = Lesson.where("date >= ?", Time.now).where(status: "Pre-validée").where(user: nil).order('date ASC')
     @coachings_requests = []
     @pre_validated_coachings.each do |lesson|
       @coachings_requests << lesson
@@ -124,7 +124,7 @@ class UsersController < ApplicationController
   end
 
   def define_user_profile
-    @bookings = current_user.bookings.includes([[lesson: [:user, :location]], :user])
+    @bookings = current_user.bookings.includes([[lesson: [:user, :location]], :user]).sort_by { |booking| DateTime.now - booking.lesson.date.to_datetime }
     @bookings_in_future = []
     @bookings_in_past = []
     @bookings.each do |booking|
@@ -134,12 +134,13 @@ class UsersController < ApplicationController
         @bookings_in_past << booking
       end
     end
+    @bookings_in_future = @bookings_in_future.reverse
 
     if current_user.subscription.active?
       subscription = current_user.subscription
       @included_lessons = subscription.nickname.first(2).to_i
       @used_this_month = 0
-      current_user.bookings.includes([:lesson, :user]).where(used_credit: false).each do |b|
+      current_user.bookings.includes([:lesson, :user]).where(used_credit: false).sort_by { |booking| DateTime.now - booking.lesson.date.to_datetime }.each do |b|
         if b.lesson.date >= Date.today.beginning_of_month && b.lesson.date <= Date.today.end_of_month && b.lesson.status != "canceled"
           @used_this_month += 1
         end

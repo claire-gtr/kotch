@@ -72,32 +72,30 @@
           <h4 class='text-blue'>PARLEZ NOUS UN PEU DE VOUS</h4>
           <div class="form-inputs">
             <div class="row">
-              <div class="col-12 col-lg-6 px-lg-5 d-flex flex-column justify-content-between">
-                <div>
-                  <h6 class='text-white mt-3'>Quelles sont vos habitudes sportives ?</h6>
-                  <%= f.input :sport_habits, as: :radio_buttons, collection: User.sport_habits.keys.map { |m| [I18n.t("sport_habits.#{m}"), m] }, legend_tag: false %>
-                  <h6 class='text-white mt-3'>Présentez-vous des douleurs ou des incapacités physiques ?</h6>
-                  <%= f.input :physical_pain, as: :radio_buttons, collection: User.physical_pains.keys.map { |m| [I18n.t("physical_pain.#{m}"), m] }, legend_tag: false %>
-                </div>
+              <div class="col-12 col-lg-6 px-lg-5">
+                <h6 class='text-white mt-3'>Quelles sont vos habitudes sportives ?</h6>
+                <%= f.input :sport_habits, as: :radio_buttons, collection: User.sport_habits.keys.map { |m| [I18n.t("sport_habits.#{m}"), m] }, legend_tag: false, wrapper_html: { class: "d-flex flex-column" } %>
+                <h6 class='text-white mt-3'>Que recherchez-vous dans la pratique d’une activité sportive ?</h6>
+                <%= f.input :expectations, as: :radio_buttons, collection: User.expectations.keys.map { |m| [I18n.t("expectations.#{m}"), m] }, legend_tag: false %>
+
+<!--                <h6 class='text-white mt-3'>Présentez-vous des douleurs ou des incapacités physiques ?</h6>
+                <%= f.input :physical_pain, as: :radio_buttons, collection: User.physical_pains.keys.map { |m| [I18n.t("physical_pain.#{m}"), m] }, legend_tag: false %>
                 <div>
                   <%= image_tag 'femme_choisissant_son_abonnement_de_sport.png', alt: "Une femme choisissant son abonnement de sport", loading: 'lazy', class:'w-100 d-none d-lg-block' %>
-                </div>
+                </div> -->
               </div>
               <div class="col-12 col-lg-6 px-lg-5">
-                <h6 class='text-white mt-3'>Que recherchez-vous dans la pratique d’une activité sportive ?</h6>
-                <%= f.input :expectations, as: :radio_buttons, collection: User.expectations.keys.map { |m| [I18n.t("expectations.#{m}"), m] }, legend_tag: false%>
-                <h6 class='text-white mt-3'>Comment définiriez-vous votre niveau d’activité physique actuel ?</h6>
-                <%= f.input :level, as: :radio_buttons, collection: User.levels.keys.map { |m| [I18n.t("level.#{m}"), m] }, legend_tag: false %>
+<!--                 <h6 class='text-white mt-3'>Comment définiriez-vous votre niveau d’activité physique actuel ?</h6>
+                <%= f.input :level, as: :radio_buttons, collection: User.levels.keys.map { |m| [I18n.t("level.#{m}"), m] }, legend_tag: false %> -->
                 <h6 class='text-white mt-3'>Quel type de pratique aimeriez-vous retrouver durant vos séances ?</h6>
-                <%= f.input :intensity, as: :radio_buttons, collection: User.intensities.keys.map { |m| [I18n.t("intensity.#{m}"), m] }, legend_tag: false%>
+                <%= f.input :intensity, as: :radio_buttons, collection: User.intensities.keys.map { |m| [I18n.t("intensity.#{m}"), m] }, legend_tag: false %>
               </div>
             </div>
           </div>
 
           <div class="form-actions text-condensed text-small">
-            <%= f.input :terms, as: :boolean, label: "En cochant cette case, vous consentez à recevoir des propositions commerciales par voie électronique. Vous pouvez vous désinscrire à tout moment en modifiant vos paramètres sur votre compte et à travers les liens de désinscription." %>
-            <p class="mb-0 text-small"><%= link_to "Conditions générales de vente", cgv_path  %></p>
-            <%= f.input :optin_cgv, as: :boolean, label:  "Je reconnais avoir lu et accepté les conditions générales de vente", error: 'Vous devez accepter les CGV pour utiliser Koach and Co.' %>
+            <%= f.input :terms, as: :boolean, label_html: { class: "italic" }, label: "En cochant cette case, vous consentez à recevoir des propositions commerciales par voie électronique. Vous pouvez vous désinscrire à tout moment en modifiant vos paramètres sur votre compte et à travers les liens de désinscription." %>
+            <%= f.input :optin_cgv, as: :boolean, label_html: { class: "italic" }, label:  ("Je reconnais avoir lu et accepté les #{link_to 'Conditions Générales de Vente', cgv_path, target: "_blank", rel: 'noopener noreferrer', class: "cgv"}").html_safe, error: 'Vous devez accepter les CGV pour utiliser Koach and Co.' %>
             <%= f.button :submit, "VALIDEZ VOTRE PROFIL", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
           </div>
           <div class="mt-4">

@@ -1,0 +1,82 @@
+.our-concept-title {
+  color: $white;
+  background-color: $coral-kotch;
+  font-weight: 600;
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.our-concept-subtitle {
+  color: $white;
+  background-color: $blue-kotch;
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1;
+  border-radius: 8px;
+  padding: 0px 20px;
+}
+
+.our-concept-subsubtitle {
+  color: $blue-kotch;
+  font-weight: 700;
+  line-height: 1;
+  font-size: 1.15rem;
+}
+
+.our-concept-subtext {
+  color: $light-blue-kotch;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.our-concept-text {
+  line-height: 1;
+  font-size: 0.85rem;
+}
+
+.our-concept-img {
+  width: 125px;
+}
+
+@media screen and (min-width: 1024px){
+  .our-concept-title {
+    font-weight: 800;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: $blue-kotch;
+    background-color: $white;
+  }
+
+  .our-concept-subtitle {
+    color: $white;
+    background-color: $blue-kotch;
+    line-height: 1;
+    border-radius: 8px;
+    font-size: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .our-concept-subsubtitle {
+    color: $blue-kotch;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 1.75rem;
+  }
+
+  .our-concept-subtext {
+    color: $light-blue-kotch;
+    font-weight: 600;
+    line-height: 1;
+    text-align: left;
+  }
+
+  .our-concept-text {
+    line-height: 1;
+    font-size: 1.1rem;
+  }
+
+  .our-concept-img {
+    width: 250px;
+  }
+}

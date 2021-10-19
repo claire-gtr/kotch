@@ -31,13 +31,13 @@ a:hover {
 }
 .btn-big {
   font-size: 24px;
-  padding: 24px 16px;
+  padding: 10px 16px;
 }
 
 @include media-breakpoint-up(md) {
   .btn-big {
     font-size: 32px;
-    padding: 24px 16px;
+    padding: 10px 16px;
   }
 }
 

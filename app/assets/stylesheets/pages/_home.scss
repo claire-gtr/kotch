@@ -124,17 +124,18 @@
   right:-30px;
 }
 
-.banner-home-disconnected {
+.banner-home-connected {
   height: 75vh;
   margin-top: 140px;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
   border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
   img {
-    height: 400px;
+    height: 100%;
   }
 }
 

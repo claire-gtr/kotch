@@ -47,3 +47,66 @@
     text-align: center;
   }
 }
+
+@media only screen and (max-width: 992px) {
+  .dropdown-lesson-mobile {
+    .btn-dropdown {
+      background-color: $blue-kotch;
+      color: white;
+      border-radius: 5px;
+      width: 8em;
+      height: 2.5em;
+      font-size: 1.05rem;
+    }
+
+    .dropdown-menu {
+      background-color: $blue-kotch;
+      color: white;
+      border-radius: 5px;
+      width: 8em;
+      padding-top: 15px;
+
+      a, a:hover {
+        color: white;
+      }
+    }
+
+    *:focus {
+      outline: none !important;
+    }
+  }
+
+  #dropdown-lesson-lieu {
+    .btn-dropdown {
+      width: 25em;
+    }
+  }
+
+  .lessons-public-mobile {
+    font-size: 0.85rem;
+    color: $blue-kotch;
+
+    .lessons-public-mobile-title {
+      color: $white;
+      background-color: #BBC9FE;
+      font-weight: 600;
+      border-radius: 5px;
+    }
+
+    .btn-kotch {
+      border-radius: 5px;
+    }
+
+    .lessons-public-mobile-text {
+      line-height: 1;
+    }
+
+    .lessons-public-mobile-btn {
+      width: 100px;
+    }
+
+    .lessons-public-mobile-infos {
+      width: 250px;
+    }
+  }
+}

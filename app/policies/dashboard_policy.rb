@@ -33,6 +33,10 @@ class DashboardPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def export_lessons_done_this_year?
+    user.admin?
+  end
+
   def all_lessons?
     user.admin?
   end

@@ -1,0 +1,90 @@
+<div class="container">
+  <% if @lessons.empty? %>
+    <div class="col-12 text-center">
+      <h2 class="text-center">Il n'y a pas de séance publique disponible.</h2>
+      <%= link_to "Retour à toutes les séances publiques", public_lessons_path, class:"btn btn-kotch btn-red"  %>
+    </div>
+  <% else %>
+    <h2 class="text-center">Filtrez vos séances en fonction de :</h2>
+    <div class="d-flex justify-content-center flex-column flex-md-row pt-4 align-items-center">
+      <div class="dropdown-lesson mt-2 mt-md-0 mx-1">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="d-flex justify-content-between">
+            JOUR
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuJour">
+          <ul>
+            <li><%= link_to "Lundi", public_lessons_path(day: 1)  %></li>
+            <li><%= link_to "Mardi", public_lessons_path(day: 2)  %></li>
+            <li><%= link_to "Mercredi", public_lessons_path(day: 3)  %></li>
+            <li><%= link_to "Jeudi", public_lessons_path(day: 4)  %></li>
+            <li><%= link_to "Vendredi", public_lessons_path(day: 5)  %></li>
+            <li><%= link_to "Samedi", public_lessons_path(day: 6)  %></li>
+            <li><%= link_to "Dimanche", public_lessons_path(day: 7)  %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dropdown-lesson mt-2 mt-md-0 mx-1">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuHoraire" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="d-flex justify-content-between">
+            HORAIRE
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuHoraire">
+          <ul>
+            <li><%= link_to "Matin", public_lessons_path(start: 1, end: 10)  %></li>
+            <li><%= link_to "Midi", public_lessons_path(start: 11, end: 14)  %></li>
+            <li><%= link_to "Après-midi", public_lessons_path(start: 15, end: 18)  %></li>
+            <li><%= link_to "Soir", public_lessons_path(start: 18, end: 24)  %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center pt-0 pt-md-4 pb-4">
+      <div class="dropdown-lesson mt-2 mt-md-0" id="dropdown-lesson-lieu">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuLieu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="d-flex justify-content-between">
+            LIEU
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
+        </button>
+        <div class="dropdown-menu text-blue p-2" aria-labelledby="dropdownMenuLieu" id="dropdown-menu-lieu">
+          <%= form_tag public_lessons_path, method: :get do %>
+            <div class="d-flex">
+              <%= text_field_tag :lieu,
+                params[:lieu],
+                class: "form-control",
+                placeholder: "Rechercher..."
+              %>
+              <%= submit_tag "Rechercher", class: "btn btn-kotch btn-extra-small-narrow btn-red" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <% @lessons.each do |lesson| %>
+          <%= render 'lesson_in_public_page', lesson: lesson %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%# <script type="text/javascript">
+  const btn = document.getElementById('dropdownMenuJour');
+
+  console.log(btn.getAttribute('aria-expanded'));
+
+  if (btn.attr('aria-expanded')) {
+    btn.classList.add('btn-dropdown-open');
+  }
+</script> %>
+<%#
+CSS REFERENCES
+.btn-dropdown                    => _public-lessons.scss
+%>

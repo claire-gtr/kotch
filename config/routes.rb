@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'export-seance-abonnement', to: 'dashboards#export_lessons_sub', as: :export_lessons_sub
   get 'export-seance-credit', to: 'dashboards#export_lessons_credit', as: :export_lessons_credit
   get 'export-taux-remlissage', to: 'dashboards#export_filling_rate', as: :export_filling_rate
+  get 'export-seances-effectuees', to: 'dashboards#export_lessons_done_this_year', as: :export_lessons_done_this_year
   get 'all-lessons', to: 'dashboards#all_lessons', as: :all_lessons
 
   patch '/admin', to: "users#become_admin", as: :become_admin

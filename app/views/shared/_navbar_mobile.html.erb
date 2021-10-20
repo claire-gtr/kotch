@@ -8,7 +8,7 @@
       <div class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
         <%= image_tag "burger-icon.png", class:'navbar-icon mb-2', alt: "menu déroulant" %>
       </div>
-      <div class="dropdown-menu dropdown-menu-mobile mt-2 dropdown-menu-right p-2" aria-labelledby="navbarDropdown">
+      <div class="dropdown-menu dropdown-menu-mobile mt-2 dropdown-menu-right p-3" aria-labelledby="navbarDropdown">
         <% if user_signed_in? %>
           <div class="d-flex align-items-center mb-3">
             <%= cl_image_tag current_user.profile_picture, class:'avatar-small', alt: "avatar" %>

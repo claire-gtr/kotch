@@ -21,6 +21,13 @@ class DashboardsController < ApplicationController
     @reasons_stop_receive_mails = Reason.where(title: helpers.stop_receive_mails).count
     @reasons_others = Reason.where(title: helpers.others).count
     @reasons_others_text = Reason.where(title: helpers.others).map { |reason| reason.other_text }
+    @lessons_done_this_year = Lesson.where(status: "effectuée").where('extract(year from date) = ?', Date.today.year).order('date DESC')
+    if @lessons_done_this_year.any?
+      @lessons_done_this_year_hash = []
+      @lessons_done_this_year.each do |lesson|
+        @lessons_done_this_year_hash << { lesson_id: lesson.id, coach_name: lesson.user.full_name, sport_type: lesson.sport_type, date: lesson.date, status: lesson.status, public: lesson.public, focus: lesson.focus }
+      end
+    end
 
     @users = User.where(coach: false).group_by_month.count
     @coachs = User.where(coach: true).group_by_month.count
@@ -56,7 +63,7 @@ class DashboardsController < ApplicationController
       end
     else
       @lessons_filling_rate = []
-      @lessons_filling_rate << {month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0}
+      @lessons_filling_rate << { month: l(Date.today, format: '%B %Y').capitalize, average_filling_rate: 0 }
     end
   end
 
@@ -146,6 +153,28 @@ class DashboardsController < ApplicationController
     send_file(
       "#{Rails.root}/lessons_filling_rate.csv",
       filename: "lessons_filling_rate.csv",
+      type: "application/csv"
+    )
+  end
+
+  def export_lessons_done_this_year
+    authorize(:dashboard, :export_lessons_done_this_year?)
+    @lessons_done_this_year = params[:data]
+    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath    = 'lessons_done_this_year.csv'
+
+    csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
+      csv << @lessons_done_this_year.map { |hash| hash["lesson_id"]}
+      csv << @lessons_done_this_year.map { |hash| hash["coach_name"]}
+      csv << @lessons_done_this_year.map { |hash| hash["sport_type"]}
+      csv << @lessons_done_this_year.map { |hash| hash["date"]}
+      csv << @lessons_done_this_year.map { |hash| hash["status"]}
+      csv << @lessons_done_this_year.map { |hash| hash["public"]}
+      csv << @lessons_done_this_year.map { |hash| hash["focus"]}
+    end
+    send_file(
+      "#{Rails.root}/lessons_done_this_year.csv",
+      filename: "lessons_done_this_year.csv",
       type: "application/csv"
     )
   end

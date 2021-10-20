@@ -4,6 +4,7 @@
   font-weight: 600;
   font-size: 2.25rem;
   line-height: 1;
+  text-transform: uppercase;
 }
 
 .our-concept-subtitle {
@@ -30,7 +31,7 @@
 }
 
 .our-concept-text {
-  line-height: 1;
+  line-height: 1.5;
   font-size: 0.85rem;
 }
 
@@ -40,8 +41,8 @@
 
 @media screen and (min-width: 1024px){
   .our-concept-title {
-    font-weight: 800;
-    font-size: 2.5rem;
+    font-weight: 600;
+    font-size: 40px;
     line-height: 1;
     color: $blue-kotch;
     background-color: $white;
@@ -59,9 +60,9 @@
 
   .our-concept-subsubtitle {
     color: $blue-kotch;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1;
-    font-size: 1.75rem;
+    font-size: 30px;
   }
 
   .our-concept-subtext {
@@ -72,11 +73,14 @@
   }
 
   .our-concept-text {
-    line-height: 1;
+    font-weight: 400;
+    line-height: 1.5;
     font-size: 1.1rem;
   }
 
   .our-concept-img {
-    width: 250px;
+    width: 400px;
+    margin-left: 30px;
+    margin-right: 30px;
   }
 }

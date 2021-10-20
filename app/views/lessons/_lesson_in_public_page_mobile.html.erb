@@ -1,13 +1,41 @@
-<div class="card-blue shadow p-4 mb-3 d-flex justify-content-between align-items-center">
-  <div class="d-block d-md-flex justify-content-between w-100 align-items-center mt-3 mt-md-0">
-    <div class="d-flex justify-content-between flex-column flex-md-row w-100 align-items-center">
-      <p class="mb-0 text-blue text-bold text-condensed text-small"><%= I18n.l(lesson.date, format: '%A').upcase %> <%= lesson.date.strftime('%e/%m À %Hh%M')%></p>
-      <p class="mb-0 text-blue text-bold text-condensed text-small text-center lesson-max-100"><%= lesson.location.name.upcase %></p>
-      <span class="title-sport lesson-max-60 text-center"><%= lesson.sport_type.upcase %></span>
+<div class="d-flex flex-column my-4 px-2 lessons-public-mobile">
+  <div class="d-flex flex-row justify-content-between align-items-center lessons-public-mobile-title pt-1 px-1">
+    <p class="mb-1"><%= lesson.sport_type.upcase %></p>
+    <p class="mb-1"><i class="far fa-calendar mr-1"></i><%= I18n.l(lesson.date, format: '%A').capitalize %> <%= I18n.l(lesson.date, format: '%e %B %Y') %> <i class="far fa-clock ml-2"></i> <%= lesson.date.strftime('%Hh%M') %></p>
+  </div>
+  <div class="d-flex flex-row justify-content-start align-items-center mt-1 shadow lessons-public-mobile-text">
+    <span class="lessons-public-mobile-btn">
+      <% if user_signed_in? && current_user.coach && !current_user.admin? %>
+        <% if lesson.user.nil?  %>
+          <div>
+            <%= link_to "Coacher cette séance", be_coach_path(lesson), class: 'btn btn-kotch btn-red ml-2 mb-1'  %>
+          </div>
+        <% else %>
+          <p class="ml-2">Il y a déjà un coach sur cette séance</p>
+        <% end %>
+      <% elsif user_signed_in? && current_user.admin? %>
+        <% if lesson.status != "Pre-validée"  %>
+          <%= link_to "Pré-valider", pre_validate_lesson_path(lesson), class: 'btn btn-kotch btn-red ml-2 mb-1'  %>
+        <% else %>
+          <div class="pill pill-red ml-2">
+            <%= lesson.status %>
+          </div>
+        <% end %>
+      <% elsif user_signed_in? %>
+        <% if !current_user.coach && !current_user.admin %>
+          <%= link_to "Je réserve", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red ml-2'  %>
+        <% end %>
+      <% else %>
+        <%= link_to "Je réserve", new_user_session_path, class:'btn btn-kotch btn-red ml-2'  %>
+      <% end %>
+    </span>
+    <div class="d-flex flex-column ml-3 lessons-public-mobile-infos">
+      <p>Coach : <%= lesson.user ? lesson.user.first_name.upcase : 'Pas de coach' %></p>
+      <p>Lieu : <%= lesson.location.name.upcase %></p>
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-transparent text-condensed" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
-        <%= lesson.users.count %> / 10 INSCRITS
-      </button>
+      <p type="button" class="mb-1" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
+        Participant(s) : <%= lesson.users.count %> / 10
+      </p>
       <!-- Modal -->
       <div class="modal fade" id="exampleModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModal-<%= lesson.id %>Label" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -37,49 +65,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <% if lesson.user_id %>
-        <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">AVEC COACH <%= lesson.user.first_name.upcase %></p>
-      <% else %>
-        <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">PAS DE COACH</p>
-      <% end %>
-      <% if user_signed_in? %>
-        <% if !current_user.coach && !current_user.admin %>
-          <%= link_to "JE RÉSERVE", public_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
-        <% end %>
-      <% else %>
-        <%= link_to "JE RÉSERVE", new_user_session_path, class:'btn btn-kotch btn-red'  %>
-      <% end %>
-      <div class="d-flex justify-content-between align-items-center d-none">
-        <!-- <%# if lesson.status == "pending" || "canceled" %>
-          <div class="pill pill-red text-center mt-3">
-            <%#= lesson.status %>
-          </div>
-        <%# elsif lessons.status == 'confirmé' %>
-          <div class="pill pill-green text-center mt-3">
-            <%#= lesson.status %>
-          </div>
-        <%# end %>
-         -->
-        <% if user_signed_in? && current_user.coach %>
-          <% if lesson.user.nil?  %>
-            <div>
-              <%= link_to "Je souhaite coacher cette séance", be_coach_path(lesson), class: 'small-link lesson-max-60'  %>
-            </div>
-          <% else %>
-            <p class='mb-0 text-small text-blue text-condensed lesson-max-60'>Il y a déjà un coach sur cette séance</p>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="d-flex justify-content-between align-items-center d-none">
-        <% if user_signed_in? && current_user.admin? %>
-          <% if lesson.status != "Pre-validée"  %>
-            <%= link_to "Admin : pre-valider cette séance", pre_validate_lesson_path(lesson), class: 'small-link lesson-max-60'  %>
-          <% end %>
-          <div class="pill pill-red">
-            <%= lesson.status %>
-          </div>
-        <% end %>
       </div>
     </div>
   </div>

@@ -81,4 +81,32 @@
       width: 25em;
     }
   }
+
+  .lessons-public-mobile {
+    font-size: 0.85rem;
+    color: $blue-kotch;
+
+    .lessons-public-mobile-title {
+      color: $white;
+      background-color: #BBC9FE;
+      font-weight: 600;
+      border-radius: 5px;
+    }
+
+    .btn-kotch {
+      border-radius: 5px;
+    }
+
+    .lessons-public-mobile-text {
+      line-height: 1;
+    }
+
+    .lessons-public-mobile-btn {
+      width: 100px;
+    }
+
+    .lessons-public-mobile-infos {
+      width: 250px;
+    }
+  }
 }

@@ -8,7 +8,6 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -24,6 +23,27 @@ require("channels")
 
 // External imports
 import "bootstrap";
+
+import "@fontsource/barlow-condensed/100.css";
+import "@fontsource/barlow-condensed/200.css";
+import "@fontsource/barlow-condensed/300.css";
+import "@fontsource/barlow-condensed/400.css";
+import "@fontsource/barlow-condensed/500.css";
+import "@fontsource/barlow-condensed/600.css";
+import "@fontsource/barlow-condensed/700.css";
+import "@fontsource/barlow-condensed/800.css";
+import "@fontsource/barlow-condensed/900.css";
+
+import "@fontsource/barlow/100.css";
+import "@fontsource/barlow/200.css";
+import "@fontsource/barlow/300.css";
+import "@fontsource/barlow/400.css";
+import "@fontsource/barlow/500.css";
+import "@fontsource/barlow/600.css";
+import "@fontsource/barlow/700.css";
+import "@fontsource/barlow/800.css";
+import "@fontsource/barlow/900.css";
+
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';

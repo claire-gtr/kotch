@@ -168,7 +168,8 @@ class LessonsController < ApplicationController
             @lessons << lesson
           end
         end
-
+      elsif params[:activity].present?
+        @lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true, sport_type: params[:activity]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
       else
         @lessons = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
       end

@@ -1,0 +1,25 @@
+<div class="container">
+  <% if current_user.coach %>
+    <div class="row">
+      <% if @lessons.empty? %>
+        <div class="col-12 text-center">
+          <h2 class="text-center">Vous n'avez pas de séance à venir</h2>
+        </div>
+      <% else %>
+        <div class="col-12">
+          <% @lessons.each do |lesson| %>
+            <%= render 'index_lesson_mobile', lesson: lesson %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="col-12">
+        <% @lessons.each do |lesson| %>
+          <%= render 'index_lesson_mobile', lesson: lesson %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -30,8 +30,8 @@
       <% end %>
     </span>
     <div class="d-flex flex-column ml-3 lessons-public-mobile-infos">
-      <p>Coach : <%= lesson.user ? lesson.user.first_name.upcase : 'Pas de coach' %></p>
-      <p>Lieu : <%= lesson.location.name.upcase %></p>
+      <p>Coach : <%= lesson.user ? lesson.user.first_name.capitalize : 'Pas de coach' %></p>
+      <p>Lieu : <%= lesson.location.name.capitalize %></p>
       <!-- Button trigger modal -->
       <p type="button" class="mb-1" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
         Participant(s) : <%= lesson.users.count %> / 10

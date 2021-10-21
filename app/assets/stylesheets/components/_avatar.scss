@@ -17,6 +17,17 @@
   border-radius: 50%;
 }
 
+.avatar-small-mobile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  @media screen and (max-width: 992px){
+    width: 25px;
+    height: 25px;
+  }
+}
+
 .avatar-large {
   width: 56px;
   border-radius: 50%;

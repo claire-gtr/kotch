@@ -1,0 +1,46 @@
+<div class="container" data-controller="lesson">
+  <% if current_user.coach? %>
+    <div class="row">
+      <h2 class="text-center col-12 our-concept-title mt-5">mes coachings</h2>
+      <% if @lessons.empty? %>
+        <div class="col-12 text-center">
+          <h2 class="text-center">Vous n'avez pas de séance à venir</h2>
+        </div>
+      <% else %>
+        <div class="col-12">
+          <% @lessons.each do |lesson| %>
+            <%= render 'index_lesson_mobile', lesson: lesson, booking: nil %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row">
+      <h2 class="text-center col-12 our-concept-title mt-5">mes réservations</h2>
+
+      <% if @pending_invitations.count > 0 %>
+        <div class="d-flex align-items-center justify-content-between col-12 my-3">
+          <div class="col-4"></div>
+          <div class="border-top border-secondary col-4"></div>
+          <div class="col-4"></div>
+        </div>
+        <h3 class="text-center col-12 our-concept-subsubtitle">Vous avez des invitations en attente</h3>
+        <div class="col-12 px-4">
+          <% @pending_invitations.each do |booking| %>
+            <%= render 'index_lesson_mobile', lesson: booking.lesson, booking: booking %>
+          <% end %>
+        </div>
+          <div class="col-4"></div>
+          <div class="border-top border-secondary col-4"></div>
+          <div class="col-4"></div>
+        </div>
+      <% end %>
+
+      <div class="col-12">
+        <% @lessons.each do |lesson| %>
+          <%= render 'index_lesson_mobile', lesson: lesson, booking: nil %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

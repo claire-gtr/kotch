@@ -1,3 +1,62 @@
-<div>
-  <%= lesson.date %>
+<div class="d-flex flex-column my-4 px-2 my-lessons-mobile">
+  <div class="d-flex flex-row justify-content-between align-items-center lessons-public-mobile-title pt-1 px-1">
+    <p class="mb-1"><%= lesson.sport_type.upcase %></p>
+    <p class="mb-1"><i class="far fa-calendar mr-1"></i><%= I18n.l(lesson.date, format: '%A').capitalize %> <%= I18n.l(lesson.date, format: '%e/%m/%Y') %> <i class="far fa-clock ml-2"></i> <%= lesson.date.strftime('%Hh%M') %></p>
+  </div>
+  <div class="d-flex flex-row justify-content-start align-items-start mt-1 shadow lessons-public-mobile-text">
+    <div class="d-flex flex-column ml-2 lessons-public-mobile-infos">
+      <p class="mt-1 mb-2">Votre coach : <%= lesson.user ? lesson.user.first_name.capitalize : 'Pas de coach' %></p>
+      <!-- Button trigger modal -->
+      <p type="button" class="mb-2" data-toggle="modal" data-target="#lesson-mobile-<%= lesson.id %>">
+        Participant(s) : <%= lesson.users.count %> / 10
+      </p>
+      <p class="mb-2">
+        Statut :
+        <% if lesson.status == "canceled" %>
+          Annulée
+        <% elsif lesson.status == "pending" %>
+          En attente
+        <% else %>
+          <%= lesson.status.capitalize %>
+        <% end %>
+      </p>
+      <!-- Modal -->
+      <div class="modal fade" id="lesson-mobile-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModal-<%= lesson.id %>Label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content card-kotch">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <% lesson.users.each do |user| %>
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between text-blue align-items-end">
+                    <p class="mb-0"><%= user.full_name %></p>
+                    <p class="mb-0"><em><%= Booking.find_by(user: user, lesson: lesson).status %></em></p>
+                  </div>
+                  <% if user_signed_in? && (current_user.coach || current_user.admin) %>
+                    <div>
+                      <%= link_to "Voir le profil sportif", sportive_profile_path(user), class:'btn btn-kotch btn-light-blue btn-extra-small-narrow '  %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-kotch btn-blue" data-dismiss="modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column ml-1 lessons-public-mobile-infos align-items-start justify-content-start">
+      <p class="mt-1 mb-2">Lieu : <%= lesson.location.name.capitalize %></p>
+      <% if booking.present? %>
+        <%= link_to "Accepter l'invitation", accept_invitation_path(booking), class:"btn btn-kotch btn-red" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="w-100 border-top border-secondary mb-3"></div>
 </div>

@@ -1,5 +1,5 @@
 <div class="container">
-  <% if current_user.coach %>
+  <% if current_user.coach? %>
     <div class="row">
       <% if @lessons.empty? %>
         <div class="col-12 text-center">
@@ -20,6 +20,6 @@
           <%= render 'index_lesson_mobile', lesson: lesson %>
         <% end %>
       </div>
-    <% end %>
+    </div>
   <% end %>
 </div>

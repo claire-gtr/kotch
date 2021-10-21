@@ -60,66 +60,90 @@
       </div>
     </div>
     <% unless booking.present? %>
-      <div class="lessons-mobile-btn d-flex">
-        <% if !current_user.coach? %>
-          <% if lesson.bookings.count <= 10 %>
-            <div>
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-kotch btn-red mb-1 ml-1" data-toggle="modal" data-target="#addUserModalMobile-<%= lesson.id %>">
-                Inviter des participants
-              </button>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="addUserModalMobile-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="addUserModal-<%= lesson.id %>Label" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content card-kotch">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body text-blue py-5">
-                    <% @users_to_invite = @friends - lesson.users.to_a %>
-                    <%= simple_form_for @booking do |f| %>
-                      <%= f.association :user, collection: @users_to_invite.map { |m| [m.full_name, m.id] }, label: "Sélectionner parmi vos amis" %>
-                      <%= f.input :lesson_id, as: :hidden, input_html: { value: lesson.id } %>
-                      <%= f.submit 'Envoyer une invitation', class:'btn btn-kotch btn-blue w-100' %>
-                    <% end %>
-                    <p class="my-3"></p>
-                    <%= simple_form_for @booking, method: :post, url: create_by_emails_path do |f| %>
-                      <%= f.input :lesson_id, as: :hidden, input_html: { value: lesson.id } %>
-                      <%= text_area_tag :emails,
-                        nil,
-                        placeholder: "Renseignez les adresses email de vos amis pas encore inscrits et séparez-les par une virgule",
-                        label: 'Envoyez des invitations par mail',
-                        class: 'w-100 mt-3 p-2 many-emails-input-modal' %>
-                      <%= f.submit "Envoyer les invitations", class:'btn btn-kotch btn-blue w-100 mt-2' %>
-                    <% end %>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-kotch btn-light-blue" data-dismiss="modal">Annuler</button>
+      <div class="hidden hidden-lesson-btn-<%= lesson.id %>">
+        <div class="lessons-mobile-btn d-flex align-items-start justify-content-around mt-3">
+          <% if !current_user.coach? %>
+            <% if lesson.bookings.count <= 10 %>
+              <div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-kotch btn-red mb-0 ml-1" data-toggle="modal" data-target="#addUserModalMobile-<%= lesson.id %>">
+                  Inviter des participants
+                </button>
+              </div>
+              <!-- Modal -->
+              <div class="modal fade" id="addUserModalMobile-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="addUserModal-<%= lesson.id %>Label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content card-kotch">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body text-blue py-5">
+                      <% @users_to_invite = @friends - lesson.users.to_a %>
+                      <%= simple_form_for @booking do |f| %>
+                        <%= f.association :user, collection: @users_to_invite.map { |m| [m.full_name, m.id] }, label: "Sélectionner parmi vos amis" %>
+                        <%= f.input :lesson_id, as: :hidden, input_html: { value: lesson.id } %>
+                        <%= f.submit 'Envoyer une invitation', class:'btn btn-kotch btn-blue w-100' %>
+                      <% end %>
+                      <p class="my-3"></p>
+                      <%= simple_form_for @booking, method: :post, url: create_by_emails_path do |f| %>
+                        <%= f.input :lesson_id, as: :hidden, input_html: { value: lesson.id } %>
+                        <%= text_area_tag :emails,
+                          nil,
+                          placeholder: "Renseignez les adresses email de vos amis pas encore inscrits et séparez-les par une virgule",
+                          label: 'Envoyez des invitations par mail',
+                          class: 'w-100 mt-3 p-2 many-emails-input-modal' %>
+                        <%= f.submit "Envoyer les invitations", class:'btn btn-kotch btn-blue w-100 mt-2' %>
+                      <% end %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-kotch btn-light-blue" data-dismiss="modal">Annuler</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          <% else %>
-            <p class="text-blue text-condensed text-small"> <em>Séance complète</em></p>
-          <% end %>
-        <% end %>
-        <p>
-          <%= link_to lesson_messages_path(lesson), class:'btn btn-kotch btn-red mb-1 mx-1' do %>
-            Consulter la messagerie
-            <% if current_user.coach? %>
-              <% if lesson.messages&.find_by(readed: false).present? %>
-                <div class="blue-dot ml-2"></div>
-              <% end %>
             <% else %>
-              <% if lesson.bookings&.find_by(user: current_user, messages_readed: false).present? %>
-                <div class="blue-dot ml-2"></div>
-              <% end %>
+              <p class="mt-3 text-center text-blue text-condensed text-small ml-1">Séance complète</p>
             <% end %>
           <% end %>
-        </p>
+          <p>
+            <%= link_to lesson_messages_path(lesson), class:'btn btn-kotch btn-red mb-0 mx-1' do %>
+              Consulter la messagerie
+              <% if current_user.coach? %>
+                <% if lesson.messages&.find_by(readed: false).present? %>
+                  !!!
+                <% end %>
+              <% else %>
+                <% if lesson.bookings&.find_by(user: current_user, messages_readed: false).present? %>
+                  !!!
+                <% end %>
+              <% end %>
+            <% end %>
+          </p>
+          <p>
+            <% if !lesson.public? %>
+              <%= link_to change_lesson_public_path(lesson), class: "btn btn-kotch btn-red mb-0 mr-1" do %>
+                Ouvrir au public
+              <% end %>
+            <% else %>
+              <p class="mt-3 text-center text-blue text-condensed text-small mr-1">Séance publique</p>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <div class="mb-2 italic text-center hidden hidden-lesson-btn-cancel-<%= lesson.id %>">
+        <% if !current_user.coach %>
+          <% if (lesson.date.to_date > Date.today + 1.day) && (lesson.diff_time >= DateTime.now) %>
+            <%= link_to "Annuler ma réservation à cette séance", booking_path(Booking.find_by(user: current_user, lesson: lesson)), method: :delete, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}, class:'text-small text-condensed'  %>
+          <% elsif (lesson.date.to_date >= Date.today) && (lesson.diff_time < DateTime.now) %>
+            <p class="text-blue mb-0 text-small text-condensed">Cette séance a lieu dans moins de 24h, vous ne pouvez pas l'annuler.</p>
+          <% else %>
+            <p class="text-blue mb-0 text-small text-condensed">Cette séance a déjà eu lieu.</p>
+          <% end %>
+        <% else %>
+          <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}, class:'text-small text-condensed'  %>
+        <% end %>
       </div>
       <div class="w-100 border-top border-secondary mb-1"></div>
       <div class="d-flex justify-content-around align-items-center">

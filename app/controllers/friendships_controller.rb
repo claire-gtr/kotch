@@ -13,7 +13,7 @@ class FriendshipsController < ApplicationController
         friendship.friend_b.last_name.downcase == params[:friend_query].downcase.gsub(/\s+/, '')
       end
       if @my_friends.empty?
-        flash[:alert] = "Aucun compte utilisateur ne correspond ou bien l'orthographe de vos informations est à modifier."
+        flash[:alert] = "Aucun compte utilisateur ne correspond à votre recherche ou bien les informations renseignées contiennent des erreurs."
       end
     else
       @my_friends = current_user.friendships
@@ -24,7 +24,7 @@ class FriendshipsController < ApplicationController
         user.email.downcase == params[:email].downcase.gsub(/\s+/, '')
       end
       if @new_friends.empty?
-        flash[:alert] = "Aucun compte utilisateur ne correspond ou bien l'orthographe de vos informations est à modifier."
+        flash[:alert] = "Aucun compte utilisateur ne correspond à votre recherche ou bien les informations renseignées contiennent des erreurs."
       end
     elsif params[:first_name].present? && params[:last_name].present?
       @new_friends = User.all.select do |user|
@@ -32,7 +32,7 @@ class FriendshipsController < ApplicationController
         (user.last_name.downcase == params[:last_name].downcase.gsub(/\s+/, ''))
       end
       if @new_friends.empty?
-        flash[:alert] = "Aucun compte utilisateur ne correspond ou bien l'orthographe de vos informations est à modifier."
+        flash[:alert] = "Aucun compte utilisateur ne correspond à votre recherche ou bien les informations renseignées contiennent des erreurs."
       end
     else
       @new_friends = []

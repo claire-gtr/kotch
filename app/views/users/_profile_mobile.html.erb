@@ -1,17 +1,17 @@
-<div class="container">
+<div class="container" data-controller="profile">
   <div class="row">
     <h1 class="text-center col-12 our-concept-title my-5">mon profil</h1>
 
-    <div class="shadow w-100 d-flex justify-content-between text-center mx-2 p-1">
+    <div class="shadow col-12 text-wrap d-flex justify-content-between text-center mx-2 p-1">
       <div class="col-4 d-flex flex-column justify-content-center align-items-center">
         <div>
           <%= cl_image_tag @user.profile_picture, class:'avatar' %>
         </div>
         <div class="italic">
           <% if current_user.coach %>
-            <u><%= link_to "Modifier mon profil", edit_user_registration_path, class:'text-very-small text-light-blue' %></u>
+            <u><%= link_to "Modifier mon profil", edit_user_registration_path, class:'text-very-small text-light-blue m-0 p-0' %></u>
           <% else %>
-            <u><%= link_to "Modifier mon profil", edit_user_registration_path, class:'text-very-small' %></u>
+            <u><%= link_to "Modifier mon profil", edit_user_registration_path, class:'text-very-small m-0 p-0' %></u>
           <% end %>
         </div>
       </div>
@@ -23,20 +23,18 @@
           <% unless current_user.coach || !current_user.subscription.active? %>
             <p class='text-coral text-bold mb-2 italic'>Séances utilisées <span class="bg-color-coral text-white rounded px-1 ml-1"><%= @used_this_month %> / <%= @included_lessons %></span></p>
           <% end %>
-          <p class="mb-0"><%= @user.phone_number %></p>
-          <p class="mb-0"><%= @user.email %></p>
-          <p class="mb-2"><%= @user.address %></p>
+          <p class="mb-0 text-small"><%= @user.phone_number %></p>
+          <p class="mb-0 text-small"><%= @user.email %></p>
+          <p class="mb-2 text-small"><%= @user.address %></p>
         <% end %>
       </div>
     </div>
 
-    <div class="col-12">
-      <% if current_user.coach? %>
-        <%= render 'tab_coach_mobile' %>
-      <% else %>
-        <%= render 'tab_user_mobile' %>
-      <% end %>
-    </div>
+    <% if current_user.coach? %>
+      <%= render 'tab_coach_mobile' %>
+    <% else %>
+      <%= render 'tab_user_mobile' %>
+    <% end %>
 
   </div>
 </div>

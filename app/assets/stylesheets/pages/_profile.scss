@@ -130,4 +130,25 @@
   th {
     font-size: 1rem;
   }
+
+  .participants-modal  {
+    background-color: $white;
+
+    p {
+      color: $blue-kotch;
+      background-color: $white;
+    }
+
+    span {
+      color: $coral-kotch;
+      background-color: $white;
+    }
+
+    button {
+      i {
+        font-size: 25px;
+        color: $blue-kotch;
+      }
+    }
+  }
 }

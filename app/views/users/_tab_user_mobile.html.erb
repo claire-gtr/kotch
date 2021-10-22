@@ -32,28 +32,26 @@
         <div class="modal fade" id="modal1-<%= booking.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content participants-modal">
-              <div class="modal-header d-flex">
-                <h3 class="modal-title" id="participantsModalLabel"><%= booking.lesson.sport_type.upcase %></h3>
-                <p><i><%= booking.lesson.date.strftime("%d/%m/%Y") %></i></p>
+              <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
                 </button>
               </div>
               <div class="modal-body">
-                <h5 class="my-3">COACH</h5>
-                <% if  booking.lesson.user %>
-                  <p class="text-blue text-condensed"><%= booking.lesson.user.first_name if booking.lesson.user_id%></p>
-                <% else %>
-                  <p class="text-blue">Il n'y a pas encore de coach</p>
-                <% end %>
-                <h5 class="my-3">PARTICIPANTS</h5>
+                <p class="mt-1">
+                    <span class="text-bold">Coach : </span>
+                  <% if  booking.lesson.user %>
+                    <%= booking.lesson.user.first_name if booking.lesson.user_id%>
+                  <% else %>
+                    Il n'y a pas encore de coach
+                  <% end %>
+                </p>
+                <p class="my-3"><span class="text-bold">Lieu : </span><%= booking.lesson.location.name %></p>
+                <span class="mb-1 text-bold">Participants</span>
                 <% booking.lesson.bookings.includes([:user]).each do |booking| %>
-                  <span>
-                    <div class="bullet">• &nbsp</div>
-                    <ul class="d-flex justify-content-between">
-                      <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
-                    </ul>
-                  </span>
+                  <div class="">
+                    <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
+                  </div>
                 <% end %>
               </div>
             </div>
@@ -91,29 +89,30 @@
         <div class="modal fade" id="modal-past-bookings-<%= booking.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content participants-modal">
-              <div class="modal-header d-flex">
-                <h3 class="modal-title" id="participantsModalLabel"><%= booking.lesson.sport_type.upcase %></h3>
-                <p><i><%= booking.lesson.date.strftime("%d/%m/%Y") %></i></p>
+              <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
                 </button>
               </div>
               <div class="modal-body">
-                <h5 class="my-3">PARTICIPANTS</h5>
+                <p class="mt-1">
+                  <span class="text-bold">Statut : </span>
+                  <% if booking.lesson.status == "pending" %>
+                    En attente
+                  <% elsif booking.lesson.status == "canceled" %>
+                    Annulée
+                  <% else %>
+                    <%= booking.lesson.status %>
+                  <% end %>
+                </p>
+                <p class="my-3"><span class="text-bold">Lieu : </span><%= booking.lesson.location.name %></p>
+                <span class="mb-1 text-bold">Participants</span>
                 <% booking.lesson.bookings.includes([:user]).each do |booking| %>
-                  <span>
-                    <div class="bullet">• &nbsp</div>
-                    <ul class="d-flex justify-content-between">
-                      <li><%= booking.user.first_name %> <%= booking.user.last_name.upcase %></li>
-                    </ul>
-                  </span>
+                  <div class="">
+                    <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
+                  </div>
                 <% end %>
-                <h5 class="my-3">ÉLÉMENTS TRAVAILLÉS PENDANT LA SÉANCES</h5>
-                <%= simple_form_for booking.lesson, url: focus_lesson_path(booking.lesson), method: :get do |f| %>
-                  <%= f.input :focus, label: false %>
-                <%= f.submit "Enregistré les éléments travaillés", class:'btn btn-kotch btn-ghost' %>
-                <% end %>
-                </div>
+              </div>
             </div>
           </div>
         </div>

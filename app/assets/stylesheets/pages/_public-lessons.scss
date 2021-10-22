@@ -107,6 +107,11 @@
 
     .lessons-public-mobile-infos {
       width: 250px;
+
+      .participants-btn {
+        width: 75%;
+        border-radius: 5px;
+      }
     }
   }
 }

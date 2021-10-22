@@ -62,12 +62,12 @@ h4 {
   font-size: 14px;
 }
 
-.text-condensed {
-  font-family: 'Barlow Condensed', 'sans-serif';
+.text-very-small {
+  font-size: 12px;
 }
 
-.text-light-blue {
-  color: $light-blue-kotch;
+.text-condensed {
+  font-family: 'Barlow Condensed', 'sans-serif';
 }
 
 .title-sport {
@@ -75,4 +75,12 @@ h4 {
   font-size:1.3rem;
   color: $coral-kotch;
   font-family: 'Barlow Condensed', 'sans-serif';
+}
+
+.bg-color-coral {
+  background-color: $coral-kotch;
+}
+
+.rounded {
+  border-radius: 8px;
 }

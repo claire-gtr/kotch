@@ -10,7 +10,7 @@ class LessonPolicy < ApplicationPolicy
             ids << booking.lesson_id
           end
         end
-        scope.where(id: ids)
+        scope.where(id: ids).where("date >= ?", Time.now)
       else
         raise Pundit::NotAuthorizedError
       end

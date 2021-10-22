@@ -1,4 +1,4 @@
-<div class="d-flex flex-column my-4 px-2 my-lessons-mobile">
+<div class="d-flex flex-column my-4 pr-2 my-lessons-mobile">
   <div class="d-flex flex-row justify-content-between align-items-center lessons-public-mobile-title pt-1 px-1">
     <p class="mb-1"><%= lesson.sport_type.upcase %></p>
     <p class="mb-1"><i class="far fa-calendar mr-1"></i><%= I18n.l(lesson.date, format: '%A').capitalize %> <%= I18n.l(lesson.date, format: '%e/%m/%Y') %> <i class="far fa-clock ml-2"></i> <%= lesson.date.strftime('%Hh%M') %></p>
@@ -6,9 +6,9 @@
   <div class="d-flex flex-column shadow lessons-public-mobile-text">
     <div class="d-flex flex-row justify-content-start align-items-start mt-1">
       <div class="d-flex flex-column ml-2 lessons-public-mobile-infos">
-        <p class="mt-1 mb-2">Votre coach : <%= lesson.user ? lesson.user.first_name.capitalize : 'Pas de coach' %></p>
+        <p class="mt-1 mb-2"><span class="lessons-mobile-subtitle">Votre coach :</span> <%= lesson.user ? lesson.user.first_name.capitalize : 'Pas de coach' %></p>
         <p class="mb-2">
-          Statut :
+          <span class="lessons-mobile-subtitle">Statut :</span>
           <% if lesson.status == "canceled" %>
             Annulée
           <% elsif lesson.status == "pending" %>
@@ -19,7 +19,7 @@
         </p>
         <!-- Button trigger modal -->
         <button type="button" class="mb-2 p-1 border text-center participants-btn btn-plus" data-toggle="modal" data-target="#lesson-mobile-<%= lesson.id %>">
-          Participants : <%= lesson.users.count %> / 10 <i class="fas fa-plus-circle fa-xs ml-2"></i>
+          <span class="lessons-mobile-subtitle">Participants :</span> <%= lesson.users.count %> / 10 <i class="fas fa-plus-circle fa-xs ml-2"></i>
         </button>
         <!-- Modal -->
         <div class="modal fade" id="lesson-mobile-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModal-<%= lesson.id %>Label" aria-hidden="true">
@@ -53,9 +53,9 @@
         </div>
       </div>
       <div class="d-flex flex-column ml-1 lessons-public-mobile-infos align-items-start justify-content-start">
-        <p class="mt-1 mb-2">Lieu : <%= lesson.location.name.capitalize %></p>
+        <p class="mt-1 mb-2"><span class="lessons-mobile-subtitle">Lieu :</span> <%= lesson.location.name.capitalize %></p>
         <% if booking.present? %>
-          <%= link_to "Accepter l'invitation", accept_invitation_path(booking), class:"btn btn-kotch btn-red" %>
+          <%= link_to "Accepter l'invitation", accept_invitation_path(booking), class:"btn btn-kotch btn-red mb-2" %>
         <% end %>
       </div>
     </div>

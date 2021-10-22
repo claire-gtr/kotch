@@ -1,6 +1,6 @@
-<button role="button" class="profil-btn-mobile col-12 mt-3 mx-2" data-profile-target="futurLesson" id="tab-1">Séance à venir</button>
+<button role="button" class="profil-btn-mobile col-12 mt-3" data-profile-target="futurLesson" data-action="click->profile#futur" id="tab-1">Séance à venir</button>
 
-<table class="w-100 text-center hidden" data-profile-target="futurLessonTable">
+<table class="w-100 text-center hidden shadow" data-profile-target="futurLessonTable">
   <thead class="w-100">
     <tr>
       <th>Sport</th>
@@ -25,7 +25,7 @@
             <% end %>
           </td>
           <td class='py-2'>
-            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-<%= booking.lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>
+            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-<%= booking.lesson.id %>"><i class="fas fa-plus-circle"></i></button>
           </td>
         </tr>
         <!-- Modal -->
@@ -65,9 +65,9 @@
   </tbody>
 </table>
 
-<button role="button" class="profil-btn-mobile col-12 my-2 mx-2" data-profile-target="oldLesson" id="tab-2">Historique des séances</button>
+<button role="button" class="profil-btn-mobile col-12 my-2" data-profile-target="oldLesson" data-action="click->profile#old" id="tab-2">Historique des séances</button>
 
-<table class="w-100 text-center hidden" data-profile-target="oldLessonTable">
+<table class="w-100 text-center shadow hidden" data-profile-target="oldLessonTable">
   <thead class="w-100">
     <tr>
       <th>Sport</th>
@@ -84,7 +84,7 @@
           <td class="py-2"><%= booking.lesson.date.strftime('%d/%m/%Y à %H:%M') %></td>
           <td class="py-2"><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
           <td>
-            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal-past-bookings-<%= booking.lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>
+            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal-past-bookings-<%= booking.lesson.id %>"><i class="fas fa-plus-circle"></i></button>
           </td>
         </tr>
         <!-- Modal -->
@@ -123,12 +123,12 @@
   </tbody>
 </table>
 
-<button role="button" class="profil-btn-mobile col-12 mb-3 mx-2" data-profile-target="subscription" id="tab-3">Mon abonnement / Mes achats</button>
+<button role="button" class="profil-btn-mobile col-12 mb-3" data-profile-target="subscription" data-action="click->profile#order" id="tab-3">Mon abonnement / Mes achats</button>
 
-<div class="hidden" data-profile-target="subscriptionData">
+<div class="hidden shadow px-5" data-profile-target="subscriptionData" id="profile-mobile-order">
   <% if current_user.subscription && current_user.subscription.stripe_id %>
     <div class="text-center">
-      <p class="text-blue mt-5">Vous êtes actuellement abonné(e) au plan <%= current_user.subscription.nickname %>.</p>
+      <p class="text-blue mt-1 mb-0">Vous êtes actuellement abonné(e) au plan <%= current_user.subscription.nickname %>.</p>
       <form action="/customer_portal_sessions" method="POST">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         <button class="btn btn-kotch btn-red">Gérer mon abonnement</button>
@@ -136,27 +136,28 @@
     </div>
   <% else %>
     <div class="text-center">
-      <p class="text-blue">Vous n'avez pas d'abonnement à Koach.</p>
-      <%= link_to "Je m'abonne", offers_path, data: {turbolinks: "false"}, class:'btn btn-red btn-kotch'  %>
+      <p class="text-blue mb-0">Vous n'avez pas d'abonnement à Koach.</p>
+      <%= link_to "Je m'abonne", offers_path, data: { turbolinks: "false" }, class:'btn btn-red btn-kotch' %>
     </div>
   <% end %>
   <div class="text-center">
     <% if current_user.credit_count > 0 %>
-      <p class="text-blue mt-5">Vous avez <%= current_user.credit_count %> crédits hors abonnement.</p>
+      <p class="text-blue mt-4 mb-0">Vous avez <%= current_user.credit_count %> crédits hors abonnement.</p>
     <% else %>
-      <p class="text-blue mt-5">Vous n'avez pas de séances hors abonnement.</p>
+      <p class="text-blue mt-4 mb-0">Vous n'avez pas de séances hors abonnement.</p>
     <% end %>
+    <%= link_to "J'achète des séances", offers_path(anchor: "lessons-individually"), data: { turbolinks: "false" }, class:'btn btn-red btn-kotch' %>
   </div>
   <div class="text-center">
     <% if current_user.promo_code_used == false %>
-      <p class="text-blue mt-5">Entrer un code promotionnel ou de parrainage :</p>
+      <p class="text-blue mt-4 mb-0">Entrer un code promotionnel ou de parrainage :</p>
       <%= simple_form_for current_user, url: use_a_promo_code_path(current_user), method: :patch do |f| %>
-        <%= text_field_tag :code, nil, label: "Nom du code", class:'text-uppercase' %>
+        <%= text_field_tag :code, nil, label: "Nom du code", class:'text-uppercase', input_html: { class:'promotional-input' } %>
         <br>
-        <%= submit_tag "Utiliser ce code", class:'btn btn-red btn-kotch mt-2' %>
+        <%= submit_tag "J'utilise ce code", class:'btn btn-red btn-kotch mb-2 mt-1' %>
       <% end %>
     <% else %>
-      <p class="text-blue mt-5">Vous avez déjà utilisé un code promotionnel ou un code de parrainage.</p>
+      <p class="text-blue mt-4 mb-2">Vous avez déjà utilisé un code promotionnel ou un code de parrainage.</p>
     <% end %>
   </div>
 </div>

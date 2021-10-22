@@ -10,15 +10,21 @@ export default class extends Controller {
   'subscriptionData'
 ]
 
-  down(event) {
-    const lessonID = event.currentTarget.dataset.id;
-    const chevronUp = document.querySelector(`.chevronUp-${lessonID}`);
-    const hiddenBtn = document.querySelector(`.hidden-lesson-btn-${lessonID}`);
-    const hiddenBtnCancel = document.querySelector(`.hidden-lesson-btn-cancel-${lessonID}`);
+  futur(event) {
+    this.futurLessonTableTarget.classList.toggle('hidden');
+    this.oldLessonTarget.classList.toggle('hidden');
+    this.subscriptionTarget.classList.toggle('hidden');
+  }
 
-    event.currentTarget.classList.add('hidden');
-    chevronUp.classList.remove('hidden');
-    hiddenBtn.classList.remove('hidden');
-    hiddenBtnCancel.classList.remove('hidden');
+  old(event) {
+    this.futurLessonTarget.classList.toggle('hidden');
+    this.subscriptionTarget.classList.toggle('hidden');
+    this.oldLessonTableTarget.classList.toggle('hidden');
+  }
+
+  order(event) {
+    this.futurLessonTarget.classList.toggle('hidden');
+    this.oldLessonTarget.classList.toggle('hidden');
+    this.subscriptionDataTarget.classList.toggle('hidden');
   }
 }

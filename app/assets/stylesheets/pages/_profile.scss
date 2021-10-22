@@ -114,9 +114,20 @@
 }
 
 #profile-mobile-order {
-  a, input {
+  a, input, button {
     width: 60%;
     text-align: center;
     border-radius: 5px;
+  }
+}
+
+#profile-mobile-page {
+  td {
+    font-weight: 400;
+    font-size: 0.8rem;
+  }
+
+  th {
+    font-size: 1rem;
   }
 }

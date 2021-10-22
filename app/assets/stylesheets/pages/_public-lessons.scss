@@ -29,11 +29,16 @@
 @media only screen and (min-width: 700px) {
   #dropdown-lesson-lieu {
     .btn-dropdown {
-      width: 29em;
+      width: 43em;
     }
   }
+
   #dropdown-menu-lieu {
-    width: 29em;
+    width: 43em;
+  }
+
+  #dropdown-lesson-activity {
+    width: 15em;
   }
 }
 
@@ -74,11 +79,19 @@
     *:focus {
       outline: none !important;
     }
+
+    #dropdown-lesson-activity {
+      width: 15em;
+    }
   }
 
   #dropdown-lesson-lieu {
     .btn-dropdown {
       width: 22em;
+    }
+
+    #dropdown-menu-lieu {
+      width: 23em;
     }
   }
 
@@ -107,6 +120,11 @@
 
     .lessons-public-mobile-infos {
       width: 250px;
+
+      .participants-btn {
+        width: 75%;
+        border-radius: 5px;
+      }
     }
   }
 }

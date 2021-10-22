@@ -8,13 +8,13 @@
   <% else %>
     <div class="d-flex justify-content-center align-items-center mx-2">
       <div class="dropdown-lesson-mobile mt-2 mt-md-0 mx-1">
-        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuActivity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="d-flex justify-content-between">
             Activité
             <i class="fas fa-caret-down fa-lg"></i>
           </div>
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuJour">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuActivity" id="dropdown-lesson-activity">
           <ul>
             <li><%= link_to "Cross Training", public_lessons_path(activity: "Cross Training")  %></li>
             <li><%= link_to "Cuisses Abdos Fessiers", public_lessons_path(activity: "Cuisses Abdos Fessiers")  %></li>

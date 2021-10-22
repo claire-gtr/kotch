@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row mt-2 h-100">
+    <div class="col-12 col-lg-3 px-2 my-auto">
+      <div class="<%= current_user.coach ? "card-dark-blue" : "card-blue" %> profile-box p-3">
+        <div class="text-left">
+          <h2 class='text-coral text-xbold mb-0'>MON PROFIL</h2>
+          <% if current_user.coach %>
+            <u><%= link_to "modifier mon profil", edit_user_registration_path, class:'text-small text-light-blue' %></u>
+          <% else %>
+            <u><%= link_to "modifier mon profil", edit_user_registration_path, class:'text-small' %></u>
+          <% end %>
+        </div>
+        <div class="text-center mt-4">
+          <%= cl_image_tag @user.profile_picture, class:'avatar' %>
+          <% unless current_user.coach || !current_user.subscription.active? %>
+            <p class='text-coral text-bold'><%= @used_this_month %>/<%= @included_lessons %> séances utilisés ce mois</p>
+          <% end %>
+        </div>
+        <% if current_user.coach %>
+          <div class="text-left mt-4">
+            <!-- <p class="d-flex justify-content-between">
+              <i><span class="text-coral"><%#= Date.today.strftime('%a %d/%m/%Y') %></span></i>
+              <i><span class="text-coral"><%#= Time.now.strftime('%H:%M') %></span></i>
+            </p> -->
+            <span class="text-light-blue"><%= @coachings_done.count %> coachings effectués ce mois ci</span><br>
+            <div class="d-flex">
+              <% if current_user.lessons.any? %>
+                <%= link_to "Messages",
+                  lessons_path,
+                  class: "text-light-blue hover-underline" %>
+                <% end %>
+              <!-- <div class="msg-icon"><p><%#= rand(0..5) %></p></div> -->
+            </div>
+            <% if @all_lessons %>
+              <div class= 'mt-2'>
+                <p class="text-light-blue mb-0"><b> Nombre de séances effectuées par mois</b></p>
+                <div>
+                  <% @all_lessons.each do |month| %>
+                    <% if month[:count] != 0 %>
+                      <p class="mb-0"><%= month[:month] %> : <%= month[:count] %></p>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="text-left mt-4 <%= current_user.coach ? "text-white" : "text-blue" %> font-condensed profile-info">
+          <p class='mb-1'>PRÉNOM : <%= @user.first_name.capitalize %></p>
+          <p class='mb-1'>NOM : <%= @user.last_name.capitalize %></p>
+          <% unless current_user.coach %>
+            <p class='mb-1'>DATE DE NAISSANCE : <%= @user.birth_date %></p>
+            <p class='mb-1'>ADRESSE POSTALE : <%= @user.address %></p>
+            <p class='mb-1'>EMAIL : <%= @user.email %></p>
+            <p class='mb-1'>TÉLÉPHONE : <%= @user.phone_number %></p>
+            <% unless @user.referral_code == "" %>
+              <p class='mb-1'>CODE PARRAIN : <%= @user.referral_code %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-12 col-lg-9 px-2 mt-3 mt-lg-0">
+      <% if current_user.coach? %>
+        <%= render 'tab_coach' %>
+      <% else %>
+        <%= render 'tab_user' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%#
+REFERENCES FOR CSS CLASSES
+
+.profile-box                              => pages/_profile.scss
+%>

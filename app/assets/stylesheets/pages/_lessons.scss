@@ -11,7 +11,7 @@
 .my-lessons-mobile {
   font-size: 0.85rem;
   color: $blue-kotch;
-  width: 100%;
+  width: 105%;
 
   .lessons-public-mobile-title {
     color: $white;
@@ -37,7 +37,7 @@
     width: 200px;
 
     .participants-btn {
-      width: 95%;
+      width: 97%;
       border-radius: 5px;
     }
   }
@@ -49,5 +49,10 @@
       padding: 5px, 2px;
       font-size: 0.85rem;
     }
+  }
+
+  .lessons-mobile-subtitle {
+    color: $coral-kotch;
+    font-weight: 700;
   }
 }

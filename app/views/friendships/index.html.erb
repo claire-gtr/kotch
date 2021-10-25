@@ -3,7 +3,7 @@
     <div class="col-12 col-md-8">
       <div class="p-4 shadow card-white card-white-friends" style="background-image: url(<%= asset_path 'background1.png' %>);">
         <div>
-          <h2 class='text-xbold text-center pb-3'>AGRANDISSEZ VOTRE COMMUNAUTÉ !</h2>
+          <h1 class="our-concept-title text-center pb-3">AGRANDISSEZ VOTRE COMMUNAUTÉ !</h1>
           <div class="friends-tab">
             <div class="search-new-friends">
               <%= form_tag friendships_path, method: :get, class: 'shadow friends-form' do %>
@@ -86,7 +86,7 @@
     </div>
     <div class="col-12 col-md-4 mt-3 mt-md-0">
       <div class="card-blue card-blue-friends shadow p-4">
-        <h2 class='text-xbold pb-3 text-center'>MES AMIS</h2>
+        <h2 class='our-concept-title pb-3 text-center'>MES AMIS</h2>
         <div class="search-friends pb-3">
           <%= form_tag friendships_path, method: :get, class: 'shadow' do %>
             <%= text_field_tag :friend_query,

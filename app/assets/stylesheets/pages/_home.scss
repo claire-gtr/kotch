@@ -178,6 +178,12 @@
   }
 }
 
+@media only screen and (max-width: 992px) {
+  .banner-home-connected {
+    margin-top: 75px;
+  }
+}
+
 .shape-home {
   position: absolute;
   z-index: -1000;

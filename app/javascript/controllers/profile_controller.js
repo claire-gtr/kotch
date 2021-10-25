@@ -7,8 +7,32 @@ export default class extends Controller {
   'oldLesson',
   'oldLessonTable',
   'subscription',
-  'subscriptionData'
+  'subscriptionData',
+  'nextCoaching',
+  'nextCoachingTable',
+  'requestCoaching',
+  'requestCoachingTable',
+  'pastCoaching',
+  'pastCoachingTable'
 ]
+
+  next(event) {
+    this.nextCoachingTableTarget.classList.toggle('hidden');
+    this.requestCoachingTarget.classList.toggle('hidden');
+    this.pastCoachingTarget.classList.toggle('hidden');
+  }
+
+  request(event) {
+    this.nextCoachingTarget.classList.toggle('hidden');
+    this.requestCoachingTableTarget.classList.toggle('hidden');
+    this.pastCoachingTarget.classList.toggle('hidden');
+  }
+
+  past(event) {
+    this.nextCoachingTarget.classList.toggle('hidden');
+    this.requestCoachingTarget.classList.toggle('hidden');
+    this.pastCoachingTableTarget.classList.toggle('hidden');
+  }
 
   futur(event) {
     this.futurLessonTableTarget.classList.toggle('hidden');

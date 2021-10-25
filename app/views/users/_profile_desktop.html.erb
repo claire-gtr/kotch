@@ -4,7 +4,7 @@
       <div class="<%= current_user.coach ? "card-dark-blue" : "card-blue" %> profile-box p-3">
         <div class="text-left">
           <h2 class='text-coral text-xbold mb-0'>MON PROFIL</h2>
-          <% if current_user.coach %>
+          <% if current_user.coach? %>
             <u><%= link_to "modifier mon profil", edit_user_registration_path, class:'text-small text-light-blue' %></u>
           <% else %>
             <u><%= link_to "modifier mon profil", edit_user_registration_path, class:'text-small' %></u>
@@ -16,7 +16,7 @@
             <p class='text-coral text-bold'><%= @used_this_month %>/<%= @included_lessons %> séances utilisés ce mois</p>
           <% end %>
         </div>
-        <% if current_user.coach %>
+        <% if current_user.coach? %>
           <div class="text-left mt-4">
             <!-- <p class="d-flex justify-content-between">
               <i><span class="text-coral"><%#= Date.today.strftime('%a %d/%m/%Y') %></span></i>

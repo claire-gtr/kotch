@@ -4,3 +4,17 @@
 <div class="d-none d-lg-block">
   <%= render "profile_desktop" %>
 </div>
+
+<script>
+  tab1 = document.querySelector('#tab-1');
+  tab2 = document.querySelector('#tab-2');
+  tab3 = document.querySelector('#tab-3');
+
+  window.addEventListener('load', function () {
+    <% if @tab.present? && (@tab == 'tab-2') %>
+      tab2.click();
+    <% elsif @tab.present? && (@tab == 'tab-3') %>
+      tab3.click();
+    <% end %>
+  })
+</script>

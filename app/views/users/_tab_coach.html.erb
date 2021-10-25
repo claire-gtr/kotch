@@ -216,14 +216,3 @@ REFERENCES FOR CSS CLASSES
 .participants-modal                       => pages/_profile.scss
 .btn-plus                                 => _buttons.scss
 %>
-<script>
-  tab1 = document.querySelector('#tab-1');
-  tab2 = document.querySelector('#tab-2');
-  tab3 = document.querySelector('#tab-3');
-
-  window.addEventListener('load', function () {
-    <% if @tab.present? && (@tab == 'tab-2') %>
-      tab2.click();
-    <% end %>
-  })
-</script>

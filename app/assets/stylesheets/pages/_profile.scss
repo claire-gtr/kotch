@@ -131,6 +131,11 @@
     font-size: 1rem;
   }
 
+  .btn-red {
+    border-radius: 5px;
+    font-weight: 400;
+  }
+
   .participants-modal  {
     background-color: $white;
 
@@ -149,6 +154,36 @@
         font-size: 25px;
         color: $blue-kotch;
       }
+    }
+  }
+
+  .btn-validate {
+    .fa-check-circle {
+      color: green;
+    }
+
+    .fa-times-circle {
+      color: red;
+    }
+
+    i {
+      font-size: 22px;
+    }
+  }
+
+  .fa-plus-circle {
+    font-size: 22px;
+  }
+
+  #coachings-requests {
+    .fa-plus-circle {
+      color: $light-blue-kotch
+    }
+  }
+
+  #coachings-pasts {
+    .fa-plus-circle {
+      color: $light-blue-kotch
     }
   }
 }

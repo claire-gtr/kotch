@@ -1,26 +1,25 @@
-<div class="container mx-1 pr-4" data-controller="profile" id="profile-mobile-page">
+<div class="container px-4" data-controller="profile" id="profile-mobile-page">
   <div class="row">
     <h1 class="text-center col-12 our-concept-title my-5">mon profil</h1>
 
-    <div class="shadow col-12 text-wrap d-flex justify-content-between text-center p-1">
+    <div class="shadow col-12 text-wrap d-flex justify-content-between text-center p-1 mb-3">
       <div class="col-4 d-flex flex-column justify-content-center align-items-center pb-1">
         <div>
           <%= cl_image_tag @user.profile_picture, class:'avatar' %>
         </div>
         <div class="italic">
-          <% if current_user.coach %>
-            <u><%= link_to "Modifier mon profil", edit_user_registration_path, class:'text-very-small text-light-blue m-0 p-0' %></u>
-          <% else %>
-            <u><%= link_to "Modifier mon profil", edit_user_registration_path, class:'text-very-small m-0 p-0' %></u>
-          <% end %>
+          <u><%= link_to "Modifier mon profil", edit_user_registration_path, class:'text-very-small m-0 p-0' %></u>
         </div>
       </div>
 
-      <div class="col-8 d-flex flex-column justify-content-start align-items-start text-left">
+      <div class="col-8 d-flex flex-column justify-content-start align-items-start text-left text-blue">
         <p class="mb-0"><b><%= @user.first_name.capitalize %> <%= @user.last_name.upcase %></b></p>
-        <% unless current_user.coach %>
+        <% if current_user.coach? %>
+          <p class='text-coral text-small mt-3 mb-1'><span class="bg-color-coral text-bold text-white rounded px-1 mr-1"><%= @coachings_requests.count %></span> <span class="italic">demandes non répondues</span></p>
+          <p class='text-coral text-small mb-1'><span class="bg-color-coral text-bold text-white rounded px-1 mr-1"><%= @coachings_done.count %></span> <span class="italic">coachings effectués ce mois ci</span></p>
+        <% else %>
           <p class="italic text-very-small mb-2">Code parrainage : <%= @user.referral_code %></p>
-          <% unless current_user.coach || !current_user.subscription.active? %>
+          <% unless !current_user.subscription.active? %>
             <p class='text-coral text-bold mb-2 italic'>Séances utilisées <span class="bg-color-coral text-white rounded px-1 ml-1"><%= @used_this_month %> / <%= @included_lessons %></span></p>
           <% end %>
           <p class="mb-0 text-small"><%= @user.phone_number %></p>

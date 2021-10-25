@@ -25,18 +25,17 @@
           <div class="col-4"></div>
         </div>
         <h3 class="text-center col-12 our-concept-subsubtitle">Vous avez des invitations en attente</h3>
-        <div class="col-12 px-4">
+        <div class="col-12 pr-4">
           <% @pending_invitations.each do |booking| %>
             <%= render 'index_lesson_mobile', lesson: booking.lesson, booking: booking %>
           <% end %>
         </div>
-          <div class="col-4"></div>
-          <div class="border-top border-secondary col-4"></div>
-          <div class="col-4"></div>
-        </div>
+        <div class="col-4"></div>
+        <div class="border-top border-secondary col-4"></div>
+        <div class="col-4"></div>
       <% end %>
 
-      <div class="col-12">
+      <div class="col-12 pr-4">
         <% @lessons.each do |lesson| %>
           <%= render 'index_lesson_mobile', lesson: lesson, booking: nil %>
         <% end %>

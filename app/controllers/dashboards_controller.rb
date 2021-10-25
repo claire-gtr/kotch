@@ -25,7 +25,7 @@ class DashboardsController < ApplicationController
     if @lessons_done_this_year.any?
       @lessons_done_this_year_hash = []
       @lessons_done_this_year.each do |lesson|
-        @lessons_done_this_year_hash << { lesson_id: lesson.id, coach_name: lesson.user.full_name, sport_type: lesson.sport_type, date: lesson.date, status: lesson.status, public: lesson.public, focus: lesson.focus }
+        @lessons_done_this_year_hash << { date: lesson.date, location: lesson.location.name, sport_type: lesson.sport_type, coach_name: lesson.user.full_name, bookings: lesson.bookings.count, lesson_id: lesson.id, status: lesson.status, public: lesson.public, focus: lesson.focus }
       end
     end
 
@@ -164,13 +164,15 @@ class DashboardsController < ApplicationController
     filepath    = 'lessons_done_this_year.csv'
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
-      csv << @lessons_done_this_year.map { |hash| hash["lesson_id"]}
-      csv << @lessons_done_this_year.map { |hash| hash["coach_name"]}
-      csv << @lessons_done_this_year.map { |hash| hash["sport_type"]}
       csv << @lessons_done_this_year.map { |hash| hash["date"]}
-      csv << @lessons_done_this_year.map { |hash| hash["status"]}
-      csv << @lessons_done_this_year.map { |hash| hash["public"]}
-      csv << @lessons_done_this_year.map { |hash| hash["focus"]}
+      csv << @lessons_done_this_year.map { |hash| hash["location"]}
+      csv << @lessons_done_this_year.map { |hash| hash["sport_type"]}
+      csv << @lessons_done_this_year.map { |hash| hash["coach_name"]}
+      csv << @lessons_done_this_year.map { |hash| hash["bookings"]}
+      # csv << @lessons_done_this_year.map { |hash| hash["lesson_id"]}
+      # csv << @lessons_done_this_year.map { |hash| hash["status"]}
+      # csv << @lessons_done_this_year.map { |hash| hash["public"]}
+      # csv << @lessons_done_this_year.map { |hash| hash["focus"]}
     end
     send_file(
       "#{Rails.root}/lessons_done_this_year.csv",

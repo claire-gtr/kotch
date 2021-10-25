@@ -1,0 +1,171 @@
+<button role="button" class="profil-btn-mobile col-12 mb-3" data-profile-target="futurLesson" data-action="click->profile#futur" id="tab-1">Coachings à venir</button>
+
+<table class="w-100 text-center hidden shadow" data-profile-target="futurLessonTable">
+  <thead class="w-100">
+    <tr>
+      <th>Sport</th>
+      <th>Date et heure</th>
+      <th>Statut</th>
+      <th>Détail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @coachings_in_future.any? %>
+      <% @coachings_in_future.each do |lesson| %>
+        <tr>
+          <td class='py-2'><%= lesson.sport_type %></td>
+          <td class='py-2'><%= lesson.date.strftime('%d/%m/%Y à %H:%M') %></td>
+          <td class='py-2'>
+            <% if lesson.status == "pending" %>
+              En attente
+            <% elsif lesson.status == "canceled" %>
+              Annulée
+            <% else %>
+              <%= lesson.status %>
+            <% end %>
+          </td>
+          <td class='py-2'>
+            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-<%= lesson.id %>"><i class="fas fa-plus-circle"></i></button>
+          </td>
+        </tr>
+        <!-- Modal -->
+        <div class="modal fade" id="modal1-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content participants-modal">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p class="mb-3"><span class="text-bold">Lieu : </span><%= lesson.location.name %></p>
+                <span class="mb-1 text-bold">Participants</span>
+                <% lesson.bookings.includes([:user]).each do |booking| %>
+                  <div class="">
+                    <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End modal -->
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<button role="button" class="profil-btn-mobile col-12 mb-3" data-profile-target="oldLesson" data-action="click->profile#old" id="tab-2">demandes de coaching</button>
+
+<table class="w-100 text-center shadow hidden" data-profile-target="oldLessonTable" id="coachings-requests">
+  <thead class="w-100">
+    <tr>
+      <th>Sport</th>
+      <th>Date et heure</th>
+      <th>Lieu</th>
+      <th>Statut</th>
+      <th>Détail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @coachings_requests.any? %>
+      <% @coachings_requests.each do |lesson| %>
+        <tr>
+          <td class="py-2"><%= lesson.sport_type %></td>
+          <td class="py-2"><%= lesson.date.strftime('%d/%m/%Y à %H:%M') %></td>
+          <td class="py-2"><%= lesson.location.name %></td>
+          <td class='py-2'>
+            <%= link_to "Accepter", be_coach_path(lesson), class: 'btn btn-kotch btn-red px-1 py-0' %>
+          </td>
+          <td>
+            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal-past-bookings-<%= lesson.id %>"><i class="fas fa-plus-circle"></i></button>
+          </td>
+        </tr>
+        <!-- Modal -->
+        <div class="modal fade" id="modal-past-bookings-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content participants-modal">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p class="mb-3"><span class="text-bold">Lieu : </span><%= lesson.location.name %></p>
+                <span class="mb-1 text-bold">Participants</span>
+                <% lesson.bookings.includes([:user]).each do |booking| %>
+                  <div class="">
+                    <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End modal -->
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<button role="button" class="profil-btn-mobile col-12 mb-3" data-profile-target="subscription" data-action="click->profile#order" id="tab-3">historique des coachings</button>
+
+<table class="w-100 text-center hidden shadow" data-profile-target="subscriptionData" id="coachings-pasts">
+  <thead class="w-100">
+    <tr>
+      <th>Sport</th>
+      <th>Date et heure</th>
+      <th>Lieu</th>
+      <th>Statut</th>
+      <th>Détail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @coachings_in_past.any? %>
+      <% @coachings_in_past.each do |lesson| %>
+        <tr>
+          <td class='py-2'><%= lesson.sport_type %></td>
+          <td class='py-2'><%= lesson.date.strftime('%d/%m/%Y à %H:%M') %></td>
+          <td class="py-2"><%= lesson.location.name %></td>
+          <td class='py-2 btn-validate'>
+            <% if lesson.status == "effectuée" || lesson.status == "non effectuée" %>
+              <%= lesson.status.capitalize %>
+            <% else %>
+              <%= link_to lesson_done_path(lesson), class:'mr-1' do %>
+                <i class="fas fa-check-circle"></i>
+              <% end %>
+              <%= link_to lesson_not_done_path(lesson), class:'' do %>
+                <i class="fas fa-times-circle"></i>
+              <% end %>
+            <% end %>
+          </td>
+          <td class='py-2'>
+            <button type="button" class="btn-plus text-center" data-toggle="modal" data-target="#modal1-<%= lesson.id %>"><i class="fas fa-plus-circle"></i></button>
+          </td>
+        </tr>
+        <!-- Modal -->
+        <div class="modal fade" id="modal1-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content participants-modal">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p class="mb-3"><span class="text-bold">Lieu : </span><%= lesson.location.name %></p>
+                <span class="mb-1 text-bold">Participants</span>
+                <% lesson.bookings.includes([:user]).each do |booking| %>
+                  <div class="">
+                    <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End modal -->
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

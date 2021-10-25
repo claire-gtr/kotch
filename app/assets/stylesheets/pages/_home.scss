@@ -7,7 +7,6 @@
   width: 100%;
   img {
     position: absolute;
-    // top: 150px;
     bottom: 0;
     left: 0;
     z-index: 0;
@@ -19,9 +18,11 @@
 @include media-breakpoint-up(xs) {
   .card-banner-home {
     img {
+      position: static;
       max-height: 100vh;
       max-width: 100%;
       text-align: center;
+      margin-top: 5rem;
     }
   }
 }
@@ -29,6 +30,10 @@
 @include media-breakpoint-up(lg) {
   .card-banner-home {
     img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
       max-height: 100vh;
       width: 450px;
       text-align: center;
@@ -85,17 +90,20 @@
 
 @include media-breakpoint-up(xs) {
   .first-btn-banner-home {
+    position: static;
     width: 224px;
-    left: 50%;
-    margin-left: -112px;
-    bottom: -30px;
+    // left: 50%;
+    // margin-left: -112px;
+    // bottom: -30px;
   }
 }
 
 @include media-breakpoint-up(lg) {
   .first-btn-banner-home {
+    position: absolute;
     width: 300px;
     left: 25%;
+    margin-left: -112px;
   }
 }
 
@@ -170,6 +178,12 @@
   }
 }
 
+@media only screen and (max-width: 992px) {
+  .banner-home-connected {
+    margin-top: 75px;
+  }
+}
+
 .shape-home {
   position: absolute;
   z-index: -1000;
@@ -193,6 +207,7 @@
   width: 100%;
   background-color: #e5e5e5;
   opacity: 0.85;
-  position: absolute;
+  position: static;
   bottom: 160px;
+  margin-top: 2rem;
 }

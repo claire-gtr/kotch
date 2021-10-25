@@ -1,15 +1,17 @@
 <footer>
   <div class="italic">
     <div class="d-flex justify-content-center align-items-center">
-      <p><%= link_to "A propos", about_path, class:'footer-link mx-0 mx-md-2'%> /
-      <%= link_to "FAQ", faq_path, class:'footer-link mx-0 mx-md-2'%> /
-      <%= link_to "Forum", forum_path, class:'footer-link mx-0 mx-md-2'%> /
-      <a href="mailto:contact@koachandco.com" class="footer-link mx-0 mx-md-2">Contact</a> /
-      <% unless user_signed_in? %>
-        <%= link_to "Je suis coach", coach_sign_up_path, class:'footer-link mx-0 mx-md-2'%> /
-      <% end %>
-      <%= link_to "Mentions légales", legals_path, class:'footer-link mx-0 mx-md-2'%> /
-      <%= link_to "CGV", cgv_path, class:'footer-link mx-0 mx-md-2'%></p>
+      <p>
+        <%= link_to "A propos", about_path, class:'footer-link mx-0 mx-md-2'%> /
+        <%= link_to "FAQ", faq_path, class:'footer-link mx-0 mx-md-2'%> /
+        <%= link_to "Forum", forum_path, class:'footer-link mx-0 mx-md-2'%> /
+        <a href="mailto:contact@koachandco.com" class="footer-link mx-0 mx-md-2">Contact</a> /
+        <% unless user_signed_in? %>
+          <%= link_to "Je suis coach", coach_sign_up_path, class:'footer-link mx-0 mx-md-2'%> /
+        <% end %>
+        <%= link_to "Mentions légales", legals_path, class:'footer-link mx-0 mx-md-2'%> /
+        <%= link_to "CGV", cgv_path, class:'footer-link mx-0 mx-md-2'%>
+      </p>
     </div>
     <div class="text-center mt-2">
       <p class="footer-social-title">rejoignez nous sur les réseaux sociaux</p>

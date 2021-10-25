@@ -16,7 +16,7 @@
         <p class="mb-0"><b><%= @user.first_name.capitalize %> <%= @user.last_name.upcase %></b></p>
         <% if current_user.coach? %>
           <p class='text-coral text-small mt-3 mb-1'><span class="bg-color-coral text-bold text-white rounded px-1 mr-1"><%= @coachings_requests.count %></span> <span class="italic">demandes non répondues</span></p>
-          <p class='text-coral text-small mb-1'><span class="bg-color-coral text-bold text-white rounded px-1 mr-1"><%= @coachings_done.count %></span> <span class="italic">coachings effectués ce mois ci</span></p>
+          <p class='text-coral text-small mb-1'><span class="bg-color-coral text-bold text-white rounded px-1 mr-1"><%= @coachings_done.count %></span> <span class="italic">coachings effectués ce mois-ci</span></p>
         <% else %>
           <p class="italic text-very-small mb-2">Code parrainage : <%= @user.referral_code %></p>
           <% unless !current_user.subscription.active? %>

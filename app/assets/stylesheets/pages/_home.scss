@@ -206,8 +206,10 @@
   font-size: 2rem;
   width: 100%;
   background-color: #e5e5e5;
+  color: $blue-kotch;
   opacity: 0.85;
-  position: static;
-  bottom: 160px;
-  margin-top: 2rem;
+  position: absolute;
+  // position: static;
+  bottom: 25rem;
+  // margin-top: 2rem;
 }

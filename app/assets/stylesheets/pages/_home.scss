@@ -27,6 +27,18 @@
   }
 }
 
+@include media-breakpoint-up(md) {
+  .card-banner-home {
+    img {
+      position: static;
+      max-height: 100vh;
+      max-width: 45%;
+      text-align: center;
+      margin-top: 5rem;
+    }
+  }
+}
+
 @include media-breakpoint-up(lg) {
   .card-banner-home {
     img {
@@ -35,8 +47,20 @@
       left: 0;
       z-index: 0;
       max-height: 100vh;
-      width: 450px;
+      width: 375px;
       text-align: center;
+    }
+
+    .shape-home {
+      width: 450px;
+      max-width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      border-bottom-left-radius: 16px;
+      text-align: left;
+      margin-top: 0rem;
     }
   }
 }
@@ -206,8 +230,10 @@
   font-size: 2rem;
   width: 100%;
   background-color: #e5e5e5;
+  color: $blue-kotch;
   opacity: 0.85;
-  position: static;
-  bottom: 160px;
-  margin-top: 2rem;
+  position: absolute;
+  // position: static;
+  bottom: 22rem;
+  // margin-top: 2rem;
 }

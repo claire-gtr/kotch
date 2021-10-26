@@ -50,6 +50,18 @@
       width: 375px;
       text-align: center;
     }
+
+    .shape-home {
+      width: 450px;
+      max-width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      border-bottom-left-radius: 16px;
+      text-align: left;
+      margin-top: 0rem;
+    }
   }
 }
 

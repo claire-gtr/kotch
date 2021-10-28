@@ -47,7 +47,7 @@ import "@fontsource/barlow/900.css";
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
-
+import "controllers"
 import { initUpdateNavbarOnScroll } from '../components/navbar';
 import { initFlatpickr } from "../plugins/flatpickr";
 import { initFlatpickrBirth } from "../plugins/flatpickr";
@@ -74,5 +74,3 @@ document.addEventListener('turbolinks:load', () => {
     initMapbox();
   }
 });
-
-import "controllers"

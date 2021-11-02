@@ -1,4 +1,7 @@
 class PromoCode < ApplicationRecord
+  has_many :user_codes
+  has_many :users, through: :user_codes
+
   validates :name,
             presence: true,
             exclusion: { in: [""], message: "%{value} n'est pas autorisé." }

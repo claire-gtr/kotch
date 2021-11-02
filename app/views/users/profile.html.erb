@@ -6,15 +6,17 @@
 </div>
 
 <script>
-  tab1 = document.querySelector('#tab-1');
-  tab2 = document.querySelector('#tab-2');
-  tab3 = document.querySelector('#tab-3');
+  tabs1 = document.querySelectorAll('.tab-1');
+  tabs2 = document.querySelectorAll('.tab-2');
+  tabs3 = document.querySelectorAll('.tab-3');
 
   window.addEventListener('load', function () {
-    <% if @tab.present? && (@tab == 'tab-2') %>
-      tab2.click();
+    <% if @tab.present? && (@tab == 'tab-1') %>
+      tabs1.forEach(element => element.click());
+    <% elsif @tab.present? && (@tab == 'tab-2') %>
+      tabs2.forEach(element => element.click());
     <% elsif @tab.present? && (@tab == 'tab-3') %>
-      tab3.click();
+      tabs3.forEach(element => element.click());
     <% end %>
   })
 </script>

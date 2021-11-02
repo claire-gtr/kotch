@@ -69,9 +69,12 @@ class UsersController < ApplicationController
     authorize @user
     @promo_code = PromoCode.find_by(active: true, name: params[:code].upcase)
     @user_sponsor = User.find_by(referral_code: params[:code].upcase)
-    if @promo_code.present?
+    if @promo_code.present? && current_user.user_codes.find_by(promo_code: @promo_code).present?
+      redirect_to profile_path(tab: 'tab-3'), alert: 'Vous avez déjà utilisé ce code promo.'
+    elsif @promo_code.present?
       @user.update(credit_count: @user.credit_count + 1)
       @promo_code.update(uses_count: @promo_code.uses_count + 1)
+      UserCode.create(user: current_user, promo_code: @promo_code)
       redirect_to profile_path(tab: 'tab-3'), notice: 'Le code promo a bien été pris en compte.'
     elsif @user_sponsor.present? && (@user_sponsor == current_user)
       redirect_to profile_path(tab: 'tab-3'), alert: 'Vous ne pouvez pas utiliser votre propre code de parrainage.'

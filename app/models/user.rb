@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :answers
   has_many :pack_orders
   has_many :reasons
+  has_many :user_codes
+  has_many :promo_codes, through: :user_codes
 
   enum gender: { homme: 0, femme: 1, autres: 2 }
   enum sport_habits: { rarely: 0, occasionnally: 1, regularly: 2 }

@@ -6,6 +6,7 @@ elsif Rails.env == "development"
 
   puts 'cleaning database...'
 
+  UserCode.destroy_all
   PromoCode.destroy_all
   Reason.destroy_all
   Partner.destroy_all

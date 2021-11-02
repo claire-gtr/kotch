@@ -1,13 +1,13 @@
 <div class="card-blue profile-box profile-box-bg">
   <ul class="nav nav-tabs justify-content-between rounded-top-right rounded-top-left" role="tablist">
     <li class="nav-item">
-      <a class="active btn btn-big rounded-0" data-toggle="tab" href="#tabs-1" role="tab" id="tab-1">Séance à venir</a>
+      <a class="active btn btn-big rounded-0 tab-1" data-toggle="tab" href="#tabs-1" role="tab" >Séance à venir</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-2" role="tab" id="tab-2">Historique des séances</a>
+      <a class="btn btn-big rounded-0 tab-2" data-toggle="tab" href="#tabs-2" role="tab">Historique des séances</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-big rounded-0" data-toggle="tab" href="#tabs-3" role="tab" id="tab-3">Mon abonnement / Mes achats</a>
+      <a class="btn btn-big rounded-0 tab-3" data-toggle="tab" href="#tabs-3" role="tab">Mon abonnement / Mes achats</a>
     </li>
   </ul>
   <!-- Tab panes -->
@@ -173,15 +173,11 @@
         <% end %>
       </div>
       <div class="text-center">
-        <% if current_user.promo_code_used == false %>
-          <p class="text-blue mt-5">Entrer un code promotionnel ou de parrainage :</p>
-          <%= simple_form_for current_user, url: use_a_promo_code_path(current_user), method: :patch do |f| %>
-            <%= text_field_tag :code, nil, label: "Nom du code", class:'text-uppercase' %>
-            <br>
-            <%= submit_tag "Utiliser ce code", class:'btn btn-red btn-kotch mt-2' %>
-          <% end %>
-        <% else %>
-          <p class="text-blue mt-5">Vous avez déjà utilisé un code promotionnel ou un code de parrainage.</p>
+        <p class="text-blue mt-5">Entrer un code promotionnel ou de parrainage :</p>
+        <%= simple_form_for current_user, url: use_a_promo_code_path(current_user), method: :patch do |f| %>
+          <%= text_field_tag :code, nil, label: "Nom du code", class:'text-uppercase' %>
+          <br>
+          <%= submit_tag "Utiliser ce code", class:'btn btn-red btn-kotch mt-2' %>
         <% end %>
       </div>
     </div>

@@ -26,7 +26,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def use_a_promo_code?
-    !user.promo_code_used?
+    user_loggedin?
   end
 
   def sportive_profile?

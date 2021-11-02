@@ -34,6 +34,10 @@ class ApplicationPolicy
     false
   end
 
+  def user_loggedin?
+    user != nil
+  end
+
   class Scope
     attr_reader :user, :scope
 

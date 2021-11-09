@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:public_lessons]
 
   def index
-    @lessons = policy_scope(Lesson).includes([:user, :bookings, :users, :location]).where.not(status: 'canceled').order('date DESC')
+    @lessons = policy_scope(Lesson).includes([:user, :bookings, :users, :location]).where.not(status: 'canceled').order('date ASC')
     @message = Message.new
     @friends = current_user.my_friends
     @booking = Booking.new

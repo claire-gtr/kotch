@@ -33,6 +33,7 @@ class User < ApplicationRecord
   enum intensity: { intense: 0, endurance: 1, fun: 2, learn: 3 }
   enum expectations: { relax: 0, letgo: 1, amuse: 2, weight_loss: 3, muscle: 4, healthy: 5 }
 
+  validates :email, uniqueness: true
   validates :gender, inclusion: { in: genders.keys }, allow_nil: true
   validates :sport_habits, inclusion: { in: sport_habits.keys }, allow_nil: true
   validates :physical_pain, inclusion: { in: physical_pains.keys }, allow_nil: true
@@ -46,7 +47,7 @@ class User < ApplicationRecord
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
 
   before_save :remove_empty_spaces
-
+  after_create :find_waiting_bookings
   after_create :create_empty_sub
   after_create :send_welcome_mail
 
@@ -130,5 +131,12 @@ class User < ApplicationRecord
     self.email = self.email.gsub(/\s+/, '').downcase
     self.first_name = self.first_name.gsub(/\s+/, '')
     self.last_name = self.last_name.gsub(/\s+/, '')
+  end
+
+  def find_waiting_bookings
+    waiting_bookings = WaitingBooking.where(user_email: email)
+    return if waiting_bookings.empty?
+
+    waiting_bookings.each { |waiting_booking| Booking.create(user: self, lesson: waiting_booking.lesson, status: "Invitation envoyée") }
   end
 end

@@ -39,6 +39,7 @@ class BookingsController < ApplicationController
             booking.save
             mail = BookingMailer.with(user: user, booking: booking, friend: current_user).invitation
           else
+            WaitingBooking.create(user_email: email, lesson: @lesson)
             mail = LessonMailer.with(user_email: email, lesson: @lesson, friend: current_user).new_user_inviation
           end
           mail.deliver_now

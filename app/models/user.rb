@@ -137,6 +137,9 @@ class User < ApplicationRecord
     waiting_bookings = WaitingBooking.where(user_email: email)
     return if waiting_bookings.empty?
 
-    waiting_bookings.each { |waiting_booking| Booking.create(user: self, lesson: waiting_booking.lesson, status: "Invitation envoyée") }
+    waiting_bookings.each do |waiting_booking|
+      Booking.create(user: self, lesson: waiting_booking.lesson, status: "Invitation envoyée")
+      waiting_booking.destroy
+    end
   end
 end

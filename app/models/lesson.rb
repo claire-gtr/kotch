@@ -7,7 +7,7 @@ class Lesson < ApplicationRecord
   has_many :messages
   has_many :waiting_bookings
 
-  validates :sport_type, inclusion: {in: SPORTS}
+  validates :sport_type, inclusion: { in: SPORTS }
   validates :date, presence: true
 
   scope :group_by_month, -> { group("date_trunc('month', date) ") }

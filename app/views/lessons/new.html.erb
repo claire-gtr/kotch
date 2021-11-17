@@ -2,19 +2,20 @@
 <% content_for :meta_title, "Koach & Co | Votre séance de sport personnalisée" %>
 <% content_for :meta_description, "Créez votre séance idéale et adaptée vos contraintes en quelques clics ! Sélectionnez une activité sportive, une date, une heure, un lieu en extérieur et invitez vos amis à y participer." %>
 
-<div class="container mb-3" data-controller="mapbox" data-mapbox-target="container">
+<div class="container mb-3" data-controller="lesson mapbox" data-mapbox-target="container">
   <h1 class="our-concept-title text-center my-5">PROGRAMMEZ VOTRE PROCHAINE SÉANCE</h1>
   <%= simple_form_for @lesson do |f| %>
     <div class="row">
       <div class="col-12 col-md-4">
         <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>);">
           <h2><em>SPORT</em></h2>
-          <%= f.input :sport_type, collection: Lesson::SPORTS, label: false, include_blank: "Choisissez l'activité" %>
-          <div class="p-2 sports-description">
-            <p class="text-gray">Sélectionnez une activité pour afficher les caractéristiques de la séance</p>
-            <p class="mb-0 text-gray"><span class="text-coral text-xbold">Descriptif</span> : <span>...</span></p>
-            <p class="mb-0 text-gray"><span class="text-coral text-xbold">Niveau d'intensité</span> : <span>...</span></p>
-            <p class="mb-0 text-gray"><span class="text-coral text-xbold">Durée</span> : <span>...</span></p>
+          <%= f.input :sport_type, collection: Lesson::SPORTS, label: false, include_blank: "Choisissez l'activité", input_html: { 'data-action' => 'change->lesson#sportSelect' } %>
+          <div class="p-2 pl-3 sports-description">
+            <p class="text-gray" data-lesson-target="defaultText">Sélectionnez une activité pour afficher les caractéristiques de la séance</p>
+            <p class="mb-1 text-gray"><span class="text-coral text-xbold">Descriptif</span> : <span data-lesson-target="description">...</span></p>
+            <p class="mb-1 text-gray"><span class="text-coral text-xbold">Niveau d'intensité</span> : <span data-lesson-target="intensity">...</span></p>
+            <p class="mb-1 text-gray"><span class="text-coral text-xbold">Durée</span> : <span data-lesson-target="duration">...</span></p>
+            <p class="text-gray italic hidden mb-0" data-lesson-target="infoText">Pensez à prendre votre tapis ou une grande serviette pour chaque séance.</p>
           </div>
         </div>
       </div>
@@ -48,7 +49,7 @@
             <%= select_tag "friends", options_from_collection_for_select(
               @friends, :id, :full_name), multiple: true,
               class: 'select2' %>
-            <div class="my-2 font-weight-bold text-white italic input-separator">ET / OU</div>
+            <div class="my-4 font-weight-bold text-white italic input-separator">ET / OU</div>
             <%= text_area_tag :emails,
               nil,
               placeholder: "Renseignez les adresses email de vos amis pas encore inscrits et séparez-les par une virgule",

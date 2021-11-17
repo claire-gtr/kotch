@@ -68,8 +68,6 @@ label.password {
 .many-emails-input {
   border-radius: 8px;
   height: 7rem;
-  // width: 240px !important;
-  width: 100%;
   border: 1px solid #ced4da;
   outline: 0;
   background-color: white;
@@ -79,6 +77,18 @@ label.password {
   box-sizing: border-box;
   display: inline-block;
   text-align: left;
+}
+
+@media screen and (max-width: 767px){
+  .many-emails-input {
+    width: 240px !important;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .many-emails-input {
+    width: 100%;
+  }
 }
 
 .many-emails-input-modal {
@@ -105,7 +115,6 @@ label.password {
 
 .sports-description {
   border-radius: 8px;
-  height: 13rem;
   width: 100%;
   border: 1px solid #ced4da;
   outline: 0;
@@ -117,6 +126,24 @@ label.password {
   display: inline-block;
   text-align: left;
   line-height: 1.4;
+}
+
+@media screen and (min-width: 100px){
+  .sports-description {
+    height: 13rem;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .sports-description {
+    height: 25rem;
+  }
+}
+
+@media screen and (min-width: 992px){
+  .sports-description {
+    height: 13rem;
+  }
 }
 
 .input-separator {

@@ -3,9 +3,16 @@
     border: none;
 }
 
-.select2 {
-  // width: 240px !important;
-  width: 100%;
+@media screen and (max-width: 767px){
+  .select2 {
+    width: 240px !important;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .select2 {
+    width: 100%;
+  }
 }
 
 .select2-container--default .select2-selection--multiple {

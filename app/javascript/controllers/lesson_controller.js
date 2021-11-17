@@ -56,6 +56,11 @@ export default class extends Controller {
         this.durationTarget.textContent = "60 min";
         break;
       default:
+        this.defaultTextTarget.classList.remove('hidden');
+        this.infoTextTarget.classList.add('hidden');
+        this.descriptionTarget.textContent = "...";
+        this.intensityTarget.textContent = "...";
+        this.durationTarget.textContent = "...";
         console.log("Erreur, sport non-reconnu");
     }
   }

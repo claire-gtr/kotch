@@ -32,6 +32,7 @@ class User < ApplicationRecord
   enum level: { inexperimente: 0, occasionnel: 1, regulier: 2, inconditionnel: 3, athlete: 4 }
   enum intensity: { intense: 0, endurance: 1, fun: 2, learn: 3 }
   enum expectations: { relax: 0, letgo: 1, amuse: 2, weight_loss: 3, muscle: 4, healthy: 5 }
+  enum company_discover: { internet: 0, your_company: 1, social_networks: 2, word_of_mouth: 3, other: 4 }
 
   validates :email, uniqueness: true
   validates :gender, inclusion: { in: genders.keys }, allow_nil: true
@@ -40,6 +41,7 @@ class User < ApplicationRecord
   validates :level, inclusion: { in: levels.keys }, allow_nil: true
   validates :intensity, inclusion: { in: intensities.keys }, allow_nil: true
   validates :expectations, inclusion: { in: expectations.keys }, allow_nil: true
+  validates :company_discover, inclusion: { in: company_discovers.keys }, allow_nil: true
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :optin_cgv, presence: true

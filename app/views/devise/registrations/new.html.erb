@@ -89,6 +89,8 @@
                 <%= f.input :level, as: :radio_buttons, collection: User.levels.keys.map { |m| [I18n.t("level.#{m}"), m] }, legend_tag: false %> -->
                 <h6 class='text-white mt-3'>Quel type de pratique aimeriez-vous retrouver durant vos séances ?</h6>
                 <%= f.input :intensity, as: :radio_buttons, collection: User.intensities.keys.map { |m| [I18n.t("intensity.#{m}"), m] }, legend_tag: false %>
+                <h6 class='text-white mt-3'>Comment avez-vous connu Koach & Co ?</h6>
+                <%= f.input :company_discover, as: :radio_buttons, collection: User.company_discovers.keys.map { |m| [I18n.t("company_discover.#{m}"), m] }, legend_tag: false %>
               </div>
             </div>
           </div>

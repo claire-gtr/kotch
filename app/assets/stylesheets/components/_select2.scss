@@ -4,7 +4,8 @@
 }
 
 .select2 {
-  width: 240px !important;
+  // width: 240px !important;
+  width: 100%;
 }
 
 .select2-container--default .select2-selection--multiple {
@@ -14,6 +15,7 @@
     cursor: text;
     padding-bottom: 5px;
     padding-right: 5px;
+    padding-top: 5px;
     position: relative;
     min-height: 45px;
 }

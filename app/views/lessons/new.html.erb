@@ -9,17 +9,20 @@
       <div class="col-12 col-md-4">
         <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>);">
           <h2><em>SPORT</em></h2>
-          <%= f.input :sport_type, collection: Lesson::SPORTS, label: false %>
+          <%= f.input :sport_type, collection: Lesson::SPORTS, label: false, include_blank: "Choisissez l'activité" %>
+          <div class="p-2 sports-description">
+            <p class="text-gray">Sélectionnez une activité pour afficher les caractéristiques de la séance</p>
+          </div>
         </div>
       </div>
       <div class="col-12 col-md-4">
         <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center" style="background-image: url(<%= asset_path 'backgroundblue2.png' %>);">
           <h2><em>DATE & LIEU</em></h2>
-          <%= f.input :date, as: :string, label: false, placeholder: "Date & heure", input_html: { class: "datepicker" } %>
-          <%= text_field_tag :address, nil, placeholder: 'adresse postale', id: 'location_name', class:'new-address-input', 'data-mapbox-target' => 'address', 'data-action' => "click->mapbox#addressSelect" %>
+          <%= f.input :date, as: :string, label: false, placeholder: "Choisissez la date et l'heure", input_html: { class: "datepicker" } %>
+          <%= text_field_tag :address, nil, placeholder: "Renseignez l'adresse postale exacte...", id: 'location_name', class:'new-address-input', 'data-mapbox-target' => 'address', 'data-action' => "click->mapbox#addressSelect" %>
           <div class="mb-3"></div>
-          <%= f.association :location, collection: @locations, label_method: :name, value_method: :id, label: false, input_html: { id: "location-collection", 'data-mapbox-target' => 'collection', disabled: true } %>
-          <button type="button" class="btn btn-kotch btn-light-blue w-100 btn-modal" data-toggle="modal" data-target=".bd-example-modal-lg">Voir tous les lieux disponibles sur la carte</button>
+          <button type="button" class="btn btn-kotch btn-light-blue w-100 btn-modal" data-toggle="modal" data-target=".bd-example-modal-lg">Voir les lieux disponibles sur la carte</button>
+          <%= f.association :location, collection: @locations, label_method: :name, value_method: :id, label: false, input_html: { id: "location-collection", class: "mt-3", 'data-mapbox-target' => 'collection', disabled: true } %>
 
           <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-mapbox-target="modal">
             <div class="modal-dialog modal-lg">
@@ -42,10 +45,11 @@
             <%= select_tag "friends", options_from_collection_for_select(
               @friends, :id, :full_name), multiple: true,
               class: 'select2' %>
+            <div class="my-2 font-weight-bold text-white italic input-separator">OU</div>
             <%= text_area_tag :emails,
               nil,
               placeholder: "Renseignez les adresses email de vos amis pas encore inscrits et séparez-les par une virgule",
-              class: 'mt-3 p-2 many-emails-input' %>
+              class: 'p-2 many-emails-input' %>
           <% end %>
         </div>
       </div>

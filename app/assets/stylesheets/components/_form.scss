@@ -68,19 +68,17 @@ label.password {
 .many-emails-input {
   border-radius: 8px;
   height: 7rem;
-  width: 240px !important;
+  // width: 240px !important;
+  width: 100%;
   border: 1px solid #ced4da;
   outline: 0;
   background-color: white;
-  // cursor: text;
   padding-bottom: 5px;
   padding-right: 5px;
   position: relative;
   box-sizing: border-box;
   display: inline-block;
-  // -webkit-user-select: none;
   text-align: left;
-  // vertical-align: middle;
 }
 
 .many-emails-input-modal {
@@ -103,6 +101,26 @@ label.password {
 
 .cgv {
   text-decoration: underline;
+}
+
+.sports-description {
+  border-radius: 8px;
+  height: 7rem;
+  width: 100%;
+  border: 1px solid #ced4da;
+  outline: 0;
+  background-color: white;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: left;
+}
+
+.input-separator {
+  font-weight: 600;
+  font-size: 30px;
 }
 
 // .uppercase {

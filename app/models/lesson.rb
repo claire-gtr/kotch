@@ -5,8 +5,11 @@ class Lesson < ApplicationRecord
   has_many :bookings
   has_many :users, through: :bookings
   has_many :messages
-  validates :sport_type, inclusion: {in: SPORTS}
+  has_many :waiting_bookings
+
+  validates :sport_type, inclusion: { in: SPORTS }
   validates :date, presence: true
+
   scope :group_by_month, -> { group("date_trunc('month', date) ") }
 
   def diff_time

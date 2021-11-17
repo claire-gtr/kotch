@@ -32,13 +32,16 @@ class User < ApplicationRecord
   enum level: { inexperimente: 0, occasionnel: 1, regulier: 2, inconditionnel: 3, athlete: 4 }
   enum intensity: { intense: 0, endurance: 1, fun: 2, learn: 3 }
   enum expectations: { relax: 0, letgo: 1, amuse: 2, weight_loss: 3, muscle: 4, healthy: 5 }
+  enum company_discover: { internet: 0, your_company: 1, social_networks: 2, word_of_mouth: 3, other: 4 }
 
+  validates :email, uniqueness: true
   validates :gender, inclusion: { in: genders.keys }, allow_nil: true
   validates :sport_habits, inclusion: { in: sport_habits.keys }, allow_nil: true
   validates :physical_pain, inclusion: { in: physical_pains.keys }, allow_nil: true
   validates :level, inclusion: { in: levels.keys }, allow_nil: true
   validates :intensity, inclusion: { in: intensities.keys }, allow_nil: true
   validates :expectations, inclusion: { in: expectations.keys }, allow_nil: true
+  validates :company_discover, inclusion: { in: company_discovers.keys }, allow_nil: true
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :optin_cgv, presence: true
@@ -46,7 +49,7 @@ class User < ApplicationRecord
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
 
   before_save :remove_empty_spaces
-
+  after_create :find_waiting_bookings
   after_create :create_empty_sub
   after_create :send_welcome_mail
 
@@ -130,5 +133,16 @@ class User < ApplicationRecord
     self.email = self.email.gsub(/\s+/, '').downcase
     self.first_name = self.first_name.gsub(/\s+/, '')
     self.last_name = self.last_name.gsub(/\s+/, '')
+  end
+
+  def find_waiting_bookings
+    waiting_bookings = WaitingBooking.where(user_email: email)
+    return if waiting_bookings.empty?
+
+    waiting_bookings.each do |waiting_booking|
+      Booking.create(user: self, lesson: waiting_booking.lesson, status: "Invitation envoyée")
+      waiting_booking.destroy
+    end
+    self.update(promo_code_used: true, credit_count: 1)
   end
 end

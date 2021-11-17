@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_162711) do
+ActiveRecord::Schema.define(version: 2021_11_17_165538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,8 +210,17 @@ ActiveRecord::Schema.define(version: 2021_11_02_162711) do
     t.boolean "optin_cgv", default: false
     t.boolean "promo_code_used", default: false, null: false
     t.string "referral_code", default: "", null: false
+    t.integer "company_discover"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "waiting_bookings", force: :cascade do |t|
+    t.string "user_email", null: false
+    t.bigint "lesson_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lesson_id"], name: "index_waiting_bookings_on_lesson_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -229,4 +238,5 @@ ActiveRecord::Schema.define(version: 2021_11_02_162711) do
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_codes", "promo_codes"
   add_foreign_key "user_codes", "users"
+  add_foreign_key "waiting_bookings", "lessons"
 end

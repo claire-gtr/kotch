@@ -88,6 +88,12 @@ en:
     healthy: Améliorer votre santé
     unstress: Réduire mon stress et renforcer ma concentration
     tonification: Se tonifier
+  company_discover:
+    internet: Internet
+    your_company: Votre entreprise
+    social_networks: Réseaux sociaux
+    word_of_mouth: Bouche-à-oreille
+    other: Autres campagnes de communication
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
 #

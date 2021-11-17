@@ -37,6 +37,10 @@ class DashboardPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def export_company_discovers?
+    user.admin?
+  end
+
   def all_lessons?
     user.admin?
   end

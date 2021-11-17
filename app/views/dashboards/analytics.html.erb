@@ -121,6 +121,28 @@
       <% else %>
         <%= link_to "Export CSV", export_lessons_done_this_year_path(data: @lessons_done_this_year_hash )  %>
       <% end %>
+      <h5 class='text-blue text-condensed text-bold mt-4'>Réponses à : "Comment avez-vous connu Koach & Co ?"</h5>
+      <%= link_to "Export CSV", export_company_discovers_path(data: @company_discovers ), class: "my-2"  %>
+      <table class="table table-hover table-responsive text-left">
+        <thead>
+          <tr class="text-center">
+            <th><%= I18n.t("company_discover.#{User.company_discovers.keys[0]}") %></th>
+            <th><%= I18n.t("company_discover.#{User.company_discovers.keys[1]}") %></th>
+            <th><%= I18n.t("company_discover.#{User.company_discovers.keys[2]}") %></th>
+            <th><%= I18n.t("company_discover.#{User.company_discovers.keys[3]}") %></th>
+            <th><%= I18n.t("company_discover.#{User.company_discovers.keys[4]}") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <td><%= @company_discover_internet %></td>
+            <td><%= @company_discover_your_company %></td>
+            <td><%= @company_discover_social_networks %></td>
+            <td><%= @company_discover_word_of_mouth %></td>
+            <td><%= @company_discover_other %></td>
+          </tr>
+        </tbody>
+      </table>
       <h5 class='text-blue text-condensed text-bold mt-4'>Raisons de désabonnement à la newsletter</h5>
       <table class="table table-hover table-responsive text-left">
         <thead>

@@ -21,6 +21,20 @@ class DashboardsController < ApplicationController
     @reasons_stop_receive_mails = Reason.where(title: helpers.stop_receive_mails).count
     @reasons_others = Reason.where(title: helpers.others).count
     @reasons_others_text = Reason.where(title: helpers.others).map { |reason| reason.other_text }
+
+    @company_discover_internet = User.where(company_discover: :internet).count
+    @company_discover_your_company = User.where(company_discover: :your_company).count
+    @company_discover_social_networks = User.where(company_discover: :social_networks).count
+    @company_discover_word_of_mouth = User.where(company_discover: :word_of_mouth).count
+    @company_discover_other = User.where(company_discover: :other).count
+    @company_discovers = {
+      internet: @company_discover_internet,
+      your_company: @company_discover_your_company,
+      social_networks: @company_discover_social_networks,
+      word_of_mouth: @company_discover_word_of_mouth,
+      other: @company_discover_other
+    }
+
     @lessons_done_this_year = Lesson.where(status: "effectuée").where('extract(year from date) = ?', Date.today.year).order('date DESC')
     if @lessons_done_this_year.any?
       @lessons_done_this_year_hash = []
@@ -177,6 +191,23 @@ class DashboardsController < ApplicationController
     send_file(
       "#{Rails.root}/lessons_done_this_year.csv",
       filename: "lessons_done_this_year.csv",
+      type: "application/csv"
+    )
+  end
+
+  def export_company_discovers
+    authorize(:dashboard, :export_company_discovers?)
+    @company_discovers = params[:data]
+    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath    = 'company_discovers.csv'
+
+    csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
+      csv << @company_discovers.keys
+      csv << @company_discovers.values
+    end
+    send_file(
+      "#{Rails.root}/company_discovers.csv",
+      filename: "company_discovers.csv",
       type: "application/csv"
     )
   end

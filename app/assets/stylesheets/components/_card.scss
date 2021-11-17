@@ -39,7 +39,24 @@
 .card-new-lesson {
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 300px;
+}
+
+@media screen and (min-width: 100px){
+  .card-new-lesson {
+    min-height: 380px;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .card-new-lesson {
+    min-height: 565px;
+  }
+}
+
+@media screen and (min-width: 992px){
+  .card-new-lesson {
+    min-height: 380px;
+  }
 }
 
 .lesson-cards {

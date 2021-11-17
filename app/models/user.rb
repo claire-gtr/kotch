@@ -141,5 +141,6 @@ class User < ApplicationRecord
       Booking.create(user: self, lesson: waiting_booking.lesson, status: "Invitation envoyée")
       waiting_booking.destroy
     end
+    self.update(promo_code_used: true, credit_count: 1)
   end
 end

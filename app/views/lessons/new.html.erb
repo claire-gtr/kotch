@@ -12,6 +12,9 @@
           <%= f.input :sport_type, collection: Lesson::SPORTS, label: false, include_blank: "Choisissez l'activité" %>
           <div class="p-2 sports-description">
             <p class="text-gray">Sélectionnez une activité pour afficher les caractéristiques de la séance</p>
+            <p class="mb-0 text-gray"><span class="text-coral text-xbold">Descriptif</span> : <span>...</span></p>
+            <p class="mb-0 text-gray"><span class="text-coral text-xbold">Niveau d'intensité</span> : <span>...</span></p>
+            <p class="mb-0 text-gray"><span class="text-coral text-xbold">Durée</span> : <span>...</span></p>
           </div>
         </div>
       </div>
@@ -45,7 +48,7 @@
             <%= select_tag "friends", options_from_collection_for_select(
               @friends, :id, :full_name), multiple: true,
               class: 'select2' %>
-            <div class="my-2 font-weight-bold text-white italic input-separator">OU</div>
+            <div class="my-2 font-weight-bold text-white italic input-separator">ET / OU</div>
             <%= text_area_tag :emails,
               nil,
               placeholder: "Renseignez les adresses email de vos amis pas encore inscrits et séparez-les par une virgule",

@@ -34,7 +34,7 @@ class User < ApplicationRecord
   enum expectations: { relax: 0, letgo: 1, amuse: 2, weight_loss: 3, muscle: 4, healthy: 5 }
   enum company_discover: { internet: 0, your_company: 1, social_networks: 2, word_of_mouth: 3, other: 4 }
 
-  # validates :email, uniqueness: true
+  validates :email, uniqueness: true
   validates :gender, inclusion: { in: genders.keys }, allow_nil: true
   validates :sport_habits, inclusion: { in: sport_habits.keys }, allow_nil: true
   validates :physical_pain, inclusion: { in: physical_pains.keys }, allow_nil: true

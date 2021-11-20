@@ -12,7 +12,8 @@ const initFlatpickr = () => {
 
 const initFlatpickrBirth = () => {
   flatpickr(".datepickerbirth", {
-    dateFormat: "d/m/Y"
+    dateFormat: "d/m/Y",
+    maxDate: "today"
   });
 }
 

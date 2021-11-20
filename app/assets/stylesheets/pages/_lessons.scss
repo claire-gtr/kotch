@@ -56,3 +56,45 @@
     font-weight: 700;
   }
 }
+
+#small-text {
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 1;
+  font-family: "Barlow", "sans-serif";
+  color: gray;
+}
+
+.lesson-new-input, .sports-select {
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 1;
+  font-family: "Barlow", "sans-serif";
+  color: gray;
+}
+
+.lesson-new-mapbox-btn {
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 1;
+  font-family: "Barlow", "sans-serif";
+}
+
+.select2-search__field::placeholder,
+.datepicker::placeholder,
+.new-address-input::placeholder,
+.many-emails-input::placeholder {
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 1;
+  font-family: "Barlow", "sans-serif";
+  color: gray;
+}

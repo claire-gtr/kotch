@@ -3,7 +3,13 @@ Rails.application.routes.draw do
   devise_for :users,
             :controllers => { :registrations => 'registrations' },
             :path => 'utilisateur',
-            :path_names => { :sign_in => 'connexion', :sign_up => 'inscription', :sign_out => 'deconnexion', :password => 'mot-de-passe' }
+            :path_names => {
+              :sign_in => 'connexion',
+              :sign_up => 'inscription',
+              :sign_out => 'deconnexion',
+              :password => 'mot-de-passe',
+              :edit => 'modifier-mon-profil'
+            }
 
   root to: 'pages#home'
   get '/mon-profil', to: 'users#profile', as: :profile

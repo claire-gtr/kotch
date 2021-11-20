@@ -61,7 +61,7 @@ document.addEventListener('turbolinks:load', () => {
 
   initUpdateNavbarOnScroll();
 
-  const keywords = ['utilisateur/inscription', 'utilisateur/edit', '/inscription-coach'];
+  const keywords = ['utilisateur/inscription', 'utilisateur/modifier-mon-profil', '/inscription-coach'];
   if (keywords.some(el => window.location.pathname.includes(el))) {
     initFlatpickrBirth();
   }

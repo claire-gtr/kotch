@@ -49,7 +49,7 @@
           <p class='mb-1'>PRÉNOM : <%= @user.first_name.capitalize %></p>
           <p class='mb-1'>NOM : <%= @user.last_name.capitalize %></p>
           <% unless current_user.coach %>
-            <p class='mb-1'>DATE DE NAISSANCE : <%= @user.birth_date %></p>
+            <p class='mb-1'>DATE DE NAISSANCE : <%= @user.birth_date.strftime("%d/%m/%Y") %></p>
             <p class='mb-1'>ADRESSE POSTALE : <%= @user.address %></p>
             <p class='mb-1'>EMAIL : <%= @user.email %></p>
             <p class='mb-1'>TÉLÉPHONE : <%= @user.phone_number %></p>

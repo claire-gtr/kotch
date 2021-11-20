@@ -46,7 +46,7 @@ export default class extends Controller {
         this.durationTarget.textContent = "45 min";
         break;
       case "Stretching":
-        this.descriptionTarget.textContent = "activité douce alliant contractation et relâchement des muscles de manière lente et maîtrisée";
+        this.descriptionTarget.textContent = "activité douce alliant contraction et relâchement des muscles de manière lente et maîtrisée";
         this.intensityTarget.textContent = "faible";
         this.durationTarget.textContent = "45 min";
         break;

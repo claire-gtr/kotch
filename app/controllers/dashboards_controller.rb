@@ -214,7 +214,7 @@ class DashboardsController < ApplicationController
 
   def export_users_data
     authorize(:dashboard, :export_users_data?)
-    @no_admin_users = User.no_admins.order(id: :asc)
+    @no_admin_users = User.no_admins.no_coaches.order(id: :asc)
     csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath = 'users_data.csv'
     headers = ['genre', 'nom', 'prénom', 'âge', 'email', 'portable', 'nombre de séances réalisées', 'abonné ?', 'newsletter ?']

@@ -48,6 +48,7 @@ class User < ApplicationRecord
 
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
   scope :no_admins, -> { where(admin: false) }
+  scope :no_coaches, -> { where(coach: false) }
 
   before_save :remove_empty_spaces
   after_create :find_waiting_bookings

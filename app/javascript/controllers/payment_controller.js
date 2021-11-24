@@ -6,4 +6,10 @@ export default class extends Controller {
   toggle() {
     this.buttonTarget.classList.toggle('hidden');
   }
+
+  toggleSubscription (event) {
+    const sessionID = event.currentTarget.dataset.sessionId;
+    const button = document.querySelector(`.session-${sessionID}`);
+    button.classList.toggle('hidden');
+  }
 }

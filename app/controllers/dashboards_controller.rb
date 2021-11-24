@@ -229,7 +229,7 @@ class DashboardsController < ApplicationController
           age: user.find_age,
           email: user.email,
           phone_number: user.phone_number,
-          bookings: user.bookings.reject { |booking| booking.lesson.status != 'effectuée' }.size,
+          bookings: user.coach? ? user.lessons.reject { |lesson| lesson.status != 'effectuée' }.size : user.bookings.reject { |booking| booking.lesson.status != 'effectuée' }.size,
           subscription: user.subscription&.status == 'active' ? 'oui' : 'non',
           coach: user.coach? ? 'oui' : 'non',
           terms: user.terms? ? 'oui' : 'non'

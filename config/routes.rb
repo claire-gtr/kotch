@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get 'export-taux-remlissage', to: 'dashboards#export_filling_rate', as: :export_filling_rate
   get 'export-seances-effectuees', to: 'dashboards#export_lessons_done_this_year', as: :export_lessons_done_this_year
   get 'export-company-discovers', to: 'dashboards#export_company_discovers', as: :export_company_discovers
+  get 'export-users-data', to: 'dashboards#export_users_data', as: :export_users_data
   get 'all-lessons', to: 'dashboards#all_lessons', as: :all_lessons
 
   patch '/admin', to: "users#become_admin", as: :become_admin

@@ -111,6 +111,7 @@ class LessonsController < ApplicationController
 
   def cancel
     @lesson = Lesson.find(params[:id])
+    @cancel_customer = User.find(params[:cancel_customer_id]) if params[:cancel_customer_id].present?
     authorize @lesson
     @lesson.bookings&.each do |b|
       @customer = b.user
@@ -118,7 +119,17 @@ class LessonsController < ApplicationController
         @customer.update(credit_count: @customer.credit_count + 1)
       end
       b.destroy
-      mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+      if @cancel_customer.present? && (@cancel_customer == @customer)
+        mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_creator
+      elsif @cancel_customer.present?
+        mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_customer
+      else
+        mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+      end
+      mail.deliver_now
+    end
+    if @cancel_customer.present? && @lesson.user.present?
+      mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach
       mail.deliver_now
     end
     @lesson.update(status: 'canceled')

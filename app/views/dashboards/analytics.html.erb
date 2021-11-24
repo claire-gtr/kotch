@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      <h5 class='text-blue text-condensed text-bold mt-4'>Exporter les données utilisateurs (newsletter)</h5>
+      <%= link_to "Export CSV", export_users_data_path, class: "my-2"  %>
       <h5 class='text-blue text-condensed text-bold mt-4'>Évolution du nombre d'abonnés</h5>
       <% if @users.empty? %>
         <p>No CSV to export</p>
@@ -119,10 +121,10 @@
       <% if @lessons_done_this_year.empty? %>
         <p>No CSV to export</p>
       <% else %>
-        <%= link_to "Export CSV", export_lessons_done_this_year_path(data: @lessons_done_this_year_hash )  %>
+        <%= link_to "Export CSV", export_lessons_done_this_year_path(data: @lessons_done_this_year_hash)  %>
       <% end %>
       <h5 class='text-blue text-condensed text-bold mt-4'>Réponses à : "Comment avez-vous connu Koach & Co ?"</h5>
-      <%= link_to "Export CSV", export_company_discovers_path(data: @company_discovers ), class: "my-2"  %>
+      <%= link_to "Export CSV", export_company_discovers_path(data: @company_discovers), class: "my-2"  %>
       <table class="table table-hover table-responsive text-left">
         <thead>
           <tr class="text-center">

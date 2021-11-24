@@ -1,10 +1,14 @@
- <div class="container">
+ <div class="container" data-controller="payment">
   <div class="row py-4 justify-content-around">
     <div class="col-8 card-red card-new-lesson text-center py-4" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>); background-position: bottom;">
       <div class="card-pay-content">
         <h1>Votre panier</h1>
         <p class='text-blue'>Achat de <strong><%= @pack_order.credit_count %></strong> crédit(s) Koach pour <strong><%= (@pack_order.amount / 100).round %>€</strong></p>
-        <button id="pay" class="btn btn-kotch btn-light-blue">PAIEMENT</button>
+        <div class="d-flex justify-content-end align-items-center w-100 my-2 text-blue">
+          <input id="cgv" name="cgv" type="checkbox" class="mb-2" data-action="click->payment#toggle"></input>
+          <label for="cgv" class="ml-2 mb-2">J'accèpte les <%= link_to "Conditions Générales de Vente", cgv_path, target: "_blank", rel: "noopener noreferrer", class: "font-weight-bold" %></label>
+        </div>
+        <button id="pay" class="btn btn-kotch btn-light-blue hidden" data-payment-target="button">PAIEMENT</button>
         <script src="https://js.stripe.com/v3/"></script>
         <script>
           const paymentButton = document.getElementById('pay');

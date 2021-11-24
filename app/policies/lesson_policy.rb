@@ -26,7 +26,7 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def cancel?
-    if record.user == user
+    if (record.user == user) || (record.bookings.first.user == user)
       true
     else
       false

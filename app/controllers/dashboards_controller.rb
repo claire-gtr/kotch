@@ -35,7 +35,7 @@ class DashboardsController < ApplicationController
       other: @company_discover_other
     }
 
-    @lessons_done_this_year = Lesson.where(status: "effectuée").where('extract(year from date) = ?', Date.today.year).order('date DESC')
+    @lessons_done_this_year = Lesson.includes([:location, :user]).where(status: "effectuée").where('extract(year from date) = ?', Date.today.year).order('date DESC')
     if @lessons_done_this_year.any?
       @lessons_done_this_year_hash = []
       @lessons_done_this_year.each do |lesson|
@@ -84,7 +84,7 @@ class DashboardsController < ApplicationController
   def export_number_of_users
     authorize(:dashboard, :export_number_of_users?)
     @users = params[:data]
-    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath    = 'abonnes.csv'
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
@@ -101,7 +101,7 @@ class DashboardsController < ApplicationController
   def export_number_of_coachs
     authorize(:dashboard, :export_number_of_coachs?)
     @coachs = params[:data]
-    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath    = 'coachs.csv'
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
@@ -123,7 +123,7 @@ class DashboardsController < ApplicationController
   def export_lessons_sub
     authorize(:dashboard, :export_lessons_sub?)
     @bookings = params[:data]
-    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath    = 'lessons_with_subscriptions.csv'
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
@@ -140,7 +140,7 @@ class DashboardsController < ApplicationController
   def export_lessons_credit
     authorize(:dashboard, :export_lessons_credit?)
     @bookings_credit = params[:data]
-    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath    = 'lessons_with_credit.csv'
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
@@ -157,7 +157,7 @@ class DashboardsController < ApplicationController
   def export_filling_rate
     authorize(:dashboard, :export_filling_rate?)
     @lessons_filling_rate = params[:data]
-    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath    = 'lessons_filling_rate.csv'
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
@@ -174,15 +174,15 @@ class DashboardsController < ApplicationController
   def export_lessons_done_this_year
     authorize(:dashboard, :export_lessons_done_this_year?)
     @lessons_done_this_year = params[:data]
-    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath    = 'lessons_done_this_year.csv'
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
-      csv << @lessons_done_this_year.map { |hash| hash["date"]}
-      csv << @lessons_done_this_year.map { |hash| hash["location"]}
-      csv << @lessons_done_this_year.map { |hash| hash["sport_type"]}
-      csv << @lessons_done_this_year.map { |hash| hash["coach_name"]}
-      csv << @lessons_done_this_year.map { |hash| hash["bookings"]}
+      csv << @lessons_done_this_year.map { |hash| hash["date"] }
+      csv << @lessons_done_this_year.map { |hash| hash["location"] }
+      csv << @lessons_done_this_year.map { |hash| hash["sport_type"] }
+      csv << @lessons_done_this_year.map { |hash| hash["coach_name"] }
+      csv << @lessons_done_this_year.map { |hash| hash["bookings"] }
       # csv << @lessons_done_this_year.map { |hash| hash["lesson_id"]}
       # csv << @lessons_done_this_year.map { |hash| hash["status"]}
       # csv << @lessons_done_this_year.map { |hash| hash["public"]}
@@ -198,7 +198,7 @@ class DashboardsController < ApplicationController
   def export_company_discovers
     authorize(:dashboard, :export_company_discovers?)
     @company_discovers = params[:data]
-    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath    = 'company_discovers.csv'
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
@@ -208,6 +208,37 @@ class DashboardsController < ApplicationController
     send_file(
       "#{Rails.root}/company_discovers.csv",
       filename: "company_discovers.csv",
+      type: "application/csv"
+    )
+  end
+
+  def export_users_data
+    authorize(:dashboard, :export_users_data?)
+    @no_admin_users = User.no_admins.order(id: :asc)
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
+    filepath = 'users_data.csv'
+    headers = ['genre', 'nom', 'prénom', 'âge', 'email', 'portable', 'nombre de séances réalisées', 'abonné ?', 'coach ?', 'newsletter ?']
+
+    csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
+      csv << headers
+      @no_admin_users.each do |user|
+        csv << {
+          gender: user.gender,
+          last_name: user.last_name,
+          first_name: user.first_name,
+          age: user.find_age,
+          email: user.email,
+          phone_number: user.phone_number,
+          bookings: user.coach? ? user.lessons.reject { |lesson| lesson.status != 'effectuée' }.size : user.bookings.reject { |booking| booking.lesson.status != 'effectuée' }.size,
+          subscription: user.subscription&.status == 'active' ? 'oui' : 'non',
+          coach: user.coach? ? 'oui' : 'non',
+          terms: user.terms? ? 'oui' : 'non'
+        }.values
+      end
+    end
+    send_file(
+      "#{Rails.root}/users_data.csv",
+      filename: "users_data.csv",
       type: "application/csv"
     )
   end

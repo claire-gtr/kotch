@@ -47,6 +47,7 @@ class User < ApplicationRecord
   validates :optin_cgv, presence: true
 
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
+  scope :no_admins, -> { where(admin: false) }
 
   before_save :remove_empty_spaces
   after_create :find_waiting_bookings
@@ -79,6 +80,13 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name.capitalize} #{last_name.upcase}"
+  end
+
+  def find_age
+    return if birth_date.blank?
+
+    now = Time.now.utc.to_date
+    now.year - birth_date.year - ((now.month > birth_date.month || (now.month == birth_date.month && now.day >= birth_date.day)) ? 0 : 1)
   end
 
   def has_credit(lesson_date)

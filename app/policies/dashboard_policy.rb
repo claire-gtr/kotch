@@ -10,38 +10,42 @@ class DashboardPolicy < ApplicationPolicy
   end
 
   def analytics?
-    user.admin?
+    show?
   end
 
   def export_number_of_users?
-    user.admin?
+    show?
   end
 
   def export_number_of_coachs?
-    user.admin?
+    show?
   end
 
   def export_lessons_sub?
-    user.admin?
+    show?
   end
 
   def export_lessons_credit?
-    user.admin?
+    show?
   end
 
   def export_filling_rate?
-    user.admin?
+    show?
   end
 
   def export_lessons_done_this_year?
-    user.admin?
+    show?
   end
 
   def export_company_discovers?
-    user.admin?
+    show?
+  end
+
+  def export_users_data?
+    show?
   end
 
   def all_lessons?
-    user.admin?
+    show?
   end
 end

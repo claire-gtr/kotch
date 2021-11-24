@@ -215,19 +215,22 @@ class DashboardsController < ApplicationController
   def export_users_data
     authorize(:dashboard, :export_users_data?)
     @no_admin_users = User.no_admins.order(id: :asc)
-    csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
+    csv_options = { col_sep: ';', force_quotes: true, quote_char: '"' }
     filepath = 'users_data.csv'
-    headers = ['email', 'adresse', 'genre', 'âge', 'coach ?', 'newsletter ?']
+    headers = ['genre', 'nom', 'prénom', 'âge', 'email', 'portable', 'nombre de séances réalisées', 'abonné ?', 'newsletter ?']
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
       csv << headers
       @no_admin_users.each do |user|
         csv << {
-          email: user.email,
-          address: user.address,
           gender: user.gender,
+          last_name: user.last_name,
+          first_name: user.first_name,
           age: user.find_age,
-          coach: user.coach? ? 'oui' : 'non',
+          email: user.email,
+          phone_number: user.phone_number,
+          bookings: user.bookings.reject { |booking| booking.lesson.status != 'effectuée' }.size,
+          subscription: user.subscription&.status == 'active' ? 'oui' : 'non',
           terms: user.terms? ? 'oui' : 'non'
         }.values
       end

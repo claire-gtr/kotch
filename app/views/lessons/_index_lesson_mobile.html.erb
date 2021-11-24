@@ -56,6 +56,8 @@
         <p class="mt-1 mb-2"><span class="lessons-mobile-subtitle">Lieu :</span> <%= lesson.location.name.capitalize %></p>
         <% if booking.present? %>
           <%= link_to "Accepter l'invitation", accept_invitation_path(booking), class:"btn btn-kotch btn-red mb-2" %>
+        <% elsif (lesson.bookings&.first&.user == current_user) && !(lesson.date < DateTime.now) %>
+          <%= link_to "Annuler la séance", cancel_lesson_path(lesson, cancel_customer_id: current_user.id), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'btn btn-kotch btn-red mb-2'  %>
         <% end %>
       </div>
     </div>
@@ -124,7 +126,7 @@
         </div>
       </div>
       <div class="mb-2 italic text-center hidden hidden-lesson-btn-cancel-<%= lesson.id %>">
-        <% if !current_user.coach %>
+        <% if !current_user.coach? %>
           <% if lesson.date < DateTime.now %>
             <p class="text-blue mb-0 text-small text-condensed">Cette séance a déjà eu lieu.</p>
           <% elsif lesson.date > DateTime.now + 1.day %>

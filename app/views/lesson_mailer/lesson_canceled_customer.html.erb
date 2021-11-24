@@ -1,0 +1,5 @@
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
+
+<p>Ton ami <%= @cancel_customer.first_name.capitalize %> a annulé la séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %>.</p>
+
+<p class="mt-5">À très vite </p>

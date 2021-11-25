@@ -24,12 +24,13 @@
           <div class="offer-content">
             <h3><%= ps[:name] %></h3>
             <span><u>sans engagement</u></span>
-            <p class="btn-kotch btn-white btn-white-offer mt-4"><%= ps[:discounted_price] %> / MOIS</p>
+            <p class="btn-kotch btn-white btn-white-offer mt-4 mb-2"><%= ps[:discounted_price] %> / MOIS</p>
             <div class="d-flex justify-content-center align-items-center w-100 text-white text-left">
-              <input id="cgv" name="cgv" type="checkbox" class="mb-2" data-action="click->payment#toggleSubscription" data-session-id="<%= ps[:checkout_id] %>"></input>
+              <input id="cgv" name="cgv" type="checkbox" class="mb-2 checkbox-<%= ps[:checkout_id] %>" data-action="click->payment#toggleSubscription" data-session-id="<%= ps[:checkout_id] %>"></input>
               <label for="cgv" class="ml-2 mb-2">J'accèpte les <%= link_to "CGV", cgv_path, target: "_blank", rel: "noopener noreferrer", class: "font-weight-bold" %></label>
             </div>
-            <button class="btn btn-kotch btn-red btn-red-offer checkout-button hidden session-<%= ps[:checkout_id] %>" role="link" data-session-id="<%= ps[:checkout_id] %>">
+            <p class="text-red border-red bg-white my-2 hidden cgv-text-<%= ps[:checkout_id] %>">Vous devez accepter les CGV avant de passer à la suite.</p>
+            <button class="btn btn-kotch btn-red btn-red-offer checkout-button button-<%= ps[:checkout_id] %>" role="link" data-session-id="<%= ps[:checkout_id] %>" data-action="click->payment#toggleSubscription">
                   CHOISIR
             </button>
           </div>
@@ -87,5 +88,4 @@
       });
     });
   });
-
 </script>

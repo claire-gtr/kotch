@@ -8,8 +8,21 @@ export default class extends Controller {
   }
 
   toggleSubscription (event) {
+    // event.preventDefault();
+    event.stopImmediatePropagation();
+
     const sessionID = event.currentTarget.dataset.sessionId;
-    const button = document.querySelector(`.session-${sessionID}`);
-    button.classList.toggle('hidden');
+    const stripeButton = document.querySelector(`.button-${sessionID}`);
+    const cgvCheckbox = document.querySelector(`.checkbox-${sessionID}`);
+    const cgvText = document.querySelector(`.cgv-text-${sessionID}`);
+    console.log(cgvCheckbox.checked)
+    if (event.currentTarget === cgvCheckbox) {
+      cgvCheckbox.checked = !cgvCheckbox.checked;
+    } else if (event.currentTarget === stripeButton && cgvCheckbox.checked === true) {
+      const event = new Event('click');
+      stripeButton.dispatchEvent(event);
+    } else {
+      cgvText.classList.remove('hidden');
+    }
   }
 }

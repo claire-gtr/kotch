@@ -1,4 +1,4 @@
-<div class="container text-center" data-controller="payment">
+<div class="container text-center">
 
   <h2 class="mt-5 mb-3">SÉLECTIONNEZ L’ABONNEMENT QUI VOUS CONVIENT</h2>
   <% if @prices_and_sessions[0][:percentage] %>
@@ -26,11 +26,11 @@
             <span><u>sans engagement</u></span>
             <p class="btn-kotch btn-white btn-white-offer mt-4 mb-2"><%= ps[:discounted_price] %> / MOIS</p>
             <div class="d-flex justify-content-center align-items-center w-100 text-white text-left">
-              <input id="cgv" name="cgv" type="checkbox" class="mb-2 checkbox-<%= ps[:checkout_id] %>" data-action="click->payment#toggleSubscription" data-session-id="<%= ps[:checkout_id] %>"></input>
+              <input id="cgv" name="cgv" type="checkbox" class="mb-2 checkbox-<%= ps[:checkout_id] %>"></input>
               <label for="cgv" class="ml-2 mb-2">J'accèpte les <%= link_to "CGV", cgv_path, target: "_blank", rel: "noopener noreferrer", class: "font-weight-bold" %></label>
             </div>
-            <p class="text-red border-red bg-white my-2 p-2 hidden cgv-text-<%= ps[:checkout_id] %>">Veuillez accepter les conditions générales de ventes pour asser au paiement.</p>
-            <button class="btn btn-kotch btn-red btn-red-offer checkout-button button-<%= ps[:checkout_id] %>" role="link" data-session-id="<%= ps[:checkout_id] %>" data-action="click->payment#toggleSubscription">
+            <p class="text-red border-red bg-white my-2 p-1 hidden cgv-text-<%= ps[:checkout_id] %>">Veuillez accepter les conditions générales de ventes pour asser au paiement.</p>
+            <button class="btn btn-kotch btn-red btn-red-offer checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
                   CHOISIR
             </button>
           </div>
@@ -68,38 +68,30 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-  const paymentButton = document.getElementById('pay');
-  const checkboxInpout = document.getElementById('cgv');
-  const cgvText = document.getElementById('cgvText');
+  const checkoutButtons = document.querySelectorAll('.checkout-button');
 
-  paymentButton.addEventListener('click', () => {
-    if (checkboxInpout.checked === false) {
-      cgvText.classList.remove('hidden');
-    } else {
-      const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
-      stripe.redirectToCheckout({
-        sessionId: '<%= @pack_order.checkout_session_id %>'
-      });
-    }
-  });
-</script>
-<script>
-  var stripe = Stripe("<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>");
-
-  var checkoutButtons = document.querySelectorAll('.checkout-button');
   checkoutButtons.forEach(checkoutButton => {
     checkoutButton.addEventListener('click', function () {
-      stripe.redirectToCheckout({
-        sessionId: checkoutButton.dataset.sessionId
-      })
-      .then(function (result) {
-        if (result.error) {
-          // If `redirectToCheckout` fails due to a browser or network
-          // error, display the localized error message to your customer.
-          var displayError = document.getElementById('error-message');
-          displayError.textContent = result.error.message;
-        }
-      });
+      const sessionID = checkoutButton.dataset.sessionId;
+      const checkboxInpout = document.querySelector(`.checkbox-${sessionID}`);
+      const cgvText = document.querySelector(`.cgv-text-${sessionID}`);
+
+      if (checkboxInpout.checked === false) {
+        cgvText.classList.remove('hidden');
+      } else {
+        const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+        stripe.redirectToCheckout({
+          sessionId: sessionID
+        })
+        .then(function (result) {
+          if (result.error) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer.
+            var displayError = document.getElementById('error-message');
+            displayError.textContent = result.error.message;
+          }
+        });
+      }
     });
   });
 </script>

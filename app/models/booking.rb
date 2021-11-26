@@ -4,7 +4,9 @@ class Booking < ApplicationRecord
   has_many :messages
 
   validates :user, uniqueness: { scope: :lesson }
+
   scope :group_by_month, -> { group("date_trunc('month', date_lesson) ") }
+  scope :by_lesson_status, ->(val) { joins(:lesson).merge(Lesson.by_status(val)) }
 
   def date_lesson
     self.lesson.date

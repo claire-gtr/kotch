@@ -3,7 +3,7 @@
     <div class="col">
       <h5 class='text-blue text-condensed text-bold mt-4'>Exporter les données utilisateurs (newsletter)</h5>
       <%= link_to "Export CSV", export_users_data_path, class: "my-2"  %>
-      <h5 class='text-blue text-condensed text-bold mt-4'>Évolution du nombre d'abonnés</h5>
+      <h5 class='text-blue text-condensed text-bold mt-4'>Évolution du nombre d'inscrits</h5>
       <% if @users.empty? %>
         <p>No CSV to export</p>
       <% else %>

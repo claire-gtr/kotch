@@ -45,8 +45,8 @@ class DashboardsController < ApplicationController
 
     @users = User.where(coach: false).group_by_month.count
     @coachs = User.where(coach: true).group_by_month.count
-    @bookings = Booking.where(status: "effectuée").where(used_credit: false).group_by{ |u| u.lesson.date.beginning_of_month }
-    @bookings_credit = Booking.where(status: "effectuée").where(used_credit: true).group_by{ |u| u.lesson.date.beginning_of_month }
+    @bookings = Booking.includes([:lesson]).by_lesson_status("effectuée").where(used_credit: false).group_by{ |u| u.lesson.date.beginning_of_month }
+    @bookings_credit = Booking.includes([:lesson]).by_lesson_status("effectuée").where(used_credit: true).group_by{ |u| u.lesson.date.beginning_of_month }
      # la moyenne du taux de remplissage des séances de sport par mois
     if Lesson.all.any?
       first_lesson_date = Lesson.all.pluck(:date).min
@@ -128,7 +128,7 @@ class DashboardsController < ApplicationController
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
       csv << @bookings.keys.map { |date| l(date.to_date, format: '%B %Y').capitalize}
-      csv << @bookings.values
+      csv << @bookings.values.map { |value| value.size }
     end
     send_file(
       "#{Rails.root}/lessons_with_subscriptions.csv",
@@ -145,7 +145,7 @@ class DashboardsController < ApplicationController
 
     csv_file = CSV.open(filepath, 'wb', csv_options) do |csv|
       csv << @bookings_credit.keys.map { |date| l(date.to_date, format: '%B %Y').capitalize}
-      csv << @bookings_credit.values
+      csv << @bookings_credit.values.map { |value| value.size }
     end
     send_file(
       "#{Rails.root}/lessons_with_credit.csv",

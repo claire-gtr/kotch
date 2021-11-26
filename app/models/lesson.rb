@@ -11,6 +11,7 @@ class Lesson < ApplicationRecord
   validates :date, presence: true
 
   scope :group_by_month, -> { group("date_trunc('month', date) ") }
+  scope :by_status, ->(val) { where(status: val) }
 
   def diff_time
     (self.date.to_time - 24.hours).to_datetime

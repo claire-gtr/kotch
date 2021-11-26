@@ -232,7 +232,7 @@ class LessonsController < ApplicationController
     @lesson.status = "effectuée"
     authorize @lesson
     @lesson.save
-    redirect_to profile_path
+    redirect_to profile_path, notice: 'Vous avez indiqué que la séance est effectuée.'
   end
 
   def lesson_not_done
@@ -240,7 +240,7 @@ class LessonsController < ApplicationController
     @lesson.status = "non effectuée"
     authorize @lesson
     @lesson.save
-    redirect_to profile_path
+    redirect_to profile_path, notice: "Vous avez indiqué que la séance n'a pas été effectuée."
   end
 
   def focus_lesson

@@ -29,7 +29,7 @@
               <input id="cgv" name="cgv" type="checkbox" class="mb-2 checkbox-<%= ps[:checkout_id] %>" data-action="click->payment#toggleSubscription" data-session-id="<%= ps[:checkout_id] %>"></input>
               <label for="cgv" class="ml-2 mb-2">J'accèpte les <%= link_to "CGV", cgv_path, target: "_blank", rel: "noopener noreferrer", class: "font-weight-bold" %></label>
             </div>
-            <p class="text-red border-red bg-white my-2 hidden cgv-text-<%= ps[:checkout_id] %>">Vous devez accepter les CGV avant de passer à la suite.</p>
+            <p class="text-red border-red bg-white my-2 p-2 hidden cgv-text-<%= ps[:checkout_id] %>">Veuillez accepter les conditions générales de ventes pour asser au paiement.</p>
             <button class="btn btn-kotch btn-red btn-red-offer checkout-button button-<%= ps[:checkout_id] %>" role="link" data-session-id="<%= ps[:checkout_id] %>" data-action="click->payment#toggleSubscription">
                   CHOISIR
             </button>
@@ -67,6 +67,22 @@
 </div>
 
 <script src="https://js.stripe.com/v3/"></script>
+<script>
+  const paymentButton = document.getElementById('pay');
+  const checkboxInpout = document.getElementById('cgv');
+  const cgvText = document.getElementById('cgvText');
+
+  paymentButton.addEventListener('click', () => {
+    if (checkboxInpout.checked === false) {
+      cgvText.classList.remove('hidden');
+    } else {
+      const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+      stripe.redirectToCheckout({
+        sessionId: '<%= @pack_order.checkout_session_id %>'
+      });
+    }
+  });
+</script>
 <script>
   var stripe = Stripe("<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>");
 

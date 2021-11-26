@@ -1,22 +1,30 @@
- <div class="container" data-controller="payment">
+ <div class="container">
   <div class="row py-4 justify-content-around">
     <div class="col-8 card-red card-new-lesson text-center py-4" style="background-image: url(<%= asset_path 'backgroundblue1.png' %>); background-position: bottom;">
       <div class="card-pay-content">
         <h1>Votre panier</h1>
         <p class='text-blue'>Achat de <strong><%= @pack_order.credit_count %></strong> crédit(s) Koach pour <strong><%= (@pack_order.amount / 100).round %>€</strong></p>
         <div class="d-flex justify-content-end align-items-center w-100 my-2 text-blue">
-          <input id="cgv" name="cgv" type="checkbox" class="mb-2" data-action="click->payment#toggle"></input>
+          <input id="cgv" name="cgv" type="checkbox" class="mb-2"></input>
           <label for="cgv" class="ml-2 mb-2">J'accèpte les <%= link_to "Conditions Générales de Vente", cgv_path, target: "_blank", rel: "noopener noreferrer", class: "font-weight-bold" %></label>
         </div>
-        <button id="pay" class="btn btn-kotch btn-light-blue hidden" data-payment-target="button">PAIEMENT</button>
+        <p class="text-red border-red bg-white mt-2 mb-3 p-2 hidden" id="cgvText">Veuillez accepter les conditions générales de ventes pour asser au paiement.</p>
+        <button id="pay" class="btn btn-kotch btn-light-blue">PAIEMENT</button>
         <script src="https://js.stripe.com/v3/"></script>
         <script>
           const paymentButton = document.getElementById('pay');
+          const checkboxInpout = document.getElementById('cgv');
+          const cgvText = document.getElementById('cgvText');
+
           paymentButton.addEventListener('click', () => {
-            const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
-            stripe.redirectToCheckout({
-              sessionId: '<%= @pack_order.checkout_session_id %>'
-            });
+            if (checkboxInpout.checked === false) {
+              cgvText.classList.remove('hidden');
+            } else {
+              const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+              stripe.redirectToCheckout({
+                sessionId: '<%= @pack_order.checkout_session_id %>'
+              });
+            }
           });
         </script>
       </div>

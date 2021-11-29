@@ -29,7 +29,7 @@
               <input id="cgv" name="cgv" type="checkbox" class="mb-2 checkbox-<%= ps[:checkout_id] %>"></input>
               <label for="cgv" class="ml-2 mb-2">J'accèpte les <%= link_to "CGV", cgv_path, target: "_blank", rel: "noopener noreferrer", class: "font-weight-bold" %></label>
             </div>
-            <p class="text-red border-red bg-white my-2 p-1 hidden cgv-text-<%= ps[:checkout_id] %>">Veuillez accepter les conditions générales de ventes pour asser au paiement.</p>
+            <p class="text-red border-red bg-white my-2 p-1 hidden cgv-text-<%= ps[:checkout_id] %>">Veuillez accepter les conditions générales de ventes pour passer au paiement.</p>
             <button class="btn btn-kotch btn-red btn-red-offer checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
                   CHOISIR
             </button>

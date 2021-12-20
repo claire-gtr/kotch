@@ -25,11 +25,11 @@
             <% end %>
           </td>
           <td class='py-2'>
-            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-<%= booking.lesson.id %>"><i class="fas fa-plus-circle"></i></button>
+            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-mobile-<%= booking.lesson.id %>"><i class="fas fa-plus-circle"></i></button>
           </td>
         </tr>
         <!-- Modal -->
-        <div class="modal fade" id="modal1-<%= booking.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal1-mobile-<%= booking.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content participants-modal">
               <div class="modal-header">
@@ -82,11 +82,11 @@
           <td class="py-2"><%= booking.lesson.date.strftime('%d/%m/%Y à %H:%M') %></td>
           <td class="py-2"><%= booking.lesson.user.first_name if booking.lesson.user_id%></td>
           <td>
-            <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal-past-bookings-<%= booking.lesson.id %>"><i class="fas fa-plus-circle"></i></button>
+            <button type="button" class="btn-plus" data-toggle="modal" data-target="#mobile-modal-past-bookings-<%= booking.lesson.id %>"><i class="fas fa-plus-circle"></i></button>
           </td>
         </tr>
         <!-- Modal -->
-        <div class="modal fade" id="modal-past-bookings-<%= booking.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+        <div class="modal fade" id="mobile-modal-past-bookings-<%= booking.lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content participants-modal">
               <div class="modal-header">

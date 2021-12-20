@@ -61,7 +61,7 @@ class LessonsController < ApplicationController
           @booking.save
           if @lesson.save
             @new_location&.save
-            redirect_to profile_path
+            redirect_to lessons_path
           else
             render :new
           end

@@ -41,7 +41,7 @@
       <% if lesson.user_id %>
         <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">AVEC COACH <%= lesson.user.first_name.upcase %></p>
       <% else %>
-        <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center">PAS DE COACH</p>
+        <p class="mb-0 text-blue text-bold text-condensed text-small lesson-max-100 text-center"></p>
       <% end %>
       <% if user_signed_in? %>
         <% if !current_user.coach && !current_user.admin %>

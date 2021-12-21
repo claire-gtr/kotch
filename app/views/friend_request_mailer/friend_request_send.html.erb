@@ -1,0 +1,7 @@
+<p class="mb-3"><%= @receiver.first_name.capitalize %>,</p>
+
+<p>Tu viens de recevoir une demande d'amitié de la part de <%= @requestor.full_name %> sur Koach & Co.</p>
+
+<p class="mb-3"><%= link_to 'Voir sa demande', friendships_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+
+<p class="mt-5">À très vite </p>

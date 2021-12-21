@@ -16,6 +16,8 @@ class FriendRequestsController < ApplicationController
         else
           friend_request = FriendRequest.new(requestor: current_user, receiver: user)
           friend_request.save
+          mail = FriendRequestMailer.with(friend_request: friend_request).friend_request_send
+          mail.deliver_now
           flash[:notice] = "Une demande d'amitié a bien été envoyée à #{email}"
           redirect_to friendships_path
         end

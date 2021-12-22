@@ -1,5 +1,8 @@
 {
   "name": "kotch",
+  "engines": {
+    "node": ">=14.x <16.0.0"
+  },
   "private": true,
   "dependencies": {
     "@fontsource/barlow": "^4.5.0",

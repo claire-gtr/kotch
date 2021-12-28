@@ -42,6 +42,12 @@ input#message_content {
   font-family: 'Barlow Condensed', 'sans-serif';
 }
 
+.upload-photo-enterprise {
+  color: $white;
+  text-decoration: none;
+  font-family: 'Barlow Condensed', 'sans-serif';
+}
+
 .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
     color: $blue-kotch;
 }
@@ -149,4 +155,14 @@ label.password {
 .input-separator {
   font-weight: 600;
   font-size: 30px;
+}
+
+.enterprise-signup-form::placeholder {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.4;
+  font-family: "Barlow Condensed", "sans-serif";
+  color: gray;
+  text-transform: uppercase;
 }

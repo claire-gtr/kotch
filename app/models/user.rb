@@ -44,10 +44,11 @@ class User < ApplicationRecord
   validates :expectations, inclusion: { in: expectations.keys }, allow_nil: true
   validates :company_discover, inclusion: { in: company_discovers.keys }, allow_nil: true
   validates :status, inclusion: { in: statuses.keys }, presence: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :first_name, presence: true, if: -> { person? }
+  validates :last_name, presence: true, if: -> { person? }
   validates :optin_cgv, presence: true
   validates :enterprise_name, presence: true, if: -> { enterprise? }
+  validates :phone_number, presence: true, if: -> { enterprise? }
 
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
   scope :no_admins, -> { where(admin: false) }

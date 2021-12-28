@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   post 'invitations-par-emails', to: "bookings#create_by_emails", as: :create_by_emails
 
   get 'inscription-coach', to: "coachs#sign_up", as: :coach_sign_up
+  get 'inscription-entreprise', to: "enterprises#sign_up", as: :enterprise_sign_up
   get 'sportive-profile/:id', to:'users#sportive_profile', as: :sportive_profile
   get 'foire-aux-questions', to: "pages#faq", as: :faq
   get 'forum', to: "pages#forum", as: :forum

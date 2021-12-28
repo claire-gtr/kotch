@@ -1,0 +1,77 @@
+<% canonical(enterprise_sign_up_url) %>
+<% content_for :meta_title, "Koach & Co | Inscription pour les entreprises" %>
+<% content_for :meta_description, "Vous êtes une entreprise et vous souhaitez utiliser Koach & Co afin de réserver des séances de sport pour vos salariés ? Inscrivez-vous directement sur ce lien ou bien contactez nous directement." %>
+
+<div class="container">
+  <% if user_signed_in? %>
+    <div class="text-center">
+      Vous avez déjà créé votre compte.
+    </div>
+  <% else %>
+    <%= simple_form_for(User.new, as: :user, url: registration_path(:user)) do |f| %>
+            <%= f.error_notification %>
+            <%= f.input :status, as: :hidden, input_html: { value: :enterprise } %>
+      <div class="row mt-2 h-100">
+        <div class="col-12 col-lg-6 px-5 my-auto">
+          <div class="card-red p-3 p-lg-4">
+            <h5 class='text-blue text-center text-bold text-condensed'>JE SUIS UNE ENTREPRISE ET JE M'INSCRIS SUR KOACH & CO</h5>
+            <div class="form-inputs">
+              <div class="text-center">
+                <%= image_tag "avatar_default.png", class:'avatar' %>
+                <%= f.input :avatar, as: :file, input_html: { class: 'd-none' }, label_html: { class: 'upload-photo'}, label: "ajouter mon logo d'entreprise" %>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <%= f.input :first_name, label: 'Prénom du responsable' %>
+                </div>
+                <div class="col-6">
+                  <%= f.input :last_name, label: 'Nom du responsable' %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <%= f.input :email,
+                          required: true,
+                          autofocus: true,
+                          input_html: { autocomplete: "email" }, label: 'Email du responsable' %>
+                </div>
+                <div class="col-6">
+                  <%= f.input :phone_number, label: 'Téléphone du responsable' %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <%= f.input :enterprise_name, label: "Nom de l'entreprise" %>
+                </div>
+                <div class="col-6"></div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <%= f.input :password,
+                          required: true,
+                          hint: ("#{@minimum_password_length} charactères minimum" if @minimum_password_length),
+                          input_html: { autocomplete: "new-password" }, label: 'Mot de Passe' %>
+                </div>
+                <div class="col-6">
+                  <%= f.input :password_confirmation,
+                          required: true,
+                          input_html: { autocomplete: "new-password" }, label: 'Confirmation' %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <%= f.input :optin_cgv, as: :boolean, label_html: { class: "italic" }, label:  ("Je reconnais avoir lu et accepté les #{link_to 'Conditions Générales de Vente', cgv_path, target: "_blank", rel: 'noopener noreferrer', class: "cgv"}").html_safe, error: 'Vous devez accepter les CGV pour utiliser Koach and Co.' %>
+                </div>
+                <div class="col-12">
+                  <%= f.button :submit, "JE CRÉE MON COMPTE", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 px-5 d-none d-lg-block my-auto">
+          <%= image_tag "femme_prete_pour_sa_séance_de_sport.png", alt: "Une femme souriante après une séance de sport", class:'w-100' %>
+        </div>
+    <% end %>
+  <% end %>
+</div>

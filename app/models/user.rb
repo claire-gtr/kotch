@@ -142,7 +142,6 @@ class User < ApplicationRecord
     self.email = self.email.gsub(/\s+/, '').downcase
     self.first_name = self.first_name.gsub(/\s+/, '')
     self.last_name = self.last_name.gsub(/\s+/, '')
-    self.enterprise_name = self.enterprise_name.gsub(/\s+/, '') if enterprise?
   end
 
   def find_waiting_bookings

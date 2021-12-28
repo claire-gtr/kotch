@@ -133,11 +133,9 @@ class User < ApplicationRecord
   end
 
   def send_welcome_mail
-    if person? && !admin? && !coach?
-      mail = UserMailer.with(user: self).welcome_mail
-    elsif enterprise?
-      mail = UserMailer.with(user: self).welcome_mail_enterprise
-    end
+    return unless person? && !admin? && !coach?
+
+    mail = UserMailer.with(user: self).welcome_mail
     mail.deliver_now
   end
 

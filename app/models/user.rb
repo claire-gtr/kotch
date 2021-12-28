@@ -132,10 +132,12 @@ class User < ApplicationRecord
   end
 
   def send_welcome_mail
-    if (admin == false) && (coach == false)
+    if person? && !admin? && !coach?
       mail = UserMailer.with(user: self).welcome_mail
-      mail.deliver_now
+    elsif enterprise?
+      mail = UserMailer.with(user: self).welcome_mail_enterprise
     end
+    mail.deliver_now
   end
 
   def remove_empty_spaces

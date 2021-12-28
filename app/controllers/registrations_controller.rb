@@ -7,6 +7,8 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         if resource.coach?
           set_flash_message! :notice, :signed_up_coach
+        elsif resource.enterprise?
+          set_flash_message! :alert, :signed_up_enterprise
         else
           set_flash_message! :notice, :signed_up_customer
         end

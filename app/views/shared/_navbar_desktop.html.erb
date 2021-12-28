@@ -15,7 +15,9 @@
           <% if !current_user.coach %>
             <li class="nav-item">
               <em>
-                <%= link_to "NOS OFFRES", offers_path, data: {turbolinks: "false"}, class: "nav-link ml-5" %>
+                <%= link_to offers_path, data: { turbolinks: "false" }, class: "nav-link ml-5" do %>
+                  <%= current_user.enterprise? ? 'NOS TARIFS ENTREPRISE' : 'NOS OFFRES' %>
+                <% end %>
               </em>
             </li>
           <% end %>
@@ -28,11 +30,13 @@
               <% end %>
             </em>
           </li>
-          <li class="nav-item">
-            <em>
-              <%= link_to "SÉANCES PUBLIQUES", public_lessons_path, class: "nav-link ml-5" %>
-            </em>
-          </li>
+          <% if current_user.person? %>
+            <li class="nav-item">
+              <em>
+                <%= link_to "SÉANCES PUBLIQUES", public_lessons_path, class: "nav-link ml-5" %>
+              </em>
+            </li>
+          <% end %>
           <li class="nav-item dropdown">
             <div class="ml-5 dropdown-toggle btn btn-kotch btn-ghost-blue btn-extra-small" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
               <em>MON COMPTE</em>
@@ -58,11 +62,19 @@
                   <% end %>
                 </div>
               <% end %>
-              <% unless current_user.coach? %>
+              <% unless current_user.coach? || current_user.enterprise? %>
                 <div class="d-flex align-items-center">
                   <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0 w-25" %>
                   <% if @new_friend_requests_received.present? %>
                     <div class="blue-dot ml-3 mt-1"></div>
+                  <% end %>
+                </div>
+              <% end %>
+              <% if current_user.enterprise? %>
+                <div class="d-flex align-items-center">
+                  <%= link_to "Mes salariés", root_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
+                  <% if true %>
+                    <div class="blue-dot ml-4 mt-1"></div>
                   <% end %>
                 </div>
               <% end %>

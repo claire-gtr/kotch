@@ -14,14 +14,16 @@
             <%= cl_image_tag current_user.profile_picture, class:'avatar-small', alt: "avatar" %>
             <p class='text-blue text-bold ml-2 mb-0 navbar-name'>Bonjour <%= current_user.first_name.capitalize %></p>
           </div>
-          <% if current_user.coach %>
+          <% if current_user.coach? %>
             <%= link_to "Créer une séance", new_lesson_path, class: "dropdown-item text-white px-0" %>
           <% else %>
             <%= link_to "Réserver une séance", new_lesson_path, class: "dropdown-item text-white px-0" %>
           <% end %>
-          <%= link_to "Séances publiques", public_lessons_path, class: "dropdown-item text-white px-0" %>
+          <% if current_user.person? %>
+            <%= link_to "Séances publiques", public_lessons_path, class: "dropdown-item text-white px-0" %>
+          <% end %>
           <%= link_to "Mon profil", profile_path, class: "dropdown-item text-white px-0" %>
-          <% if current_user.coach %>
+          <% if current_user.coach? %>
             <div class="d-flex align-items-center justify-content-start">
               <%= link_to "Mes coachings", lessons_path, class: "dropdown-item text-white px-0 w-50" %>
               <% if @message_not_readed_coach.present? %>
@@ -36,11 +38,19 @@
               <% end %>
             </div>
           <% end %>
-          <% unless current_user.coach %>
+          <% unless current_user.coach? || current_user.enterprise? %>
             <div class="d-flex align-items-center">
               <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0 w-25" %>
               <% if @new_friend_requests_received.present? %>
                 <div class="blue-dot ml-3 mt-1"></div>
+              <% end %>
+            </div>
+          <% end %>
+          <% if current_user.enterprise? %>
+            <div class="d-flex align-items-center">
+              <%= link_to "Mes salariés", root_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
+              <% if true %>
+                <div class="blue-dot ml-4 mt-1"></div>
               <% end %>
             </div>
           <% end %>

@@ -15,3 +15,18 @@
     }
   }
 }
+
+.card-offer-container-enterprise {
+  display: flex;
+}
+
+@media screen and (max-width: 1024px){
+  .card-offer-container-enterprise {
+    flex-direction: column;
+    position: relative;
+
+    .card-offer-enterprise {
+      margin: 2em auto;
+    }
+  }
+}

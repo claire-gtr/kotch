@@ -18,14 +18,12 @@
               <h6 class='text-blue'><strong>GENRE</strong></h4>
               <%= f.input :gender, as: :radio_buttons, collection: User.genders.keys.map { |m| [I18n.t("gender.#{m}"), m] }, legend_tag: false %>
             <% else %>
-              <% if current_user.enterprise? %>
-                <div class="row mt-3">
-                  <div class="col-6">
-                    <%= f.input :enterprise_name, label: false %>
-                  </div>
-                  <div class="col-6"></div>
+              <div class="row mt-3">
+                <div class="col-6">
+                  <%= f.input :enterprise_name, label: false %>
                 </div>
-              <% end %>
+                <div class="col-6"></div>
+              </div>
             <% end %>
             <div class="row">
               <div class="col-6">

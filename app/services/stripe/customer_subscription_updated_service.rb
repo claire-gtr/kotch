@@ -19,7 +19,7 @@ module Stripe
       end
 
       if first_sub
-        if @user.referral_code == ""
+        if @user.person? && @user.referral_code == ""
           @new_referral_code = [*('a'..'z'), *('0'..'9')].sample(10).join.upcase
           while User.find_by(referral_code: @new_referral_code).present?
             @new_referral_code = [*('a'..'z'), *('0'..'9')].sample(10).join.upcase

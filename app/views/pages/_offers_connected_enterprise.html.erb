@@ -1,17 +1,17 @@
 <div class="container text-center">
 
-  <h2 class="mt-5 mb-3">SÉLECTIONNEZ l’ABONNEMENT QUI CONVIENT À VOS SALARIÉS</h2>
+  <h2 class="mt-5 mb-1">SÉLECTIONNEZ l’ABONNEMENT QUI CONVIENT À VOS SALARIÉS</h2>
   <% if @prices_and_sessions[0][:percentage] %>
     <h3 class="mb-5 text-blue">Vous avez le droit à une réduction de <%= @prices_and_sessions[0][:percentage] %>% grâce à votre entreprise (inclue dans les prix affichés)</h3>
   <% end %>
 
   <% if user_signed_in? && current_user.subscription && current_user.subscription.stripe_id %>
 
-    <h3 class="text-blue"> Vous avez déjà souscrit à un abonnement entreprise Koach & Co, cliquez ci-dessous pour gérer votre abonnement.</h3>
+    <h3 class="text-blue"><em>Vous avez déjà souscrit à un abonnement Koach & Co, cliquez ci-dessous pour gérer votre abonnement.</em></h3>
 
     <form action="/customer_portal_sessions" method="POST">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-      <button class="btn btn-kotch btn-red mb-5">Gérer mon abonnement</button>
+      <button class="btn btn-medium btn-kotch btn-red my-5">Gérer mon abonnement</button>
     </form>
 
     <%= render 'static_offers_subscription_enterprise' %>

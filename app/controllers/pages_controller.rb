@@ -82,7 +82,7 @@ class PagesController < ApplicationController
           }],
           mode: 'subscription',
           success_url: ENV['SUCCESS_URL_STRIPE'],
-          cancel_url: root_url,
+          cancel_url: offers_url,
           client_reference_id: current_user.id,
           customer: find_or_create_stripe_customer_id
         })

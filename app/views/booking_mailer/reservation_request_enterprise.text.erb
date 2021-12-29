@@ -1,0 +1,7 @@
+Bonjour <%= @user.first_name.capitalize %> !
+
+Vous venez d'envoyer à nos coachs une proposition de séance pour un <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> situé à l'adresse suivante : <%= @lesson.location.name %>.
+
+Votre demande sera validée une fois qu'un coach l'aura accepté.
+
+À très vite

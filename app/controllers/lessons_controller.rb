@@ -61,6 +61,11 @@ class LessonsController < ApplicationController
           @booking.save
           if @lesson.save
             @new_location&.save
+            if current_user.enterprise?
+              mail = BookingMailer.with(lesson: @lesson, user: current_user).reservation_request_enterprise
+              mail.deliver_now
+              set_reccurency_lessons(@lesson, @booking)
+            end
             redirect_to lessons_path
           else
             render :new
@@ -274,12 +279,34 @@ class LessonsController < ApplicationController
 
   def send_email_to_users
     @lesson.bookings.where(status: "Confirmé").each do |booking|
-      mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed
+      user = booking.user
+      if user.enterprise?
+        mail = BookingMailer.with(user: user, booking: booking, lesson: @lesson).coach_confirmed_enterprise
+      else
+        mail = BookingMailer.with(user: user, booking: booking, lesson: @lesson).coach_confirmed
+      end
       mail.deliver_now
     end
   end
 
   def lesson_params
-    params.require(:lesson).permit(:date, :location_id, :sport_type, :focus, :reccurency)
+    params.require(:lesson).permit(:date, :location_id, :sport_type, :focus, :reccurency, :status)
+  end
+
+  def set_reccurency_lessons(lesson, booking)
+    return if lesson.not_reccurent? || lesson.status != 'Pre-validée' || current_user.has_credit(lesson.date)[:has_credit] == true
+
+    if weekly?
+      3.times do |i|
+        new_lesson = lesson.dup
+        new_lesson.date = lesson.date + ((i + 1) * 7).days
+        new_lesson.reccurency = :not_reccurent
+        new_lesson.status = 'Pre-validée'
+        new_lesson.save
+        new_booking = booking.dup
+        new_booking.lesson = new_lesson
+        new_booking.save
+      end
+    end
   end
 end

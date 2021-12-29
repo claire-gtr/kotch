@@ -96,7 +96,7 @@ en:
     other: Autres campagnes de communication
   reccurencies:
     not_reccurent: Non
-    weekly: Hebdomadaire
+    weekly: Oui
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
 #

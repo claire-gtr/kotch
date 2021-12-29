@@ -16,7 +16,7 @@ class Lesson < ApplicationRecord
   scope :group_by_month, -> { group("date_trunc('month', date) ") }
   scope :by_status, ->(val) { where(status: val) }
 
-  after_create :set_reccurency_lessons, if: :enterprise_has_credit?, unless: :not_reccurent?
+  after_create :invite_coach_for_enterprise
 
   def diff_time
     (self.date.to_time - 24.hours).to_datetime
@@ -34,27 +34,20 @@ class Lesson < ApplicationRecord
     return creator
   end
 
-  def enterprise_has_credit?
-    return unless enterprise?
+  # def enterprise_has_credit?
+  #   return unless status == 'Pre-validée'
 
-    enterprise.has_credit(self.date)[:has_credit] == true
-  end
+  #   enterprise.has_credit(self.date)[:has_credit] == true
+  # end
 
   private
 
-  def set_reccurency_lessons
-    return if not_reccurent? || enterprise?
+  def invite_coach_for_enterprise
+    return unless status == 'Pre-validée'
 
-    if weekly?
-      3.times do |i|
-        new_lesson = self.dup
-        new_lesson.date = self.date + ((i + 1) * 7).days
-        new_lesson.reccurency = :not_reccurent
-        new_lesson.save
-        new_booking = self.bookings.first.dup
-        new_booking.lesson = new_lesson
-        new_booking.save
-      end
+    User.where(coach: true).each do |user|
+      mail = BookingMailer.with(lesson: self, user: user).invite_coachs_enterprise
+      mail.deliver_now
     end
   end
 end

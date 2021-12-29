@@ -72,4 +72,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://www.koachandco.com/inscription-entreprise</loc>
+    <lastmod>2021-12-29T17:48:11+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>

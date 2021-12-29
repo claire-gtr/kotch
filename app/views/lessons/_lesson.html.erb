@@ -46,7 +46,7 @@
             <% end %>
           <% end %>
         <% else %>
-          <%= link_to "Annuler la séance", cancel_lesson_path(lesson), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed'  %>
+          <%= link_to "Annuler la séance", cancel_lesson_path(lesson, cancel_customer_id: current_user.id), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed'  %>
         <% end %>
       </div>
     </div>
@@ -81,12 +81,11 @@
           </div>
           <div class="modal-body">
             <% lesson.users.each do |user| %>
-              <% if user.person? %>
-                <div class="d-flex justify-content-between">
-                  <p><%= user.full_name %></p>
-                  <p><em><%= Booking.find_by(user: user, lesson: lesson).status %></em></p>
-                </div>
-              <% end %>
+              <% next if user.enterprise? %>
+              <div class="d-flex justify-content-between">
+                <p><%= user.full_name %></p>
+                <p><em><%= Booking.find_by(user: user, lesson: lesson).status %></em></p>
+              </div>
             <% end %>
           </div>
           <div class="modal-footer">

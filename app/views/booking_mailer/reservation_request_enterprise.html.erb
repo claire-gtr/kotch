@@ -1,0 +1,7 @@
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
+
+<p>Vous venez d'envoyer à nos coachs une proposition de séance pour un <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> situé à l'adresse suivante : <%= @lesson.location.name %>.</p>
+
+<p>Votre demande sera validée une fois qu'un coach l'aura accepté.</p>
+
+<p class="mt-5">À très vite </p>

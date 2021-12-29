@@ -102,7 +102,7 @@ class LessonsController < ApplicationController
             end
           end
         else
-          flash[:alert] = "Vous n'avez pas de séance pour réserver une séance ce mois-ci.."
+          flash[:alert] = "Vous n'avez pas de crédits pour réserver une séance ce mois-ci.."
           redirect_to offers_path
         end
       end
@@ -280,6 +280,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:date, :location_id, :sport_type, :focus)
+    params.require(:lesson).permit(:date, :location_id, :sport_type, :focus, :reccurency)
   end
 end

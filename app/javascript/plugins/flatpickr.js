@@ -6,7 +6,7 @@ const initFlatpickr = () => {
     time_24hr: true,
     dateFormat: "d/m/Y - H:i",
     minDate: "today",
-    maxDate: new Date().fp_incr(45)
+    maxDate: new Date().fp_incr(31)
   });
 }
 

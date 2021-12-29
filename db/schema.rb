@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_102555) do
+ActiveRecord::Schema.define(version: 2021_12_29_103215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 2021_12_28_102555) do
     t.bigint "location_id"
     t.boolean "public", default: false
     t.text "focus"
+    t.integer "reccurency", default: 0, null: false
+    t.boolean "active", default: false, null: false
     t.index ["location_id"], name: "index_lessons_on_location_id"
     t.index ["user_id"], name: "index_lessons_on_user_id"
   end

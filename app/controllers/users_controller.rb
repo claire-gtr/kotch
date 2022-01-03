@@ -151,5 +151,6 @@ class UsersController < ApplicationController
         end
       end
     end
+    @employment = Employment.new
   end
 end

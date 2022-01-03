@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_29_103215) do
+ActiveRecord::Schema.define(version: 2022_01_03_164239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 2021_12_29_103215) do
     t.boolean "messages_readed", default: false, null: false
     t.index ["lesson_id"], name: "index_bookings_on_lesson_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "employments", force: :cascade do |t|
+    t.bigint "enterprise_id", null: false
+    t.bigint "employee_id", null: false
+    t.boolean "accepted"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_employments_on_employee_id"
+    t.index ["enterprise_id"], name: "index_employments_on_enterprise_id"
   end
 
   create_table "friend_requests", force: :cascade do |t|
@@ -233,6 +243,8 @@ ActiveRecord::Schema.define(version: 2021_12_29_103215) do
   add_foreign_key "answers", "users"
   add_foreign_key "bookings", "lessons"
   add_foreign_key "bookings", "users"
+  add_foreign_key "employments", "users", column: "employee_id"
+  add_foreign_key "employments", "users", column: "enterprise_id"
   add_foreign_key "lessons", "users"
   add_foreign_key "locations", "users"
   add_foreign_key "messages", "bookings"

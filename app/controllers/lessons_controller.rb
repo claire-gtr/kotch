@@ -294,10 +294,14 @@ class LessonsController < ApplicationController
   end
 
   def set_reccurency_lessons(lesson, booking)
-    return if lesson.not_reccurent? || lesson.status != 'Pre-validée' || current_user.has_credit(lesson.date)[:has_credit] == true
+    has_credit = current_user.has_credit(lesson.date)
+    return if lesson.not_reccurent? || lesson.status != 'Pre-validée' || has_credit[:has_credit] == false || current_user.person?
 
-    if weekly?
-      3.times do |i|
+    credit_number = has_credit[:number]
+    if lesson.weekly?
+      remaining_weeks_in_lesson_month = (lesson.date.to_date.end_of_month - lesson.date.to_date).to_i / 7
+      number = remaining_weeks_in_lesson_month <= credit_number ? remaining_weeks_in_lesson_month : credit_number
+      number.times do |i|
         new_lesson = lesson.dup
         new_lesson.date = lesson.date + ((i + 1) * 7).days
         new_lesson.reccurency = :not_reccurent

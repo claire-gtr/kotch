@@ -15,6 +15,7 @@ class Lesson < ApplicationRecord
 
   scope :group_by_month, -> { group("date_trunc('month', date) ") }
   scope :by_status, ->(val) { where(status: val) }
+  scope :futures, -> { where('date >= ?', DateTime.now) }
 
   after_create :invite_coach_for_enterprise
 

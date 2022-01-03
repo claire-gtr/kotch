@@ -103,7 +103,8 @@ class User < ApplicationRecord
           bookings_count += 1
         end
       end
-      return { has_credit: true, origin: "subscription" } if bookings_count < lessons_included
+      number = (lessons_included - bookings_count) >= 0 ? lessons_included - bookings_count : 0
+      return { has_credit: true, origin: "subscription", number: number } if bookings_count < lessons_included
     end
 
     if self.credit_count > 0

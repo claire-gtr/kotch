@@ -7,6 +7,7 @@ class Booking < ApplicationRecord
 
   scope :group_by_month, -> { group("date_trunc('month', date_lesson) ") }
   scope :by_lesson_status, ->(val) { joins(:lesson).merge(Lesson.by_status(val)) }
+  scope :future_lessons, -> { joins(:lesson).merge(Lesson.futures) }
 
   def date_lesson
     self.lesson.date

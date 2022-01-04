@@ -138,6 +138,24 @@ a:hover {
 .pill-green {
   background-color: #2DFFBE;
 }
+
+.pill-enterprise {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 16px;
+  color: white;
+  font-weight: 800;
+  display: inline-block;
+}
+
+.pill-enterprise-red {
+  background-color: red;
+}
+
+.pill-enterprise-green {
+  background-color: green;
+}
+
 .pill-fixed-size {
   width: 70px;
   display: flex;

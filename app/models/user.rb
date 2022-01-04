@@ -162,9 +162,9 @@ class User < ApplicationRecord
   def set_enterprise_code
     return unless enterprise? && enterprise_code.blank?
 
-    new_enterprise_code = [*('a'..'z'), *('0'..'9')].sample(12).join.upcase
+    new_enterprise_code = [*('a'..'z'), *('0'..'9')].sample(8).join.upcase
     while User.find_by(enterprise_code: new_enterprise_code).present?
-      new_enterprise_code = [*('a'..'z'), *('0'..'9')].sample(12).join.upcase
+      new_enterprise_code = [*('a'..'z'), *('0'..'9')].sample(8).join.upcase
     end
     self.update(enterprise_code: new_enterprise_code)
   end

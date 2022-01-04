@@ -152,5 +152,6 @@ class UsersController < ApplicationController
       end
     end
     @employment = Employment.new
+    @user_employments = Employment.where(employee: current_user)
   end
 end

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :messages_not_readed
   before_action :friend_request_received
+  before_action :employments_to_check
 
   include Pundit
 
@@ -84,6 +85,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def employments_to_check
+    return unless current_user.present? && current_user.enterprise?
+
+    @employments_to_check = policy_scope(Employment).where(enterprise: current_user, accepted: nil)
+  end
 
   def friend_request_received
     if current_user && !current_user.coach?

@@ -51,8 +51,8 @@
           <% end %>
           <% if current_user.enterprise? %>
             <div class="d-flex align-items-center">
-              <%= link_to "Mes salariés", root_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
-              <% if true %>
+              <%= link_to "Mes salariés", employments_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
+              <% if @employments_to_check.present? && !@employments_to_check.empty? %>
                 <div class="blue-dot ml-4 mt-1"></div>
               <% end %>
             </div>

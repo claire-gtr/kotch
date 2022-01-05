@@ -78,7 +78,7 @@
               <div class="row">
                 <div class="col-12 px-2 my-0">
                   <%= f.input :terms, as: :boolean, label_html: { class: "italic text-justify" }, label: "En cochant cette case, vous consentez à recevoir des propositions commerciales par voie électronique. Vous pouvez vous désinscrire à tout moment en modifiant vos paramètres sur votre compte et à travers les liens de désinscription." %>
-                  <%= f.input :optin_cgv, as: :boolean, label_html: { class: "italic" }, label:  ("Je reconnais avoir lu et accepté les #{link_to "Conditions Générales d'Utilisation", cgv_path, target: "_blank", rel: 'noopener noreferrer', class: "cgv"}").html_safe, error: 'Vous devez accepter les CGV pour utiliser Koach and Co.' %>
+                  <%= f.input :optin_cgv, as: :boolean, label_html: { class: "italic" }, label: ("Je reconnais avoir lu et accepté les #{link_to "Conditions Générales d'Utilisation", cgv_path, target: "_blank", rel: 'noopener noreferrer', class: "cgv"}").html_safe, error: 'Vous devez accepter les CGV pour utiliser Koach and Co.' %>
                 </div>
                 <div class="col-12 px-2 my-0">
                   <%= f.button :submit, "JE CRÉE MON COMPTE", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>

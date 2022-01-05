@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   get '/mes-employes', to: 'employments#index', as: :employments
   post '/mes-employes', to: 'employments#create'
   patch '/mes-employes/:id', to: 'employments#update', as: :employment
+  patch '/mes-employes/:id/supprimer', to: 'employments#cancel', as: :cancel_employment
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

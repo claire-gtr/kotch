@@ -152,6 +152,7 @@ class UsersController < ApplicationController
       end
     end
     @employment = Employment.new
-    @user_employments = Employment.where(employee: current_user)
+    @user_employment = Employment.find_by(employee: current_user, accepted: true)
+    @user_employment_send = Employment.find_by(employee: current_user, accepted: nil)
   end
 end

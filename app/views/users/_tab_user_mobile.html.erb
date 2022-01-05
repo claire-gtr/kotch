@@ -155,7 +155,7 @@
       <%= submit_tag "J'utilise ce code", class:'btn btn-red btn-kotch mb-2 mt-1' %>
     <% end %>
   </div>
-  <% if @user_employments.empty? %>
+  <% if @user_employment.present? %>
     <div class="text-center">
       <p class="text-blue mt-4 mb-0">Accéder au planning de votre entreprise en renseignant son code d'identification unique :</p>
       <%= simple_form_for @employment, url: employments_path, method: :post do |f| %>

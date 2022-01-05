@@ -205,7 +205,14 @@
           <%= submit_tag "Utiliser ce code", class:'btn btn-red btn-kotch mt-2' %>
         <% end %>
       </div>
-      <% if @user_employments.empty? %>
+      <% if @user_employment.present? %>
+        <p class="text-center text-blue mt-4">Vous êtes déjà dans la liste des salariés de l'entreprise <%= @user_employment.enterprise.enterprise_name %>.</p>
+        <%= link_to cancel_employment_path(@user_employment), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir quitter la liste des salariés de l'entreprise #{employment.employee.full_name} ?"}, class:'text-small text-deco-none', title: "Quitter" do %>
+          <i class="fas fa-times-circle text-coral" id="icon-close"></i>
+        <% end %>
+      <% elsif @user_employment_send.present? %>
+
+      <% else %>
         <div class="text-center">
           <p class="text-blue mt-4">Accéder au planning de votre entreprise en renseignant son code d'identification unique :</p>
           <%= simple_form_for @employment, url: employments_path, method: :post do |f| %>
@@ -214,8 +221,6 @@
             <%= submit_tag "Envoyer ma demande d'accès", class:'btn btn-red btn-kotch mt-2' %>
           <% end %>
         </div>
-      <% else %>
-        <p class="text-center text-blue mt-4">Vous avez déjà envoyé une demande d'accès à une entreprise.</p>
       <% end %>
     </div>
   </div>

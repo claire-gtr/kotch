@@ -12,4 +12,8 @@ class EmploymentPolicy < ApplicationPolicy
   def update?
     user_loggedin? && (record.enterprise == user)
   end
+
+  def cancel?
+    user_loggedin? && ((record.enterprise == user) || (record.employee == user))
+  end
 end

@@ -42,12 +42,17 @@ class EmploymentsController < ApplicationController
 
   def cancel
     @employment = Employment.find(params[:id])
+    query = params[:query]
     authorize @employment
     @employment.update(accepted: false)
     if current_user == @employment.enterprise
       return redirect_to employments_path, notice: "#{@employment.employee.full_name} a bien été retiré de vos salariés"
     else
-      return redirect_to profile_path, notice: "Vous avez bien été retiré des salariés de l'entreprise #{@employment.enterprise.enterprise_name}"
+      if query.present? && query == 'annuler'
+        return redirect_to profile_path(tab: 'tab-3'), notice: "Votre demande d'intégration à la liste des salariés de l'entreprise #{@employment.enterprise.enterprise_name.upcase} a bien été annulée"
+      else
+        return redirect_to profile_path(tab: 'tab-3'), notice: "Vous avez bien été retiré des salariés de l'entreprise #{@employment.enterprise.enterprise_name.upcase}"
+      end
     end
   end
 end

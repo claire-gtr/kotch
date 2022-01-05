@@ -35,4 +35,11 @@ class LessonMailer < ApplicationMailer
     # @temporay_password = params[:password]
     mail(to: @user_email, subject: 'Invitation à participer à une séance Koach & Co')
   end
+
+  def invite_employee
+    @lesson = params[:lesson]
+    @user = params[:user]
+    @enterprise = params[:enterprise]
+    mail(to: @user.email, subject: 'Votre entreprise vous invite à participer à une séance Koach & Co')
+  end
 end

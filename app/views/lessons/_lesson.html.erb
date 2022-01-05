@@ -94,7 +94,13 @@
         </div>
       </div>
     </div>
-    <% if !current_user.coach? %>
+    <% if current_user.enterprise? %>
+      <p>
+        <%= link_to invite_enterprise_employees_path(lesson), class: "btn btn-transparent" do %>
+          <i class="fas fa-plus-circle fa-xs"></i> Inviter des participants
+        <% end %>
+      </p>
+    <% elsif !current_user.coach? %>
       <% if lesson.bookings.count <= 10 %>
         <div>
           <!-- Button trigger modal -->

@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   patch 'cancel-lesson/:id', to: 'lessons#cancel', as: :cancel_lesson
   get 'focus-lesson/:id', to: 'lessons#focus_lesson', as: :focus_lesson
   get 'pre-validate-lesson/:id', to: 'lessons#pre_validate_lesson', as: :pre_validate_lesson
+  get 'invite-employees/:id', to: 'lessons#invite_enterprise_employees', as: :invite_enterprise_employees
 
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail

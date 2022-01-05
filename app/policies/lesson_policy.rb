@@ -63,4 +63,8 @@ class LessonPolicy < ApplicationPolicy
   def pre_validate_lesson?
     user.admin?
   end
+
+  def invite_enterprise_employees?
+    record.enterprise? && (record.bookings.first.user == user)
+  end
 end

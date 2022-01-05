@@ -275,6 +275,20 @@ class LessonsController < ApplicationController
     redirect_to all_lessons_path
   end
 
+  def invite_enterprise_employees
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson
+    employees = current_user.employees
+    employees_booking = @lesson.users
+    employees.each do |employee|
+      unless employees_booking.include?(employee)
+        mail = LessonMailer.with(lesson: @lesson, user: employee, enterprise: current_user).invite_employee
+        mail.deliver_now
+      end
+    end
+    redirect_to lessons_path, notice: 'Vos employés ont bien été invités'
+  end
+
   private
 
   def send_email_to_users

@@ -289,6 +289,11 @@ class LessonsController < ApplicationController
     redirect_to lessons_path, notice: 'Vos employés ont bien été invités'
   end
 
+  def employee_enterprise_lessons
+    authorize(:lesson, :employee_enterprise_lessons?)
+    @enterprise_lessons = current_user.enterprise&.lessons
+  end
+
   private
 
   def send_email_to_users

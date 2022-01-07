@@ -64,6 +64,12 @@ class User < ApplicationRecord
     self.friendships_as_friend_a + self.friendships_as_friend_b
   end
 
+  def enterprise
+    return unless person?
+
+    employee_employments.includes([:enterprise]).find_by(accepted: true).enterprise
+  end
+
   def employees
     return unless enterprise?
 

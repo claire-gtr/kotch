@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get 'focus-lesson/:id', to: 'lessons#focus_lesson', as: :focus_lesson
   get 'pre-validate-lesson/:id', to: 'lessons#pre_validate_lesson', as: :pre_validate_lesson
   get 'invite-employees/:id', to: 'lessons#invite_enterprise_employees', as: :invite_enterprise_employees
+  get 'seances-de-mon-entreprise', to: 'lessons#employee_enterprise_lessons', as: :employee_enterprise_lessons
 
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail

@@ -1,0 +1,11 @@
+Bonjour <%= @user.first_name.capitalize %> !
+
+Votre entreprise <%= @enterprise.enterprise_name.upcase %> vient de t’envoyer une invitation pour participer à la séance de <%= @lesson.sport_type %> <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> et te donne rendez-vous à l'adresse suivante : <%= @lesson.location.name %>.
+
+Ne tarde pas et réponds vite à son invitation !
+
+<%= link_to 'Réserve ta séance', employee_enterprise_lessons_url %>
+
+Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!
+
+À très vite

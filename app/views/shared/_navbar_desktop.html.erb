@@ -76,6 +76,11 @@
                   <% end %>
                 </div>
               <% end %>
+              <% if current_user.person? && @user_enterprise.present? %>
+                <div class="d-flex align-items-center">
+                  <%= link_to "Mon enterprise", employee_enterprise_lessons_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
+                </div>
+              <% end %>
               <%= link_to 'DÉCONNEXION', destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-small w-100 text-center mt-3" %>
               <%= link_to "Besoin d'aide ?", faq_path, class:"small-link italic text-white" %>
               <% if current_user.admin? %>

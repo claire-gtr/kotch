@@ -1,5 +1,5 @@
 <div class="container">
-  <% if @lessons.empty? %>
+  <% if lessons.empty? %>
     <div class="col-12 text-center">
       <h2 class="text-center">Il n'y a pas de séance publique disponible.</h2>
       <%= link_to "Retour à toutes les séances publiques", public_lessons_path, class:"btn btn-kotch btn-red"  %>
@@ -87,7 +87,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <% @lessons.each do |lesson| %>
+        <% lessons.each do |lesson| %>
           <%= render 'lesson_in_public_page', lesson: lesson %>
         <% end %>
       </div>

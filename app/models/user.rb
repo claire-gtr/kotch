@@ -70,6 +70,18 @@ class User < ApplicationRecord
     employee_employments.includes([:enterprise]).find_by(accepted: true).enterprise
   end
 
+  def enterprise_futur_lessons
+    return unless enterprise?
+
+    enterprise_futur_lessons = []
+    bookings.future_lessons.each do |booking|
+      next if booking.status == "Invitation envoyée"
+
+      enterprise_futur_lessons << booking.lesson
+    end
+    return enterprise_futur_lessons
+  end
+
   def employees
     return unless enterprise?
 

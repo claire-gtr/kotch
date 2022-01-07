@@ -3,8 +3,8 @@
 <% content_for :meta_description, "Accédez aux séances de sport proposées par les membres de la communauté Koach & Co ou par tes coachs, et réservez les en quelques clics !" %>
 
 <div class="d-block d-lg-none">
-  <%= render "public_lessons_mobile" %>
+  <%= render "public_lessons_mobile", lessons: @lessons %>
 </div>
 <div class="d-none d-lg-block">
-  <%= render "public_lessons_desktop" %>
+  <%= render "public_lessons_desktop", lessons: @lessons %>
 </div>

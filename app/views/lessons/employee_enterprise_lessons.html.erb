@@ -1,5 +1,6 @@
-<div class="container">
-  <% @enterprise_lessons.each do |lesson| %>
-    <p><%= lesson.sport_type %></p>
-  <% end %>
+<div class="d-block d-lg-none">
+  <%= render "public_lessons_mobile", lessons: @enterprise_lessons %>
+</div>
+<div class="d-none d-lg-block">
+  <%= render "public_lessons_desktop", lessons: @enterprise_lessons %>
 </div>

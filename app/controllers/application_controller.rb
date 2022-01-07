@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :messages_not_readed
   before_action :friend_request_received
   before_action :employments_to_check
+  before_action :find_enterprise
 
   include Pundit
 
@@ -85,6 +86,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def find_enterprise
+    return unless current_user.present? && current_user.person?
+
+    @user_enterprise = current_user.enterprise
+  end
 
   def employments_to_check
     return unless current_user.present? && current_user.enterprise?

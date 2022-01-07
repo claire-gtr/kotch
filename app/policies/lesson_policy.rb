@@ -3,7 +3,7 @@ class LessonPolicy < ApplicationPolicy
     def resolve
       if user.coach? && user.validated_coach?
         scope.where(user: user).where("date >= ?", Time.now)
-      elsif !user.coach?
+      elsif !user.coach? || user.enterprise?
         ids = []
         user.bookings.each do |booking|
           unless booking.status == "Invitation envoyée"

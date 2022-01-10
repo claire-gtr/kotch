@@ -292,6 +292,7 @@ class LessonsController < ApplicationController
   def employee_enterprise_lessons
     authorize(:lesson, :employee_enterprise_lessons?)
     @enterprise_lessons = current_user.enterprise&.enterprise_futur_lessons
+    @enterprise_lessons_page = true
     # return if enterprise_futur_lessons.empty?
 
     # if params[:day].present?

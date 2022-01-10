@@ -21,6 +21,10 @@ class BookingPolicy < ApplicationPolicy
     true
   end
 
+  def enterprise_lesson_booking?
+    user.person? && user.enterprise.present?
+  end
+
   def destroy?
     record.user == user
   end

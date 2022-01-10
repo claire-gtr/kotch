@@ -89,7 +89,7 @@ class BookingsController < ApplicationController
       authorize(:booking, :public_lesson_booking?)
       flash[:alert] = "Vous avez déjà une réservation pour cette séance."
       redirect_to public_lessons_path
-    elsif !current_user.coach
+    elsif !current_user.coach?
       if has_credit[:has_credit] == true
         @booking.lesson = @lesson
         @booking.status = "Confirmé"
@@ -118,6 +118,27 @@ class BookingsController < ApplicationController
         flash[:alert] = "Vous n'avez pas de séance pour réserver une séance ce mois-ci.."
         redirect_to offers_path
       end
+    end
+  end
+
+  def enterprise_lesson_booking
+    @lesson = Lesson.find(params[:lesson_id])
+    @enterprise = @lesson.enterprise if @lesson.enterprise?
+    @booking = Booking.new
+    authorize(:booking, :enterprise_lesson_booking?)
+
+    if @enterprise.present?
+      if @lesson.bookings.where(user: current_user).any?
+        return redirect_to employee_enterprise_lessons_path, alert: "Vous avez déjà une réservation pour cette séance."
+      elsif !current_user.coach? && current_user.enterprise == @enterprise
+        @booking.lesson = @lesson
+        @booking.status = "Confirmé"
+        @booking.user = current_user
+        @booking.save
+        return redirect_to lessons_path, notice: "Vous êtes bien inscrit(e) à la séance"
+      end
+    else
+      return redirect_to lessons_path, alert: "Vous n'avez pas d'entreprise enregistrée."
     end
   end
 

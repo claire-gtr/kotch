@@ -137,9 +137,8 @@ class BookingsController < ApplicationController
         @booking.save
         return redirect_to lessons_path, notice: "Vous êtes bien inscrit(e) à la séance"
       end
-    else
-      return redirect_to lessons_path, alert: "Vous n'avez pas d'entreprise enregistrée."
     end
+    return redirect_to lessons_path, notice: "Erreur de saisie"
   end
 
   def destroy

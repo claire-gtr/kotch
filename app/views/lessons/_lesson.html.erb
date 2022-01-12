@@ -166,7 +166,7 @@
 
   <div class="d-flex flex-column justify-content-center align-items-center text-right">
     <span class="title-sport"><%= lesson.sport_type.upcase %></span>
-    <% if current_user.person? %>
+    <% if current_user.person? && (lesson.creator == current_user) %>
       <% if !lesson.public %>
         <%= link_to change_lesson_public_path(lesson) do %>
           <p class=" mb-0 text-small text-condensed"><u>Passer la séance en publique</u></p>

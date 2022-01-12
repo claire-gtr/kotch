@@ -28,8 +28,11 @@ class Lesson < ApplicationRecord
     return creator.present? && creator.enterprise?
   end
 
+  def creator
+    return bookings&.first&.user
+  end
+
   def enterprise
-    creator = self.bookings&.first&.user
     return unless creator.present? && creator.enterprise?
 
     return creator

@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="our-concept-title text-center my-5">SÉANCES PUBLIQUES</h1>
+  <h1 class="our-concept-title text-center my-5">PLANNING DES SÉANCES DE MON ENTREPRISE</h1>
   <% if lessons.empty? %>
     <div class="col-12 text-center">
       <h2 class="text-center">Il n'y a pas de séance prévu par votre entreprise.</h2>
@@ -10,7 +10,7 @@
       <div class="dropdown-lesson-mobile mt-2 mt-md-0 mx-1">
         <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuActivity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="d-flex justify-content-between">
-            ACTIVITÉ
+            Activité
             <i class="fas fa-caret-down fa-lg"></i>
           </div>
         </button>
@@ -88,7 +88,7 @@
     <div class="row">
       <div class="col-12">
         <% lessons.each do |lesson| %>
-          <%= render 'lesson_in_public_page_mobile', lesson: lesson %>
+          <%= render 'enterprise_lesson_mobile', lesson: lesson %>
         <% end %>
       </div>
     </div>

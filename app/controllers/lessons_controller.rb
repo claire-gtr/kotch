@@ -294,24 +294,22 @@ class LessonsController < ApplicationController
     @enterprise_lessons = current_user.enterprise&.enterprise_futur_lessons
     return if @enterprise_lessons.empty?
 
-    if params[:day].present?
-      @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("DATE_PART('dow', date)=?", params[:day]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-    elsif params[:start].present?
-      @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where('EXTRACT(hour FROM date) BETWEEN ? AND ?', params[:start], params[:end]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-    elsif params[:lieu].present?
-      all_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-      @enterprise_lessons = []
-      all_lessons.each do |lesson|
-        locations = Location.near(params[:lieu], 1)
-        if locations.include?(lesson.location)
-          @enterprise_lessons << lesson
-        end
-      end
-    elsif params[:activity].present?
-      @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where(sport_type: params[:activity]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-    else
-      @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-    end
+    # if params[:day].present?
+    #   @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("DATE_PART('dow', date)=?", params[:day]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
+    # elsif params[:start].present?
+    #   @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where('EXTRACT(hour FROM date) BETWEEN ? AND ?', params[:start], params[:end]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
+    # elsif params[:lieu].present?
+    #   all_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
+    #   @enterprise_lessons = []
+    #   all_lessons.each do |lesson|
+    #     locations = Location.near(params[:lieu], 1)
+    #     if locations.include?(lesson.location)
+    #       @enterprise_lessons << lesson
+    #     end
+    #   end
+    # elsif params[:activity].present?
+    #   @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where(sport_type: params[:activity]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
+    # end
   end
 
   private

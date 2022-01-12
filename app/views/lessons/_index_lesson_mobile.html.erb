@@ -122,7 +122,7 @@
               Consulter la messagerie
             <% end %>
           </p>
-          <% if current_user.person? %>
+          <% if current_user.person? && (lesson.creator == current_user) %>
             <p>
               <% if !lesson.public? %>
                 <%= link_to change_lesson_public_path(lesson), class: "btn btn-kotch btn-red mb-0 mr-1" do %>

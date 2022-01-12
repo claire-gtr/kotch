@@ -73,12 +73,7 @@ class User < ApplicationRecord
   def enterprise_futur_lessons
     return unless enterprise?
 
-    enterprise_futur_lessons = []
-    bookings.future_lessons.each do |booking|
-      next if booking.status == "Invitation envoyée"
-
-      enterprise_futur_lessons << booking.lesson
-    end
+    enterprise_futur_lessons = bookings.future_lessons.reject { |booking| booking.status == "Invitation envoyée" }.map { |booking| booking.lesson }
     return enterprise_futur_lessons
   end
 

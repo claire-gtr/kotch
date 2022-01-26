@@ -65,4 +65,10 @@ class LessonMailer < ApplicationMailer
     @lessons = params[:lessons]
     mail(to: @user.email, subject: 'Récapitulatif des séances de ton entreprise la semaine prochaine')
   end
+
+  def coach_next_24h
+    @user = params[:user]
+    @lessons = params[:lessons]
+    mail(to: @user.email, subject: 'Récapitulatif de tes séances des prochaines 24 heures')
+  end
 end

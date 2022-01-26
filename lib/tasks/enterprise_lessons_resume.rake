@@ -2,7 +2,7 @@ namespace :enterprise_lessons_resume do
   desc "Every sunday, send to employees a mail with a resume of their enterprise lessons this weekend"
   task resume: :environment do
     today = Date.today.strftime("%A").downcase
-    next unless today == 'wednesday'
+    next unless today == 'sunday'
 
     enterprises = User.where(status: :enterprise)
     unless enterprises.empty?

@@ -54,6 +54,7 @@ class User < ApplicationRecord
 
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
   scope :no_admins, -> { where(admin: false) }
+  scope :validated_coachs, -> { where(coach: true, validated_coach: true) }
 
   before_save :remove_empty_spaces
   after_create :find_waiting_bookings, :create_empty_sub, :send_welcome_mail, :set_enterprise_code
@@ -151,6 +152,10 @@ class User < ApplicationRecord
       return { exist: true, code: partner.coupon_code, percentage: partner.percentage }
     end
     { exist: false, code: nil, percentage: nil }
+  end
+
+  def coach_lessons_next_24h
+    lessons&.next_24h
   end
 
   private

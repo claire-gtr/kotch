@@ -1,0 +1,76 @@
+<div class="card-white bg-white shadow d-flex justify-content-between pt-1 px-4 mb-3 text-center">
+  <div class="d-flex">
+    <div class="d-flex align-items-center">
+      <% if lesson.user && lesson.user.avatar.attached? %>
+        <%= cl_image_tag lesson.user.avatar %>
+      <% else %>
+        <%= image_tag 'avatar_default.png', class:'avatar-large mr-4' %>
+      <% end %>
+    </div>
+    <div class="d-flex align-items-center">
+      <div>
+        <% if lesson.user_id %>
+          <p class="mb-0 text-blue text-bold text-condensed text-small">Avec coach <%= lesson.user.first_name %></p>
+        <% else %>
+          <p class="mb-0 text-blue text-bold text-condensed text-small">Pas de coach</p>
+        <% end %>
+        <div class="d-flex align-items-center">
+          <p class="mb-0"><%= link_to "Voir les messages", lesson_messages_path(lesson), class:'mb-0 text-small text-condensed' %></p>
+          <% if lesson.bookings&.find_by(user: current_user, messages_readed: false).present? %>
+            <div class="blue-dot ml-2 mt-1"></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex align-items-center">
+    <div>
+      <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime('%e/%m/%y à %Hh%M')%></p>
+      <div class="lesson-max-100">
+        <%= link_to "Annuler la séance", cancel_lesson_path(lesson, cancel_customer_id: current_user.id), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed'  %>
+      </div>
+    </div>
+  </div>
+  <div class="text-blue text-bold text-small col-4 mt-2">
+    <%= lesson.location.name %>
+  </div>
+  <div class="d-flex flex-column align-items-center justify-content-center mt-2">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
+      <%= lesson.users.count - 1 %> participant(s)
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModal-<%= lesson.id %>Label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content card-kotch">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <% lesson.users.each do |user| %>
+              <% next if user.enterprise? %>
+              <div class="d-flex justify-content-between">
+                <p><%= user.full_name %></p>
+                <p><em><%= Booking.find_by(user: user, lesson: lesson).status %></em></p>
+              </div>
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-kotch btn-blue" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      <%= link_to invite_enterprise_employees_path(lesson), class: "btn btn-transparent font-weight-normal" do %>
+        </i> Inviter des participants
+      <% end %>
+    </p>
+  </div>
+
+  <div class="d-flex flex-column justify-content-center align-items-center text-right">
+    <span class="title-sport"><%= lesson.sport_type.upcase %></span>
+  </div>
+</div>

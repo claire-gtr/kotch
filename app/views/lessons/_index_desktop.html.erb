@@ -9,7 +9,7 @@
       <% else %>
         <div class="col-12">
           <% @lessons.each do |lesson| %>
-            <%= render 'lesson', lesson: lesson %>
+            <%= render 'index_lesson_desktop', lesson: lesson %>
           <% end %>
         </div>
       <% end %>
@@ -61,7 +61,11 @@
         <% end %>
         <div class="card-list-bookings-messages p-3">
           <% @lessons.each do |lesson| %>
-            <%= render 'lesson', lesson: lesson %>
+            <% if current_user.enterprise? %>
+              <%= render 'index_lesson_desktop_enterprise', lesson: lesson %>
+            <% else %>
+              <%= render 'index_lesson_desktop', lesson: lesson %>
+            <% end %>
           <% end %>
         </div>
       </div>

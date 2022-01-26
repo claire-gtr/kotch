@@ -27,8 +27,6 @@ class User < ApplicationRecord
   has_many :promo_codes, through: :user_codes
   has_many :enterprise_employments, class_name: 'Employment', foreign_key: "enterprise_id"
   has_many :employee_employments, class_name: 'Employment', foreign_key: "employee_id"
-  # has_many :employees, through: :enterprise_employments
-  # has_many :enterprises, through: :employee_employments
 
   enum gender: { homme: 0, femme: 1, autres: 2 }
   enum sport_habits: { rarely: 0, occasionnally: 1, regularly: 2 }

@@ -26,7 +26,7 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def cancel?
-    if (record.user == user) || (record.bookings.first.user == user)
+    if (record.user == user) || (record.creator == user)
       true
     else
       false
@@ -65,7 +65,7 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def invite_enterprise_employees?
-    record.enterprise? && (record.bookings.first.user == user)
+    record.enterprise? && (record.creator == user)
   end
 
   def employee_enterprise_lessons?

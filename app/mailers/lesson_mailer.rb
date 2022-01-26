@@ -42,4 +42,10 @@ class LessonMailer < ApplicationMailer
     @enterprise = params[:enterprise]
     mail(to: @user.email, subject: 'Votre entreprise vous invite à participer à une séance Koach & Co')
   end
+
+  def enterprise_lessons_resume
+    @user = params[:user]
+    @lessons = params[:lessons]
+    mail(to: @user.email, subject: 'Récapitulatif des séances de ton entreprise la semaine prochaine')
+  end
 end

@@ -55,7 +55,6 @@ Rails.application.routes.draw do
 
   resources :locations, only: [:create, :destroy]
   resources :partners, only: [:create]
-  # resources :friendships, only: :index
   get 'mes-amis', to: 'friendships#index', as: :friendships
   resources :friend_requests, only: [:create, :update]
   resources :bookings, only: [:index, :create, :destroy]
@@ -95,5 +94,4 @@ Rails.application.routes.draw do
   patch '/mes-salaries/:id/supprimer', to: 'employments#cancel', as: :cancel_employment
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

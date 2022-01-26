@@ -118,19 +118,29 @@ class LessonsController < ApplicationController
         @customer.update(credit_count: @customer.credit_count + 1)
       end
       b.destroy
-      if @cancel_customer.present? && (@cancel_customer == @customer)
-        mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_creator
-      elsif @cancel_customer.present?
-        mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_customer
+
+      if @customer.enterprise?
+        mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled_enterprise
       else
-        mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+        if @lesson.enterprise?
+          mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled_employee
+        elsif @cancel_customer.present? && (@cancel_customer == @customer)
+          mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_creator
+        elsif @cancel_customer.present?
+          mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_customer
+        else
+          mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+        end
       end
       mail.deliver_now
     end
-    if @cancel_customer.present? && @lesson.user.present?
+
+    if @customer.enterprise? && @cancel_customer.present? && @lesson.user.present?
+      mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach_enterprise
+    elsif @cancel_customer.present? && @lesson.user.present?
       mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach
-      mail.deliver_now
     end
+    mail.deliver_now
     @lesson.update(status: 'canceled')
     redirect_to lessons_path, notice: 'La séance a bien été annulée.'
   end

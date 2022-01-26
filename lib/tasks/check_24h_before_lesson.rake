@@ -11,6 +11,8 @@ namespace :check_24h_before_lesson do
     @lessons_without_coach = @lessons.where(user: nil)
     @lessons_to_be_checked = @lessons_without_coach + @lessons_not_complete
     @lessons_to_be_checked.each do |lesson|
+      next if lesson.enterprise?
+
       if lesson.diff_time < DateTime.now
         lesson.status = "canceled"
         lesson.save

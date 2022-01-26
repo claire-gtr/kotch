@@ -26,13 +26,30 @@ class LessonMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Confirmation d’annulation de séance')
   end
 
+  def lesson_canceled_enterprise
+    @user = params[:user]
+    @lesson = params[:lesson]
+    mail(to: @user.email, subject: 'Confirmation d’annulation de séance')
+  end
+
+  def lesson_canceled_coach_enterprise
+    @user = params[:user]
+    @lesson = params[:lesson]
+    @cancel_customer = params[:cancel_customer]
+    mail(to: @user.email, subject: 'Confirmation d’annulation de séance entreprise')
+  end
+
+  def lesson_canceled_employee
+    @user = params[:user]
+    @lesson = params[:lesson]
+    mail(to: @user.email, subject: "Confirmation d’annulation d'une séance de votre entreprise")
+  end
+
   def new_user_inviation
     @user_email = params[:user_email]
     @lesson = params[:lesson]
     @friend = params[:friend]
     @user = User.new
-    # @user = params[:user]
-    # @temporay_password = params[:password]
     mail(to: @user_email, subject: 'Invitation à participer à une séance Koach & Co')
   end
 

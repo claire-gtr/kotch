@@ -89,10 +89,10 @@ Rails.application.routes.draw do
   post 'nouveau-code-promo', to: "promo_codes#create", as: :promo_codes
   patch 'modifier-code-promo/:id', to: "promo_codes#toggle_active_status", as: :toggle_active_status
 
-  get '/mes-employes', to: 'employments#index', as: :employments
-  post '/mes-employes', to: 'employments#create'
-  patch '/mes-employes/:id', to: 'employments#update', as: :employment
-  patch '/mes-employes/:id/supprimer', to: 'employments#cancel', as: :cancel_employment
+  get '/mes-salaries', to: 'employments#index', as: :employments
+  post '/mes-salaries', to: 'employments#create'
+  patch '/mes-salaries/:id', to: 'employments#update', as: :employment
+  patch '/mes-salaries/:id/supprimer', to: 'employments#cancel', as: :cancel_employment
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

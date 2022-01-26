@@ -19,8 +19,9 @@ class EmploymentsController < ApplicationController
   def create
     authorize Employment.new
     @enterprise = User.find_by(enterprise_code: params[:enterprise_code].gsub(/\s+/, '').upcase)
-    if @enterprise.present?
-      Employment.create(enterprise: @enterprise, employee: current_user)
+    if @enterprise.present? && Employment.create(enterprise: @enterprise, employee: current_user)
+      mail = EmploymentMailer.with(enterprise: @enterprise, employee: current_user).request_received
+      mail.deliver_now
       redirect_to profile_path(tab: 'tab-3'), notice: "Votre demande d'accès a bien été envoyée à l'entreprise."
     else
       redirect_to profile_path(tab: 'tab-3'), alert: "Ce code d'entreprise n'existe pas."
@@ -36,7 +37,10 @@ class EmploymentsController < ApplicationController
     elsif query == 'reject'
       @employment.accepted = false
     end
-    @employment.save
+    if @employment.save && @employment.accepted?
+      mail = EmploymentMailer.with(employment: @employment).request_accepted
+      mail.deliver_now
+    end
     redirect_to employments_path, notice: "La demande de #{@employment.employee.full_name} a bien été #{query == 'accept' ? 'acceptée' : 'refusée'}"
   end
 

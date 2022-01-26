@@ -178,16 +178,11 @@
         </div>
       <% end %>
       <% if current_user.enterprise? %>
-        <div class="text-center">
-          <% if current_user.subscription && !current_user.subscription.pending? %>
-            <form action="/customer_portal_sessions" method="POST">
-              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-              <button class="btn btn-kotch btn-red mt-2">Consulter mes factures</button>
-            </form>
-          <% else %>
+        <% unless current_user.subscription && !current_user.subscription.pending? %>
+          <div class="text-center">
             <p class="text-blue mt-5">Vous n'avez pas de factures.</p>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       <% else %>
         <div class="text-center">
           <% if current_user.credit_count > 0 %>

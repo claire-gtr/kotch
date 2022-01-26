@@ -34,7 +34,7 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def change_lesson_public?
-    true
+    !record.enterprise?
   end
 
   def public_lessons?

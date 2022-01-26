@@ -146,7 +146,7 @@ class LessonsController < ApplicationController
     authorize @lesson
     @lesson.public = true
     @lesson.save
-    redirect_to lessons_path
+    redirect_to lessons_path, notice: 'La séance a bien été passée en publique.'
   end
 
   def public_lessons

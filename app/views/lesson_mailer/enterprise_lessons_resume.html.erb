@@ -4,12 +4,12 @@
 
 <% if @lessons.empty? %>
   <ul>
-    <li>Aucune séance n'est prévue.</li>
+    <li class="li-email">Aucune séance n'est prévue.</li>
   </ul>
 <% else %>
   <ul>
     <% @lessons.each do |lesson| %>
-      <li><%= lesson.sport_type %> - <%= lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> - <%= lesson.location.name %></li>
+      <li class="li-email"><%= lesson.sport_type %> - <%= lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> - <%= lesson.location.name %></li>
     <% end %>
   </ul>
 <% end %>

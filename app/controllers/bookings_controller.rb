@@ -26,14 +26,9 @@ class BookingsController < ApplicationController
       emails = friends_emails.split(',').map { |email| email.gsub(/\s+/, '').downcase }
       emails.each do |email|
         if a_valid_email?(email)
-          # temporay_password = (0...12).map { ('a'..'z').to_a[rand(26)] }.join
-          # user = User.create(email: email, password: temporay_password, password_confirmation: temporay_password, first_name: 'Invité', last_name: 'Invité')
-          # booking = Booking.new(user: user, lesson: @lesson)
-          # booking.status = "Invitation envoyée"
-          # booking.save
-          # mail = BookingMailer.with(user: user, booking: booking, friend: current_user, password: temporay_password).new_user_inviation
           user = User.find_by(email: email)
-          if user.present?
+          next if user.enterprise?
+          if user.present? && !user.enterprise?
             booking = Booking.new(user: user, lesson: @lesson)
             booking.status = "Invitation envoyée"
             booking.save

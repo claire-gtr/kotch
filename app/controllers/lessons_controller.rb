@@ -39,7 +39,7 @@ class LessonsController < ApplicationController
         @new_location = Location.new(user: current_user, name: params[:address])
         @lesson.location = @new_location
       end
-      if current_user.coach
+      if current_user.coach?
         @lesson.public = true
         @lesson.user = current_user
         if @lesson.save
@@ -86,12 +86,6 @@ class LessonsController < ApplicationController
             emails = friends_emails.split(',').map { |email| email.gsub(/\s+/, '').downcase }
             emails.each do |email|
               if a_valid_email?(email)
-                # temporay_password = (0...12).map { ('a'..'z').to_a[rand(26)] }.join
-                # user = User.create(email: email, password: temporay_password, password_confirmation: temporay_password, first_name: 'Invité', last_name: 'Invité')
-                # booking = Booking.new(user: user, lesson: @lesson)
-                # booking.status = "Invitation envoyée"
-                # booking.save
-                # mail = BookingMailer.with(user: user, booking: booking, friend: current_user, password: temporay_password).new_user_inviation
                 user = User.find_by(email: email)
                 if user.present?
                   booking = Booking.new(user: user, lesson: @lesson)
@@ -190,7 +184,7 @@ class LessonsController < ApplicationController
   end
 
   def be_coach
-    if current_user.coach && !current_user.validated_coach
+    if current_user.coach? && !current_user.validated_coach
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else

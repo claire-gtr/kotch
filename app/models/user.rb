@@ -65,7 +65,7 @@ class User < ApplicationRecord
   def enterprise
     return unless person?
 
-    employee_employments.includes([:enterprise]).find_by(accepted: true).enterprise
+    employee_employments&.includes([:enterprise]).find_by(accepted: true)&.enterprise
   end
 
   def enterprise_futur_lessons

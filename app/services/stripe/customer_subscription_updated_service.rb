@@ -27,7 +27,7 @@ module Stripe
           @user.update(referral_code: @new_referral_code)
         end
         send_first_sub_email
-        flash[:notice] = "Félicitations ! Vous êtes maintenant inscrit à Koach & Co. Un mail de confirmation vient de vous être adressé. Merci de vérifier vos spams ou courriers indésirables." if @user.enterprise?
+        # flash[:notice] = "Félicitations ! Vous êtes maintenant inscrit à Koach & Co. Un mail de confirmation vient de vous être adressé. Merci de vérifier vos spams ou courriers indésirables." if @user.enterprise?
       end
 
       check_if_canceled

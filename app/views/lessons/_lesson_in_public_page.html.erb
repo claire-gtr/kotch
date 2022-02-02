@@ -6,7 +6,11 @@
       <span class="title-sport lesson-max-60 text-center"><%= lesson.sport_type.upcase %></span>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-transparent text-condensed" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
-        <%= lesson.users.count %> / 10 INSCRITS
+        <% if lesson.enterprise? %>
+          <%= lesson.users.count - 1 %> / 10 INSCRITS
+        <% else %>
+          <%= lesson.users.count %> / 10 INSCRITS
+        <% end %>
       </button>
       <!-- Modal -->
       <div class="modal fade" id="exampleModal-<%= lesson.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModal-<%= lesson.id %>Label" aria-hidden="true">
@@ -19,6 +23,8 @@
             </div>
             <div class="modal-body">
               <% lesson.users.each do |user| %>
+                <% next if user.enterprise? %>
+
                 <div class="mb-3">
                   <div class="d-flex justify-content-between text-blue align-items-end">
                     <p class="mb-0"><%= user.full_name %></p>
@@ -51,16 +57,6 @@
         <%= link_to "JE RÉSERVE", new_user_session_path, class:'btn btn-kotch btn-red'  %>
       <% end %>
       <div class="d-flex justify-content-between align-items-center d-none">
-        <!-- <%# if lesson.status == "pending" || "canceled" %>
-          <div class="pill pill-red text-center mt-3">
-            <%#= lesson.status %>
-          </div>
-        <%# elsif lessons.status == 'confirmé' %>
-          <div class="pill pill-green text-center mt-3">
-            <%#= lesson.status %>
-          </div>
-        <%# end %>
-         -->
         <% if user_signed_in? && current_user.coach %>
           <% if lesson.user.nil?  %>
             <div>
@@ -73,7 +69,7 @@
       </div>
       <div class="d-flex justify-content-between align-items-center d-none">
         <% if user_signed_in? && current_user.admin? %>
-          <% if lesson.status != "Pre-validée"  %>
+          <% if (lesson.status != 'Pre-validée') && (lesson.status != 'Validée')  %>
             <%= link_to "Admin : pre-valider cette séance", pre_validate_lesson_path(lesson), class: 'small-link lesson-max-60'  %>
           <% end %>
           <div class="pill pill-red">

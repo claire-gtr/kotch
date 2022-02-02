@@ -12,16 +12,12 @@
         </div>
         <div class="text-center mt-4">
           <%= cl_image_tag @user.profile_picture, class:'avatar' %>
-          <% unless current_user.coach || !current_user.subscription.active? %>
+          <% unless current_user.coach? || !current_user.subscription.active? %>
             <p class='text-coral text-bold'><%= @used_this_month %>/<%= @included_lessons %> séances utilisés ce mois</p>
           <% end %>
         </div>
         <% if current_user.coach? %>
           <div class="text-left mt-4">
-            <!-- <p class="d-flex justify-content-between">
-              <i><span class="text-coral"><%#= Date.today.strftime('%a %d/%m/%Y') %></span></i>
-              <i><span class="text-coral"><%#= Time.now.strftime('%H:%M') %></span></i>
-            </p> -->
             <span class="text-light-blue"><%= @coachings_done.count %> coachings effectués ce mois ci</span><br>
             <div class="d-flex">
               <% if current_user.lessons.any? %>
@@ -29,7 +25,6 @@
                   lessons_path,
                   class: "text-light-blue hover-underline" %>
                 <% end %>
-              <!-- <div class="msg-icon"><p><%#= rand(0..5) %></p></div> -->
             </div>
             <% if @all_lessons %>
               <div class= 'mt-2'>

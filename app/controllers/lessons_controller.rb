@@ -137,10 +137,11 @@ class LessonsController < ApplicationController
 
     if @customer.enterprise? && @cancel_customer.present? && @lesson.user.present?
       mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach_enterprise
+      mail.deliver_now
     elsif @cancel_customer.present? && @lesson.user.present?
       mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach
+      mail.deliver_now
     end
-    mail.deliver_now
     @lesson.update(status: 'canceled')
     redirect_to lessons_path, notice: 'La séance a bien été annulée.'
   end

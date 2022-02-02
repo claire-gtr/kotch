@@ -34,7 +34,9 @@
       <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime('%e/%m/%y à %Hh%M')%></p>
       <div class="lesson-max-100">
         <% if current_user.coach? %>
-          <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed'  %>
+          <% if !lesson.enterprise? %>
+            <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed' %>
+          <% end %>
         <% else %>
           <% if lesson.date < DateTime.now %>
             <p class="text-blue mb-0 text-small text-condensed">Cette séance a déjà eu lieu.</p>
@@ -51,7 +53,11 @@
     <div>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModal-<%= lesson.id %>">
-        <em><%= lesson.users.count %> participant(s)</em>
+        <% if lesson.enterprise? %>
+          <%= lesson.users.count - 1 %> participant(s)
+        <% else %>
+          <%= lesson.users.count %> participant(s)
+        <% end %>
       </button>
       <% if current_user.coach %>
         <p class='mb-0 text-blue text-small text-condensed'><%= lesson.location.name %> </p>
@@ -68,6 +74,7 @@
           </div>
           <div class="modal-body">
             <% lesson.users.each do |user| %>
+              <% next if user.enterprise? %>
               <div class="d-flex justify-content-between">
                 <p><%= user.full_name %></p>
                 <p><em><%= Booking.find_by(user: user, lesson: lesson).status %></em></p>
@@ -81,7 +88,9 @@
       </div>
     </div>
     <% if !current_user.coach? %>
-      <% if lesson.bookings.count <= 10 %>
+      <% if lesson.enterprise? %>
+        <p class="text-blue text-condensed text-small"> <em>séance entreprise</em></p>
+      <% elsif lesson.bookings.count < 10 %>
         <div>
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#addUserModal-<%= lesson.id %>">
@@ -142,14 +151,16 @@
     <% end %>
   </div>
 
-  <div class="d-flex flex-column justify-content-between text-right">
-    <span class="title-sport"><%= lesson.sport_type.upcase %></span>
-    <% if !lesson.public %>
-      <%= link_to change_lesson_public_path(lesson) do %>
-        <p class=" mb-0 text-small text-condensed"><u>Passer la séance en publique</u></p>
+  <div class="d-flex flex-column justify-content-center text-right">
+    <span class="title-sport mb-2"><%= lesson.sport_type.upcase %></span>
+    <% if lesson.creator == current_user %>
+      <% if !lesson.public %>
+        <%= link_to change_lesson_public_path(lesson) do %>
+          <p class=" mb-0 text-small text-condensed"><u>Passer la séance en publique</u></p>
+        <% end %>
+      <% else %>
+        <p class="mb-0 text-blue text-condensed text-small">Séance publique</p>
       <% end %>
-    <% else %>
-      <p class="mb-0 text-blue text-condensed text-small">Séance publique</p>
     <% end %>
   </div>
 </div>

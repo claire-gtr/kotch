@@ -14,7 +14,7 @@
 }
 
 .card-white {
-  border-radius: 24px;
+  border-radius: 12px;
   background-color: transparent;
 }
 
@@ -55,7 +55,7 @@
 
 @media screen and (min-width: 992px){
   .card-new-lesson {
-    min-height: 380px;
+    min-height: 389px;
   }
 }
 
@@ -204,4 +204,42 @@
 
 .card-order-content {
   @include centerer(true,true);
+}
+
+.card-offer-enterprise {
+  position: relative;
+  height: 37em;
+  width: 19em;
+  background-color: $light-blue-kotch;
+  padding: 3em 0;
+  border-radius: 16px;
+  text-align: center;
+
+  .offer-content {
+    @include centerer(true, false);
+    z-index: 1000;
+    width: 75%;
+
+    h3 {
+      color: $blue-kotch;
+      font-size: 2rem;
+    }
+
+    span {
+      color: $blue-kotch;
+      font-size: 1.25rem;
+    }
+  }
+
+  .btn-white-offer {
+    font-size: 30px;
+  }
+
+  .offer-img-sm {
+    width: 32em;
+    z-index: 100;
+    position: absolute;
+    top: 15.5em;
+    right: -8em;
+  }
 }

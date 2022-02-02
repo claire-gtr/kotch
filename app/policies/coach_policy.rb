@@ -8,5 +8,4 @@ class CoachPolicy < ApplicationPolicy
   def sign_up?
     true
   end
-
 end

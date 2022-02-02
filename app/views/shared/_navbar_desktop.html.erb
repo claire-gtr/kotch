@@ -9,30 +9,32 @@
         <% if user_signed_in? %>
           <li class="nav-item">
             <em>
-              <%= link_to "NOTRE CONCEPT", concept_path, class: "nav-link ml-5" %>
+              <%= link_to 'NOTRE CONCEPT', concept_path, class: "nav-link ml-5" %>
             </em>
           </li>
           <% if !current_user.coach %>
             <li class="nav-item">
               <em>
-                <%= link_to "NOS OFFRES", offers_path, data: {turbolinks: "false"}, class: "nav-link ml-5" %>
+                <%= link_to 'NOS OFFRES', offers_path, data: { turbolinks: "false" }, class: "nav-link ml-5" %>
               </em>
             </li>
           <% end %>
           <li class="nav-item">
             <em>
               <% if current_user.coach %>
-                <%= link_to "CRÉER UNE SÉANCE", new_lesson_path, class: "nav-link ml-5" %>
+                <%= link_to 'CRÉER UNE SÉANCE', new_lesson_path, class: "nav-link ml-5" %>
               <% else %>
-                <%= link_to "RÉSERVER UNE SÉANCE", new_lesson_path, class: "nav-link ml-5" %>
+                <%= link_to 'RÉSERVER UNE SÉANCE', new_lesson_path, class: "nav-link ml-5" %>
               <% end %>
             </em>
           </li>
-          <li class="nav-item">
-            <em>
-              <%= link_to "SÉANCES PUBLIQUES", public_lessons_path, class: "nav-link ml-5" %>
-            </em>
-          </li>
+          <% if current_user.person? %>
+            <li class="nav-item">
+              <em>
+                <%= link_to 'SÉANCES PUBLIQUES', public_lessons_path, class: "nav-link ml-5" %>
+              </em>
+            </li>
+          <% end %>
           <li class="nav-item dropdown">
             <div class="ml-5 dropdown-toggle btn btn-kotch btn-ghost-blue btn-extra-small" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
               <em>MON COMPTE</em>
@@ -40,64 +42,77 @@
             <div class="dropdown-menu mt-2 dropdown-menu-right p-3" aria-labelledby="navbarDropdown">
               <div class="d-flex align-items-center mb-3">
                 <%= cl_image_tag current_user.profile_picture, class:'avatar-small', alt: "avatar" %>
-                <p class='text-blue text-bold mb-0 ml-2 navbar-name'>Bonjour <%= current_user.first_name.capitalize %></p>
+                <p class='text-blue text-bold mb-0 ml-2 navbar-name'><%= current_user.person? ? "Bonjour #{current_user.first_name.capitalize}" : current_user.enterprise_name.upcase %></p>
               </div>
               <%= link_to "Mon profil", profile_path, class: "dropdown-item text-white px-0" %>
               <% if current_user.coach? %>
                 <div class="d-flex align-items-center justify-content-start">
-                  <%= link_to "Mes coachings", lessons_path, class: "dropdown-item text-white px-0 w-50" %>
+                  <%= link_to 'Mes coachings', lessons_path, class: "dropdown-item text-white px-0 w-50" %>
                   <% if @message_not_readed_coach.present? %>
                     <div class="blue-dot mt-1"></div>
                   <% end %>
                 </div>
               <% else %>
                 <div class="d-flex align-items-center">
-                  <%= link_to "Mes réservations", lessons_path, class: "dropdown-item text-white px-0 w-50" %>
+                  <%= link_to 'Mes réservations', lessons_path, class: "dropdown-item text-white px-0 w-50" %>
                   <% if @message_not_readed_customer.present? %>
                     <div class="blue-dot ml-3 mt-1"></div>
                   <% end %>
                 </div>
               <% end %>
-              <% unless current_user.coach? %>
+              <% unless current_user.coach? || current_user.enterprise? %>
                 <div class="d-flex align-items-center">
-                  <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0 w-25" %>
+                  <%= link_to 'Mes amis', friendships_path, class: "dropdown-item text-white px-0 w-25" %>
                   <% if @new_friend_requests_received.present? %>
                     <div class="blue-dot ml-3 mt-1"></div>
                   <% end %>
                 </div>
               <% end %>
-              <%= link_to "DÉCONNEXION", destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-small w-100 text-center mt-3" %>
+              <% if current_user.enterprise? %>
+                <div class="d-flex align-items-center">
+                  <%= link_to 'Mes salariés', employments_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
+                  <% if @employments_to_check.present? && !@employments_to_check.empty? %>
+                    <div class="blue-dot ml-4 mt-1"></div>
+                  <% end %>
+                </div>
+              <% end %>
+              <% if current_user.person? && @user_enterprise.present? %>
+                <div class="d-flex align-items-center">
+                  <%= link_to "Mon enterprise", employee_enterprise_lessons_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
+                </div>
+              <% end %>
+              <%= link_to 'DÉCONNEXION', destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-small w-100 text-center mt-3" %>
               <%= link_to "Besoin d'aide ?", faq_path, class:"small-link italic text-white" %>
               <% if current_user.admin? %>
                 <br>
-                <%= link_to "Dashboard", dashboard_path, class:"small-link italic text-white" %>
+                <%= link_to 'Dashboard', dashboard_path, class:"small-link italic text-white" %>
               <% end %>
             </div>
           </li>
         <% else %>
           <li class="nav-item">
             <em>
-              <%= link_to "NOTRE CONCEPT", concept_path, class: "nav-link ml-5" %>
+              <%= link_to 'NOTRE CONCEPT', concept_path, class: "nav-link ml-5" %>
             </em>
           </li>
           <li class="nav-item">
             <em>
-              <%= link_to "NOS OFFRES", offers_path, data: {turbolinks: "false"}, class: "nav-link ml-5" %>
+              <%= link_to 'NOS OFFRES', offers_path, data: {turbolinks: "false"}, class: "nav-link ml-5" %>
             </em>
           </li>
           <li class="nav-item">
             <em>
-              <%= link_to "SÉANCES PUBLIQUES", public_lessons_path, class: "nav-link ml-5" %>
+              <%= link_to 'SÉANCES PUBLIQUES', public_lessons_path, class: "nav-link ml-5" %>
             </em>
           </li>
           <li class="nav-item">
             <em>
-            <%= link_to "INSCRIPTION", new_user_registration_path, class: "nav-link ml-5" %>
+            <%= link_to 'INSCRIPTION', new_user_registration_path, class: "nav-link ml-5" %>
             </em>
           </li>
           <li class="nav-item">
             <em>
-            <%= link_to "CONNEXION", new_user_session_path, class: "nav-link ml-5" %>
+            <%= link_to 'CONNEXION', new_user_session_path, class: "nav-link ml-5" %>
             </em>
           </li>
         <% end %>

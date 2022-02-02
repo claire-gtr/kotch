@@ -30,6 +30,11 @@ export default class extends Controller {
         this.intensityTarget.textContent = "élevé";
         this.durationTarget.textContent = "60 min";
         break;
+      case "Running":
+        this.descriptionTarget.textContent = "séance de course à pied adaptée selon vos objectifs : apprendre à courir pendant 10 minutes, préparer un 10 Km, réaliser un semi-marathon ou un marathon";
+        this.intensityTarget.textContent = "modérée";
+        this.durationTarget.textContent = "60 min";
+        break;
       case "Cuisses Abdos Fessiers":
         this.descriptionTarget.textContent = "exercices de renforcement musculaire ciblés";
         this.intensityTarget.textContent = "faible";

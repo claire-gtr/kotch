@@ -19,7 +19,7 @@ module Stripe
       end
 
       if first_sub
-        if @user.referral_code == ""
+        if @user.person? && @user.referral_code == ""
           @new_referral_code = [*('a'..'z'), *('0'..'9')].sample(10).join.upcase
           while User.find_by(referral_code: @new_referral_code).present?
             @new_referral_code = [*('a'..'z'), *('0'..'9')].sample(10).join.upcase
@@ -27,9 +27,11 @@ module Stripe
           @user.update(referral_code: @new_referral_code)
         end
         send_first_sub_email
+        flash[:notice] = "Félicitations ! Vous êtes maintenant inscrit à Koach & Co. Un mail de confirmation vient de vous être adressé. Merci de vérifier vos spams ou courriers indésirables." if @user.enterprise?
       end
 
       check_if_canceled
+
       # check_change_price
       # if @first_sub
       #   send_first_sub_email
@@ -42,7 +44,11 @@ module Stripe
     private
 
     def send_first_sub_email
-      StripeMailer.with(user: @user, subscription: @user.subscription).customer_changed_plan.deliver_now
+      if @user.enterprise?
+        UserMailer.with(user: @user).welcome_mail_enterprise.deliver_now
+      else
+        StripeMailer.with(user: @user, subscription: @user.subscription).customer_changed_plan.deliver_now
+      end
     end
 
     # def check_change_price

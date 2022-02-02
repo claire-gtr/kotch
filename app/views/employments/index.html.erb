@@ -1,0 +1,75 @@
+<div class="container pt-0 pt-md-5">
+  <div class="row">
+
+    <div class="col-12 col-md-6">
+      <div class="p-4 shadow card-white card-white-friends" style="background-image: url(<%= asset_path 'background1.png' %>);">
+        <h1 class="our-concept-title text-center pb-3">DEMANDES D’ACCÈS REÇUES</h1>
+        <% @employments_to_check&.each do |employment| %>
+          <div class="d-flex align-items-center text-blue mt-3">
+            <div>
+              <%= cl_image_tag employment.employee.profile_picture, class:'avatar-small mr-2' %>
+            </div>
+            <div class="ml-2">
+              <div class="d-flex align-items-start align-items-lg-center flex-column flex-lg-row">
+                <p class='mb-2 mb-0 mr-2'><%= employment.employee.full_name %></p>
+                <p class='mb-2 mt-0'><%= employment.employee.email %></p>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center ml-5 mt-1">
+            <%= link_to employment_path(employment, query: 'accept'), method: :patch, class:'text-small text-deco-none' do %>
+              <span class="mr-2 pill-enterprise pill-enterprise-green">Accepter</span>
+            <% end %>
+            <%= link_to employment_path(employment, query: 'reject'), method: :patch, class:'text-small text-deco-none' do %>
+              <span class="pill-enterprise pill-enterprise-red">Refuser</span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 mt-3 mt-md-0">
+      <div class="card-blue card-blue-friends shadow p-4">
+        <h2 class='our-concept-title pb-3 text-center'>MA LISTE DE SALARIÉS</h2>
+        <div class="search-friends pb-3">
+          <%= form_tag employments_path, method: :get, class: 'shadow' do %>
+            <%= text_field_tag :employee_query,
+              params[:employee_query],
+              placeholder: "Recherche..."
+            %>
+            <%= button_tag type: 'submit', class: 'd-flex align-items-center' do %>
+              <i class="fas fa-search fa-xs"></i>
+            <% end %>
+          <% end %>
+        </div>
+        <% @employments_accepted&.each do |employment| %>
+          <div class="d-flex align-items-center justify-content-between text-left text-blue mt-3">
+            <div class="d-flex align-items-center">
+              <%= cl_image_tag employment.employee.profile_picture, class:'avatar-extra-small mr-2' %>
+              <div class="d-flex align-items-start align-items-lg-center flex-column flex-lg-row mt-3 mt-lg-0 ml-2">
+                <p class='mb-0 mr-2 text-coral text-xbold text-condensed'><%= employment.employee.full_name %></p>
+                <p class="mb-O mt-0 mt-lg-3 text-coral text-condensed"><%= employment.employee.email %></p>
+              </div>
+            </div>
+            <%= link_to cancel_employment_path(employment), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir retirer #{employment.employee.full_name} de vos salariés ?"}, class:'text-small text-deco-none', title: "Supprimer de vos salariés" do %>
+              <i class="fas fa-times-circle text-coral" id="icon-close"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  const tab = document.querySelector('.friends-tab');
+  const form = document.querySelector('.friends-form');
+  const friends = '<%= @new_friends %>';
+
+  if (friends.length) {
+    tab.classList.add('friends-tab-result');
+    tab.classList.add('shadow');
+    form.classList.add('border-bottom');
+    form.classList.add('rounded-0');
+    form.classList.remove('shadow');
+  }
+</script>

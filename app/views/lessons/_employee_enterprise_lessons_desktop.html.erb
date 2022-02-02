@@ -1,0 +1,99 @@
+<div class="container">
+  <% if bookings.empty? %>
+    <div class="col-12 text-center">
+      <h2 class="text-center">Il n'y a pas de séance dans le planning de votre entreprise.</h2>
+      <%= link_to "Retour à toutes les séances de mon entreprise", employee_enterprise_lessons_path, class:"btn btn-kotch btn-red"  %>
+    </div>
+  <% else %>
+    <h2 class="text-center mt-5">PLANNING DES SÉANCES DE MON ENTREPRISE</h2>
+    <h3 class="text-center mt-3">Filtrez vos séances en fonction de :</h3>
+    <div class="d-flex justify-content-center flex-column flex-md-row pt-4 align-items-center">
+      <div class="dropdown-lesson mt-2 mt-md-0 mx-1">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="d-flex justify-content-between">
+            ACTIVITÉ
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuJour" id="dropdown-lesson-activity">
+          <ul>
+            <li><%= link_to "Cross Training", employee_enterprise_lessons_path(activity: "Cross Training")  %></li>
+            <li><%= link_to "Cuisses Abdos Fessiers", employee_enterprise_lessons_path(activity: "Cuisses Abdos Fessiers")  %></li>
+            <li><%= link_to "Fit Boxing", employee_enterprise_lessons_path(activity: "Fit Boxing")  %></li>
+            <li><%= link_to "HIIT", employee_enterprise_lessons_path(activity: "HIIT")  %></li>
+            <li><%= link_to "Pilate", employee_enterprise_lessons_path(activity: "Pilate")  %></li>
+            <li><%= link_to "Renforcement musculaire", employee_enterprise_lessons_path(activity: "Renforcement musculaire")  %></li>
+            <li><%= link_to "Running", employee_enterprise_lessons_path(activity: "Running")  %></li>
+            <li><%= link_to "Stretching", employee_enterprise_lessons_path(activity: "Stretching")  %></li>
+            <li><%= link_to "Yoga", employee_enterprise_lessons_path(activity: "Yoga")  %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dropdown-lesson mt-2 mt-md-0 mx-1">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuJour" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="d-flex justify-content-between">
+            JOUR
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuJour">
+          <ul>
+            <li><%= link_to "Lundi", employee_enterprise_lessons_path(day: 1)  %></li>
+            <li><%= link_to "Mardi", employee_enterprise_lessons_path(day: 2)  %></li>
+            <li><%= link_to "Mercredi", employee_enterprise_lessons_path(day: 3)  %></li>
+            <li><%= link_to "Jeudi", employee_enterprise_lessons_path(day: 4)  %></li>
+            <li><%= link_to "Vendredi", employee_enterprise_lessons_path(day: 5)  %></li>
+            <li><%= link_to "Samedi", employee_enterprise_lessons_path(day: 6)  %></li>
+            <li><%= link_to "Dimanche", employee_enterprise_lessons_path(day: 7)  %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dropdown-lesson mt-2 mt-md-0 mx-1">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuHoraire" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="d-flex justify-content-between">
+            HORAIRE
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuHoraire">
+          <ul>
+            <li><%= link_to "Matin", employee_enterprise_lessons_path(start: 1, end: 10)  %></li>
+            <li><%= link_to "Midi", employee_enterprise_lessons_path(start: 11, end: 14)  %></li>
+            <li><%= link_to "Après-midi", employee_enterprise_lessons_path(start: 15, end: 18)  %></li>
+            <li><%= link_to "Soir", employee_enterprise_lessons_path(start: 18, end: 24)  %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center pt-0 pt-md-4 pb-4">
+      <div class="dropdown-lesson mt-2 mt-md-0" id="dropdown-lesson-lieu">
+        <button class="btn btn-kotch btn-dropdown" type="button" id="dropdownMenuLieu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="d-flex justify-content-between">
+            LIEU
+            <i class="fas fa-caret-down fa-lg"></i>
+          </div>
+        </button>
+        <div class="dropdown-menu text-blue p-2" aria-labelledby="dropdownMenuLieu" id="dropdown-menu-lieu">
+          <%= form_tag employee_enterprise_lessons_path, method: :get do %>
+            <div class="d-flex">
+              <%= text_field_tag :lieu,
+                params[:lieu],
+                class: "form-control",
+                placeholder: "Rechercher..."
+              %>
+              <%= submit_tag "Rechercher", class: "btn btn-kotch btn-extra-small-narrow btn-red" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <% bookings.each do |booking| %>
+          <% lesson = booking.lesson %>
+          <%= render 'enterprise_lesson_desktop', lesson: lesson %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

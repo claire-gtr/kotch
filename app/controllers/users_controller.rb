@@ -5,10 +5,10 @@ class UsersController < ApplicationController
     @tab = params[:tab]
     @user = current_user
     authorize @user
-    if current_user.coach && !current_user.validated_coach
+    if current_user.coach? && !current_user.validated_coach?
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
-    elsif current_user.coach && current_user.validated_coach
+    elsif current_user.coach? && current_user.validated_coach?
       define_coach_profile
     else
       define_user_profile
@@ -96,7 +96,6 @@ class UsersController < ApplicationController
     @coachings_in_past = @coachings.where("date < ?", Time.now).order('date DESC')
     @coachings_done = @coachings.where(status: "effectuée")
 
-    # @all_coachings_in_future_without_coach = @coachings_in_future.where(user: nil)
     @all_coachings_in_future_without_coach = Lesson.all.where("date >= ?", Time.now).where(user: nil).order('date ASC')
     @pre_validated_coachings = Lesson.where("date >= ?", Time.now).where(status: "Pre-validée").where(user: nil).order('date ASC')
     @coachings_requests = []
@@ -104,10 +103,13 @@ class UsersController < ApplicationController
       @coachings_requests << lesson
     end
     @all_coachings_in_future_without_coach.each do |lesson|
-      if lesson.bookings.count >= 5 && !@coachings_requests.include?(lesson)
+      if lesson.enterprise?
+        @coachings_requests << lesson
+      elsif lesson.bookings.count >= 5 && !@coachings_requests.include?(lesson)
         @coachings_requests << lesson
       end
     end
+    @coachings_requests = @coachings_requests.uniq
 
     # définition du nombre de leçons données par mois.
     if current_user.lessons.any?
@@ -146,10 +148,13 @@ class UsersController < ApplicationController
       @included_lessons = subscription.nickname.first(2).to_i
       @used_this_month = 0
       current_user.bookings.includes([:lesson, :user]).where(used_credit: false).sort_by { |booking| DateTime.now - booking.lesson.date.to_datetime }.each do |b|
-        if b.lesson.date >= Date.today.beginning_of_month && b.lesson.date <= Date.today.end_of_month && b.lesson.status != "canceled"
+        if b.lesson.date.to_date >= Date.today.beginning_of_month && b.lesson.date.to_date <= Date.today.end_of_month && b.lesson.status != "canceled"
           @used_this_month += 1
         end
       end
     end
+    @employment = Employment.new
+    @user_employment = Employment.find_by(employee: current_user, accepted: true)
+    @user_employment_send = Employment.find_by(employee: current_user, accepted: nil)
   end
 end

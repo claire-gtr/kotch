@@ -39,7 +39,7 @@ class LessonsController < ApplicationController
         @new_location = Location.new(user: current_user, name: params[:address])
         @lesson.location = @new_location
       end
-      if current_user.coach
+      if current_user.coach?
         @lesson.public = true
         @lesson.user = current_user
         if @lesson.save
@@ -61,6 +61,11 @@ class LessonsController < ApplicationController
           @booking.save
           if @lesson.save
             @new_location&.save
+            if current_user.enterprise?
+              mail = BookingMailer.with(lesson: @lesson, user: current_user).reservation_request_enterprise
+              mail.deliver_now
+              set_reccurency_lessons(@lesson, @booking)
+            end
             redirect_to lessons_path
           else
             render :new
@@ -81,12 +86,6 @@ class LessonsController < ApplicationController
             emails = friends_emails.split(',').map { |email| email.gsub(/\s+/, '').downcase }
             emails.each do |email|
               if a_valid_email?(email)
-                # temporay_password = (0...12).map { ('a'..'z').to_a[rand(26)] }.join
-                # user = User.create(email: email, password: temporay_password, password_confirmation: temporay_password, first_name: 'Invité', last_name: 'Invité')
-                # booking = Booking.new(user: user, lesson: @lesson)
-                # booking.status = "Invitation envoyée"
-                # booking.save
-                # mail = BookingMailer.with(user: user, booking: booking, friend: current_user, password: temporay_password).new_user_inviation
                 user = User.find_by(email: email)
                 if user.present?
                   booking = Booking.new(user: user, lesson: @lesson)
@@ -102,7 +101,7 @@ class LessonsController < ApplicationController
             end
           end
         else
-          flash[:alert] = "Vous n'avez pas de séance pour réserver une séance ce mois-ci.."
+          flash[:alert] = "Vous n'avez pas de crédits pour réserver une séance ce mois-ci.."
           redirect_to offers_path
         end
       end
@@ -119,16 +118,27 @@ class LessonsController < ApplicationController
         @customer.update(credit_count: @customer.credit_count + 1)
       end
       b.destroy
-      if @cancel_customer.present? && (@cancel_customer == @customer)
-        mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_creator
-      elsif @cancel_customer.present?
-        mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_customer
+
+      if @customer.enterprise?
+        mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled_enterprise
       else
-        mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+        if @lesson.enterprise?
+          mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled_employee
+        elsif @cancel_customer.present? && (@cancel_customer == @customer)
+          mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_creator
+        elsif @cancel_customer.present?
+          mail = LessonMailer.with(user: @customer, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_customer
+        else
+          mail = LessonMailer.with(user: @customer, lesson: @lesson).lesson_canceled
+        end
       end
       mail.deliver_now
     end
-    if @cancel_customer.present? && @lesson.user.present?
+
+    if @customer.enterprise? && @cancel_customer.present? && @lesson.user.present?
+      mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach_enterprise
+      mail.deliver_now
+    elsif @cancel_customer.present? && @lesson.user.present?
       mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach
       mail.deliver_now
     end
@@ -141,16 +151,16 @@ class LessonsController < ApplicationController
     authorize @lesson
     @lesson.public = true
     @lesson.save
-    redirect_to lessons_path
+    redirect_to lessons_path, notice: 'La séance a bien été passée en publique.'
   end
 
   def public_lessons
     authorize(:lesson, :public_lessons?)
     if user_signed_in?
-      if current_user.coach && !current_user.validated_coach
+      if current_user.coach? && !current_user.validated_coach?
         flash[:alert] = "Un administrateur doit valider votre compte coach."
         redirect_to root_path
-      elsif current_user.coach
+      elsif current_user.coach?
         @lessons_in_future = Lesson.includes([:location, :bookings, :users, :user]).where(public: true).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
         @pre_validated_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).where(status: "Pre-validée").order('date ASC')
         @lessons = []
@@ -185,7 +195,7 @@ class LessonsController < ApplicationController
   end
 
   def be_coach
-    if current_user.coach && !current_user.validated_coach
+    if current_user.coach? && !current_user.validated_coach
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else
@@ -270,16 +280,80 @@ class LessonsController < ApplicationController
     redirect_to all_lessons_path
   end
 
+  def invite_enterprise_employees
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson
+    employees = current_user.employees
+    employees_booking = @lesson.users
+    employees.each do |employee|
+      unless employees_booking.include?(employee)
+        mail = LessonMailer.with(lesson: @lesson, user: employee, enterprise: current_user).invite_employee
+        mail.deliver_now
+      end
+    end
+    redirect_to lessons_path, notice: 'Vos employés ont bien été invités'
+  end
+
+  def employee_enterprise_lessons
+    authorize(:lesson, :employee_enterprise_lessons?)
+    @enterprise_bookings = current_user.enterprise&.enterprise_futur_bookings
+    return if @enterprise_bookings.empty?
+
+    if params[:day].present?
+      @enterprise_bookings = @enterprise_bookings.by_lesson_date(params[:day])
+    elsif params[:start].present?
+      @enterprise_bookings = @enterprise_bookings.by_lesson_start_end([params[:start], params[:end]])
+    elsif params[:lieu].present?
+      @bookings = @enterprise_bookings
+      @enterprise_bookings = []
+      @bookings.each do |booking|
+        lesson = booking.lesson
+        locations = Location.near(params[:lieu], 1)
+        if locations.include?(lesson.location)
+          @enterprise_bookings << booking
+        end
+      end
+    elsif params[:activity].present?
+      @enterprise_bookings = @enterprise_bookings.by_lesson_activity(params[:activity])
+    end
+  end
+
   private
 
   def send_email_to_users
     @lesson.bookings.where(status: "Confirmé").each do |booking|
-      mail = BookingMailer.with(user: booking.user, booking: booking, lesson: @lesson).coach_confirmed
+      user = booking.user
+      if user.enterprise?
+        mail = BookingMailer.with(user: user, booking: booking, lesson: @lesson).coach_confirmed_enterprise
+      else
+        mail = BookingMailer.with(user: user, booking: booking, lesson: @lesson).coach_confirmed
+      end
       mail.deliver_now
     end
   end
 
   def lesson_params
-    params.require(:lesson).permit(:date, :location_id, :sport_type, :focus)
+    params.require(:lesson).permit(:date, :location_id, :sport_type, :focus, :reccurency, :status)
+  end
+
+  def set_reccurency_lessons(lesson, booking)
+    has_credit = current_user.has_credit(lesson.date)
+    return if lesson.not_reccurent? || lesson.status != 'Pre-validée' || has_credit[:has_credit] == false || current_user.person?
+
+    credit_number = has_credit[:number]
+    if lesson.weekly?
+      remaining_weeks_in_lesson_month = (lesson.date.to_date.end_of_month - lesson.date.to_date).to_i / 7
+      number = remaining_weeks_in_lesson_month <= credit_number ? remaining_weeks_in_lesson_month : credit_number
+      number.times do |i|
+        new_lesson = lesson.dup
+        new_lesson.date = lesson.date + ((i + 1) * 7).days
+        new_lesson.reccurency = :not_reccurent
+        new_lesson.status = 'Pre-validée'
+        new_lesson.save
+        new_booking = booking.dup
+        new_booking.lesson = new_lesson
+        new_booking.save
+      end
+    end
   end
 end

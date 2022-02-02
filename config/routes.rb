@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   patch 'cancel-lesson/:id', to: 'lessons#cancel', as: :cancel_lesson
   get 'focus-lesson/:id', to: 'lessons#focus_lesson', as: :focus_lesson
   get 'pre-validate-lesson/:id', to: 'lessons#pre_validate_lesson', as: :pre_validate_lesson
+  get 'invite-employees/:id', to: 'lessons#invite_enterprise_employees', as: :invite_enterprise_employees
+  get 'seances-de-mon-entreprise', to: 'lessons#employee_enterprise_lessons', as: :employee_enterprise_lessons
 
   get 'be-coach/:id', to: 'lessons#be_coach', as: :be_coach
   get 'be-coach-via-email/:lesson_id/users/:user_id', to: 'lessons#be_coach_via_mail', as: :be_coach_via_mail
@@ -53,7 +55,6 @@ Rails.application.routes.draw do
 
   resources :locations, only: [:create, :destroy]
   resources :partners, only: [:create]
-  # resources :friendships, only: :index
   get 'mes-amis', to: 'friendships#index', as: :friendships
   resources :friend_requests, only: [:create, :update]
   resources :bookings, only: [:index, :create, :destroy]
@@ -61,9 +62,11 @@ Rails.application.routes.draw do
   post 'lessons/:lesson_id/coach-messages', to: 'messages#coach_message', as: :coach_messages
   get 'accept-invitation/:booking_id', to: "bookings#accept_invitation", as: :accept_invitation
   get 'public-lesson-booking/:lesson_id', to: "bookings#public_lesson_booking", as: :public_lesson_booking
+  get 'enterprise-lesson-booking/:lesson_id', to: "bookings#enterprise_lesson_booking", as: :enterprise_lesson_booking
   post 'invitations-par-emails', to: "bookings#create_by_emails", as: :create_by_emails
 
   get 'inscription-coach', to: "coachs#sign_up", as: :coach_sign_up
+  get 'inscription-entreprise', to: "enterprises#sign_up", as: :enterprise_sign_up
   get 'sportive-profile/:id', to:'users#sportive_profile', as: :sportive_profile
   get 'foire-aux-questions', to: "pages#faq", as: :faq
   get 'forum', to: "pages#forum", as: :forum
@@ -85,6 +88,10 @@ Rails.application.routes.draw do
   post 'nouveau-code-promo', to: "promo_codes#create", as: :promo_codes
   patch 'modifier-code-promo/:id', to: "promo_codes#toggle_active_status", as: :toggle_active_status
 
+  get '/mes-salaries', to: 'employments#index', as: :employments
+  post '/mes-salaries', to: 'employments#create'
+  patch '/mes-salaries/:id', to: 'employments#update', as: :employment
+  patch '/mes-salaries/:id/supprimer', to: 'employments#cancel', as: :cancel_employment
+
   mount StripeEvent::Engine, at: '/stripe-webhooks'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

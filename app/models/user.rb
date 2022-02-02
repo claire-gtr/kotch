@@ -25,6 +25,8 @@ class User < ApplicationRecord
   has_many :reasons
   has_many :user_codes
   has_many :promo_codes, through: :user_codes
+  has_many :enterprise_employments, class_name: 'Employment', foreign_key: "enterprise_id"
+  has_many :employee_employments, class_name: 'Employment', foreign_key: "employee_id"
 
   enum gender: { homme: 0, femme: 1, autres: 2 }
   enum sport_habits: { rarely: 0, occasionnally: 1, regularly: 2 }
@@ -33,8 +35,9 @@ class User < ApplicationRecord
   enum intensity: { intense: 0, endurance: 1, fun: 2, learn: 3 }
   enum expectations: { relax: 0, letgo: 1, amuse: 2, weight_loss: 3, muscle: 4, healthy: 5 }
   enum company_discover: { internet: 0, your_company: 1, social_networks: 2, word_of_mouth: 3, other: 4 }
+  enum status: { person: 0, enterprise: 1 }
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, presence: true
   validates :gender, inclusion: { in: genders.keys }, allow_nil: true
   validates :sport_habits, inclusion: { in: sport_habits.keys }, allow_nil: true
   validates :physical_pain, inclusion: { in: physical_pains.keys }, allow_nil: true
@@ -42,20 +45,48 @@ class User < ApplicationRecord
   validates :intensity, inclusion: { in: intensities.keys }, allow_nil: true
   validates :expectations, inclusion: { in: expectations.keys }, allow_nil: true
   validates :company_discover, inclusion: { in: company_discovers.keys }, allow_nil: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :status, inclusion: { in: statuses.keys }, presence: true
+  validates :first_name, presence: true, if: -> { person? }
+  validates :last_name, presence: true, if: -> { person? }
   validates :optin_cgv, presence: true
+  validates :enterprise_name, presence: true, if: -> { enterprise? }
+  validates :phone_number, presence: true, if: -> { enterprise? }
 
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
   scope :no_admins, -> { where(admin: false) }
+  scope :validated_coachs, -> { where(coach: true, validated_coach: true) }
 
   before_save :remove_empty_spaces
-  after_create :find_waiting_bookings
-  after_create :create_empty_sub
-  after_create :send_welcome_mail
+  after_create :find_waiting_bookings, :create_empty_sub, :send_welcome_mail, :set_enterprise_code
 
   def friendships
     self.friendships_as_friend_a + self.friendships_as_friend_b
+  end
+
+  def enterprise
+    return unless person?
+
+    employee_employments&.includes([:enterprise]).find_by(accepted: true)&.enterprise
+  end
+
+  def enterprise_futur_bookings
+    return unless enterprise?
+
+    enterprise_futur_bookings = bookings.future_lessons.no_invitation.not_lesson_canceled.order_lesson_date_asc
+    return enterprise_futur_bookings
+  end
+
+  def enterprise_next_week_lessons
+    return unless enterprise?
+
+    enterprise_next_week_lessons = bookings.next_week.no_invitation.map { |booking| booking.lesson }
+    return enterprise_next_week_lessons
+  end
+
+  def employees
+    return unless enterprise?
+
+    enterprise_employments.includes([:employee]).select{ |employment| employment.accepted? }.map{ |employment| employment.employee }
   end
 
   def my_friends
@@ -101,7 +132,8 @@ class User < ApplicationRecord
           bookings_count += 1
         end
       end
-      return { has_credit: true, origin: "subscription" } if bookings_count < lessons_included
+      number = (lessons_included - bookings_count) >= 0 ? lessons_included - bookings_count : 0
+      return { has_credit: true, origin: "subscription", number: number } if bookings_count < lessons_included
     end
 
     if self.credit_count > 0
@@ -122,6 +154,10 @@ class User < ApplicationRecord
     { exist: false, code: nil, percentage: nil }
   end
 
+  def coach_lessons_next_24h
+    lessons&.next_24h
+  end
+
   private
 
   def create_empty_sub
@@ -131,10 +167,10 @@ class User < ApplicationRecord
   end
 
   def send_welcome_mail
-    if (admin == false) && (coach == false)
-      mail = UserMailer.with(user: self).welcome_mail
-      mail.deliver_now
-    end
+    return unless person? && !admin? && !coach?
+
+    mail = UserMailer.with(user: self).welcome_mail
+    mail.deliver_now
   end
 
   def remove_empty_spaces
@@ -152,5 +188,15 @@ class User < ApplicationRecord
       waiting_booking.destroy
     end
     self.update(promo_code_used: true, credit_count: 1)
+  end
+
+  def set_enterprise_code
+    return unless enterprise? && enterprise_code.blank?
+
+    new_enterprise_code = [*('a'..'z'), *('0'..'9')].sample(8).join.upcase
+    while User.find_by(enterprise_code: new_enterprise_code).present?
+      new_enterprise_code = [*('a'..'z'), *('0'..'9')].sample(8).join.upcase
+    end
+    self.update(enterprise_code: new_enterprise_code)
   end
 end

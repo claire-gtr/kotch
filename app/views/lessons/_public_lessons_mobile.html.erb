@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="our-concept-title text-center my-5">SÉANCES PUBLIQUES</h1>
-  <% if @lessons.empty? %>
+  <% if lessons.empty? %>
     <div class="col-12 text-center">
       <h2 class="text-center">Il n'y a pas de séance publique disponible.</h2>
       <%= link_to "Retour à toutes les séances publiques", public_lessons_path, class:"btn btn-kotch btn-red"  %>
@@ -22,6 +22,7 @@
             <li><%= link_to "HIIT", public_lessons_path(activity: "HIIT")  %></li>
             <li><%= link_to "Pilate", public_lessons_path(activity: "Pilate")  %></li>
             <li><%= link_to "Renforcement musculaire", public_lessons_path(activity: "Renforcement musculaire")  %></li>
+            <li><%= link_to "Running", public_lessons_path(activity: "Running")  %></li>
             <li><%= link_to "Stretching", public_lessons_path(activity: "Stretching")  %></li>
             <li><%= link_to "Yoga", public_lessons_path(activity: "Yoga")  %></li>
           </ul>
@@ -87,7 +88,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <% @lessons.each do |lesson| %>
+        <% lessons.each do |lesson| %>
           <%= render 'lesson_in_public_page_mobile', lesson: lesson %>
         <% end %>
       </div>

@@ -12,10 +12,19 @@
               </div>
 
               <%= f.input :avatar, as: :file, wrapper_html: { class: 'my-0' }, input_html: { class: 'd-none', data: { action: "change->photo-preview#display", target:"photo-preview.avatarInput" } }, label: false %>
-              <p class='text-blue text-center mb-0 text-condensed text-small'><u>modifier ma photo</u></p>
+              <p class='text-blue text-center mb-0 text-condensed text-small'><u>modifier <%= current_user.person? ? 'ma photo' : 'mon logo' %></u></p>
             </div>
-            <h6 class='text-blue'><strong>GENRE</strong></h4>
-            <%= f.input :gender, as: :radio_buttons, collection: User.genders.keys.map { |m| [I18n.t("gender.#{m}"), m] }, legend_tag: false %>
+            <% if current_user.person? %>
+              <h6 class='text-blue'><strong>GENRE</strong></h4>
+              <%= f.input :gender, as: :radio_buttons, collection: User.genders.keys.map { |m| [I18n.t("gender.#{m}"), m] }, legend_tag: false %>
+            <% else %>
+              <div class="row mt-3">
+                <div class="col-6">
+                  <%= f.input :enterprise_name, label: false %>
+                </div>
+                <div class="col-6"></div>
+              </div>
+            <% end %>
             <div class="row">
               <div class="col-6">
                 <%= f.input :last_name, label: false, required: true %>
@@ -24,14 +33,16 @@
                 <%= f.input :first_name, label: false, required: true %>
               </div>
             </div>
-            <div class="row">
-              <div class="col-6">
-                <%= f.input :birth_date, as: :string, label: false, input_html: {class: "datepickerbirth"}, placeholder: "DATE DE NAISSANCE"  %>
+            <% if current_user.person? %>
+              <div class="row">
+                <div class="col-6">
+                  <%= f.input :birth_date, as: :string, label: false, input_html: {class: "datepickerbirth"}, placeholder: "DATE DE NAISSANCE"  %>
+                </div>
+                <div class="col-6">
+                  <%= f.input :address, label: false %>
+                </div>
               </div>
-              <div class="col-6">
-                <%= f.input :address, label: false %>
-              </div>
-            </div>
+            <% end %>
             <div class="row">
               <div class="col-6">
                 <%= f.input :email,
@@ -54,7 +65,7 @@
     <div class="row">
       <div class="col-12 px-5 mt-2">
         <div class="card-red p-3 p-lg-4">
-          <% unless current_user.coach %>
+          <% unless current_user.coach? || current_user.enterprise? %>
             <h4 class='text-blue'>PARLEZ NOUS UN PEU DE VOUS</h4>
             <div class="form-inputs">
               <div class="row">
@@ -103,13 +114,8 @@
           <div class="form-actions">
             <%= f.button :submit, "MODIFIER MON COMPTE", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
           </div>
-          <div class="mt-4">
-            <%= render "devise/shared/links" %>
-          </div>
-          <u><p class='mb-0'><%= link_to "Supprimer mon compte", registration_path(resource_name), data: { confirm: "Êtes-vous sûr(e) ? Cette action est irréversible." }, method: :delete %></p></u>
-
-          <%= link_to "Retour", :back %>
-
+          <u><p class='mb-0 mt-4'><%= link_to "Supprimer mon compte", registration_path(resource_name), data: { confirm: "Êtes-vous sûr(e) de vouloir supprimer vôtre compte ? Cette action est irréversible." }, method: :delete %></p></u>
+          <%= link_to "Retour", :back, class: "mt-1" %>
         </div>
       </div>
     </div>

@@ -1,0 +1,7 @@
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
+
+<p>Malheureusement, nous vous informons de l’annulation de votre séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %>.</p>
+
+<p>En effet, aucun coach ne s'est magnifesté pour cette séance. Et comme celle-ci a lieu dans moins de 24 heures, nous ne pouvons pas garantir qu'elle soit assurée.</p>
+
+<p class="mt-5">À très vite </p>

@@ -1,0 +1,9 @@
+Bonne nouvelle <%= @employee.first_name.capitalize %> !
+
+Votre demande d'accès au planning de l'entreprise <%= @enterprise.enterprise_name %> a été accepté par celle-ci.
+
+Vous pouvez aller voir son planning dans la rubrique "Mon entreprise"
+
+<%= link_to "Séances de mon entreprise", employee_enterprise_lessons_url %>
+
+À très vite

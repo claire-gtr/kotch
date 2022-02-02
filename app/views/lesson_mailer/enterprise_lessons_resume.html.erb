@@ -1,0 +1,23 @@
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
+
+<p>Demain c'est une nouvelle semaine qui commence. Voici un récapitulatif de toutes les séances prévues par ton entreprise :</p>
+
+<% if @lessons.empty? %>
+  <ul>
+    <li class="li-email">Aucune séance n'est prévue.</li>
+  </ul>
+<% else %>
+  <ul>
+    <% @lessons.each do |lesson| %>
+      <li class="li-email"><%= lesson.sport_type %> - <%= lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> - <%= lesson.location.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<p>N'oublie pas de t'inscrire aux séances auxquelles tu veux participer !</p>
+
+<%= link_to 'Réserve une séance', employee_enterprise_lessons_url, class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %>
+
+<p class="mb-3">Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!</p>
+
+<p class="mt-5">À très vite </p>

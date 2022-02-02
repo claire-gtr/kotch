@@ -5,7 +5,7 @@ class StripeCheckoutSessionService
       pack_order.update(state: 'paid')
       user = pack_order.user
       user.update(credit_count: (user.credit_count + pack_order.credit_count))
-      if user.referral_code == ""
+      if user.person? && user.referral_code == ""
         new_referral_code = [*('a'..'z'), *('0'..'9')].sample(10).join.upcase
         while User.find_by(referral_code: new_referral_code).present?
           new_referral_code = [*('a'..'z'), *('0'..'9')].sample(10).join.upcase

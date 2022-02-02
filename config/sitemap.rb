@@ -45,4 +45,5 @@ SitemapGenerator::Sitemap.create(compress: false) do
   add cgv_path
   add legals_path
   add concept_path
+  add enterprise_sign_up_path
 end

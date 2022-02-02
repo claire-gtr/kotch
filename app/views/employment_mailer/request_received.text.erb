@@ -1,0 +1,9 @@
+Bonjour <%= @enterprise.first_name.capitalize %> !
+
+Vous venez de recevoir de la part de <%= @employee.full_name %> une demande d'accès à votre planning entreprise sur Koach & Co.
+
+Vous pouvez l'accepter ou la refuser en allant sur votre page "Mes salariés".
+
+<%= link_to 'Mes salariés', employments_url %>
+
+À très vite

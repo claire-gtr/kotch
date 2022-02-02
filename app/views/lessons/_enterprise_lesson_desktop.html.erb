@@ -1,0 +1,21 @@
+<div class="card-blue shadow p-4 mb-3 d-flex justify-content-between align-items-center">
+  <div class="d-block d-md-flex justify-content-between w-100 align-items-center mt-3 mt-md-0">
+    <div class="d-flex justify-content-between flex-column flex-md-row w-100 align-items-center">
+      <span class="title-sport lesson-max-60 text-center"><%= lesson.sport_type.upcase %></span>
+      <p class="mb-0 text-blue text-bold text-condensed"><%= I18n.l(lesson.date, format: '%A').capitalize %> <%= lesson.date.strftime('%e/%m/%Y à %Hh%M')%></p>
+      <p class="mb-0 text-blue text-bold text-condensed text-center lesson-max-100"><%= lesson.location.name %></p>
+      <% if lesson.user_id %>
+        <p class="mb-0 text-blue text-bold text-condensed lesson-max-100 text-center">AVEC COACH <%= lesson.user.first_name.upcase %></p>
+      <% else %>
+        <p class="mb-0 text-blue text-bold text-condensed lesson-max-100 text-center">Pas de coach</p>
+      <% end %>
+      <% if user_signed_in? %>
+        <% if !current_user.coach? && !current_user.admin? %>
+          <%= link_to "JE RÉSERVE", enterprise_lesson_booking_path(lesson), class:'btn btn-kotch btn-red'  %>
+        <% end %>
+      <% else %>
+        <%= link_to "JE RÉSERVE", new_user_session_path, class:'btn btn-kotch btn-red'  %>
+      <% end %>
+    </div>
+  </div>
+</div>

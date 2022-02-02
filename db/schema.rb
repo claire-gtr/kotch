@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_165538) do
+ActiveRecord::Schema.define(version: 2022_01_03_164239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,16 @@ ActiveRecord::Schema.define(version: 2021_11_17_165538) do
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
+  create_table "employments", force: :cascade do |t|
+    t.bigint "enterprise_id", null: false
+    t.bigint "employee_id", null: false
+    t.boolean "accepted"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_employments_on_employee_id"
+    t.index ["enterprise_id"], name: "index_employments_on_enterprise_id"
+  end
+
   create_table "friend_requests", force: :cascade do |t|
     t.integer "requestor_id", null: false
     t.integer "receiver_id", null: false
@@ -89,6 +99,8 @@ ActiveRecord::Schema.define(version: 2021_11_17_165538) do
     t.bigint "location_id"
     t.boolean "public", default: false
     t.text "focus"
+    t.integer "reccurency", default: 0, null: false
+    t.boolean "active", default: false, null: false
     t.index ["location_id"], name: "index_lessons_on_location_id"
     t.index ["user_id"], name: "index_lessons_on_user_id"
   end
@@ -211,6 +223,9 @@ ActiveRecord::Schema.define(version: 2021_11_17_165538) do
     t.boolean "promo_code_used", default: false, null: false
     t.string "referral_code", default: "", null: false
     t.integer "company_discover"
+    t.integer "status", default: 0, null: false
+    t.string "enterprise_name"
+    t.string "enterprise_code"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -228,6 +243,8 @@ ActiveRecord::Schema.define(version: 2021_11_17_165538) do
   add_foreign_key "answers", "users"
   add_foreign_key "bookings", "lessons"
   add_foreign_key "bookings", "users"
+  add_foreign_key "employments", "users", column: "employee_id"
+  add_foreign_key "employments", "users", column: "enterprise_id"
   add_foreign_key "lessons", "users"
   add_foreign_key "locations", "users"
   add_foreign_key "messages", "bookings"

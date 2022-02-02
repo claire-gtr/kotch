@@ -26,14 +26,9 @@ class BookingsController < ApplicationController
       emails = friends_emails.split(',').map { |email| email.gsub(/\s+/, '').downcase }
       emails.each do |email|
         if a_valid_email?(email)
-          # temporay_password = (0...12).map { ('a'..'z').to_a[rand(26)] }.join
-          # user = User.create(email: email, password: temporay_password, password_confirmation: temporay_password, first_name: 'Invité', last_name: 'Invité')
-          # booking = Booking.new(user: user, lesson: @lesson)
-          # booking.status = "Invitation envoyée"
-          # booking.save
-          # mail = BookingMailer.with(user: user, booking: booking, friend: current_user, password: temporay_password).new_user_inviation
           user = User.find_by(email: email)
-          if user.present?
+          next if user.enterprise?
+          if user.present? && !user.enterprise?
             booking = Booking.new(user: user, lesson: @lesson)
             booking.status = "Invitation envoyée"
             booking.save
@@ -89,7 +84,7 @@ class BookingsController < ApplicationController
       authorize(:booking, :public_lesson_booking?)
       flash[:alert] = "Vous avez déjà une réservation pour cette séance."
       redirect_to public_lessons_path
-    elsif !current_user.coach
+    elsif !current_user.coach?
       if has_credit[:has_credit] == true
         @booking.lesson = @lesson
         @booking.status = "Confirmé"
@@ -119,6 +114,26 @@ class BookingsController < ApplicationController
         redirect_to offers_path
       end
     end
+  end
+
+  def enterprise_lesson_booking
+    @lesson = Lesson.find(params[:lesson_id])
+    @enterprise = @lesson.enterprise if @lesson.enterprise?
+    @booking = Booking.new
+    authorize(:booking, :enterprise_lesson_booking?)
+
+    if @enterprise.present?
+      if @lesson.bookings.where(user: current_user).any?
+        return redirect_to employee_enterprise_lessons_path, alert: "Vous avez déjà une réservation pour cette séance."
+      elsif !current_user.coach? && current_user.enterprise == @enterprise
+        @booking.lesson = @lesson
+        @booking.status = "Confirmé"
+        @booking.user = current_user
+        @booking.save
+        return redirect_to lessons_path, notice: "Vous êtes bien inscrit(e) à la séance"
+      end
+    end
+    return redirect_to lessons_path, notice: "Erreur de saisie"
   end
 
   def destroy

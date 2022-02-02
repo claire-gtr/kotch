@@ -49,6 +49,8 @@
                 <p class="my-3"><span class="text-bold">Lieu : </span><%= booking.lesson.location.name %></p>
                 <span class="mb-1 text-bold">Participants</span>
                 <% booking.lesson.bookings.includes([:user]).each do |booking| %>
+                  <% next if booking.user.enterprise? %>
+
                   <div class="">
                     <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
                   </div>
@@ -108,6 +110,8 @@
                 <p class="my-3"><span class="text-bold">Lieu : </span><%= booking.lesson.location.name %></p>
                 <span class="mb-1 text-bold">Participants</span>
                 <% booking.lesson.bookings.includes([:user]).each do |booking| %>
+                  <% next if booking.user.enterprise? %>
+
                   <div class="">
                     <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
                   </div>
@@ -124,7 +128,7 @@
 
 <button role="button" class="profil-btn-mobile col-12 mb-3 tab-3" data-profile-target="subscription" data-action="click->profile#order">Mon abonnement / Mes achats</button>
 
-<div class="hidden shadow px-5" data-profile-target="subscriptionData" id="profile-mobile-order">
+<div class="hidden shadow px-5 col-12" data-profile-target="subscriptionData" id="profile-mobile-order">
   <% if current_user.subscription && current_user.subscription.stripe_id %>
     <div class="text-center">
       <p class="text-blue mt-1 mb-0">Vous êtes actuellement abonné(e) au plan <%= current_user.subscription.nickname %>.</p>
@@ -139,14 +143,21 @@
       <%= link_to "Je m'abonne", offers_path, data: { turbolinks: "false" }, class:'btn btn-red btn-kotch' %>
     </div>
   <% end %>
-  <div class="text-center">
-    <% if current_user.credit_count > 0 %>
-      <p class="text-blue mt-4 mb-0">Vous avez <%= current_user.credit_count %> crédits hors abonnement.</p>
-    <% else %>
-      <p class="text-blue mt-4 mb-0">Vous n'avez pas de séances hors abonnement.</p>
+  <% if current_user.enterprise? %>
+    <% unless current_user.subscription && !current_user.subscription.pending? %>
+      <div class="text-center">
+        <p class="text-blue mt-5">Vous n'avez pas de factures.</p>
+      </div>
     <% end %>
-    <%= link_to "J'achète des séances", offers_path(anchor: "lessons-individually"), data: { turbolinks: "false" }, class:'btn btn-red btn-kotch' %>
-  </div>
+  <% else %>
+    <div class="text-center">
+      <% if current_user.credit_count > 0 %>
+        <p class="text-blue mt-5">Vous avez <%= current_user.credit_count %> crédits hors abonnement.</p>
+      <% else %>
+        <p class="text-blue mt-5">Vous n'avez pas de séances hors abonnement.</p>
+      <% end %>
+    </div>
+  <% end %>
   <div class="text-center">
     <p class="text-blue mt-4 mb-0">Entrer un code promotionnel ou de parrainage :</p>
     <%= simple_form_for current_user, url: use_a_promo_code_path(current_user), method: :patch do |f| %>
@@ -155,4 +166,26 @@
       <%= submit_tag "J'utilise ce code", class:'btn btn-red btn-kotch mb-2 mt-1' %>
     <% end %>
   </div>
+  <% if current_user.person? %>
+    <% if @user_employment.present? %>
+      <div class="text-center">
+        <p class="text-blue mt-4 mb-0">Vous êtes déjà dans la liste des salariés de l'entreprise <%= @user_employment.enterprise.enterprise_name.upcase %>.</p>
+        <%= link_to 'Quitter', cancel_employment_path(@user_employment), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir quitter la liste des salariés de l'entreprise #{@user_employment.enterprise.enterprise_name.upcase} ?"}, class:'btn btn-red btn-kotch my-2' %>
+      </div>
+    <% elsif @user_employment_send.present? %>
+      <div class="text-center">
+        <p class="text-blue mt-4 mb-0">Vous avez déjà une demande en attente pour intégrer la liste des salariés de l'entreprise <%= @user_employment_send.enterprise.enterprise_name.upcase %>.</p>
+        <%= link_to 'Annuler', cancel_employment_path(@user_employment_send, query: 'annuler'), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir annuler vôtre demande d'intégration à la liste des salariés de l'entreprise #{@user_employment_send.enterprise.enterprise_name.upcase} ?"}, class:'btn btn-red btn-kotch my-2' %>
+      </div>
+    <% else %>
+      <div class="text-center">
+        <p class="text-blue mt-4 mb-0">Accéder au planning de votre entreprise en renseignant son code d'identification unique :</p>
+        <%= simple_form_for @employment, url: employments_path, method: :post do |f| %>
+          <%= text_field_tag :enterprise_code, nil, label: "Nom du code", class:'text-uppercase' %>
+          <br>
+          <%= submit_tag "Envoyer ma demande d'accès", class:'btn btn-red btn-kotch my-2' %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 </div>

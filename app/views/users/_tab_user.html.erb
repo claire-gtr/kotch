@@ -7,7 +7,7 @@
       <a class="btn btn-big rounded-0 tab-2" data-toggle="tab" href="#tabs-2" role="tab">Historique des séances</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-big rounded-0 tab-3" data-toggle="tab" href="#tabs-3" role="tab">Mon abonnement / Mes achats</a>
+      <a class="btn btn-big rounded-0 tab-3" data-toggle="tab" href="#tabs-3" role="tab"><%= current_user.person? ? 'Mon abonnement / Mes achats' : 'Mon abonnement' %></a>
     </li>
   </ul>
   <!-- Tab panes -->
@@ -20,8 +20,11 @@
             <th>DATE</th>
             <th>HEURE</th>
             <th>LIEU</th>
+            <% if current_user.enterprise? %>
+              <th>COACH</th>
+            <% end %>
             <th>STATUT</th>
-            <th>PARTICIPANTS</th>
+            <th><%= current_user.enterprise? ? 'DETAILS' : 'PARTICIPANTS' %></th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +35,10 @@
                 <td class='py-2'><%= booking.lesson.date.strftime('%d/%m/%Y') %></td>
                 <td class='py-2'><%= booking.lesson.date.strftime('%H:%M') %></td>
                 <td class='py-2'><%= booking.lesson.location.name %></td>
+                <% if current_user.enterprise? %>
+                  <% coach = booking.lesson.user %>
+                  <td class='py-2'><%= coach.present? ? coach.full_name : 'Pas de coach' %></td>
+                <% end %>
                 <td class='py-2'>
                   <% if booking.lesson.status == "pending" %>
                     En attente
@@ -40,7 +47,7 @@
                   <% end %>
                 </td>
                 <td class='py-2'>
-                  <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-<%= booking.lesson.id %>"><i class="fas fa-plus-circle fa-xs"></i></button>
+                  <button type="button" class="btn-plus" data-toggle="modal" data-target="#modal1-<%= booking.lesson.id %>"><i class="fas fa-plus-circle"></i></button>
                 </td>
               </tr>
               <!-- Modal -->
@@ -56,13 +63,14 @@
                     </div>
                     <div class="modal-body">
                       <h5 class="my-3">COACH</h5>
-                      <% if  booking.lesson.user %>
-                        <p class="text-blue text-condensed"><%= booking.lesson.user.first_name if booking.lesson.user_id%></p>
+                      <% if booking.lesson.user %>
+                        <p class="text-blue text-condensed"><%= booking.lesson.user.first_name if booking.lesson.user_id %></p>
                       <% else %>
                         <p class="text-blue">Il n'y a pas encore de coach</p>
                       <% end %>
                       <h5 class="my-3">PARTICIPANTS</h5>
                       <% booking.lesson.bookings.includes([:user]).each do |booking| %>
+                        <% next if booking.user.enterprise? %>
                         <span>
                           <div class="bullet">• &nbsp</div>
                           <ul class="d-flex justify-content-between">
@@ -88,8 +96,9 @@
             <th>DATE</th>
             <th>HEURE</th>
             <th>LIEU</th>
-            <th>STATUT</th>
             <th>COACH</th>
+            <th>STATUT</th>
+            <th><%= current_user.enterprise? ? 'DETAILS' : 'PARTICIPANTS' %></th>
             </tr>
         </thead>
         <tbody>
@@ -100,6 +109,8 @@
                 <td class="py-2"><%= booking.lesson.date.strftime('%d/%m/%Y') %></td>
                 <td class="py-2"><%= booking.lesson.date.strftime('%H:%M') %></td>
                 <td class="py-2"><%= booking.lesson.location.name %></td>
+                <% coach = booking.lesson.user %>
+                <td class='py-2'><%= coach.present? ? coach.full_name : 'Pas de coach' %></td>
                 <td class="py-2">
                   <% if booking.lesson.status == "pending" %>
                     En attente
@@ -128,6 +139,7 @@
                     <div class="modal-body">
                       <h5 class="my-3">PARTICIPANTS</h5>
                       <% booking.lesson.bookings.includes([:user]).each do |booking| %>
+                        <% next if booking.user.enterprise? %>
                         <span>
                           <div class="bullet">• &nbsp</div>
                           <ul class="d-flex justify-content-between">
@@ -153,7 +165,7 @@
     <div class="tab-pane" id="tabs-3" role="tabpanel">
       <% if current_user.subscription && current_user.subscription.stripe_id %>
         <div class="text-center">
-          <p class="text-blue mt-5">Vous êtes actuellement abonné(e) au plan <%= current_user.subscription.nickname %>.</p>
+          <p class="text-blue mt-3">Vous êtes actuellement abonné(e) au plan <%= current_user.subscription.nickname %>.</p>
           <form action="/customer_portal_sessions" method="POST">
             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
             <button class="btn btn-kotch btn-red">Gérer mon abonnement</button>
@@ -162,16 +174,24 @@
       <% else %>
         <div class="text-center">
           <p class="text-blue">Vous n'avez pas d'abonnement à Koach.</p>
-          <%= link_to "Je m'abonne", offers_path, data: {turbolinks: "false"}, class:'btn btn-red btn-kotch'  %>
+          <%= link_to "Je m'abonne", offers_path, data: {turbolinks: "false"}, class:'btn btn-red btn-kotch' %>
         </div>
       <% end %>
-      <div class="text-center">
-        <% if current_user.credit_count > 0 %>
-          <p class="text-blue mt-5">Vous avez <%= current_user.credit_count %> crédits hors abonnement.</p>
-        <% else %>
-          <p class="text-blue mt-5">Vous n'avez pas de séances hors abonnement.</p>
+      <% if current_user.enterprise? %>
+        <% unless current_user.subscription && !current_user.subscription.pending? %>
+          <div class="text-center">
+            <p class="text-blue mt-5">Vous n'avez pas de factures.</p>
+          </div>
         <% end %>
-      </div>
+      <% else %>
+        <div class="text-center">
+          <% if current_user.credit_count > 0 %>
+            <p class="text-blue mt-5">Vous avez <%= current_user.credit_count %> crédits hors abonnement.</p>
+          <% else %>
+            <p class="text-blue mt-5">Vous n'avez pas de séances hors abonnement.</p>
+          <% end %>
+        </div>
+      <% end %>
       <div class="text-center">
         <p class="text-blue mt-5">Entrer un code promotionnel ou de parrainage :</p>
         <%= simple_form_for current_user, url: use_a_promo_code_path(current_user), method: :patch do |f| %>
@@ -180,6 +200,28 @@
           <%= submit_tag "Utiliser ce code", class:'btn btn-red btn-kotch mt-2' %>
         <% end %>
       </div>
+      <% if current_user.person? %>
+        <% if @user_employment.present? %>
+          <div class="text-center">
+            <p class="text-blue mt-4 mb-0">Vous êtes déjà dans la liste des salariés de l'entreprise <%= @user_employment.enterprise.enterprise_name.upcase %>.</p>
+            <%= link_to 'Quitter', cancel_employment_path(@user_employment), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir quitter la liste des salariés de l'entreprise #{@user_employment.enterprise.enterprise_name.upcase} ?"}, class:'btn btn-red btn-kotch mt-2' %>
+          </div>
+        <% elsif @user_employment_send.present? %>
+          <div class="text-center">
+            <p class="text-blue mt-4 mb-0">Vous avez déjà une demande en attente pour intégrer la liste des salariés de l'entreprise <%= @user_employment_send.enterprise.enterprise_name.upcase %>.</p>
+            <%= link_to 'Annuler', cancel_employment_path(@user_employment_send, query: 'annuler'), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir annuler vôtre demande d'intégration à la liste des salariés de l'entreprise #{@user_employment_send.enterprise.enterprise_name.upcase} ?"}, class:'btn btn-red btn-kotch mt-2' %>
+          </div>
+        <% else %>
+          <div class="text-center">
+            <p class="text-blue mt-4">Accéder au planning de votre entreprise en renseignant son code d'identification unique :</p>
+            <%= simple_form_for @employment, url: employments_path, method: :post do |f| %>
+              <%= text_field_tag :enterprise_code, nil, label: "Nom du code", class:'text-uppercase' %>
+              <br>
+              <%= submit_tag "Envoyer ma demande d'accès", class:'btn btn-red btn-kotch mt-2' %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -41,6 +41,7 @@
                 <p class="mb-3"><span class="text-bold">Lieu : </span><%= lesson.location.name %></p>
                 <span class="mb-1 text-bold">Participants</span>
                 <% lesson.bookings.includes([:user]).each do |booking| %>
+                  <% next if booking.user.enterprise? %>
                   <div class="">
                     <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
                   </div>
@@ -94,6 +95,7 @@
                 <p class="mb-3"><span class="text-bold">Lieu : </span><%= lesson.location.name %></p>
                 <span class="mb-1 text-bold">Participants</span>
                 <% lesson.bookings.includes([:user]).each do |booking| %>
+                  <% next if booking.user.enterprise? %>
                   <div class="">
                     <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
                   </div>
@@ -156,6 +158,7 @@
                 <p class="mb-3"><span class="text-bold">Lieu : </span><%= lesson.location.name %></p>
                 <span class="mb-1 text-bold">Participants</span>
                 <% lesson.bookings.includes([:user]).each do |booking| %>
+                  <% next if booking.user.enterprise? %>
                   <div class="">
                     <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
                   </div>

@@ -36,5 +36,8 @@ module Kotch
       'Referrer-Policy' => 'strict-origin-when-cross-origin',
       'Access-Control-Allow-Origin' => '*'
     }
+
+    # Disabling the render monkey patch for View components
+    config.view_component.render_monkey_patch_enabled = false # defaults to true
   end
 end

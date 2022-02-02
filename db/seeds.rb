@@ -1,8 +1,8 @@
-if Rails.env == "production"
+if Rails.env == 'production'
 
   puts 'It is forbidden !'
 
-elsif Rails.env == "development"
+elsif Rails.env == 'development'
 
   puts 'cleaning database...'
 

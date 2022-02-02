@@ -34,7 +34,9 @@
       <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime('%e/%m/%y à %Hh%M')%></p>
       <div class="lesson-max-100">
         <% if current_user.coach? %>
-          <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed'  %>
+          <% if !lesson.enterprise? %>
+            <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed' %>
+          <% end %>
         <% else %>
           <% if lesson.date < DateTime.now %>
             <p class="text-blue mb-0 text-small text-condensed">Cette séance a déjà eu lieu.</p>

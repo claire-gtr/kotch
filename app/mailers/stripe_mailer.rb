@@ -21,8 +21,8 @@ class StripeMailer < ApplicationMailer
     mail(to: @user.email, subject: "Confirmation d’achat d’une séance Koach & Co")
   end
 
-  # def invoice_payment_failed
-  #   @user = params[:user]
-  #   mail(to: @user.email, subject: "Votre paiement n'a pas fonctionné")
-  # end
+  def invoice_payment_failed
+    @user = params[:user]
+    mail(to: @user.email, subject: "Votre paiement n'a pas fonctionné")
+  end
 end

@@ -12,7 +12,7 @@
         <% if user_signed_in? %>
           <div class="d-flex align-items-center mb-3">
             <%= cl_image_tag current_user.profile_picture, class:'avatar-small', alt: "avatar" %>
-            <p class='text-blue text-bold ml-2 mb-0 navbar-name'><%= current_user.person? ? "Bonjour #{current_user.first_name.capitalize}" : current_user.enterprise_name.upcase %></p>
+            <p class='text-blue text-bold ml-2 mb-0 navbar-name'><%= current_user.person? ? "Bonjour #{current_user.first_name&.capitalize}" : current_user.enterprise_name&.upcase %></p>
           </div>
           <% if current_user.enterprise? %>
             <%= link_to "Nos offres", offers_path, data: { turbolinks: "false" }, class: "dropdown-item text-white px-0" %>

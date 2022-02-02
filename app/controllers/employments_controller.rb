@@ -53,9 +53,9 @@ class EmploymentsController < ApplicationController
       return redirect_to employments_path, notice: "#{@employment.employee.full_name} a bien été retiré de vos salariés"
     else
       if query.present? && query == 'annuler'
-        return redirect_to profile_path(tab: 'tab-3'), notice: "Votre demande d'intégration à la liste des salariés de l'entreprise #{@employment.enterprise.enterprise_name.upcase} a bien été annulée"
+        return redirect_to profile_path(tab: 'tab-3'), notice: "Votre demande d'intégration à la liste des salariés de l'entreprise #{@employment.enterprise.enterprise_name&.upcase} a bien été annulée"
       else
-        return redirect_to profile_path(tab: 'tab-3'), notice: "Vous avez bien été retiré des salariés de l'entreprise #{@employment.enterprise.enterprise_name.upcase}"
+        return redirect_to profile_path(tab: 'tab-3'), notice: "Vous avez bien été retiré des salariés de l'entreprise #{@employment.enterprise.enterprise_name&.upcase}"
       end
     end
   end

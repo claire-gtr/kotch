@@ -19,10 +19,9 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
-gem 'pundit'
+gem 'pundit', '~> 2.1.0'
 gem 'cloudinary', '~> 1.16.0'
-gem 'geocoder'
-gem "letter_opener", group: :development
+gem 'geocoder', '~> 1.6.4'
 
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -33,26 +32,27 @@ gem "letter_opener", group: :development
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-gem 'devise'
+gem 'devise', '~> 4.8.0'
 
 gem 'autoprefixer-rails', '10.2.5'
-gem 'font-awesome-sass'
-gem 'simple_form'
-gem 'stripe'
-gem 'stripe_event'
-gem 'rails-i18n'
-gem 'sitemap_generator'
-gem 'bullet', group: 'development'
-gem 'rack-mini-profiler', group: 'development'
+gem 'font-awesome-sass', '~> 5.15.1'
+gem 'simple_form', '~> 5.1.0'
+gem 'stripe', '~> 5.30.0'
+gem 'stripe_event', '~> 2.3.1'
+gem 'rails-i18n', '~> 6.0.0'
+gem 'sitemap_generator', '~> 6.1.2'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+gem 'view_component', '~> 2.48.0'
 
 group :development, :test do  gem 'pry-byebug'
-  gem 'pry-rails'
-  gem 'dotenv-rails'
+  gem 'pry-rails', '~> 0.3.9'
+  gem 'dotenv-rails', '~> 2.7.6'
+  gem 'letter_opener', '~> 1.7.0'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', '~> 11.1.3', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
@@ -62,14 +62,16 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'bullet', '~> 6.1.5'
+  gem 'rack-mini-profiler', '~> 2.3.3'
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 3.142.7'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'webdrivers', '~> 4.6.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

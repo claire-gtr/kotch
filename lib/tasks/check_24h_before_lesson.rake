@@ -4,6 +4,8 @@ namespace :check_24h_before_lesson do
     @lessons = Lesson.where("date >= ?", Time.now)
     @lessons_not_complete = []
     @lessons.each do |lesson|
+      next if lesson.enterprise?
+
       if lesson.bookings.count < 5 && !lesson.status = "Pre-validée"
         @lessons_not_complete << lesson
       end
@@ -11,8 +13,6 @@ namespace :check_24h_before_lesson do
     @lessons_without_coach = @lessons.where(user: nil)
     @lessons_to_be_checked = @lessons_without_coach + @lessons_not_complete
     @lessons_to_be_checked.each do |lesson|
-      next if lesson.enterprise?
-
       if lesson.diff_time < DateTime.now
         lesson.status = "canceled"
         lesson.save
@@ -20,6 +20,10 @@ namespace :check_24h_before_lesson do
           booking.status = "canceled"
           booking.save
           booking.user.update(credit_count: booking.user.credit_count + 1) if booking.used_credit
+        end
+        if lesson.enterprise?
+          mail = LessonMailer.with(user: lesson.creator, lesson: lesson).lesson_canceled_24h_enterprise
+          mail.deliver_now
         end
       end
     end

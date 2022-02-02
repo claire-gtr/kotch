@@ -71,4 +71,10 @@ class LessonMailer < ApplicationMailer
     @lessons = params[:lessons]
     mail(to: @user.email, subject: 'Récapitulatif de tes séances des prochaines 24 heures')
   end
+
+  def lesson_canceled_24h_enterprise
+    @user = params[:user]
+    @lesson = params[:lesson]
+    mail(to: @user.email, subject: 'Annulation de séance faute de coach')
+  end
 end

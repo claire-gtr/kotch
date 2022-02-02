@@ -5,11 +5,11 @@ class FriendRequestsController < ApplicationController
     user = User.find_by(email: email)
     friend_request = FriendRequest.new
     authorize friend_request
-    if user == current_user || current_user.coach
+    if (user == current_user) || current_user.coach? || user.enterprise?
       flash[:alert] = "Vous ne pouvez pas effectuer cette action."
       redirect_to friendships_path
     else
-      if user
+      if user.present?
         if Friendship.where(friend_a: user, friend_b: current_user).any? || Friendship.where(friend_a: current_user, friend_b: user).any? || FriendRequest.where(requestor: user, receiver: current_user).any?
           flash[:notice] = "Il y a déjà une demande d'amitié entre vous et #{email}"
           redirect_to friendships_path

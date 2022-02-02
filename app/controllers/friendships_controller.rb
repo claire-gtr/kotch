@@ -21,13 +21,15 @@ class FriendshipsController < ApplicationController
 
     if params[:email].present?
       @new_friends = User.all.select do |user|
-        user.email.downcase == params[:email].downcase.gsub(/\s+/, '')
+        !user.enterprise? &&
+        (user.email.downcase == params[:email].downcase.gsub(/\s+/, ''))
       end
       if @new_friends.empty?
         flash[:alert] = "Aucun compte utilisateur ne correspond à votre recherche ou bien les informations renseignées contiennent des erreurs."
       end
     elsif params[:first_name].present? && params[:last_name].present?
       @new_friends = User.all.select do |user|
+        !user.enterprise? &&
         (user.first_name.downcase == params[:first_name].downcase.gsub(/\s+/, '')) &&
         (user.last_name.downcase == params[:last_name].downcase.gsub(/\s+/, ''))
       end

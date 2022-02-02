@@ -8,8 +8,8 @@ namespace :enterprise_lessons_resume do
     unless enterprises.empty?
       enterprises.each do |enterprise|
         employees = enterprise.employees
-        next_week_lessons = enterprise.enterprise_next_week_lessons
         unless employees.empty?
+          next_week_lessons = enterprise.enterprise_next_week_lessons
           employees.each do |employee|
             mail = LessonMailer.with(lessons: next_week_lessons, user: employee).enterprise_lessons_resume
             mail.deliver_now

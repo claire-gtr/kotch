@@ -79,7 +79,7 @@ class User < ApplicationRecord
   def enterprise_next_week_lessons
     return unless enterprise?
 
-    enterprise_next_week_lessons = bookings.next_week.reject { |booking| booking.status == "Invitation envoyée" }.map { |booking| booking.lesson }
+    enterprise_next_week_lessons = bookings.next_week.no_invitation.map { |booking| booking.lesson }
     return enterprise_next_week_lessons
   end
 

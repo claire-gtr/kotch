@@ -1,5 +1,5 @@
 <div class="container">
-  <% if lessons.empty? %>
+  <% if bookings.empty? %>
     <div class="col-12 text-center">
       <h2 class="text-center">Il n'y a pas de séance dans le planning de votre entreprise.</h2>
       <%= link_to "Retour à toutes les séances de mon entreprise", employee_enterprise_lessons_path, class:"btn btn-kotch btn-red"  %>
@@ -89,7 +89,8 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <% lessons.each do |lesson| %>
+        <% bookings.each do |booking| %>
+          <% lesson = booking.lesson %>
           <%= render 'enterprise_lesson_desktop', lesson: lesson %>
         <% end %>
       </div>

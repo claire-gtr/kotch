@@ -69,11 +69,11 @@ class User < ApplicationRecord
     employee_employments&.includes([:enterprise]).find_by(accepted: true)&.enterprise
   end
 
-  def enterprise_futur_lessons
+  def enterprise_futur_bookings
     return unless enterprise?
 
-    enterprise_futur_lessons = bookings.future_lessons.reject { |booking| booking.status == "Invitation envoyée" }.map { |booking| booking.lesson }
-    return enterprise_futur_lessons
+    enterprise_futur_bookings = bookings.future_lessons.no_invitation.not_lesson_canceled.order_lesson_date_asc
+    return enterprise_futur_bookings
   end
 
   def enterprise_next_week_lessons

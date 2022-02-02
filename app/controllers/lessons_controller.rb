@@ -296,25 +296,26 @@ class LessonsController < ApplicationController
 
   def employee_enterprise_lessons
     authorize(:lesson, :employee_enterprise_lessons?)
-    @enterprise_lessons = current_user.enterprise&.enterprise_futur_lessons
-    return if @enterprise_lessons.empty?
+    @enterprise_bookings = current_user.enterprise&.enterprise_futur_bookings
+    return if @enterprise_bookings.empty?
 
-    # if params[:day].present?
-    #   @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("DATE_PART('dow', date)=?", params[:day]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-    # elsif params[:start].present?
-    #   @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where('EXTRACT(hour FROM date) BETWEEN ? AND ?', params[:start], params[:end]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-    # elsif params[:lieu].present?
-    #   all_lessons = Lesson.includes([:location, :bookings, :users, :user]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-    #   @enterprise_lessons = []
-    #   all_lessons.each do |lesson|
-    #     locations = Location.near(params[:lieu], 1)
-    #     if locations.include?(lesson.location)
-    #       @enterprise_lessons << lesson
-    #     end
-    #   end
-    # elsif params[:activity].present?
-    #   @enterprise_lessons = Lesson.includes([:location, :bookings, :users, :user]).where(sport_type: params[:activity]).where("date >= ?", Time.now).where.not(status: 'canceled').order('date ASC')
-    # end
+    if params[:day].present?
+      @enterprise_bookings = @enterprise_bookings.by_lesson_date(params[:day])
+    elsif params[:start].present?
+      @enterprise_bookings = @enterprise_bookings.by_lesson_start_end([params[:start], params[:end]])
+    elsif params[:lieu].present?
+      @bookings = @enterprise_bookings
+      @enterprise_bookings = []
+      @bookings.each do |booking|
+        lesson = booking.lesson
+        locations = Location.near(params[:lieu], 1)
+        if locations.include?(lesson.location)
+          @enterprise_bookings << booking
+        end
+      end
+    elsif params[:activity].present?
+      @enterprise_bookings = @enterprise_bookings.by_lesson_activity(params[:activity])
+    end
   end
 
   private

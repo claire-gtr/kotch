@@ -69,26 +69,52 @@ class PagesController < ApplicationController
       end
     elsif current_user && current_user.enterprise?
       prices = [
-        { name: "4 séances / mois", price: "280 € HT", price_integer: 336, id: ENV['PRICE_4_ENTERPRISE'], image: "offer-1.png" },
-        { name: "8 séances / mois", price: "520 € HT", price_integer: 624, id: ENV['PRICE_8_ENTERPRISE'], image: "offer-2.png" },
-        { name: "12 séances / mois", price: "720 € HT", price_integer: 864, id: ENV['PRICE_12_ENTERPRISE'], image: "offer-3.png"}
+        { name: "4 séances / mois", price: "280 € HT", price_integer: 280, id: ENV['PRICE_4_ENTERPRISE'], image: "offer-1.png" },
+        { name: "8 séances / mois", price: "520 € HT", price_integer: 520, id: ENV['PRICE_8_ENTERPRISE'], image: "offer-2.png" },
+        { name: "12 séances / mois", price: "720 € HT", price_integer: 720, id: ENV['PRICE_12_ENTERPRISE'], image: "offer-3.png"}
       ]
-      @prices_and_sessions = prices.map do |price|
-        session = Stripe::Checkout::Session.create({
-          payment_method_types: ['card'],
-          line_items: [{
-            price: price[:id],
-            quantity: 1
-          }],
-          mode: 'subscription',
-          success_url: ENV['SUCCESS_URL_STRIPE'],
-          cancel_url: offers_url,
-          client_reference_id: current_user.id,
-          customer: find_or_create_stripe_customer_id
-        })
-        checkout_id = session.id
+      coupon = current_user.coupon
+      if coupon[:exist]
+        @prices_and_sessions = prices.map do |price|
+          session = Stripe::Checkout::Session.create({
+            payment_method_types: ['card'],
+            line_items: [{
+              price: price[:id],
+              quantity: 1
+            }],
+            mode: 'subscription',
+            discounts: [{
+              coupon: coupon[:code],
+            }],
+            success_url: ENV['SUCCESS_URL_STRIPE'],
+            cancel_url: root_url,
+            client_reference_id: current_user.id,
+            customer: find_or_create_stripe_customer_id
+          })
+          checkout_id = session.id
 
-        { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image], percentage: false, discounted_price: price[:price] }
+          discounted_price = (price[:price_integer] - (price[:price_integer] * coupon[:percentage] / 100)).to_s + " € HT"
+
+          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image], percentage: coupon[:percentage], discounted_price: discounted_price }
+        end
+      else
+        @prices_and_sessions = prices.map do |price|
+          session = Stripe::Checkout::Session.create({
+            payment_method_types: ['card'],
+            line_items: [{
+              price: price[:id],
+              quantity: 1
+            }],
+            mode: 'subscription',
+            success_url: ENV['SUCCESS_URL_STRIPE'],
+            cancel_url: offers_url,
+            client_reference_id: current_user.id,
+            customer: find_or_create_stripe_customer_id
+          })
+          checkout_id = session.id
+
+          { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image], percentage: false, discounted_price: price[:price] }
+        end
       end
     end
   end

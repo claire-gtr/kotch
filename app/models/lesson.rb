@@ -44,12 +44,6 @@ class Lesson < ApplicationRecord
     return creator
   end
 
-  # def enterprise_has_credit?
-  #   return unless status == 'Pre-validée'
-
-  #   enterprise.has_credit(self.date)[:has_credit] == true
-  # end
-
   private
 
   def invite_coach_for_enterprise

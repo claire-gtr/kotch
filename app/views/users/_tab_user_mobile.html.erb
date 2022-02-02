@@ -49,6 +49,8 @@
                 <p class="my-3"><span class="text-bold">Lieu : </span><%= booking.lesson.location.name %></p>
                 <span class="mb-1 text-bold">Participants</span>
                 <% booking.lesson.bookings.includes([:user]).each do |booking| %>
+                  <% next if booking.user.enterprise? %>
+
                   <div class="">
                     <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
                   </div>
@@ -108,6 +110,8 @@
                 <p class="my-3"><span class="text-bold">Lieu : </span><%= booking.lesson.location.name %></p>
                 <span class="mb-1 text-bold">Participants</span>
                 <% booking.lesson.bookings.includes([:user]).each do |booking| %>
+                  <% next if booking.user.enterprise? %>
+
                   <div class="">
                     <p><%= booking.user.first_name.capitalize %> <%= booking.user.last_name.capitalize %></p>
                   </div>
@@ -124,7 +128,7 @@
 
 <button role="button" class="profil-btn-mobile col-12 mb-3 tab-3" data-profile-target="subscription" data-action="click->profile#order">Mon abonnement / Mes achats</button>
 
-<div class="hidden shadow px-5" data-profile-target="subscriptionData" id="profile-mobile-order">
+<div class="hidden shadow px-5 col-12" data-profile-target="subscriptionData" id="profile-mobile-order">
   <% if current_user.subscription && current_user.subscription.stripe_id %>
     <div class="text-center">
       <p class="text-blue mt-1 mb-0">Vous êtes actuellement abonné(e) au plan <%= current_user.subscription.nickname %>.</p>

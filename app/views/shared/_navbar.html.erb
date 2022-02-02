@@ -1,6 +1,6 @@
 <div class="d-block d-lg-none">
-  <%= render "shared/navbar_mobile" %>
+  <%= render_component Shared::NavbarMobileComponent.new %>
 </div>
 <div class="d-none d-lg-block">
-  <%= render "shared/navbar_desktop" %>
+  <%= render_component Shared::NavbarDesktopComponent.new %>
 </div>

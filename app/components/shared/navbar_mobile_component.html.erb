@@ -1,0 +1,85 @@
+<div class="navbar navbar-light navbar-lewagon fixed-top">
+  <div class="container align-items-end px-2">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag 'logo.png', alt: "logo Koach & Co" %>
+    <% end %>
+
+    <div class="nav-item dropdown">
+      <div class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+        <%= image_tag "burger-icon.png", class:'navbar-icon mb-2', alt: "menu déroulant" %>
+      </div>
+      <div class="dropdown-menu dropdown-menu-mobile mt-2 dropdown-menu-right p-3" aria-labelledby="navbarDropdown">
+        <% if Current.user.present? %>
+          <div class="d-flex align-items-center mb-3">
+            <%= cl_image_tag Current.user.profile_picture, class:'avatar-small', alt: "avatar" %>
+            <p class='text-blue text-bold ml-2 mb-0 navbar-name'><%= Current.user.person? ? "Bonjour #{Current.user.first_name.capitalize}" : Current.user.enterprise_name.upcase %></p>
+          </div>
+          <% if Current.user.enterprise? %>
+            <%= link_to "Nos offres", offers_path, data: { turbolinks: "false" }, class: "dropdown-item text-white px-0" %>
+          <% end %>
+          <% if Current.user.coach? %>
+            <%= link_to "Créer une séance", new_lesson_path, class: "dropdown-item text-white px-0" %>
+          <% else %>
+            <%= link_to "Réserver une séance", new_lesson_path, class: "dropdown-item text-white px-0" %>
+          <% end %>
+          <% if Current.user.person? %>
+            <%= link_to "Séances publiques", public_lessons_path, class: "dropdown-item text-white px-0" %>
+          <% end %>
+          <%= link_to "Mon profil", profile_path, class: "dropdown-item text-white px-0" %>
+          <% if Current.user.coach? %>
+            <div class="d-flex align-items-center justify-content-start">
+              <%= link_to "Mes coachings", lessons_path, class: "dropdown-item text-white px-0 w-50" %>
+              <% if @message_not_readed_coach.present? %>
+                <div class="blue-dot mt-1"></div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="d-flex align-items-center">
+              <%= link_to "Mes réservations", lessons_path, class: "dropdown-item text-white px-0 w-50" %>
+              <% if @message_not_readed_customer.present? %>
+                <div class="blue-dot ml-3 mt-1"></div>
+              <% end %>
+            </div>
+          <% end %>
+          <% unless Current.user.coach? || Current.user.enterprise? %>
+            <div class="d-flex align-items-center">
+              <%= link_to "Mes amis", friendships_path, class: "dropdown-item text-white px-0 w-25" %>
+              <% if @new_friend_requests_received.present? %>
+                <div class="blue-dot ml-3 mt-1"></div>
+              <% end %>
+            </div>
+          <% end %>
+          <% if Current.user.enterprise? %>
+            <div class="d-flex align-items-center">
+              <%= link_to "Mes salariés", employments_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
+              <% if @employments_to_check.present? && !@employments_to_check.empty? %>
+                <div class="blue-dot ml-4 mt-1"></div>
+              <% end %>
+            </div>
+          <% end %>
+          <% if Current.user.person? && @user_enterprise.present? %>
+            <div class="d-flex align-items-center">
+              <%= link_to "Mon enterprise", employee_enterprise_lessons_path, class: "dropdown-item text-white px-0 mr-1 w-25" %>
+            </div>
+          <% end %>
+          <%= link_to "DÉCONNEXION", destroy_user_session_path, method: :delete, class: "btn btn-kotch btn-blue btn-small w-100 text-center mt-3" %>
+          <%= link_to "Besoin d'aide ?", faq_path, class:"small-link italic text-white" %>
+          <% if Current.user.admin? %>
+            <br>
+            <%= link_to "Dashboard", dashboard_path, class:"small-link italic text-white" %>
+          <% end %>
+        <% else %>
+          <%= link_to "Accueil", root_path, class: "dropdown-item text-white" %>
+          <%= link_to "Notre concept", concept_path, class: "dropdown-item text-white" %>
+          <%= link_to "Nos offres", offers_path, data: { turbolinks: "false" }, class: "dropdown-item text-white" %>
+          <%= link_to "Séances publiques", public_lessons_path, class: "dropdown-item text-white" %>
+          <div class="d-flex mt-2">
+            <%= link_to "CONNEXION", new_user_session_path, class: "btn btn-kotch btn-blue btn-small w-50 text-center mr-1" %>
+            <%= link_to "INSCRIPTION", new_user_registration_path, class: "btn btn-kotch btn-white btn-small w-50 text-center" %>
+          </div>
+          <%= link_to "Besoin d'aide ?", faq_path, class:"small-link italic text-white" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

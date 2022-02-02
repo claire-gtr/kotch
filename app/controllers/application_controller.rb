@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :friend_request_received
   before_action :employments_to_check
   before_action :find_enterprise
+  before_action :initialize_component_context
 
   include Pundit
 
@@ -135,7 +136,7 @@ class ApplicationController < ActionController::Base
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
-  # def default_url_options
-  #   { host: ENV["DEFAULT_URL"] || "localhost:3000" }
-  # end
+  def initialize_component_context
+    Current.user = current_user
+  end
 end

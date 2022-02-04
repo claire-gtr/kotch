@@ -159,6 +159,10 @@ class User < ApplicationRecord
     lessons&.next_24h
   end
 
+  def subscription_active?
+    subscription.stripe_id?
+  end
+
   private
 
   def create_empty_sub

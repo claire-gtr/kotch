@@ -91,6 +91,7 @@
       <div class="col-12">
         <% bookings.each do |booking| %>
           <% lesson = booking.lesson %>
+          <% next if lesson.bookings&.pluck(:user_id).include?(current_user.id) %>
           <%= render 'enterprise_lesson_desktop', lesson: lesson %>
         <% end %>
       </div>

@@ -30,8 +30,8 @@
                         collection: Lesson.reccurencies.keys.map { |m| [I18n.t("reccurencies.#{m}"), m] },
                         legend_tag: false,
                         value: Lesson.reccurencies.keys.first,
-                        label: 'Je souhaite rendre périodique ma réservation',
-                        label_html: { class: "text-left" },
+                        label: 'Je souhaite rendre périodique (hebdomadaire) ma réservation ?',
+                        label_html: { class: "text-center text-blue" },
                         required: false %>
           </div>
         </div>
@@ -105,23 +105,3 @@
     </div>
   <% end %>
 </div>
-
-<!-- <script>
-  modalBtn = document.querySelector('.btn-modal');
-  modal = document.querySelector('.modal');
-  locationCollection = document.querySelector('#location-collection');
-
-  modalBtn.addEventListener('click', () => {
-    buttons = document.querySelectorAll('.btn-location');
-    console.log(locationCollection);
-    console.log(mocal);
-    console.log(buttons);
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        locationID = button.dataset.id;
-        modal.style.display = "none";
-        locationCollection.value = locationID;
-      });
-    });
-  });
-</script> -->

@@ -9,7 +9,7 @@
     </div>
   <% else %>
     <h1 class="our-concept-title text-center my-5">créez votre profil entreprise</h1>
-    <%= simple_form_for(User.new, as: :user, url: registration_path(:user)) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= f.error_notification %>
             <%= f.input :status, as: :hidden, input_html: { value: :enterprise } %>
       <div class="row mt-2 h-100">
@@ -77,12 +77,12 @@
               </div>
               <div class="row">
                 <div class="col-12 px-2 my-0">
-                  <%= f.input :terms, as: :boolean, label_html: { class: "italic text-justify" }, label: "En cochant cette case, vous consentez à recevoir des propositions commerciales par voie électronique. Vous pouvez vous désinscrire à tout moment en modifiant vos paramètres sur votre compte et à travers les liens de désinscription." %>
-                  <%= f.input :optin_cgv, as: :boolean, label_html: { class: "italic" }, label: ("Je reconnais avoir lu et accepté les #{link_to "Conditions Générales d'Utilisation", cgv_path, target: "_blank", rel: 'noopener noreferrer', class: "cgv"}").html_safe, error: 'Vous devez accepter les CGV pour utiliser Koach and Co.' %>
+                  <small><%= f.input :terms, as: :boolean, label_html: { class: "italic text-justify" }, label: "En cochant cette case, vous consentez à recevoir des propositions commerciales par voie électronique. Vous pouvez vous désinscrire à tout moment en modifiant vos paramètres sur votre compte et à travers les liens de désinscription." %></small>
+                  <small><%= f.input :optin_cgv, as: :boolean, label_html: { class: "italic" }, label: ("Je reconnais avoir lu et accepté les #{link_to "Conditions Générales d'Utilisation", cgv_path, target: "_blank", rel: 'noopener noreferrer', class: "cgv"}").html_safe, error: 'Veuillez cocher les CGU pour pouvoir créer votre compte.' %></small>
                 </div>
                 <div class="col-12 px-2 my-0">
                   <%= f.button :submit, "JE CRÉE MON COMPTE", class:'btn btn-kotch btn-blue w-100 btn-small-wide' %>
-                  <small><em>* Ces éléments sont obligatoires pour que la création de votre profil soit validée</em></small>
+                  <small class="text-white"><em>* Ces éléments sont obligatoires pour que la création de votre profil soit validée</em></small>
                 </div>
               </div>
             </div>

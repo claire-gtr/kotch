@@ -57,6 +57,7 @@ class User < ApplicationRecord
   scope :validated_coachs, -> { where(coach: true, validated_coach: true) }
 
   before_save :remove_empty_spaces
+  before_create :set_default_address
   after_create :find_waiting_bookings, :create_empty_sub, :send_welcome_mail, :set_enterprise_code
 
   def friendships
@@ -158,6 +159,10 @@ class User < ApplicationRecord
     lessons&.next_24h
   end
 
+  def subscription_active?
+    subscription.stripe_id?
+  end
+
   private
 
   def create_empty_sub
@@ -198,5 +203,11 @@ class User < ApplicationRecord
       new_enterprise_code = [*('a'..'z'), *('0'..'9')].sample(8).join.upcase
     end
     self.update(enterprise_code: new_enterprise_code)
+  end
+
+  def set_default_address
+    return unless address.blank?
+
+    self.address = 'France'
   end
 end

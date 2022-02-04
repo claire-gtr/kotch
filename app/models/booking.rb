@@ -1,7 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :lesson
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
   validates :user, uniqueness: { scope: :lesson }
 

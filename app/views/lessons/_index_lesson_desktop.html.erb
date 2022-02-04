@@ -1,4 +1,4 @@
-<div class="card-white bg-white shadow d-flex justify-content-between p-4 mb-3 text-center">
+<div class="card-white bg-white shadow d-flex justify-content-between px-3 py-1 mb-3 text-center">
   <div class="d-flex">
     <div class="d-flex align-items-center">
       <% if lesson.user && lesson.user.avatar.attached? %>
@@ -32,7 +32,7 @@
   <div class="d-flex align-items-center">
     <div>
       <p class="mb-0 text-blue text-bold text-condensed text-small"><%= lesson.date.strftime('%e/%m/%y à %Hh%M')%></p>
-      <div class="lesson-max-100">
+      <div class="lesson-max-150">
         <% if current_user.coach? %>
           <% if !lesson.enterprise? %>
             <%= link_to "Annuler cette séance", cancel_lesson_path(lesson), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed' %>
@@ -41,7 +41,7 @@
           <% if lesson.date < DateTime.now %>
             <p class="text-blue mb-0 text-small text-condensed">Cette séance a déjà eu lieu.</p>
           <% elsif lesson.date > DateTime.now + 1.day %>
-            <%= link_to "Annuler ma réservation à cette séance", booking_path(Booking.find_by(user: current_user, lesson: lesson)), method: :delete, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}, class:'text-small text-condensed'  %>
+            <%= link_to "Annuler ma réservation", booking_path(Booking.find_by(user: current_user, lesson: lesson)), method: :delete, data: {confirm: "Êtes vous sûr(e) ? Cette action est irréversible."}, class:'text-small text-condensed'  %>
           <% else %>
             <p class="text-blue mb-0 text-small text-condensed">Cette séance a lieu dans moins de 24h, vous ne pouvez pas l'annuler.</p>
           <% end %>
@@ -147,7 +147,7 @@
       </div>
     <% end %>
     <% if (lesson.bookings&.first&.user == current_user) && !(lesson.date < DateTime.now) %>
-      <%= link_to "Annuler cette séance", cancel_lesson_path(lesson, cancel_customer_id: current_user.id), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed mt-2'  %>
+      <%= link_to "Annuler cette séance", cancel_lesson_path(lesson, cancel_customer_id: current_user.id), method: :patch, data: { confirm: "Êtes vous sûr(e) ? Cette action est irréversible." }, class:'text-small text-condensed mt-1'  %>
     <% end %>
   </div>
 

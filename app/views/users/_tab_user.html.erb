@@ -203,17 +203,17 @@
       <% if current_user.person? %>
         <% if @user_employment.present? %>
           <div class="text-center">
-            <p class="text-blue mt-4 mb-0">Vous êtes déjà dans la liste des salariés de l'entreprise <%= @user_employment.enterprise.enterprise_name.upcase %>.</p>
+            <p class="text-blue bg-white mt-4 mb-0">Vous êtes déjà dans la liste des salariés de l'entreprise <%= @user_employment.enterprise.enterprise_name.upcase %>.</p>
             <%= link_to 'Quitter', cancel_employment_path(@user_employment), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir quitter la liste des salariés de l'entreprise #{@user_employment.enterprise.enterprise_name.upcase} ?"}, class:'btn btn-red btn-kotch mt-2' %>
           </div>
         <% elsif @user_employment_send.present? %>
           <div class="text-center">
-            <p class="text-blue mt-4 mb-0">Vous avez déjà une demande en attente pour intégrer la liste des salariés de l'entreprise <%= @user_employment_send.enterprise.enterprise_name.upcase %>.</p>
+            <p class="text-blue bg-white mt-4 mb-0">Vous avez déjà une demande en attente pour intégrer la liste des salariés de l'entreprise <%= @user_employment_send.enterprise.enterprise_name.upcase %>.</p>
             <%= link_to 'Annuler', cancel_employment_path(@user_employment_send, query: 'annuler'), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir annuler vôtre demande d'intégration à la liste des salariés de l'entreprise #{@user_employment_send.enterprise.enterprise_name.upcase} ?"}, class:'btn btn-red btn-kotch mt-2' %>
           </div>
         <% else %>
           <div class="text-center">
-            <p class="text-blue mt-4">Accéder au planning de votre entreprise en renseignant son code d'identification unique :</p>
+            <p class="text-blue bg-white mt-4">Accéder au planning de votre entreprise en renseignant son code d'identification unique :</p>
             <%= simple_form_for @employment, url: employments_path, method: :post do |f| %>
               <%= text_field_tag :enterprise_code, nil, label: "Nom du code", class:'text-uppercase' %>
               <br>

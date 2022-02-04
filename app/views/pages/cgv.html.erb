@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row mt-5 text-blue text-condensed">
     <div class="col">
-      <h1 class='text-blue text-condensed text-center'>CONDITIONS GÉNÉRALES DE VENTE</h1>
+      <h1 class='text-blue text-condensed text-center'>CONDITIONS GÉNÉRALES <%= current_user&.enterprise? ? "D'UTILISATION" : 'DE VENTE' %></h1>
 
 <br>
 

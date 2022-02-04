@@ -91,8 +91,11 @@ class PagesController < ApplicationController
             client_reference_id: current_user.id,
             customer: find_or_create_stripe_customer_id,
             billing_address_collection: 'auto',
+            customer_update: {
+              address: 'auto'
+            },
             automatic_tax: {
-                enabled: true
+              enabled: true
             }
           })
           checkout_id = session.id
@@ -119,7 +122,7 @@ class PagesController < ApplicationController
               address: 'auto'
             },
             automatic_tax: {
-                enabled: true
+              enabled: true
             }
           })
           checkout_id = session.id

@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   end
 
   def offers
-    if current_user && current_user.person?
+    if current_user.present? && current_user.person?
       prices = [
         { name: "4 séances / mois", price: "50€", price_integer: 50, id: ENV['PRICE_4_CLASSES'], image: "offer-1.png" },
         { name: "8 séances / mois", price: "90€", price_integer: 90, id: ENV['PRICE_8_CLASSES'], image: "offer-2.png" },
@@ -67,7 +67,7 @@ class PagesController < ApplicationController
           { name: price[:name], price: price[:price], checkout_id: checkout_id, image: price[:image], percentage: false, discounted_price: price[:price] }
         end
       end
-    elsif current_user && current_user.enterprise?
+    elsif current_user.present? && current_user.enterprise?
       prices = [
         { name: "4 séances / mois", price: "280 € HT", price_integer: 280, id: ENV['PRICE_4_ENTERPRISE'], image: "offer-1.png" },
         { name: "8 séances / mois", price: "520 € HT", price_integer: 520, id: ENV['PRICE_8_ENTERPRISE'], image: "offer-2.png" },
@@ -89,7 +89,11 @@ class PagesController < ApplicationController
             success_url: ENV['SUCCESS_URL_STRIPE'],
             cancel_url: root_url,
             client_reference_id: current_user.id,
-            customer: find_or_create_stripe_customer_id
+            customer: find_or_create_stripe_customer_id,
+            billing_address_collection: 'auto',
+            automatic_tax: {
+                enabled: true
+            }
           })
           checkout_id = session.id
 
@@ -109,7 +113,14 @@ class PagesController < ApplicationController
             success_url: ENV['SUCCESS_URL_STRIPE'],
             cancel_url: offers_url,
             client_reference_id: current_user.id,
-            customer: find_or_create_stripe_customer_id
+            customer: find_or_create_stripe_customer_id,
+            billing_address_collection: 'auto',
+            customer_update: {
+              address: 'auto'
+            },
+            automatic_tax: {
+                enabled: true
+            }
           })
           checkout_id = session.id
 

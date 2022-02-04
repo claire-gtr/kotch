@@ -9,7 +9,7 @@
     </div>
   <% else %>
     <h1 class="our-concept-title text-center my-5">créez votre profil entreprise</h1>
-    <%= simple_form_for(User.new, as: :user, url: registration_path(:user)) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= f.error_notification %>
             <%= f.input :status, as: :hidden, input_html: { value: :enterprise } %>
       <div class="row mt-2 h-100">

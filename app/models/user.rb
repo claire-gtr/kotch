@@ -162,6 +162,10 @@ class User < ApplicationRecord
     subscription.stripe_id?
   end
 
+  def employee_futur_enterprise_bookings
+    bookings&.future_lessons&.reject { |booking| !booking.lesson.enterprise? }
+  end
+
   private
 
   def create_empty_sub

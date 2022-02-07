@@ -25,14 +25,14 @@
           <div class="card-red card-new-lesson mt-3 mt-md-0 p-4 text-center">
             <h2><em>DATE</em></h2>
             <%= f.input :date, as: :string, label: false, placeholder: "Choisissez la date et l'heure*", input_html: { class: "datepicker" } %>
-            <p class="text-left text-small italic mb-4">* Il est possible de réserver uniquement des séances à un horizon d’un mois sous condition d’avoir le solde de séances nécessaires.</p>
             <%= f.input :reccurency,
                         collection: Lesson.reccurencies.keys.map { |m| [I18n.t("reccurencies.#{m}"), m] },
                         legend_tag: false,
                         value: Lesson.reccurencies.keys.first,
                         label: 'Je souhaite rendre périodique (hebdomadaire) ma réservation ?',
-                        label_html: { class: "text-center text-blue" },
+                        label_html: { class: "text-center text-blue font-weight-bold" },
                         required: false %>
+            <p class="text-left text-small text-white italic mb-4">* Il est possible de réserver uniquement des séances à un horizon d’un mois sous condition d’avoir le solde de séances nécessaires.</p>
           </div>
         </div>
       <% else %>

@@ -77,7 +77,7 @@ class PagesController < ApplicationController
       if coupon[:exist]
         @prices_and_sessions = prices.map do |price|
           session = Stripe::Checkout::Session.create({
-            payment_method_types: ['card'],
+            payment_method_types: ['card', 'sepa_debit'],
             line_items: [{
               price: price[:id],
               quantity: 1
@@ -107,7 +107,7 @@ class PagesController < ApplicationController
       else
         @prices_and_sessions = prices.map do |price|
           session = Stripe::Checkout::Session.create({
-            payment_method_types: ['card'],
+            payment_method_types: ['card', 'sepa_debit'],
             line_items: [{
               price: price[:id],
               quantity: 1

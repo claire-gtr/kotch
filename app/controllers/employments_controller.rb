@@ -48,15 +48,27 @@ class EmploymentsController < ApplicationController
     @employment = Employment.find(params[:id])
     query = params[:query]
     authorize @employment
-    @employment.update(accepted: false)
-    if current_user == @employment.enterprise
-      return redirect_to employments_path, notice: "#{@employment.employee.full_name} a bien été retiré de vos salariés"
-    else
-      if query.present? && query == 'annuler'
+
+    if @employment.update(accepted: false)
+      destroy_futur_enterprise_bookings(@employment.employee)
+      if current_user == @employment.enterprise
+        return redirect_to employments_path, notice: "#{@employment.employee.full_name} a bien été retiré de vos salariés"
+      elsif query.present? && query == 'annuler'
         return redirect_to profile_path(tab: 'tab-3'), notice: "Votre demande d'intégration à la liste des salariés de l'entreprise #{@employment.enterprise.enterprise_name&.upcase} a bien été annulée"
       else
         return redirect_to profile_path(tab: 'tab-3'), notice: "Vous avez bien été retiré des salariés de l'entreprise #{@employment.enterprise.enterprise_name&.upcase}"
       end
+    end
+  end
+
+  private
+
+  def destroy_futur_enterprise_bookings(employee)
+    bookings = employee.employee_futur_enterprise_bookings
+    return if bookings.empty?
+
+    bookings.each do |booking|
+      booking.destroy
     end
   end
 end

@@ -9,6 +9,14 @@ class PartnersController < ApplicationController
     end
   end
 
+  def destroy
+    @partner = policy_scope(Partner).find(params[:id])
+    authorize @partner
+    name = @partner.name
+    @partner.destroy
+    redirect_to dashboard_path, notice: "Le code entreprise #{name.upcase} a bien été supprimé."
+  end
+
   private
 
   def partner_params

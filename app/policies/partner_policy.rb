@@ -6,6 +6,10 @@ class PartnerPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin
+    user.admin?
+  end
+
+  def destroy?
+    create?
   end
 end

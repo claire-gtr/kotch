@@ -2,7 +2,7 @@
 
   <h2 class="mt-5 mb-3">SÉLECTIONNEZ L’ABONNEMENT QUI VOUS CONVIENT</h2>
   <% if @prices_and_sessions[0][:percentage] %>
-    <h3 class="mb-5 text-blue">Vous avez le droit à une réduction de <%= @prices_and_sessions[0][:percentage] %>% grâce à votre entreprise (inclue dans les prix affichés)</h3>
+    <h3 class="mb-5 text-blue">Vous avez le droit à une réduction de <%= @prices_and_sessions[0][:percentage] %>% grâce à votre entreprise (inclue dans les prix affichés ci-dessous)</h3>
   <% end %>
 
   <% if user_signed_in? && current_user.subscription && current_user.subscription.stripe_id %>

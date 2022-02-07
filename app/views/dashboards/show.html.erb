@@ -73,16 +73,21 @@
       <h5 class='text-blue'><strong>Gérer les partenaires</strong></h5>
       <div>
         <%= simple_form_for :partner, url: partners_path, method: :post do |f| %>
-            <%= f.input :name, label:"Nom de l'entreprise" %>
-            <%= f.input :domain_name, label:"Nom de domaine de l'entreprise (ex: pour les mails 'hugo@engie.com', prendre 'engie.com')" %>
-            <%= f.input :coupon_code, label:"ID Stripe du coupon" %>
-            <%= f.input :percentage, label:"Pourcentage de réduction" %>
+            <%= f.input :name, label: "Nom de l'entreprise" %>
+            <%= f.input :domain_name, label: "Nom de domaine de l'entreprise (ex: pour les mails 'hugo@engie.com', prendre 'engie.com')" %>
+            <%= f.input :coupon_code, label: "ID Stripe du coupon" %>
+            <%= f.input :percentage, label: "Pourcentage de réduction" %>
             <%= submit_tag "Ajouter ce partenaire", class: "btn btn-kotch btn-blue" %>
         <% end %>
       </div>
       <h5 class='mt-4 text-blue'> Tous les partenaires :</h5>
       <% @partners.each do |partner| %>
-        <p class='mb-0 mr-3 text-blue'><%= partner.name %> - <%= partner.percentage %>% - code : <%= partner.coupon_code %></p>
+        <p class='mb-0 mr-3 text-blue'>
+          <%= partner.name %> - <%= partner.percentage %>% - code : <%= partner.coupon_code %> -
+          <%= link_to partner_path(partner), method: :delete, data: { confirm: "Etes vous sûre de vouloir supprimer le code entreprise #{partner.name.upcase} ?" } do %>
+            <i class="far fa-trash-alt"></i>
+          <% end %>
+        </p>
       <% end %>
     </div>
   </div>

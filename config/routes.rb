@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   post '/desabonnement-newsletter-reponses', to: "reasons#create", as: :reasons
 
   resources :locations, only: [:create, :destroy]
-  resources :partners, only: [:create]
+  resources :partners, only: [:create, :destroy]
   get 'mes-amis', to: 'friendships#index', as: :friendships
   resources :friend_requests, only: [:create, :update]
   resources :bookings, only: [:index, :create, :destroy]

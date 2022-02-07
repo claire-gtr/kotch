@@ -3,7 +3,7 @@
     <p class="mb-1"><%= lesson.sport_type.upcase %></p>
     <p class="mb-1"><i class="far fa-calendar mr-1"></i><%= I18n.l(lesson.date, format: '%A').capitalize %> <%= I18n.l(lesson.date, format: '%e/%m/%Y') %> <i class="far fa-clock ml-2"></i> <%= lesson.date.strftime('%Hh%M') %></p>
   </div>
-  <div class="d-flex flex-column shadow lessons-public-mobile-text">
+  <div class="d-flex flex-column shadow lessons-public-mobile-text pr-1">
     <div class="d-flex flex-row justify-content-start align-items-start mt-1">
       <div class="d-flex flex-column ml-2 lessons-public-mobile-infos">
         <p class="mt-1 mb-2"><span class="lessons-mobile-subtitle">Votre coach :</span> <%= lesson.user ? lesson.user.first_name.capitalize : 'Pas de coach' %></p>

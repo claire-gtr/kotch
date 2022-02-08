@@ -1,0 +1,19 @@
+<p class="mb-3">Félicitations <%= @user.enterprise_name.capitalize %> !</p>
+
+<p>Vous venez de souscrire à l’abonnement vous permettant de réserver jusqu’à <%= @user.subscription.nickname.first(2) %> séances de sport par mois.</p>
+
+<p>Commencez dès maintenant à planifier des séances pour vos salariés !</p>
+
+<p><%= link_to 'Réserve une séance', new_lesson_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+
+<p>Vous souhaitez partager votre planning de séances réservées avec vos salariés ? Voici les 3 étapes à suivre :</p>
+
+<ol>
+  <li>Chaque salarié doit créer un compte personnel Koach & Co avec l’adresse mail de son choix</li>
+  <li>Le code <b><%= @user.enterprise_code %></b> doit ensuite être renseigné dans la rubrique "Mon Abonnement/Mes achats” de leur profil</li>
+  <li>Vous recevrez alors une demande d’accès de chacun de vos salariés à valider dans la rubrique “Mes salariés” de votre compte</li>
+</ol>
+
+<p><%= link_to "Gérer les demandes d’accès", employments_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+
+<p class="mt-5">À très vite</p>

@@ -1,7 +1,13 @@
-<p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
+<p class="mb-3">Bonjour <%= @user.enterprise_name.capitalize %>,</p>
 
-<p>Malheureusement, nous vous informons de l’annulation de votre séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %>.</p>
+<p>Nous sommes sincèrement désolés !</p>
 
-<p>En effet, aucun coach ne s'est magnifesté pour cette séance. Et comme celle-ci a lieu dans moins de 24 heures, nous ne pouvons pas garantir qu'elle soit assurée.</p>
+<p>Nous avons dû annuler votre réservation car aucun coach n’était disponible pour accompagner vos salariés sur la séance de <%= @lesson.sport_type %> <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %>.</p>
+
+<p>Ne vous inquiétez pas, cette réservation ne vous sera pas décomptée.</p>
+
+<p>Ne perdez pas la forme ! Réservez vite une nouvelle session !</p>
+
+<p><%= link_to 'Réserver une séance', new_lesson_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
 
 <p class="mt-5">À très vite </p>

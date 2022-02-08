@@ -63,7 +63,7 @@ class LessonMailer < ApplicationMailer
   def enterprise_lessons_resume
     @user = params[:user]
     @lessons = params[:lessons]
-    mail(to: @user.email, subject: 'Récapitulatif des séances de ton entreprise la semaine prochaine')
+    mail(to: @user.email, subject: 'Planning hebdomadaire des séances programmées par votre entreprise')
   end
 
   def coach_next_24h

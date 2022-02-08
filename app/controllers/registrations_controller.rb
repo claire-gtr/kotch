@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   def create
+    user_type = params[:user_type]
     build_resource(sign_up_params)
     resource.save
     yield resource if block_given?
@@ -22,17 +23,20 @@ class RegistrationsController < Devise::RegistrationsController
     else
       clean_up_passwords resource
       set_minimum_password_length
-      respond_with resource
+
+      if user_type.present? && (user_type == 'enterprise')
+        return redirect_to enterprise_sign_up_path, alert: "Erreur(s) de saisie, veuillez renseigner le nom de l'entreprise, le mail et le téléphone du responsable, le mot de passe et accepter les CGU."
+      else
+        return respond_with resource
+      end
     end
   end
 
   protected
 
   def after_sign_up_path_for(resource)
-    # path below should be in your routes
     if resource.coach?
       root_path
-      # flash[:alert] = "Un administrateur doit valider votre compte coach."
     else
       offers_path
     end

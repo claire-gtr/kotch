@@ -1,4 +1,4 @@
-<p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
 
 <p>Voici un récapitulatif de toutes les séances que tu vas coacher dans les prochaines 24 heures :</p>
 
@@ -9,11 +9,13 @@
 <% else %>
   <ul>
     <% @lessons.each do |lesson| %>
-      <li class="li-email"><%= lesson.sport_type %> - <%= lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> - <%= lesson.location.name %></li>
+      <li class="li-email"><%= lesson.sport_type %>, <%= lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> à l'adresse suivante : <%= lesson.location.name %></li>
     <% end %>
   </ul>
 <% end %>
 
-<p><%= link_to 'Mes coachings', profile_url(tab: 'tab-1'), class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %></p>
+<p>Utilise la messagerie instantanée pour communiquer avec les participants !</p>
 
-<p class="mt-5">À très vite </p>
+<p><%= link_to 'Mes coachings', lessons_url, class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %></p>
+
+<p class="mt-5">À très vite</p>

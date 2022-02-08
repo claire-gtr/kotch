@@ -36,7 +36,7 @@ class BookingMailer < ApplicationMailer
     @user = params[:user]
     @lesson = params[:lesson]
     @booking = params[:booking]
-    mail(to: @user.email, subject: 'Confirmation de votre séance Koach & Co')
+    mail(to: @user.email, subject: 'Confirmation de séance')
   end
 
   def confirmation_email_to_coach

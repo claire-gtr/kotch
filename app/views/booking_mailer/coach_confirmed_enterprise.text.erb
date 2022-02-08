@@ -1,11 +1,9 @@
-Bonne nouvelle <%= @user.first_name.capitalize %> !
+Bonne nouvelle !
 
-Votre séance de sport vient d’être validée.
+Votre réservation de séance de sport vient d’être validée par un coach.
 
-<%= @lesson.user.first_name %> a accepté de coacher la séance <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> pour faire du <%= @lesson.sport_type %> !
+<%= @lesson.user.first_name.capitalize %> rejoindra vos salariés <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> pour une séance de <%= @lesson.sport_type %> à l’adresse suivante : <%= @lesson.location.name %>.
 
-Soyez au point sur l’organisation de la séance en accédant à la messagerie et en communiquant avec le coach et les participants.
-
-<%= link_to "Accède à la messagerie", lessons_url %>
+Nous souhaitons à vos salariés un bon moment avec Koach & Co !
 
 À très vite

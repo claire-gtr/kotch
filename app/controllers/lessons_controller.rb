@@ -196,7 +196,7 @@ class LessonsController < ApplicationController
   end
 
   def be_coach
-    if current_user.coach? && !current_user.validated_coach
+    if current_user.coach? && !current_user.validated_coach?
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else

@@ -23,8 +23,6 @@ class Lesson < ApplicationRecord
   scope :by_start_end, ->(val) { where('EXTRACT(hour FROM date) BETWEEN ? AND ?', val[0], val[1]) }
   scope :by_activity, ->(val) { where(sport_type: val) }
 
-  after_create :invite_coach_for_enterprise
-
   def diff_time
     (self.date.to_time - 24.hours).to_datetime
   end
@@ -42,16 +40,5 @@ class Lesson < ApplicationRecord
     return unless creator.present? && creator.enterprise?
 
     return creator
-  end
-
-  private
-
-  def invite_coach_for_enterprise
-    return unless status == 'Pre-validée'
-
-    User.where(coach: true).each do |user|
-      mail = BookingMailer.with(lesson: self, user: user).invite_coachs_enterprise
-      mail.deliver_now
-    end
   end
 end

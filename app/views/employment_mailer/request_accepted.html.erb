@@ -1,9 +1,9 @@
-<p class="mb-3">Bonne nouvelle <%= @user.first_name.capitalize %> !</p>
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
 
-<p>Votre demande d'accès au planning de l'entreprise <%= @enterprise.enterprise_name %> a été accepté par celle-ci.</p>
+<p>Ton entreprise a validé ton accès à son planning de réservation de séances de sport.</p>
 
-<p>Vous pouvez aller voir son planning dans la rubrique "Mon entreprise"</p>
+<p>Tu peux dès à présent réserver ta place dans ton nouvel onglet « Mon entreprise » !</p>
 
-<p class="mb-3"><%= link_to "Séances de mon entreprise", employee_enterprise_lessons_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+<p class="mb-3"><%= link_to 'Accéder au planning', employee_enterprise_lessons_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
 
-<p class="mt-5">À très vite </p>
+<p class="mt-5">À très vite</p>

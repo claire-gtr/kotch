@@ -1,8 +1,7 @@
 class EmploymentMailer < ApplicationMailer
   def request_received
-    @user = params[:enterprise]
-    @employee = params[:employee]
-    mail(to: @user.email, subject: "Demande d'accès à votre planning Koach & Co")
+    @user = params[:user]
+    mail(to: @user.email, subject: "Demande d’accès à votre planning de séances")
   end
 
   def request_accepted

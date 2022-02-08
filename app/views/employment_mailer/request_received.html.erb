@@ -1,9 +1,9 @@
-<p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
+<p class="mb-3">Bonjour <%= @user.enterprise_name.capitalize %>,</p>
 
-<p>Vous venez de recevoir de la part de <%= @employee.full_name %> une demande d'accès à votre planning entreprise sur Koach & Co.</p>
+<p>Vous venez de recevoir une demande d’accès à votre planning de séances de sport.</p>
 
-<p>Vous pouvez l'accepter ou la refuser en allant sur votre page "Mes salariés".</p>
+<p>Nous vous invitons à vérifier qu’il s’agisse bien d’un salarié de votre entreprise et à valider sa demande afin qu’il puisse accéder et se positionner sur les séances réservées par vos soins.</p>
 
-<p><%= link_to 'Mes salariés', employments_url, class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %></p>
+<p><%= link_to "Gérez les demandes d’accès", employments_url, class:'btn-red mb-3', target:'_blank', rel:'noopener noreferrer' %></p>
 
-<p class="mt-5">À très vite </p>
+<p class="mt-5">À très vite.</p>

@@ -1,9 +1,9 @@
-Bonjour <%= @user.first_name.capitalize %> !
+Bonjour <%= @user.enterprise_name.capitalize %>,
 
-Vous venez de recevoir de la part de <%= @employee.full_name %> une demande d'accès à votre planning entreprise sur Koach & Co.
+Vous venez de recevoir une demande d’accès à votre planning de séances de sport.
 
-Vous pouvez l'accepter ou la refuser en allant sur votre page "Mes salariés".
+Nous vous invitons à vérifier qu’il s’agisse bien d’un salarié de votre entreprise et à valider sa demande afin qu’il puisse accéder et se positionner sur les séances réservées par vos soins.
 
-<%= link_to 'Mes salariés', employments_url %>
+<%= link_to "Gérez les demandes d’accès", employments_url %>
 
-À très vite
+À très vite.

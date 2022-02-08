@@ -54,10 +54,10 @@ class UsersController < ApplicationController
       @user.save
       mail = UserMailer.with(user: @user).unsubscribed_newsletter
       mail.deliver_now
-      return redirect_to root_path, notice: 'Ta désinscription à la newsletter a bien été prise en compte.'
+      return redirect_to root_path, notice: "#{@user.enterprise? ? 'Vôtre' : 'Ta'} désinscription à la newsletter a bien été prise en compte."
     elsif @user.present? && (@user.terms == false)
       authorize @user
-      return redirect_to root_path, alert: "Tu n'es pas inscrit à la newsletter de Koach & Co."
+      return redirect_to root_path, alert: "#{@user.enterprise? ? "Vous n'êtes" : "Tu n'es"} pas inscrit à la newsletter de Koach & Co."
     else
       authorize User.new
       return redirect_to root_path, alert: "Ce compte n'existe pas."

@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
 
   def welcome_mail_enterprise
     @user = params[:user]
-    mail(to: @user.email, subject: 'Confirmation de création de votre compte entreprise Koach & Co')
+    mail(to: @user.email, subject: 'Création de votre compte')
   end
 
   def coach_validated

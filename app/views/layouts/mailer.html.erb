@@ -64,8 +64,10 @@
 
   <body>
     <%= yield %>
-    <p>Ton équipe Koach & Co</p>
-    <p>Rejoins la communauté :</p>
+    <p><%= @user.enterprise? ? 'Votre' : 'Ton' %> équipe Koach & Co !</p>
+    <% if @user.person? %>
+      <p>Rejoins la communauté :</p>
+    <% end %>
     <div class="d-flex mb-3">
       <a href="https://instagram.com/koachandco?utm_medium=copy_link", target="_blank", rel="noopener noreferrer"><%= image_tag 'instagram.png' %></a>
       <a href="https://www.facebook.com/profile.php?id=100060081436490", target="_blank", rel="noopener noreferrer"><%= image_tag 'facebook.png' %></a>

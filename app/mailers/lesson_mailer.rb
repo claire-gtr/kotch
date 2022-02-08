@@ -29,20 +29,21 @@ class LessonMailer < ApplicationMailer
   def lesson_canceled_enterprise
     @user = params[:user]
     @lesson = params[:lesson]
-    mail(to: @user.email, subject: 'Confirmation d’annulation de séance')
+    mail(to: @user.email, subject: 'Annulation de séance')
   end
 
   def lesson_canceled_coach_enterprise
     @user = params[:user]
     @lesson = params[:lesson]
     @cancel_customer = params[:cancel_customer]
-    mail(to: @user.email, subject: 'Confirmation d’annulation de séance entreprise')
+    mail(to: @user.email, subject: 'Annulation de séance')
   end
 
   def lesson_canceled_employee
     @user = params[:user]
     @lesson = params[:lesson]
-    mail(to: @user.email, subject: "Confirmation d’annulation d'une séance de votre entreprise")
+    @enterprise = @lesson.enterprise
+    mail(to: @user.email, subject: 'Annulation de séance')
   end
 
   def new_user_inviation
@@ -56,25 +57,24 @@ class LessonMailer < ApplicationMailer
   def invite_employee
     @lesson = params[:lesson]
     @user = params[:user]
-    @enterprise = params[:enterprise]
-    mail(to: @user.email, subject: 'Votre entreprise vous invite à participer à une séance Koach & Co')
+    mail(to: @user.email, subject: "Ton entreprise t'invite à participer à une séance")
   end
 
   def enterprise_lessons_resume
     @user = params[:user]
     @lessons = params[:lessons]
-    mail(to: @user.email, subject: 'Récapitulatif des séances de ton entreprise la semaine prochaine')
+    mail(to: @user.email, subject: 'Planning hebdomadaire des séances programmées par votre entreprise')
   end
 
   def coach_next_24h
     @user = params[:user]
     @lessons = params[:lessons]
-    mail(to: @user.email, subject: 'Récapitulatif de tes séances des prochaines 24 heures')
+    mail(to: @user.email, subject: 'Rappel de tes séances à venir')
   end
 
   def lesson_canceled_24h_enterprise
     @user = params[:user]
     @lesson = params[:lesson]
-    mail(to: @user.email, subject: 'Annulation de séance faute de coach')
+    mail(to: @user.email, subject: 'Annulation de séance')
   end
 end

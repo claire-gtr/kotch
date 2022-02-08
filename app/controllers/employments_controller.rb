@@ -20,7 +20,7 @@ class EmploymentsController < ApplicationController
     authorize Employment.new
     @enterprise = User.find_by(enterprise_code: params[:enterprise_code].gsub(/\s+/, '').upcase)
     if @enterprise.present? && Employment.create(enterprise: @enterprise, employee: current_user)
-      mail = EmploymentMailer.with(enterprise: @enterprise, employee: current_user).request_received
+      mail = EmploymentMailer.with(user: @enterprise).request_received
       mail.deliver_now
       redirect_to profile_path(tab: 'tab-3'), notice: "Votre demande d'accès a bien été envoyée à l'entreprise."
     else

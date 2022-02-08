@@ -1,11 +1,9 @@
-<p class="mb-3">Bonne nouvelle <%= @user.first_name.capitalize %> !</p>
+<p class="mb-3">Bonne nouvelle !</p>
 
-<p>Votre séance de sport vient d’être validée.</p>
+<p>Votre réservation de séance de sport vient d’être validée par un coach.</p>
 
-<p><%= @lesson.user.first_name %> a accepté de coacher la séance <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> pour faire du <%= @lesson.sport_type %> !</p>
+<p><%= @lesson.user.first_name.capitalize %> rejoindra vos salariés <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> pour une séance de <%= @lesson.sport_type %> à l’adresse suivante : <%= @lesson.location.name %>.</p>
 
-<p>Soyez au point sur l’organisation de la séance en accédant à la messagerie et en communiquant avec le coach et les participants.</p>
-
-<p class="mb-3"><%= link_to "Accède à la messagerie", lessons_url, class:'btn-red', target:'_blank', rel:'noopener noreferrer' %></p>
+<p>Nous souhaitons à vos salariés un bon moment avec Koach & Co !</p>
 
 <p class="mt-5">À très vite </p>

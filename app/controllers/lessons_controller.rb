@@ -29,7 +29,7 @@ class LessonsController < ApplicationController
   end
 
   def create
-    if current_user.coach && !current_user.validated_coach
+    if current_user.coach? && !current_user.validated_coach?
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else
@@ -64,6 +64,7 @@ class LessonsController < ApplicationController
             if current_user.enterprise?
               mail = BookingMailer.with(lesson: @lesson, user: current_user).reservation_request_enterprise
               mail.deliver_now
+              invite_coachs_enterprise(@lesson, current_user)
               set_reccurency_lessons(@lesson, @booking)
             end
             redirect_to lessons_path
@@ -135,7 +136,7 @@ class LessonsController < ApplicationController
       mail.deliver_now
     end
 
-    if @customer.enterprise? && @cancel_customer.present? && @lesson.user.present?
+    if @lesson.enterprise? && @cancel_customer.present? && @lesson.user.present?
       mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach_enterprise
       mail.deliver_now
     elsif @cancel_customer.present? && @lesson.user.present?
@@ -195,7 +196,7 @@ class LessonsController < ApplicationController
   end
 
   def be_coach
-    if current_user.coach? && !current_user.validated_coach
+    if current_user.coach? && !current_user.validated_coach?
       flash[:alert] = "Un administrateur doit valider votre compte coach."
       redirect_to root_path
     else
@@ -287,7 +288,7 @@ class LessonsController < ApplicationController
     employees_booking = @lesson.users
     employees.each do |employee|
       unless employees_booking.include?(employee)
-        mail = LessonMailer.with(lesson: @lesson, user: employee, enterprise: current_user).invite_employee
+        mail = LessonMailer.with(lesson: @lesson, user: employee).invite_employee
         mail.deliver_now
       end
     end
@@ -336,6 +337,13 @@ class LessonsController < ApplicationController
     params.require(:lesson).permit(:date, :location_id, :sport_type, :focus, :reccurency, :status)
   end
 
+  def invite_coachs_enterprise(lesson, enterprise)
+    User.validated_coachs.each do |user|
+      mail = BookingMailer.with(lesson: lesson, user: user, enterprise: enterprise).invite_coachs_enterprise
+      mail.deliver_now
+    end
+  end
+
   def set_reccurency_lessons(lesson, booking)
     has_credit = current_user.has_credit(lesson.date)
     return if lesson.not_reccurent? || lesson.status != 'Pre-validée' || has_credit[:has_credit] == false || current_user.person?
@@ -353,6 +361,7 @@ class LessonsController < ApplicationController
         new_booking = booking.dup
         new_booking.lesson = new_lesson
         new_booking.save
+        invite_coachs_enterprise(new_lesson, current_user)
       end
     end
   end

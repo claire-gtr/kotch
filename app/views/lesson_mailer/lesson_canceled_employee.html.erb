@@ -1,5 +1,7 @@
 <p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
 
-<p>Ton entreprise a annulé la séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %>.</p>
+<p>Ton entreprise vient d’annuler la séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y / %k:%M") %> et ayant lieu à l’adresse suivante : <%= @lesson.location.name %>.</p>
 
-<p class="mt-5">À très vite </p>
+<p>Contacte vite le référent de ton entreprise : <%= @enterprise.first_name %> <%= @enterprise.last_name %> pour programmer une nouvelle séance !</p>
+
+<p class="mt-5">À très vite</p>

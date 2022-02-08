@@ -21,7 +21,8 @@ class BookingMailer < ApplicationMailer
   def invite_coachs_enterprise
     @user = params[:user]
     @lesson = params[:lesson]
-    mail(to: @user.email, subject: "Proposition de séance entreprise Koach & Co")
+    @enterprise = params[:enterprise]
+    mail(to: @user.email, subject: 'Proposition de séance')
   end
 
   def coach_confirmed
@@ -35,7 +36,7 @@ class BookingMailer < ApplicationMailer
     @user = params[:user]
     @lesson = params[:lesson]
     @booking = params[:booking]
-    mail(to: @user.email, subject: 'Confirmation de votre séance Koach & Co')
+    mail(to: @user.email, subject: 'Confirmation de séance')
   end
 
   def confirmation_email_to_coach
@@ -47,12 +48,18 @@ class BookingMailer < ApplicationMailer
   def booking_canceled
     @user = params[:user]
     @lesson = params[:lesson]
-    mail(to: @user.email, subject: 'Annulation de séance Koach & Co')
+    mail(to: @user.email, subject: 'Annulation de réservation Koach & Co')
   end
 
   def reservation_request_enterprise
     @user = params[:user]
     @lesson = params[:lesson]
-    mail(to: @user.email, subject: "Demande de réservation Koach & Co")
+    mail(to: @user.email, subject: 'Réservation de séance')
+  end
+
+  def enterprise_lesson_booking
+    @user = params[:user]
+    @lesson = params[:lesson]
+    mail(to: @user.email, subject: 'Inscription à une séance')
   end
 end

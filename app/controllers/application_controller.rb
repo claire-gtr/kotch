@@ -107,7 +107,7 @@ class ApplicationController < ActionController::Base
 
   def messages_not_readed
     if current_user.present? && current_user.coach?
-      @message_not_readed_coach = current_user.lessons&.includes([:messages]).map { |lesson| lesson.messages }.flatten.select { |message| message.readed == false }.first
+      @message_not_readed_coach = current_user.lessons&.futures&.includes([:messages]).map { |lesson| lesson.messages }.flatten.select { |message| message.readed == false }.first
     elsif current_user.present?
       @message_not_readed_customer = current_user.bookings&.future_lessons&.find_by(messages_readed: false)
     end

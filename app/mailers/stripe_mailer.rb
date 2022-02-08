@@ -6,13 +6,19 @@ class StripeMailer < ApplicationMailer
 
   def subscription_canceled
     @user = params[:user]
-    mail(to: @user.email, subject: "Annulation de votre abonnement Koach")
+    mail(to: @user.email, subject: 'Annulation de votre abonnement Koach')
   end
 
   def customer_changed_plan
     @user = params[:user]
     @subscription = params[:subscription]
     mail(to: @user.email, subject: "Confirmation d'abonnement à Koach & Co")
+  end
+
+  def enterprise_changed_plan
+    @user = params[:user]
+    @subscription = params[:subscription]
+    mail(to: @user.email, subject: 'Souscription à un abonnement')
   end
 
   def customer_bought_credits

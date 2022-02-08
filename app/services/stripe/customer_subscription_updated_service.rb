@@ -45,7 +45,7 @@ module Stripe
 
     def send_first_sub_email
       if @user.enterprise?
-        UserMailer.with(user: @user).welcome_mail_enterprise.deliver_now
+        StripeMailer.with(user: @user, subscription: @user.subscription).enterprise_changed_plan.deliver_now
       else
         StripeMailer.with(user: @user, subscription: @user.subscription).customer_changed_plan.deliver_now
       end

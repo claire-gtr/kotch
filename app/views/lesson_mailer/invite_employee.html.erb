@@ -1,6 +1,6 @@
-<p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
+<p class="mb-3">Bonjour <%= @user.first_name.capitalize %>,</p>
 
-<p>Votre entreprise <%= @enterprise.enterprise_name&.upcase %> vient de t’envoyer une invitation pour participer à la séance de <%= @lesson.sport_type %> <%= @lesson.date.localtime.strftime("du %d/%m/%Y à %k:%M") %> et te donne rendez-vous à l'adresse suivante : <%= @lesson.location.name %>.</p>
+<p>Ton entreprise vient de t’envoyer une invitation pour participer à la séance de <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> à l'adresse suivante : <%= @lesson.location.name %>.</p>
 
 <p>Ne tarde pas et réponds vite à son invitation !</p>
 
@@ -8,4 +8,4 @@
 
 <p class="mb-3">Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!</p>
 
-<p class="mt-5">À très vite </p>
+<p class="mt-5">À très vite</p>

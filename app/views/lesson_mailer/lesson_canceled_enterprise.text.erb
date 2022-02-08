@@ -1,5 +1,9 @@
-Bonjour <%= @user.first_name.capitalize %>,
+<%= @user.enterprise_name.capitalize %>,
 
-Nous confirmons l’annulation de la séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %>.
+Nous confirmons l’annulation de votre séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y / %k:%M") %> et ayant lieu à l’adresse suivante : <%= @lesson.location.name %>.
+
+Programmez vite une nouvelle session ! Nous sommes pressés de revoir vos salariés.
+
+<%= link_to 'Réserver une nouvelle séance', new_lesson_url %>
 
 À très vite

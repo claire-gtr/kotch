@@ -1,0 +1,9 @@
+Bonjour <%= @user.first_name.capitalize %>,
+
+Tu viens de t’inscrire à la séance de <%= @lesson.sport_type %> programmée par ton entreprise <%= @lesson.date.localtime.strftime("le %d/%m/%Y / %k:%M") %> et ayant lieu à l'adresse suivante : <%= @lesson.location.name %>.
+
+Soit au point sur l’organisation de la séance et communique avec ton coach et les autres participants en utilisant la messagerie propre à chaque séance.
+
+Nous te souhaitons un bon moment parmi nous ! Et n’oublie pas ta gourde, ta serviette et ta bonne humeur !!
+
+À très vite

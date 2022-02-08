@@ -48,7 +48,7 @@ class BookingMailer < ApplicationMailer
   def booking_canceled
     @user = params[:user]
     @lesson = params[:lesson]
-    mail(to: @user.email, subject: 'Annulation de séance Koach & Co')
+    mail(to: @user.email, subject: 'Annulation de réservation Koach & Co')
   end
 
   def reservation_request_enterprise

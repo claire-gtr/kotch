@@ -136,7 +136,7 @@ class LessonsController < ApplicationController
       mail.deliver_now
     end
 
-    if @customer.enterprise? && @cancel_customer.present? && @lesson.user.present?
+    if @lesson.enterprise? && @cancel_customer.present? && @lesson.user.present?
       mail = LessonMailer.with(user: @lesson.user, lesson: @lesson, cancel_customer: @cancel_customer).lesson_canceled_coach_enterprise
       mail.deliver_now
     elsif @cancel_customer.present? && @lesson.user.present?

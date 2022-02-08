@@ -288,7 +288,7 @@ class LessonsController < ApplicationController
     employees_booking = @lesson.users
     employees.each do |employee|
       unless employees_booking.include?(employee)
-        mail = LessonMailer.with(lesson: @lesson, user: employee, enterprise: current_user).invite_employee
+        mail = LessonMailer.with(lesson: @lesson, user: employee).invite_employee
         mail.deliver_now
       end
     end

@@ -56,4 +56,10 @@ class BookingMailer < ApplicationMailer
     @lesson = params[:lesson]
     mail(to: @user.email, subject: 'Réservation de séance')
   end
+
+  def enterprise_lesson_booking
+    @user = params[:user]
+    @lesson = params[:lesson]
+    mail(to: @user.email, subject: 'Inscription à une séance')
+  end
 end

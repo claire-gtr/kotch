@@ -130,6 +130,8 @@ class BookingsController < ApplicationController
         @booking.status = "Confirmé"
         @booking.user = current_user
         @booking.save
+        mail = BookingMailer.with(user: current_user, lesson: @lesson).enterprise_lesson_booking
+        mail.deliver_now
         return redirect_to lessons_path, notice: "Vous êtes bien inscrit(e) à la séance"
       end
     end

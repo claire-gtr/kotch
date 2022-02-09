@@ -18,6 +18,7 @@ class PagesController < ApplicationController
   end
 
   def offers
+    @enterprise_signup = params[:enterprise_signup]
     if current_user.present? && current_user.person?
       prices = [
         { name: "4 séances / mois", price: "50€", price_integer: 50, id: ENV['PRICE_4_CLASSES'], image: "offer-1.png" },

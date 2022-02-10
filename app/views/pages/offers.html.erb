@@ -6,6 +6,8 @@
   <%= render 'offers_connected' %>
 <% elsif user_signed_in? && current_user.enterprise? %>
   <%= render 'offers_connected_enterprise' %>
+<% elsif @enterprise_signup.present? %>
+  <%= render 'offers_disconnected_enterprise' %>
 <% else %>
   <%= render 'offers_disconnected' %>
 <% end %>

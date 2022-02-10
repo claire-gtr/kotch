@@ -2,7 +2,7 @@
 
   <h2 class="mt-5 mb-1">SÉLECTIONNEZ l’ABONNEMENT QUI CONVIENT À VOS SALARIÉS</h2>
   <% if @prices_and_sessions[0][:percentage] %>
-    <h3 class="mb-5 text-blue">Vous avez le droit à une réduction de <%= @prices_and_sessions[0][:percentage] %>% grâce à votre entreprise (inclue dans les prix affichés ci-dessous)</h3>
+    <h3 class="mb-5 text-blue">Une remise tarifaire de <%= @prices_and_sessions[0][:percentage] %>% a été appliquée sur les tarifs affichés ci-dessous.</h3>
   <% end %>
 
   <% if user_signed_in? && current_user.subscription && current_user.subscription.stripe_id %>
@@ -29,7 +29,7 @@
               <input id="cgv" name="cgv" type="checkbox" class="mb-2 checkbox-<%= ps[:checkout_id] %>"></input>
               <label for="cgv" class="ml-2 mb-2">J'accèpte les <%= link_to "CGU", cgv_path, target: "_blank", rel: "noopener noreferrer", class: "font-weight-bold" %></label>
             </div>
-            <p class="text-red border-red bg-white my-2 p-1 hidden cgv-text-<%= ps[:checkout_id] %>">Veuillez accepter les conditions générales de ventes pour passer au paiement.</p>
+            <p class="text-red border-red bg-white my-2 p-1 hidden cgv-text-<%= ps[:checkout_id] %>">Veuillez accepter les conditions générales d'utilisation pour passer au paiement.</p>
             <button class="btn btn-kotch btn-red btn-red-offer checkout-button" role="link" data-session-id="<%= ps[:checkout_id] %>">
                   CHOISIR
             </button>

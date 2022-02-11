@@ -2,12 +2,12 @@
 
   <h2 class="mt-5 mb-1">SÉLECTIONNEZ l’ABONNEMENT QUI CONVIENT À VOS SALARIÉS</h2>
   <% if @prices_and_sessions[0][:percentage] %>
-    <h3 class="mb-5 text-blue">Une remise tarifaire de <%= @prices_and_sessions[0][:percentage] %>% a été appliquée sur les tarifs affichés ci-dessous.</h3>
+    <h3 class="mt-3 mt-md-0 mb-3 mb-md-5 text-blue offer-enterprise-reduction">Une remise tarifaire de <%= @prices_and_sessions[0][:percentage] %>% a été appliquée sur les tarifs affichés ci-dessous.</h3>
   <% end %>
 
   <% if user_signed_in? && current_user.subscription && current_user.subscription.stripe_id %>
 
-    <h3 class="text-blue"><em>Vous avez déjà souscrit à un abonnement Koach & Co, cliquez ci-dessous pour gérer votre abonnement.</em></h3>
+    <h3 class="text-blue offer-enterprise-reduction mb-0 pb-0"><em>Vous avez déjà souscrit à un abonnement Koach & Co, cliquez ci-dessous pour gérer votre abonnement.</em></h3>
 
     <form action="/customer_portal_sessions" method="POST">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">

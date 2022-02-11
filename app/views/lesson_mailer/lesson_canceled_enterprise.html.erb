@@ -1,6 +1,6 @@
 <p class="mb-3"><%= @user.enterprise_name.capitalize %>,</p>
 
-<p>Nous confirmons l’annulation de votre séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y / %k:%M") %> et ayant lieu à l’adresse suivante : <%= @lesson.location.name %>.</p>
+<p>Nous confirmons l’annulation de votre séance de <%= @lesson.sport_type %> programmée <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> et ayant lieu à l’adresse suivante : <%= @lesson.location.name %>.</p>
 
 <p>Programmez vite une nouvelle session ! Nous sommes pressés de revoir vos salariés.</p>
 

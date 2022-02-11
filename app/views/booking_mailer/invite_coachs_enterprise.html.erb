@@ -1,6 +1,6 @@
 <p class="mb-3">Bonjour <%= @user.first_name.capitalize %> !</p>
 
-<p>Tu viens de recevoir une proposition de séance de <%= @enterprise.enterprise_name.capitalize %> pour un cours de <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y / %k:%M") %> à l'adresse suivante : <%= @lesson.location.name %>.</p>
+<p>Tu viens de recevoir une proposition de séance de <%= @enterprise.enterprise_name.capitalize %> pour un cours de <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> à l'adresse suivante : <%= @lesson.location.name %>.</p>
 
 <p>Cette séance te convient ? Alors donne ta réponse sur / accepte la séance depuis ton compte personnel, rubrique Mon profil > Demandes de coaching.</p>
 

@@ -43,7 +43,7 @@
           <% end %>
         </div>
         <% @employments_accepted&.each do |employment| %>
-          <div class="d-flex align-items-center justify-content-between text-left text-blue mt-3">
+          <div class="d-flex align-items-center justify-content-between text-left text-blue mt-0">
             <div class="d-flex align-items-center">
               <%= cl_image_tag employment.employee.profile_picture, class:'avatar-extra-small mr-2' %>
               <div class="d-flex align-items-start align-items-lg-center flex-column flex-lg-row mt-3 mt-lg-0 ml-2">

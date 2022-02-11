@@ -126,7 +126,7 @@
   </tbody>
 </table>
 
-<button role="button" class="profil-btn-mobile col-12 mb-3 tab-3" data-profile-target="subscription" data-action="click->profile#order">Mon abonnement / Mes achats</button>
+<button role="button" class="profil-btn-mobile col-12 mb-3 tab-3" data-profile-target="subscription" data-action="click->profile#order"><%= current_user.person? ? 'Mon abonnement / Mes achats' : 'Mon abonnement' %></button>
 
 <div class="hidden shadow px-5 col-12" data-profile-target="subscriptionData" id="profile-mobile-order">
   <% if current_user.subscription && current_user.subscription.stripe_id %>

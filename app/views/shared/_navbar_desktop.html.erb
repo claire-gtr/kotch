@@ -100,18 +100,28 @@
             </div>
           </li>
         <% else %>
-          <li class="nav-item">
-            <em>
-              <%= link_to 'NOTRE CONCEPT', concept_path, class: "nav-link ml-5" %>
-            </em>
-          </li>
           <% if (request.fullpath == '/inscription-entreprise') || @enterprise_signup.present? %>
+            <li class="nav-item">
+              <em>
+                <%= link_to 'NOTRE CONCEPT', concept_path(enterprise_signup: true), class: "nav-link ml-5" %>
+              </em>
+            </li>
             <li class="nav-item">
               <em>
                 <%= link_to 'NOS OFFRES', offers_path(enterprise_signup: true), data: { turbolinks: "false" }, class: "nav-link ml-5" %>
               </em>
             </li>
+            <li class="nav-item">
+              <em>
+              <%= link_to 'INSCRIPTION', enterprise_sign_up_path, class: "nav-link ml-5" %>
+              </em>
+            </li>
           <% else %>
+            <li class="nav-item">
+              <em>
+                <%= link_to 'NOTRE CONCEPT', concept_path, class: "nav-link ml-5" %>
+              </em>
+            </li>
             <li class="nav-item">
               <em>
                 <%= link_to 'NOS OFFRES', offers_path, data: { turbolinks: "false" }, class: "nav-link ml-5" %>
@@ -122,12 +132,12 @@
                 <%= link_to 'SÉANCES PUBLIQUES', public_lessons_path, class: "nav-link ml-5" %>
               </em>
             </li>
+            <li class="nav-item">
+              <em>
+              <%= link_to 'INSCRIPTION', new_user_registration_path, class: "nav-link ml-5" %>
+              </em>
+            </li>
           <% end %>
-          <li class="nav-item">
-            <em>
-            <%= link_to 'INSCRIPTION', new_user_registration_path, class: "nav-link ml-5" %>
-            </em>
-          </li>
           <li class="nav-item">
             <em>
             <%= link_to 'CONNEXION', new_user_session_path, class: "nav-link ml-5" %>

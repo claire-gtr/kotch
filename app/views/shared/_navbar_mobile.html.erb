@@ -70,17 +70,22 @@
           <% end %>
         <% else %>
           <%= link_to "Accueil", root_path, class: "dropdown-item text-white" %>
-          <%= link_to "Notre concept", concept_path, class: "dropdown-item text-white" %>
           <% if (request.fullpath == '/inscription-entreprise') || @enterprise_signup.present? %>
+            <%= link_to "Notre concept", concept_path(enterprise_signup: true), class: "dropdown-item text-white" %>
             <%= link_to "Nos offres", offers_path(enterprise_signup: true), data: { turbolinks: "false" }, class: "dropdown-item text-white" %>
+            <div class="d-flex mt-2">
+              <%= link_to "CONNEXION", new_user_session_path, class: "btn btn-kotch btn-blue btn-small w-50 text-center mr-1" %>
+              <%= link_to "INSCRIPTION", enterprise_sign_up_path, class: "btn btn-kotch btn-white btn-small w-50 text-center" %>
+            </div>
           <% else %>
+            <%= link_to "Notre concept", concept_path, class: "dropdown-item text-white" %>
             <%= link_to "Nos offres", offers_path, data: { turbolinks: "false" }, class: "dropdown-item text-white" %>
             <%= link_to "Séances publiques", public_lessons_path, class: "dropdown-item text-white" %>
+            <div class="d-flex mt-2">
+              <%= link_to "CONNEXION", new_user_session_path, class: "btn btn-kotch btn-blue btn-small w-50 text-center mr-1" %>
+              <%= link_to "INSCRIPTION", new_user_registration_path, class: "btn btn-kotch btn-white btn-small w-50 text-center" %>
+            </div>
           <% end %>
-          <div class="d-flex mt-2">
-            <%= link_to "CONNEXION", new_user_session_path, class: "btn btn-kotch btn-blue btn-small w-50 text-center mr-1" %>
-            <%= link_to "INSCRIPTION", new_user_registration_path, class: "btn btn-kotch btn-white btn-small w-50 text-center" %>
-          </div>
           <%= link_to "Besoin d'aide ?", faq_path, class:"small-link italic text-white" %>
         <% end %>
       </div>

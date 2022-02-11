@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :faq, :forum, :offers, :cgv, :legals, :about, :concept]
+  before_action :find_enterprise_signup_params, only: [:cgv, :concept, :offers]
 
   def home; end
 
@@ -18,7 +19,6 @@ class PagesController < ApplicationController
   end
 
   def offers
-    @enterprise_signup = params[:enterprise_signup]
     if current_user.present? && current_user.person?
       prices = [
         { name: "4 séances / mois", price: "50€", price_integer: 50, id: ENV['PRICE_4_CLASSES'], image: "offer-1.png" },
@@ -135,6 +135,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def find_enterprise_signup_params
+    @enterprise_signup = params[:enterprise_signup]
+  end
 
   def find_or_create_stripe_customer_id
     if !current_user.stripe_id?

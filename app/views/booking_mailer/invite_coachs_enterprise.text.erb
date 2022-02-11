@@ -1,6 +1,6 @@
 Bonjour <%= @user.first_name.capitalize %> !
 
-Tu viens de recevoir une proposition de séance de <%= @enterprise.enterprise_name.capitalize %> pour un cours de <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y / %k:%M") %> à l'adresse suivante : <%= @lesson.location.name %>.
+Tu viens de recevoir une proposition de séance de <%= @enterprise.enterprise_name.capitalize %> pour un cours de <%= @lesson.sport_type %>, <%= @lesson.date.localtime.strftime("le %d/%m/%Y à %k:%M") %> à l'adresse suivante : <%= @lesson.location.name %>.
 
 Cette séance te convient ? Alors donne ta réponse sur / accepte la séance depuis ton compte personnel, rubrique Mon profil > Demandes de coaching.
 

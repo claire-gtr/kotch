@@ -55,6 +55,7 @@ class User < ApplicationRecord
   scope :group_by_month, -> { group("date_trunc('month', created_at) ") }
   scope :no_admins, -> { where(admin: false) }
   scope :validated_coachs, -> { where(coach: true, validated_coach: true) }
+  scope :enterprises, -> { where(status: :enterprise) }
 
   before_save :remove_empty_spaces
   after_create :find_waiting_bookings, :create_empty_sub, :send_welcome_mail, :set_enterprise_code

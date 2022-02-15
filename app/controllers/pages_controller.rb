@@ -1,12 +1,14 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :faq, :forum, :offers, :cgv, :legals, :about, :concept]
-  before_action :find_enterprise_signup_params, only: [:cgv, :concept, :offers]
+  skip_before_action :authenticate_user!, only: [:home, :faq, :forum, :offers, :cgv, :cgu, :legals, :about, :concept]
+  before_action :find_enterprise_signup_params, only: [:cgu, :concept, :offers]
 
   def home; end
 
   def faq; end
 
   def cgv; end
+
+  def cgu; end
 
   def legals; end
 

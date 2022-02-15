@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   get 'nos-tarifs', to: "pages#offers", as: :offers
   get 'a-propos', to: "pages#about", as: :about
   get 'conditions-generales-de-ventes', to: "pages#cgv", as: :cgv
+  get 'conditions-generales-utilisation', to: "pages#cgu", as: :cgu
   get 'mentions-legales', to: "pages#legals", as: :legals
   get 'notre-concept', to: "pages#concept", as: :concept
   patch '/coach-validation', to: "users#coach_validation", as: :coach_validation
